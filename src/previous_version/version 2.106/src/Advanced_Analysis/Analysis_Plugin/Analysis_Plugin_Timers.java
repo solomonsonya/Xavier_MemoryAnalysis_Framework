@@ -21,9 +21,9 @@ import java.util.TreeMap;
 
 import org.apache.commons.io.LineIterator;
 
-public class Analysis_Plugin_user_assist extends _Analysis_Plugin_Super_Class implements Runnable, ActionListener
+public class Analysis_Plugin_Timers extends _Analysis_Plugin_Super_Class implements Runnable, ActionListener
 {
-	public static final String myClassName = "Analysis_Plugin_user_assist";
+	public static final String myClassName = "Analysis_Plugin_Timers";
 	public static volatile Driver driver = new Driver();
 	
 
@@ -35,15 +35,11 @@ public class Analysis_Plugin_user_assist extends _Analysis_Plugin_Super_Class im
 	
 	public volatile Node_Process process = null;
 	
-	public volatile Node_Registry_Hive registry_hive = null;
-	public volatile Node_Registry_Key registry_path = null;
-	public volatile Node_Generic reg_binary = null;
-	
 	
 
 
 	
-	public Analysis_Plugin_user_assist(File file, Advanced_Analysis_Director par, String PLUGIN_NAME, String PLUGIN_DESCRIPTION, boolean execute_via_thread, JTextArea_Solomon jta_OUTPUT)
+	public Analysis_Plugin_Timers(File file, Advanced_Analysis_Director par, String PLUGIN_NAME, String PLUGIN_DESCRIPTION, boolean execute_via_thread, JTextArea_Solomon jta_OUTPUT)
 	{
 		try
 		{
@@ -95,7 +91,6 @@ public class Analysis_Plugin_user_assist extends _Analysis_Plugin_Super_Class im
 		try
 		{
 
-
 			///////////////////////////////////////////////////////////////////////////////////
 			// IMPORT FILE
 			//////////////////////////////////////////////////////////////////////////////////
@@ -136,7 +131,6 @@ public class Analysis_Plugin_user_assist extends _Analysis_Plugin_Super_Class im
 			
 			try	{ parent.tree_advanced_analysis_threads.put(this.plugin_name, this);	} catch(Exception e){}			EXECUTION_STARTED = true;
 
-			
 			try	{	Advanced_Analysis_Director.list_plugins_in_execution.add(this.plugin_name);	} catch(Exception e){}
 
 			
@@ -293,14 +287,16 @@ public class Analysis_Plugin_user_assist extends _Analysis_Plugin_Super_Class im
 		        	
 		        	//log
 		        	pw.println(line);
-		        }		       	       		       		        	                		        		      
+		        }
+		        
 		    }
 		    catch(Exception e)
 		    {
 		    	driver.sop("check plugin process execution " + plugin_name + " - " + cmd);
 		    }
 		        
-		      
+		   
+		    
 		   //clean up
 		    try	{ 	brIn.close();       		}	catch(Exception e){}
 		    try	{	process.destroy();			}	catch(Exception e){}
@@ -327,6 +323,8 @@ public class Analysis_Plugin_user_assist extends _Analysis_Plugin_Super_Class im
 		return false;
 	}
 	
+	
+	
 	/**
 	 * process dll list
 	 * @param line
@@ -351,7 +349,7 @@ public class Analysis_Plugin_user_assist extends _Analysis_Plugin_Super_Class im
 			
 			line = line.replace("	", " ").replace("\t", " ").replace("\\??\\", "").trim();
 			
-			if(parent.system_drive != null)
+			if(parent.system_root != null)
 				line = line.replace("\\Device\\HarddiskVolume1", parent.system_root).replace("\\SystemRoot", parent.system_root);
 			
 			if(line.equals(""))
@@ -371,105 +369,150 @@ public class Analysis_Plugin_user_assist extends _Analysis_Plugin_Super_Class im
 			if(lower.startsWith("------"))
 				return false;
 			
-			if(lower.startsWith("legend:"))
-				return false;
-			
 			//
 			//remove errors
 			//
 			if(lower.startsWith("unable to read "))  //--> e.g., Unable to read PEB for task.
 				return false;
 			
-			if(lower.startsWith("registry:"))
+			if(!lower.contains("0x"))
+				return false;
+			
+			String [] array = line.split(" ");
+			
+			if(array == null || array.length < 3)
+				return false;
+			
+			
+			String offset_v = null;
+			String due_time = null;
+			String period_ms = null;
+			String signaled = null;
+			String routine = null;
+			String module_name = null;
+			String module_name_lower = null;
+			
+			
+			for(String entry : array)
 			{
-				String registry = line.substring(9).trim();
-				this.registry_hive = null;
+				if(entry == null)
+					continue;
 				
-				if(parent.tree_REGISTRY_KEY_USER_ASSIST.containsKey(registry))
-					registry_hive = parent.tree_REGISTRY_KEY_USER_ASSIST.get(registry);
+				entry = entry.trim();
 				
-				if(registry_hive == null)
-				{
-					registry_hive = new Node_Registry_Hive(registry);
-					parent.tree_REGISTRY_KEY_USER_ASSIST.put(registry,  registry_hive);
-				}																									
+				if(entry.equals(""))
+					continue;
+				
+				if(offset_v == null)
+					offset_v = entry;
+				else if(due_time == null)
+					due_time = entry;
+				else if(period_ms == null)
+					period_ms = entry;
+				else if(signaled == null)
+					signaled = entry;
+				else if(routine == null)
+					routine = entry;
+				else if(module_name == null)
+					module_name = entry;
+				
 			}
 			
-			else if(lower.startsWith("path:"))
+			//
+			//validate
+			//
+			if(module_name == null)
+				return false;
+						
+			module_name = module_name.trim();			
+			module_name_lower = module_name.toLowerCase().trim();
+			
+			//
+			//get driver
+			//
+			Node_Driver node_driver = null;
+			
+			if(parent.tree_DRIVERS.containsKey(module_name_lower))
+				node_driver = parent.tree_DRIVERS.get(module_name_lower);
+			
+			if(node_driver == null)
 			{
-				String path = line.substring(5).trim();
-				registry_path = null;
+				//driver.directive("\n\nnew driver: " + module_name);
 				
-				if(this.registry_hive.tree_registry_key.containsKey(path))
-					registry_path = registry_hive.tree_registry_key.get(path);
+				node_driver = new Node_Driver(null, module_name, null);
 				
-				if(registry_path == null)
-				{
-					registry_path = new Node_Registry_Key(registry_hive, path);
-					registry_hive.tree_registry_key.put(path, registry_path);
-				}					
+				//store
+				parent.tree_DRIVERS.put(module_name_lower, node_driver);
 			}
 			
-			else if(lower.startsWith("last updated:"))
+			//
+			//normalize path
+			//
+			/*if(parent.system_root != null && details != null && details.toLowerCase().trim().startsWith("\\driver\\"))
+				details = parent.system_root + details;
+			if(parent.system_root != null && details != null && details.toLowerCase().trim().startsWith("\\filesystem\\"))
+				details = parent.system_root + details.substring(12).trim();
+			
+			if(details != null && details.length() > 2 && (node_driver.file_path_from_memory == null || node_driver.file_path_from_memory.trim().equals("") || node_driver.file_path_from_memory.toLowerCase().trim().equals("unknown") || node_driver.file_path_from_memory.equals("-")))
+				node_driver.file_path_from_memory = details;		
+			*/
+			
+			//
+			//populate node
+			//
+			String key = offset_v; 
+			TreeMap<String, Node_Generic> tree = null;
+			TreeMap<String, Node_Driver> TREE_DIRECTOR = parent.tree_TIMERS;
+			Node_Generic node_generic = null;
+			
+			if(node_driver.tree_timers == null)
+				node_driver.tree_timers = new TreeMap<String, Node_Generic>();
+				
+			tree = node_driver.tree_timers;
+				
+			if(tree.containsKey(key))
+				node_generic = tree.get(key);
+			
+			if(node_generic == null)
 			{
-				if(registry_hive != null && registry_hive.last_updated == null)
-					registry_hive.last_updated = line.substring(14).trim();
-				
-				if(registry_path != null && registry_path.last_updated == null)
-					registry_path.last_updated = line.substring(14).trim();
-				
-				if(reg_binary != null && reg_binary.last_updated == null)
-					reg_binary.last_updated = line.substring(14).trim();
+				node_generic = new Node_Generic(this.plugin_name);
+				node_generic.node_driver = node_driver;
+				tree.put(key, node_generic);
 			}
 			
-			else if(lower.startsWith("reg_binary"))
-			{
-				reg_binary = null;				
-				
-				//REG_BINARY    UEME_CTLSESSION : Raw Data:
-				String reg_binary_value = line.substring(11).trim();
-				
-				//normalize
-				if(reg_binary_value.toLowerCase().trim().endsWith(": raw data:"))
-					reg_binary_value = reg_binary_value.substring(0, reg_binary_value.length()-12).trim();
-				
-				if(reg_binary_value.toLowerCase().trim().endsWith(": raw data"))
-					reg_binary_value = reg_binary_value.substring(0, reg_binary_value.length()-11).trim();
-				
-				if(reg_binary_value.toLowerCase().trim().endsWith(":"))
-					reg_binary_value = reg_binary_value.substring(0, reg_binary_value.length()-2).trim();
-				
-				String reg_binary_value_lower = reg_binary_value.toLowerCase().trim();
-				
-				//get node
-				if(this.registry_path.tree_reg_binary.containsKey(reg_binary_value_lower))
-					reg_binary = registry_path.tree_reg_binary.get(reg_binary_value_lower);
-				
-				if(reg_binary == null)					
-				{
-					reg_binary = new Node_Generic(this.plugin_name);
-					reg_binary.reg_binary = reg_binary_value;
-					this.registry_path.tree_reg_binary.put(reg_binary_value_lower, reg_binary);					
-				}													
-			}
+			//
+			//populate values
+			//
+			if(node_generic.module_name == null)
+				node_generic.module_name = module_name;
 			
-			else if(lower.startsWith("0x"))
-				reg_binary.raw_data = line;
+			if(node_generic.offset_v == null)
+				node_generic.offset_v = offset_v;
 			
-			else if(lower.startsWith("id:"))
-				reg_binary.id = line.substring(line.indexOf(":")+1).trim();
+			if(node_generic.due_time == null)
+				node_generic.due_time = due_time;
 			
-			else if(lower.startsWith("count:"))
-				reg_binary.count = line.substring(line.indexOf(":")+1).trim();
+			if(node_generic.period_ms == null)
+				node_generic.period_ms = period_ms;
+			
+			if(node_generic.signaled == null)
+				node_generic.signaled = signaled;
+			
+			if(node_generic.routine == null)
+				node_generic.routine = routine;			
 			
 			
 			
-			return true;
-		
+			//
+			//link to parent
+			//
+			TREE_DIRECTOR.put(module_name_lower, node_driver);
+			
 		}
 		catch(Exception e)
 		{
-			driver.eop(myClassName, "process_plugin_line", e);
+			driver.directive("NOTE: I had trouble processing line -->" + line);
+			//driver.eop(myClassName, "process_plugin_line", e);
 		}
 		
 		return false;
@@ -515,10 +558,10 @@ public class Analysis_Plugin_user_assist extends _Analysis_Plugin_Super_Class im
 	
 	
 	
-
+	
+	
+	
 		
-	
-	
 	
 	
 	

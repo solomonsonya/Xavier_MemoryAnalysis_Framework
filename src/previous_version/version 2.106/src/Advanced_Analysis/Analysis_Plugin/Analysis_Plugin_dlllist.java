@@ -1,7 +1,3 @@
-/**
- * Instantiated to execute plugin without any special processing
- * @author Solomon Sonya
- */
 package Advanced_Analysis.Analysis_Plugin;
 
 import Advanced_Analysis.*;
@@ -21,12 +17,10 @@ import java.util.TreeMap;
 
 import org.apache.commons.io.LineIterator;
 
-public class Analysis_Plugin_user_assist extends _Analysis_Plugin_Super_Class implements Runnable, ActionListener
+public class Analysis_Plugin_dlllist extends _Analysis_Plugin_Super_Class implements Runnable, ActionListener
 {
-	public static final String myClassName = "Analysis_Plugin_user_assist";
+	public static final String myClassName = "Analysis_Plugin_dlllist";
 	public static volatile Driver driver = new Driver();
-	
-
 	
 	public volatile Advanced_Analysis_Director parent = null;
 	
@@ -35,15 +29,8 @@ public class Analysis_Plugin_user_assist extends _Analysis_Plugin_Super_Class im
 	
 	public volatile Node_Process process = null;
 	
-	public volatile Node_Registry_Hive registry_hive = null;
-	public volatile Node_Registry_Key registry_path = null;
-	public volatile Node_Generic reg_binary = null;
 	
-	
-
-
-	
-	public Analysis_Plugin_user_assist(File file, Advanced_Analysis_Director par, String PLUGIN_NAME, String PLUGIN_DESCRIPTION, boolean execute_via_thread, JTextArea_Solomon jta_OUTPUT)
+	public Analysis_Plugin_dlllist(File file, Advanced_Analysis_Director par, String PLUGIN_NAME, String PLUGIN_DESCRIPTION, boolean execute_via_thread, JTextArea_Solomon jta_OUTPUT)
 	{
 		try
 		{
@@ -62,7 +49,6 @@ public class Analysis_Plugin_user_assist extends _Analysis_Plugin_Super_Class im
 			file_attr_memory_image = parent.file_attr_memory_image;
 			investigator_name = parent.investigator_name;
 			investigation_description = parent.investigation_description;
-			EXECUTE_VIA_THREAD = execute_via_thread;
 			
 			if(execute_via_thread)
 				this.start();
@@ -94,7 +80,6 @@ public class Analysis_Plugin_user_assist extends _Analysis_Plugin_Super_Class im
 	{
 		try
 		{
-
 
 			///////////////////////////////////////////////////////////////////////////////////
 			// IMPORT FILE
@@ -139,11 +124,11 @@ public class Analysis_Plugin_user_assist extends _Analysis_Plugin_Super_Class im
 			
 			try	{	Advanced_Analysis_Director.list_plugins_in_execution.add(this.plugin_name);	} catch(Exception e){}
 
-			
 			boolean status = false;
 			
 			status = execute_plugin(plugin_name, plugin_description, null, "");			
-					
+			
+			
 			try	{	Advanced_Analysis_Director.list_plugins_in_execution.remove(this.plugin_name);	} catch(Exception e){}
 			
 			this.EXECUTION_COMPLETE = true;
@@ -180,27 +165,16 @@ public class Analysis_Plugin_user_assist extends _Analysis_Plugin_Super_Class im
 			}
 			
 			//
-			//INITIALIZE OUTPUT DIRECTORY
-			//
-			String time_stamp = driver.get_time_stamp("_");
-
-			fleOutput = new File(path_fle_analysis_directory + plugin_name + File.separator + "_" + plugin_name + "_" + additional_file_name_detail + time_stamp + ".txt");
-			
-			
-			try	
-			{	
-				if(!fleOutput.getParentFile().exists() || !fleOutput.getParentFile().isDirectory())
-				fleOutput.getParentFile().mkdirs();	
-			}	 catch(Exception e){}
-			
-			
-			//
 			//build cmd
 			//
 			if(cmd == null)
 			{
 				cmd = "\"" + fle_volatility.getCanonicalPath().trim() + "\" -f \"" + fle_memory_image.getCanonicalPath().trim() + "\" " + plugin_name + " --profile=" + PROFILE;
-			}						
+			}
+			else if(cmd.toLowerCase().contains("dump"))//cmd override provided!
+			{
+				sop("\n\nSOLO, PROCESS OVERRIDE CMD E.G. DUMPFILES\n\n");
+			}
 			
 			
 			//
@@ -215,20 +189,37 @@ public class Analysis_Plugin_user_assist extends _Analysis_Plugin_Super_Class im
 			//split the command now into command and params
 			String array [] = cmd.split("\\-f");
 			
-			String command = cmd;
+			String command = array[0].trim();
 			String params = "";
 			String execution_command = "";
+			boolean rename_files = true;
 			
-			
-									
-			execution_command = command + params;
+			for(int i = 1; array != null && i < array.length; i++)
+			{
+				params = params + " -f " + array[i].trim();
+			}
 			
 			//
 			//NOTIFY
 			//
 			if(parent.DEBUG)
-				sop("[" + plugin_name + "]\t Executing command --> " + execution_command);
-									
+				sop("[" + plugin_name + "]\t Executing command --> " + command + params);
+			
+			//
+			//INITIALIZE OUTPUT DIRECTORY
+			//
+			String time_stamp = driver.get_time_stamp("_");
+
+			fleOutput = new File(path_fle_analysis_directory + plugin_name + File.separator + "_" + plugin_name + "_" + additional_file_name_detail + time_stamp + ".txt");
+			File fleOutput_connections = null;
+			
+			try	
+			{	
+				if(!fleOutput.getParentFile().exists() || !fleOutput.getParentFile().isDirectory())
+				fleOutput.getParentFile().mkdirs();	
+			}	 catch(Exception e){}
+			
+			
 			//
 			//EXECUTE COMMAND!
 			//
@@ -238,7 +229,21 @@ public class Analysis_Plugin_user_assist extends _Analysis_Plugin_Super_Class im
 			if(driver.isWindows)
 			{
 				process_builder = new ProcessBuilder("cmd.exe", "/C",  command +  params);
-				execution_command = command +  params;								
+				execution_command = command +  params;
+				
+				/*
+				 * DUMP FILES
+				 * plugin_name.equalsIgnoreCase("procdump") 	||
+					plugin_name.equalsIgnoreCase("dlldump") 		||
+					plugin_name.equalsIgnoreCase("dumpcerts") 	||
+					plugin_name.equalsIgnoreCase("dumpfiles") 	||
+					plugin_name.equalsIgnoreCase("dumpregistry") ||
+					plugin_name.equalsIgnoreCase("memdump") 		||
+					plugin_name.equalsIgnoreCase("moddump")		||
+					plugin_name.equalsIgnoreCase("evtlogs")		||
+					plugin_name.equalsIgnoreCase("vaddump")		||
+					params.contains("--dump-dir")
+				 */
 			}
 							
 			//else if(driver.isLinux)
@@ -315,8 +320,12 @@ public class Analysis_Plugin_user_assist extends _Analysis_Plugin_Super_Class im
 			//NOTIFY
 			//
 			//sop("\n\nExecution complete. If successful, output file has been written to --> " + fleOutput + "\n");
-			sop("\n" + this.plugin_name + " execution complete.");		
-											
+						
+			
+				
+				if(fleOutput_connections != null && fleOutput_connections.exists())
+					driver.sop("It appears I was able to extract specific foreign addresses from this plugin and write them to disk. If successful, connection information file has been written to --> " + fleOutput_connections + "\n");
+									
 			return true;
 		}
 		catch(Exception e)
@@ -336,28 +345,19 @@ public class Analysis_Plugin_user_assist extends _Analysis_Plugin_Super_Class im
 	{
 		try
 		{			
-			///////////////////////////////////////////////////////////////
-			//
-			// Solo, be sure to enable process_plugin_line!
-			//
-			/////////////////////////////////////////////////////////////
-			
 			if(line == null)
 				return false;
 			
-			if(line.trim().startsWith("#"))
-				return false;
-			
-			
-			line = line.replace("	", " ").replace("\t", " ").replace("\\??\\", "").trim();
-			
-			if(parent.system_drive != null)
-				line = line.replace("\\Device\\HarddiskVolume1", parent.system_root).replace("\\SystemRoot", parent.system_root);
+			line = line.trim();
 			
 			if(line.equals(""))
 				return false;
 			
 			lower = line.toLowerCase().trim();
+			
+			if(lower.startsWith("#"))
+				return false;
+			
 									
 			//skip if volatility header
 			if(lower.startsWith("volatility foundation "))
@@ -365,14 +365,8 @@ public class Analysis_Plugin_user_assist extends _Analysis_Plugin_Super_Class im
 			else if(line.startsWith("ERROR "))
 				return false;
 			
-			if(lower.startsWith("***"))
-				return false;
-			
-			if(lower.startsWith("------"))
-				return false;
-			
-			if(lower.startsWith("legend:"))
-				return false;
+			if(lower.startsWith("*****************************"))
+				process_complete();
 			
 			//
 			//remove errors
@@ -380,89 +374,34 @@ public class Analysis_Plugin_user_assist extends _Analysis_Plugin_Super_Class im
 			if(lower.startsWith("unable to read "))  //--> e.g., Unable to read PEB for task.
 				return false;
 			
-			if(lower.startsWith("registry:"))
-			{
-				String registry = line.substring(9).trim();
-				this.registry_hive = null;
-				
-				if(parent.tree_REGISTRY_KEY_USER_ASSIST.containsKey(registry))
-					registry_hive = parent.tree_REGISTRY_KEY_USER_ASSIST.get(registry);
-				
-				if(registry_hive == null)
-				{
-					registry_hive = new Node_Registry_Hive(registry);
-					parent.tree_REGISTRY_KEY_USER_ASSIST.put(registry,  registry_hive);
-				}																									
-			}
 			
-			else if(lower.startsWith("path:"))
-			{
-				String path = line.substring(5).trim();
-				registry_path = null;
-				
-				if(this.registry_hive.tree_registry_key.containsKey(path))
-					registry_path = registry_hive.tree_registry_key.get(path);
-				
-				if(registry_path == null)
-				{
-					registry_path = new Node_Registry_Key(registry_hive, path);
-					registry_hive.tree_registry_key.put(path, registry_path);
-				}					
-			}
+			//
+			//check for new process --> e.g., csrss.exe pid:    608
+			//
+			if(lower.contains("pid: "))
+				set_process(line);
 			
-			else if(lower.startsWith("last updated:"))
-			{
-				if(registry_hive != null && registry_hive.last_updated == null)
-					registry_hive.last_updated = line.substring(14).trim();
-				
-				if(registry_path != null && registry_path.last_updated == null)
-					registry_path.last_updated = line.substring(14).trim();
-				
-				if(reg_binary != null && reg_binary.last_updated == null)
-					reg_binary.last_updated = line.substring(14).trim();
-			}
+			//
+			//Command line : \SystemRoot\System32\smss.exe
+			//
+			else if(lower.startsWith("command line"))
+				set_command_line(line);
 			
-			else if(lower.startsWith("reg_binary"))
-			{
-				reg_binary = null;				
-				
-				//REG_BINARY    UEME_CTLSESSION : Raw Data:
-				String reg_binary_value = line.substring(11).trim();
-				
-				//normalize
-				if(reg_binary_value.toLowerCase().trim().endsWith(": raw data:"))
-					reg_binary_value = reg_binary_value.substring(0, reg_binary_value.length()-12).trim();
-				
-				if(reg_binary_value.toLowerCase().trim().endsWith(": raw data"))
-					reg_binary_value = reg_binary_value.substring(0, reg_binary_value.length()-11).trim();
-				
-				if(reg_binary_value.toLowerCase().trim().endsWith(":"))
-					reg_binary_value = reg_binary_value.substring(0, reg_binary_value.length()-2).trim();
-				
-				String reg_binary_value_lower = reg_binary_value.toLowerCase().trim();
-				
-				//get node
-				if(this.registry_path.tree_reg_binary.containsKey(reg_binary_value_lower))
-					reg_binary = registry_path.tree_reg_binary.get(reg_binary_value_lower);
-				
-				if(reg_binary == null)					
-				{
-					reg_binary = new Node_Generic(this.plugin_name);
-					reg_binary.reg_binary = reg_binary_value;
-					this.registry_path.tree_reg_binary.put(reg_binary_value_lower, reg_binary);					
-				}													
-			}
+			//
+			//remove header
+			//
+			else if(lower.startsWith("base ")) //--> e.g., Base             Size  LoadCount Path
+				return false;
 			
+			else if(lower.startsWith("-----")) //--> ---------- ---------- ---------- ----  next line after Base, Size, LoadCount, Path
+				return false;
+			
+			//
+			//process DLL e.g., --> 0x48580000     0xf000     0xffff \SystemRoot\System32\smss.exe
+			//
 			else if(lower.startsWith("0x"))
-				reg_binary.raw_data = line;
-			
-			else if(lower.startsWith("id:"))
-				reg_binary.id = line.substring(line.indexOf(":")+1).trim();
-			
-			else if(lower.startsWith("count:"))
-				reg_binary.count = line.substring(line.indexOf(":")+1).trim();
-			
-			
+				set_dll_entry(line);
+					
 			
 			return true;
 		
@@ -476,7 +415,103 @@ public class Analysis_Plugin_user_assist extends _Analysis_Plugin_Super_Class im
 	}
 	
 	
-	
+	/**
+	 * 
+	 * @param line
+	 * @return
+	 */
+	public boolean set_dll_entry(String line)
+	{
+		try
+		{
+			if(line == null)
+				return false;
+			
+			line = line.trim();
+			
+			if(line.equals(""))
+				return false;
+				
+			
+			//e.g., 0x7c900000    0xaf000     0xffff C:\WINDOWS\system32\ntdll.dll
+			
+			String base = null;
+			String size = null;
+			String load_count = null;
+			String path = "";
+			
+			String array [] = line.split(" ");
+			
+			for(String token : array)
+			{
+				try
+				{
+					token = token.trim();
+					
+					if(token.equals(""))
+						continue;
+					
+					if(base == null)
+						base = token;
+					else if(size == null)
+						size = token;
+					else if(load_count == null)
+						load_count = token;
+					else
+						path = path + token + " ";
+					
+				}
+				catch(Exception e)
+				{
+					sop("I was unable to process [" + plugin_name + "] entry at line --> " + line );
+				}
+			}
+			
+			path = path.trim();
+			
+			try	
+			{
+				if(path.startsWith("\\??\\"))
+					path = path.substring(4).trim();
+			}
+			catch(Exception e){}
+			
+			//normalize path
+			
+			if(parent.system_root != null)
+				path = path.replace("\\Device\\HarddiskVolume1", parent.system_root).replace("\\SystemRoot", parent.system_root);
+			
+			/*if(driver.isWindows && !path.toUpperCase().startsWith(parent.system_drive.toUpperCase()))
+			{
+				if(path.startsWith("\\"))
+					path = parent.system_drive + path;
+				else
+					path = parent.system_drive + "\\" + path;
+			}*/
+			
+			path = path.replace("	", " ").replace("\t", " ").trim();
+			
+			//complete, store the DLL!	
+			Node_DLL dll = this.process.store_dll(parent, base, size, load_count, path);
+			
+			if(dll == null)
+			{
+				this.error_processing_line("\n" + line);
+				return false;
+			}
+			
+			dll.found_in_dlllist = "true";
+						
+			
+			return true;
+		}
+		catch(Exception e)
+		{
+			driver.eop(myClassName, "set_dll_entry", e, true);
+		}
+		
+		return false;
+	}
 	
 	
 	public boolean error_processing_line(String line)
@@ -494,6 +529,109 @@ public class Analysis_Plugin_user_assist extends _Analysis_Plugin_Super_Class im
 		return false;
 	}
 	
+	public boolean set_command_line(String line)
+	{
+		try
+		{
+			if(line == null)
+				return false;
+			
+			line = line.trim();
+			
+			if(line.equals(""))
+				return false;
+				
+			String header = "command line";
+			
+			String lower = line.toLowerCase().trim();
+			int index = lower.indexOf(header);
+			
+			String value = line.substring(index + header.length()).trim();
+			
+			if(value.startsWith(":"))
+				value = value.substring(1).trim();
+			
+			if(this.process == null)
+				return false;
+			
+			if(this.process.command_line == null || this.process.command_line.trim().equals(""))
+				this.process.command_line = value;
+				
+			return true;
+		}
+		catch(Exception e)
+		{
+			driver.eop(myClassName, "set_command_line", e);
+		}
+		
+		return false;
+	}
+	
+	
+	public boolean set_process(String line)
+	{
+		try
+		{
+			if(line == null)
+				return false;
+			
+			line = line.trim();
+			
+			if(line.equals(""))
+				return false;
+			
+			//parse line e.g. smss.exe pid:    552
+
+			String lower = line.toLowerCase().trim();
+			int index = lower.indexOf("pid: ");
+			
+			String process_name = line.substring(0, index).trim();
+			String pid = line.substring(index+5).trim();
+			int PID = Integer.parseInt(pid.trim());
+			
+			this.process = parent.tree_PROCESS.get(PID);
+			
+			if(this.process == null)
+			{
+				sop("\n\nNOTE: I found a new process [" + process_name + "] PID:[ " + PID + "] that not extracted from previous process analysis while executing plugin [" + this.plugin_name + "]");
+				
+				//Link!
+				Node_Process proc = new Node_Process(parent, PID, process_name);
+				parent.tree_PROCESS.put(PID,  proc);
+				
+				this.process = proc;
+			}
+									
+			return true;
+		}
+		catch(Exception e)
+		{
+			//driver.eop(myClassName, "set_proess", e);
+			sop("\nNOTE: While processing plugin[" + this.plugin_name + "] I was unable to extract process name, and PID from line --> " + line);
+		}
+		
+		return false;
+	}
+	
+	
+	/**
+	 * executed at the end, when ever ************************************************************************ is discovered
+	 * @return
+	 */
+	public boolean process_complete()
+	{
+		try
+		{
+			//sop("RETURN TO PROCESS COMPLETE!");
+			return true;
+		}
+		catch(Exception e)
+		{
+			driver.eop(myClassName, "process_complete", e);
+		}
+		
+		return false;
+	}
 	
 	
 	
@@ -518,6 +656,40 @@ public class Analysis_Plugin_user_assist extends _Analysis_Plugin_Super_Class im
 
 		
 	
+	public boolean STUB_set_command_line_STUB(String line)
+	{
+		try
+		{
+			if(line == null)
+				return false;
+			
+			line = line.trim();
+			
+			if(line.equals(""))
+				return false;
+				
+			String header = "command line";
+			
+			String lower = line.toLowerCase().trim();
+			int index = lower.indexOf(header);
+			
+			String value = line.substring(index + header.length()).trim();
+			
+			if(value.startsWith(":"))
+				value = value.substring(1).trim();
+			
+			sop("Command line: " + value);
+				
+				
+			return true;
+		}
+		catch(Exception e)
+		{
+			driver.eop(myClassName, "STUB_set_command_line_STUB", e);
+		}
+		
+		return false;
+	}
 	
 	
 	

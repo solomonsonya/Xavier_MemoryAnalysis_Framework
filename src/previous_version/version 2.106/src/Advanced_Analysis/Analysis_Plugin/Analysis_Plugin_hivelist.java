@@ -9,6 +9,8 @@ import Driver.*;
 import Interface.*;
 import Plugin.*;
 import Worker.*;
+import javafx.stage.DirectoryChooser;
+
 import java.awt.event.*;
 import java.io.BufferedReader;
 import java.io.File;
@@ -21,29 +23,38 @@ import java.util.TreeMap;
 
 import org.apache.commons.io.LineIterator;
 
-public class Analysis_Plugin_user_assist extends _Analysis_Plugin_Super_Class implements Runnable, ActionListener
+public class Analysis_Plugin_hivelist extends _Analysis_Plugin_Super_Class implements Runnable, ActionListener
 {
-	public static final String myClassName = "Analysis_Plugin_user_assist";
+	public static final String myClassName = "Analysis_Plugin_hivelist";
 	public static volatile Driver driver = new Driver();
 	
-
+	
 	
 	public volatile Advanced_Analysis_Director parent = null;
+	public volatile String plugin_name = "";
+	public volatile String plugin_description = "";
 	
+	public String EXECUTION_TIME_STAMP = driver.getTime_Specified_Hyphenated_with_seconds_using_colon(System.currentTimeMillis());
+	
+	
+	public volatile File fle_volatility = null;
+	public volatile File fle_memory_image = null;
+	public volatile String PROFILE = Interface.PROFILE;
+	public volatile String path_fle_analysis_directory = "";
+	public volatile FileAttributeData file_attr_volatility = null;  
+	public volatile FileAttributeData file_attr_memory_image = null;
+	public volatile String investigator_name = "";
+	public volatile String investigation_description = "";
 
 	public volatile String lower = "";
 	
 	public volatile Node_Process process = null;
 	
-	public volatile Node_Registry_Hive registry_hive = null;
-	public volatile Node_Registry_Key registry_path = null;
-	public volatile Node_Generic reg_binary = null;
-	
 	
 
 
 	
-	public Analysis_Plugin_user_assist(File file, Advanced_Analysis_Director par, String PLUGIN_NAME, String PLUGIN_DESCRIPTION, boolean execute_via_thread, JTextArea_Solomon jta_OUTPUT)
+	public Analysis_Plugin_hivelist(File file, Advanced_Analysis_Director par, String PLUGIN_NAME, String PLUGIN_DESCRIPTION, boolean execute_via_thread, JTextArea_Solomon jta_OUTPUT)
 	{
 		try
 		{
@@ -95,7 +106,6 @@ public class Analysis_Plugin_user_assist extends _Analysis_Plugin_Super_Class im
 		try
 		{
 
-
 			///////////////////////////////////////////////////////////////////////////////////
 			// IMPORT FILE
 			//////////////////////////////////////////////////////////////////////////////////
@@ -146,8 +156,15 @@ public class Analysis_Plugin_user_assist extends _Analysis_Plugin_Super_Class im
 					
 			try	{	Advanced_Analysis_Director.list_plugins_in_execution.remove(this.plugin_name);	} catch(Exception e){}
 			
+			//run audit policies
+			parent.plugin_audit_policies = new Analysis_Plugin_Auditpolicy(null, parent, "auditpol", "Prints out the Audit Policies from HKLM\\SECURITY\\Policy\\PolAdtEv", false, jta_console_output_execution_status);
+			
+			//run shutdowntime
+			parent.plugin_shutdowntime = new Analysis_Plugin_ShutdownTime(null, parent, "shutdowntime", "Print ShutdownTime of machine from registry", false, jta_console_output_execution_status);
+			
 			this.EXECUTION_COMPLETE = true;
 
+			
 			return true;
 		}
 		catch(Exception e)
@@ -156,7 +173,7 @@ public class Analysis_Plugin_user_assist extends _Analysis_Plugin_Super_Class im
 		}
 		
 		try	{	Advanced_Analysis_Director.list_plugins_in_execution.remove(this.plugin_name);	} catch(Exception e){}
-		
+
 		this.EXECUTION_COMPLETE = true;
 
 		return false;
@@ -336,26 +353,20 @@ public class Analysis_Plugin_user_assist extends _Analysis_Plugin_Super_Class im
 	{
 		try
 		{			
-			///////////////////////////////////////////////////////////////
-			//
-			// Solo, be sure to enable process_plugin_line!
-			//
-			/////////////////////////////////////////////////////////////
-			
 			if(line == null)
+				return false;
+			
+			line = line.replace("	", " ").replace("\t", " ").replace("\\??\\", "").trim();
+			
+			if(parent.system_drive != null)
+				line = line.replace("\\Device\\HarddiskVolume1\\", parent.system_root).replace("\\SystemRoot", parent.system_root);
+			
+			if(line.equals(""))
 				return false;
 			
 			if(line.trim().startsWith("#"))
 				return false;
 			
-			
-			line = line.replace("	", " ").replace("\t", " ").replace("\\??\\", "").trim();
-			
-			if(parent.system_drive != null)
-				line = line.replace("\\Device\\HarddiskVolume1", parent.system_root).replace("\\SystemRoot", parent.system_root);
-			
-			if(line.equals(""))
-				return false;
 			
 			lower = line.toLowerCase().trim();
 									
@@ -371,7 +382,7 @@ public class Analysis_Plugin_user_assist extends _Analysis_Plugin_Super_Class im
 			if(lower.startsWith("------"))
 				return false;
 			
-			if(lower.startsWith("legend:"))
+			if(lower.startsWith("virtual"))
 				return false;
 			
 			//
@@ -380,88 +391,31 @@ public class Analysis_Plugin_user_assist extends _Analysis_Plugin_Super_Class im
 			if(lower.startsWith("unable to read "))  //--> e.g., Unable to read PEB for task.
 				return false;
 			
-			if(lower.startsWith("registry:"))
+
+			String [] array = line.split(" ");
+			
+			Node_hivelist hive = new Node_hivelist();
+			hive.virtual_address = array[0].trim();
+			hive.physical_address = array[1].trim();
+			
+			String value = "";
+			for(int i = 2; i < array.length; i++)
 			{
-				String registry = line.substring(9).trim();
-				this.registry_hive = null;
+				value = array[i].trim();
 				
-				if(parent.tree_REGISTRY_KEY_USER_ASSIST.containsKey(registry))
-					registry_hive = parent.tree_REGISTRY_KEY_USER_ASSIST.get(registry);
+				if(value.equals(""))
+					continue;
 				
-				if(registry_hive == null)
-				{
-					registry_hive = new Node_Registry_Hive(registry);
-					parent.tree_REGISTRY_KEY_USER_ASSIST.put(registry,  registry_hive);
-				}																									
+				hive.name_registry = hive.name_registry + " " + array[i].trim();
 			}
 			
-			else if(lower.startsWith("path:"))
-			{
-				String path = line.substring(5).trim();
-				registry_path = null;
-				
-				if(this.registry_hive.tree_registry_key.containsKey(path))
-					registry_path = registry_hive.tree_registry_key.get(path);
-				
-				if(registry_path == null)
-				{
-					registry_path = new Node_Registry_Key(registry_hive, path);
-					registry_hive.tree_registry_key.put(path, registry_path);
-				}					
-			}
+			hive.name_registry = hive.name_registry.trim();
 			
-			else if(lower.startsWith("last updated:"))
-			{
-				if(registry_hive != null && registry_hive.last_updated == null)
-					registry_hive.last_updated = line.substring(14).trim();
-				
-				if(registry_path != null && registry_path.last_updated == null)
-					registry_path.last_updated = line.substring(14).trim();
-				
-				if(reg_binary != null && reg_binary.last_updated == null)
-					reg_binary.last_updated = line.substring(14).trim();
-			}
-			
-			else if(lower.startsWith("reg_binary"))
-			{
-				reg_binary = null;				
-				
-				//REG_BINARY    UEME_CTLSESSION : Raw Data:
-				String reg_binary_value = line.substring(11).trim();
-				
-				//normalize
-				if(reg_binary_value.toLowerCase().trim().endsWith(": raw data:"))
-					reg_binary_value = reg_binary_value.substring(0, reg_binary_value.length()-12).trim();
-				
-				if(reg_binary_value.toLowerCase().trim().endsWith(": raw data"))
-					reg_binary_value = reg_binary_value.substring(0, reg_binary_value.length()-11).trim();
-				
-				if(reg_binary_value.toLowerCase().trim().endsWith(":"))
-					reg_binary_value = reg_binary_value.substring(0, reg_binary_value.length()-2).trim();
-				
-				String reg_binary_value_lower = reg_binary_value.toLowerCase().trim();
-				
-				//get node
-				if(this.registry_path.tree_reg_binary.containsKey(reg_binary_value_lower))
-					reg_binary = registry_path.tree_reg_binary.get(reg_binary_value_lower);
-				
-				if(reg_binary == null)					
-				{
-					reg_binary = new Node_Generic(this.plugin_name);
-					reg_binary.reg_binary = reg_binary_value;
-					this.registry_path.tree_reg_binary.put(reg_binary_value_lower, reg_binary);					
-				}													
-			}
-			
-			else if(lower.startsWith("0x"))
-				reg_binary.raw_data = line;
-			
-			else if(lower.startsWith("id:"))
-				reg_binary.id = line.substring(line.indexOf(":")+1).trim();
-			
-			else if(lower.startsWith("count:"))
-				reg_binary.count = line.substring(line.indexOf(":")+1).trim();
-			
+			if(hive.name_registry.equals(""))
+				return false;
+
+			//link
+			parent.tree_hivelist.put(hive.name_registry, hive);
 			
 			
 			return true;
@@ -469,7 +423,7 @@ public class Analysis_Plugin_user_assist extends _Analysis_Plugin_Super_Class im
 		}
 		catch(Exception e)
 		{
-			driver.eop(myClassName, "process_plugin_line", e);
+			//driver.eop(myClassName, "process_plugin_line", e);
 		}
 		
 		return false;
@@ -515,7 +469,10 @@ public class Analysis_Plugin_user_assist extends _Analysis_Plugin_Super_Class im
 	
 	
 	
+	
 
+	
+	
 		
 	
 	

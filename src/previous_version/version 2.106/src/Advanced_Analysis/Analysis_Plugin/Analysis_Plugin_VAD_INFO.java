@@ -21,9 +21,9 @@ import java.util.TreeMap;
 
 import org.apache.commons.io.LineIterator;
 
-public class Analysis_Plugin_user_assist extends _Analysis_Plugin_Super_Class implements Runnable, ActionListener
+public class Analysis_Plugin_VAD_INFO extends _Analysis_Plugin_Super_Class implements Runnable, ActionListener
 {
-	public static final String myClassName = "Analysis_Plugin_user_assist";
+	public static final String myClassName = "Analysis_Plugin_VAD_INFO";
 	public static volatile Driver driver = new Driver();
 	
 
@@ -34,16 +34,17 @@ public class Analysis_Plugin_user_assist extends _Analysis_Plugin_Super_Class im
 	public volatile String lower = "";
 	
 	public volatile Node_Process process = null;
+	public volatile Node_Generic vad = null;
 	
-	public volatile Node_Registry_Hive registry_hive = null;
-	public volatile Node_Registry_Key registry_path = null;
-	public volatile Node_Generic reg_binary = null;
+	public volatile int PID = -1;	
+	public volatile String impscan_output_file_name = null;
+	public volatile String tree_storage_key_identifier = null;
 	
 	
 
 
 	
-	public Analysis_Plugin_user_assist(File file, Advanced_Analysis_Director par, String PLUGIN_NAME, String PLUGIN_DESCRIPTION, boolean execute_via_thread, JTextArea_Solomon jta_OUTPUT)
+	public Analysis_Plugin_VAD_INFO(File file, Advanced_Analysis_Director par, String PLUGIN_NAME, String PLUGIN_DESCRIPTION, boolean execute_via_thread, JTextArea_Solomon jta_OUTPUT)
 	{
 		try
 		{
@@ -136,7 +137,6 @@ public class Analysis_Plugin_user_assist extends _Analysis_Plugin_Super_Class im
 			
 			try	{ parent.tree_advanced_analysis_threads.put(this.plugin_name, this);	} catch(Exception e){}			EXECUTION_STARTED = true;
 
-			
 			try	{	Advanced_Analysis_Director.list_plugins_in_execution.add(this.plugin_name);	} catch(Exception e){}
 
 			
@@ -371,97 +371,156 @@ public class Analysis_Plugin_user_assist extends _Analysis_Plugin_Super_Class im
 			if(lower.startsWith("------"))
 				return false;
 			
-			if(lower.startsWith("legend:"))
-				return false;
-			
 			//
 			//remove errors
 			//
 			if(lower.startsWith("unable to read "))  //--> e.g., Unable to read PEB for task.
 				return false;
 			
-			if(lower.startsWith("registry:"))
+			//Pid:      4
+			if(lower.startsWith("pid:"))
 			{
-				String registry = line.substring(9).trim();
-				this.registry_hive = null;
+				String pid = line.substring(line.indexOf(":")+1).trim();
 				
-				if(parent.tree_REGISTRY_KEY_USER_ASSIST.containsKey(registry))
-					registry_hive = parent.tree_REGISTRY_KEY_USER_ASSIST.get(registry);
+				PID = Integer.parseInt(pid.trim());
 				
-				if(registry_hive == null)
+				this.process = parent.tree_PROCESS.get(PID);
+				
+				if(process != null && process.tree_vad_info == null)
+					process.tree_vad_info = new TreeMap<String, Node_Generic>();
+					
+				if(process != null)	
+					parent.tree_VAD_INFO.put(process.PID,  process);
+			}
+			
+			//VAD node @ 0x8601d470 Start 0x00100000 End 0x00100fff Tag Vad 
+			else if(lower.startsWith("vad node"))
+			{
+				this.vad = new Node_Generic(this.plugin_name);
+				vad.list_details = new LinkedList<String>();
+				vad.process = process;
+				
+				//extract offset
+				String offset = lower.substring(lower.indexOf("0x"), lower.indexOf(" ", lower.indexOf("0x"))).trim();
+				
+				vad.offset = offset;
+				
+				//link
+				if(process != null)
+					process.tree_vad_info.put(offset,  vad);
+				
+				if(vad != null)
+					vad.list_details.add(line);
+				
+				//parse to extract start and end
+				String arr [] = lower.split(" ");				 
+				
+				if(arr != null && arr.length > 0)
 				{
-					registry_hive = new Node_Registry_Hive(registry);
-					parent.tree_REGISTRY_KEY_USER_ASSIST.put(registry,  registry_hive);
-				}																									
+					for(int i = 0; i < arr.length; i++)
+					{
+						try
+						{
+							if(arr[i] == null)
+								continue;
+							
+							if(arr[i].trim().startsWith("start"))
+								vad.start_address = arr[i+1].trim();
+							
+							if(arr[i].trim().startsWith("end"))
+								vad.end_address = arr[i+1].trim();
+							
+						}
+						catch(Exception e)
+						{
+							continue;
+						}
+						
+					}
+						
+				}
 			}
 			
-			else if(lower.startsWith("path:"))
+			//FileObject @854dbf80, Name: \Device\HarddiskVolume1\Windows\System32\ntdll.dll
+			else if(lower.contains("name:"))
 			{
-				String path = line.substring(5).trim();
-				registry_path = null;
-				
-				if(this.registry_hive.tree_registry_key.containsKey(path))
-					registry_path = registry_hive.tree_registry_key.get(path);
-				
-				if(registry_path == null)
+				if(process != null && process.process_name != null && process.process_name.length() > 1 && lower.trim().endsWith(process.process_name.toLowerCase().trim()))
 				{
-					registry_path = new Node_Registry_Key(registry_hive, path);
-					registry_hive.tree_registry_key.put(path, registry_path);
-				}					
+					process.VAD = vad;
+					
+					//start impscan
+					impscan_output_file_name = process.process_name + "_" + PID + "_" + vad.impscan_start_address + "_impscan.txt";
+//process.impscan = new Analysis_Plugin_impscan(this.parent, "impscan", "Scan for calls to imported functions", false, "process", vad.impscan_start_address, impscan_output_file_name, PID, process);
+				}
+				
+				String path = line.substring(lower.indexOf("name:")+5).trim();
+				
+				String name = path;
+				
+				if(name.contains("\\"))
+					name = name.substring(name.lastIndexOf("\\")+1).trim();
+				
+				vad.path = path;
+				vad.name = name;
+				
+				vad.list_details.add(line);
 			}
+			else
+				vad.list_details.add(line);
 			
-			else if(lower.startsWith("last updated:"))
-			{
-				if(registry_hive != null && registry_hive.last_updated == null)
-					registry_hive.last_updated = line.substring(14).trim();
-				
-				if(registry_path != null && registry_path.last_updated == null)
-					registry_path.last_updated = line.substring(14).trim();
-				
-				if(reg_binary != null && reg_binary.last_updated == null)
-					reg_binary.last_updated = line.substring(14).trim();
-			}
 			
-			else if(lower.startsWith("reg_binary"))
+			//conduct separate if statement to determine page protection
+			if(lower.startsWith("protection:") && process != null && vad != null)
 			{
-				reg_binary = null;				
-				
-				//REG_BINARY    UEME_CTLSESSION : Raw Data:
-				String reg_binary_value = line.substring(11).trim();
-				
-				//normalize
-				if(reg_binary_value.toLowerCase().trim().endsWith(": raw data:"))
-					reg_binary_value = reg_binary_value.substring(0, reg_binary_value.length()-12).trim();
-				
-				if(reg_binary_value.toLowerCase().trim().endsWith(": raw data"))
-					reg_binary_value = reg_binary_value.substring(0, reg_binary_value.length()-11).trim();
-				
-				if(reg_binary_value.toLowerCase().trim().endsWith(":"))
-					reg_binary_value = reg_binary_value.substring(0, reg_binary_value.length()-2).trim();
-				
-				String reg_binary_value_lower = reg_binary_value.toLowerCase().trim();
-				
-				//get node
-				if(this.registry_path.tree_reg_binary.containsKey(reg_binary_value_lower))
-					reg_binary = registry_path.tree_reg_binary.get(reg_binary_value_lower);
-				
-				if(reg_binary == null)					
+				try
 				{
-					reg_binary = new Node_Generic(this.plugin_name);
-					reg_binary.reg_binary = reg_binary_value;
-					this.registry_path.tree_reg_binary.put(reg_binary_value_lower, reg_binary);					
-				}													
+					//ensure structure exists
+					if(process.tree_vad_page_protection == null)
+						process.tree_vad_page_protection = new TreeMap<String, LinkedList<Node_Generic>>();
+					
+					String protection = line.substring(11).toLowerCase().trim();
+					
+					if(protection.length() < 2)
+						throw new Exception("Unable to procure proper page protection. [" + protection + "] appears invalid...");
+					
+					TreeMap<Integer, Node_Process> tree_VAD_PAGE_PROTECTION = null;
+					
+					if(parent.tree_VAD_PAGE_PROTECTION.containsKey(protection))
+						tree_VAD_PAGE_PROTECTION = parent.tree_VAD_PAGE_PROTECTION.get(protection);
+					
+					//link process to parent
+					if(tree_VAD_PAGE_PROTECTION == null)
+					{
+						tree_VAD_PAGE_PROTECTION = new TreeMap<Integer, Node_Process>();
+						
+						parent.tree_VAD_PAGE_PROTECTION.put(protection, tree_VAD_PAGE_PROTECTION);
+					}
+					
+					if(!tree_VAD_PAGE_PROTECTION.containsKey(process.PID))
+						tree_VAD_PAGE_PROTECTION.put(process.PID, process);
+					
+					//link this vad to process
+					LinkedList<Node_Generic> list_vad_protection = null;
+															
+					if(process.tree_vad_page_protection != null && process.tree_vad_page_protection.containsKey(protection))
+						list_vad_protection = process.tree_vad_page_protection.get(protection);
+					
+					if(list_vad_protection == null)
+					{
+						list_vad_protection = new LinkedList<Node_Generic>();
+						process.tree_vad_page_protection.put(protection,  list_vad_protection);
+					}
+						
+					if(!list_vad_protection.contains(vad))
+						list_vad_protection.add(vad);
+					
+				}
+				catch(Exception e)
+				{
+					//do n/t
+				}
 			}
-			
-			else if(lower.startsWith("0x"))
-				reg_binary.raw_data = line;
-			
-			else if(lower.startsWith("id:"))
-				reg_binary.id = line.substring(line.indexOf(":")+1).trim();
-			
-			else if(lower.startsWith("count:"))
-				reg_binary.count = line.substring(line.indexOf(":")+1).trim();
-			
+
 			
 			
 			return true;
@@ -469,7 +528,7 @@ public class Analysis_Plugin_user_assist extends _Analysis_Plugin_Super_Class im
 		}
 		catch(Exception e)
 		{
-			driver.eop(myClassName, "process_plugin_line", e);
+			driver.eop(myClassName, "*process_plugin_line", e, false);
 		}
 		
 		return false;
@@ -515,8 +574,15 @@ public class Analysis_Plugin_user_assist extends _Analysis_Plugin_Super_Class im
 	
 	
 	
-
+	
+	
+	
+	
+	
 		
+	
+	
+	
 	
 	
 	

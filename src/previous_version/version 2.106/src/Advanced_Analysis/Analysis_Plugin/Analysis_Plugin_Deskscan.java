@@ -21,9 +21,9 @@ import java.util.TreeMap;
 
 import org.apache.commons.io.LineIterator;
 
-public class Analysis_Plugin_user_assist extends _Analysis_Plugin_Super_Class implements Runnable, ActionListener
+public class Analysis_Plugin_Deskscan extends _Analysis_Plugin_Super_Class implements Runnable, ActionListener
 {
-	public static final String myClassName = "Analysis_Plugin_user_assist";
+	public static final String myClassName = "Analysis_Plugin_Deskscan";
 	public static volatile Driver driver = new Driver();
 	
 
@@ -31,19 +31,11 @@ public class Analysis_Plugin_user_assist extends _Analysis_Plugin_Super_Class im
 	public volatile Advanced_Analysis_Director parent = null;
 	
 
-	public volatile String lower = "";
-	
-	public volatile Node_Process process = null;
-	
-	public volatile Node_Registry_Hive registry_hive = null;
-	public volatile Node_Registry_Key registry_path = null;
-	public volatile Node_Generic reg_binary = null;
+	public volatile String lower = "";		
+	public volatile Node_Generic desktop = null;
 	
 	
-
-
-	
-	public Analysis_Plugin_user_assist(File file, Advanced_Analysis_Director par, String PLUGIN_NAME, String PLUGIN_DESCRIPTION, boolean execute_via_thread, JTextArea_Solomon jta_OUTPUT)
+	public Analysis_Plugin_Deskscan(File file, Advanced_Analysis_Director par, String PLUGIN_NAME, String PLUGIN_DESCRIPTION, boolean execute_via_thread, JTextArea_Solomon jta_OUTPUT)
 	{
 		try
 		{
@@ -94,7 +86,6 @@ public class Analysis_Plugin_user_assist extends _Analysis_Plugin_Super_Class im
 	{
 		try
 		{
-
 
 			///////////////////////////////////////////////////////////////////////////////////
 			// IMPORT FILE
@@ -202,7 +193,8 @@ public class Analysis_Plugin_user_assist extends _Analysis_Plugin_Super_Class im
 				cmd = "\"" + fle_volatility.getCanonicalPath().trim() + "\" -f \"" + fle_memory_image.getCanonicalPath().trim() + "\" " + plugin_name + " --profile=" + PROFILE;
 			}						
 			
-			
+//			if((cmd.toLowerCase().contains("dump") || cmd.toLowerCase().contains("evtlogs")) && (!cmd.toLowerCase().contains("hashdump") || cmd.toLowerCase().contains("lsadump")))
+//				cmd = cmd + " --dump-dir " + "\"" + fleOutput.getParentFile().getCanonicalPath(); //leave final " off
 			//
 			//notify
 			//
@@ -345,10 +337,6 @@ public class Analysis_Plugin_user_assist extends _Analysis_Plugin_Super_Class im
 			if(line == null)
 				return false;
 			
-			if(line.trim().startsWith("#"))
-				return false;
-			
-			
 			line = line.replace("	", " ").replace("\t", " ").replace("\\??\\", "").trim();
 			
 			if(parent.system_drive != null)
@@ -358,6 +346,10 @@ public class Analysis_Plugin_user_assist extends _Analysis_Plugin_Super_Class im
 				return false;
 			
 			lower = line.toLowerCase().trim();
+			
+			if(lower.startsWith("#"))
+				return false;
+			
 									
 			//skip if volatility header
 			if(lower.startsWith("volatility foundation "))
@@ -371,97 +363,172 @@ public class Analysis_Plugin_user_assist extends _Analysis_Plugin_Super_Class im
 			if(lower.startsWith("------"))
 				return false;
 			
-			if(lower.startsWith("legend:"))
-				return false;
-			
 			//
 			//remove errors
 			//
 			if(lower.startsWith("unable to read "))  //--> e.g., Unable to read PEB for task.
 				return false;
 			
-			if(lower.startsWith("registry:"))
+			if(lower.startsWith("desktop:"))
 			{
-				String registry = line.substring(9).trim();
-				this.registry_hive = null;
+				String [] array = line.split(",");
 				
-				if(parent.tree_REGISTRY_KEY_USER_ASSIST.containsKey(registry))
-					registry_hive = parent.tree_REGISTRY_KEY_USER_ASSIST.get(registry);
 				
-				if(registry_hive == null)
+				String desk_address = array[0].trim().substring(array[0].indexOf(":")+1).trim();
+				String name = array[1].trim().substring(array[1].indexOf(":")+1).trim();
+				String next = array[2].trim().substring(array[2].indexOf(":")+1).trim();
+				
+				if(desk_address == null || desk_address.length() < 3)
+					return false;
+				
+				desktop = null;
+				
+				if(parent.tree_DESKSCAN != null && parent.tree_DESKSCAN.containsKey(desk_address))
+					desktop = parent.tree_DESKSCAN.get(desk_address);
+												
+				if(desktop == null)
 				{
-					registry_hive = new Node_Registry_Hive(registry);
-					parent.tree_REGISTRY_KEY_USER_ASSIST.put(registry,  registry_hive);
-				}																									
+					this.desktop = new Node_Generic(this.plugin_name);					
+					parent.tree_DESKSCAN.put(desk_address, desktop);
+				}
+				
+				if(desktop.desktop_offset == null)
+					desktop.desktop_offset = desk_address;
+				
+				if(desktop.name == null)
+					desktop.name = name;
+				
+				if(desktop.next == null)
+					desktop.next = next;				
 			}
 			
-			else if(lower.startsWith("path:"))
+			else if(lower.startsWith("sessionid:"))
 			{
-				String path = line.substring(5).trim();
-				registry_path = null;
+				String [] array = line.split(",");
 				
-				if(this.registry_hive.tree_registry_key.containsKey(path))
-					registry_path = registry_hive.tree_registry_key.get(path);
 				
-				if(registry_path == null)
+				String session_id = array[0].trim().substring(array[0].indexOf(":")+1).trim();
+				String desktop_info = array[1].trim().substring(array[1].indexOf(":")+1).trim();
+				String fshooks = array[2].trim().substring(array[2].indexOf(":")+1).trim();
+				
+				if(session_id == null || session_id.trim().equals(""))
+					return false;
+				
+				if(desktop.session_id == null)
+					desktop.session_id = session_id;
+				if(desktop.desktop_info == null)
+					desktop.desktop_info = desktop_info;
+				if(desktop.fshooks == null)
+					desktop.fshooks = fshooks;							
+			}
+			
+			else if(lower.startsWith("spwnd:"))
+			{
+				String [] array = line.split(",");
+				
+				
+				String spwnd = array[0].trim().substring(array[0].indexOf(":")+1).trim();
+				String windows = array[1].trim().substring(array[1].indexOf(":")+1).trim();
+				
+				if(spwnd == null || spwnd.length() < 3)
+					return false;
+				
+				if(desktop.spwnd == null)
+					desktop.spwnd = spwnd;
+				if(desktop.windows == null)
+					desktop.windows = windows;							
+			}
+			
+			else if(lower.startsWith("heap:"))
+			{
+				String [] array = line.split(",");
+				
+				
+				String heap = array[0].trim().substring(array[0].indexOf(":")+1).trim();
+				String size = array[1].trim().substring(array[1].indexOf(":")+1).trim();
+				String base = array[2].trim().substring(array[2].indexOf(":")+1).trim();
+				String limit = array[3].trim().substring(array[3].indexOf(":")+1).trim();
+				
+				if(heap == null || heap.length() < 3)
+					return false;
+				
+				if(desktop.heap == null)
+					desktop.heap = heap;
+				if(desktop.size == null)
+					desktop.size = size;
+				if(desktop.base == null)
+					desktop.base = base;
+				if(desktop.limit == null)
+					desktop.limit = limit;
+			}
+			else if(line.contains("("))
+			{
+				int thread = -1;
+				int PID = -1;
+				
+				String [] array = line.split(" ");
+				
+				for(String value : array)
 				{
-					registry_path = new Node_Registry_Key(registry_hive, path);
-					registry_hive.tree_registry_key.put(path, registry_path);
-				}					
-			}
-			
-			else if(lower.startsWith("last updated:"))
-			{
-				if(registry_hive != null && registry_hive.last_updated == null)
-					registry_hive.last_updated = line.substring(14).trim();
+					try
+					{
+						value = value.trim();
+						
+						if(value.equals(""))
+							continue;
+						
+						if(thread < 0)
+							thread = Integer.parseInt(value.trim());
+						
+						else if(PID < 0)
+							PID = Integer.parseInt(value.trim());
+						
+						else if(thread > -1 && PID > -1)
+							break;
+						
+					}
+					catch(Exception e)
+					{
+						continue;
+					}
+				}
 				
-				if(registry_path != null && registry_path.last_updated == null)
-					registry_path.last_updated = line.substring(14).trim();
+				//break if we don't have heap and pid
+				if(thread < 0 || PID < 0)
+					return false;
 				
-				if(reg_binary != null && reg_binary.last_updated == null)
-					reg_binary.last_updated = line.substring(14).trim();
-			}
-			
-			else if(lower.startsWith("reg_binary"))
-			{
-				reg_binary = null;				
+				Node_Process process = null;
 				
-				//REG_BINARY    UEME_CTLSESSION : Raw Data:
-				String reg_binary_value = line.substring(11).trim();
+				//retrieve process
+				if(parent.tree_PROCESS.containsKey(PID))
+					process = parent.tree_PROCESS.get(PID);
 				
-				//normalize
-				if(reg_binary_value.toLowerCase().trim().endsWith(": raw data:"))
-					reg_binary_value = reg_binary_value.substring(0, reg_binary_value.length()-12).trim();
+				if(process == null)
+					return false;
 				
-				if(reg_binary_value.toLowerCase().trim().endsWith(": raw data"))
-					reg_binary_value = reg_binary_value.substring(0, reg_binary_value.length()-11).trim();
+				//store the process
+				if(desktop.tree_process == null)
+					desktop.tree_process = new TreeMap<Integer, Node_Process>();
 				
-				if(reg_binary_value.toLowerCase().trim().endsWith(":"))
-					reg_binary_value = reg_binary_value.substring(0, reg_binary_value.length()-2).trim();
+				desktop.tree_process.put(PID, process);
 				
-				String reg_binary_value_lower = reg_binary_value.toLowerCase().trim();
+				//store entry in process
+				if(process.tree_deskscan == null)
+					process.tree_deskscan = new TreeMap<String, TreeMap<String, Node_Generic>>();
+					
+				TreeMap<String, Node_Generic> tree = null;
 				
-				//get node
-				if(this.registry_path.tree_reg_binary.containsKey(reg_binary_value_lower))
-					reg_binary = registry_path.tree_reg_binary.get(reg_binary_value_lower);
+				if(process.tree_deskscan.containsKey(desktop.desktop_offset))
+					tree = process.tree_deskscan.get(desktop.desktop_offset);
 				
-				if(reg_binary == null)					
+				if(tree == null)
 				{
-					reg_binary = new Node_Generic(this.plugin_name);
-					reg_binary.reg_binary = reg_binary_value;
-					this.registry_path.tree_reg_binary.put(reg_binary_value_lower, reg_binary);					
-				}													
+					tree = new TreeMap<String, Node_Generic>();
+					process.tree_deskscan.put(desktop.desktop_offset, tree);
+				}
+				
+				tree.put(""+thread, desktop);
 			}
-			
-			else if(lower.startsWith("0x"))
-				reg_binary.raw_data = line;
-			
-			else if(lower.startsWith("id:"))
-				reg_binary.id = line.substring(line.indexOf(":")+1).trim();
-			
-			else if(lower.startsWith("count:"))
-				reg_binary.count = line.substring(line.indexOf(":")+1).trim();
-			
 			
 			
 			return true;
@@ -516,8 +583,6 @@ public class Analysis_Plugin_user_assist extends _Analysis_Plugin_Super_Class im
 	
 	
 
-		
-	
 	
 	
 	

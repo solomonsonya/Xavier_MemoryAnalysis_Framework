@@ -21,29 +21,38 @@ import java.util.TreeMap;
 
 import org.apache.commons.io.LineIterator;
 
-public class Analysis_Plugin_user_assist extends _Analysis_Plugin_Super_Class implements Runnable, ActionListener
+public class Analysis_Plugin_malfind extends _Analysis_Plugin_Super_Class implements Runnable, ActionListener
 {
-	public static final String myClassName = "Analysis_Plugin_user_assist";
+	public static final String myClassName = "Analysis_Plugin_malfind";
 	public static volatile Driver driver = new Driver();
 	
 
 	
 	public volatile Advanced_Analysis_Director parent = null;
-	
+
 
 	public volatile String lower = "";
 	
 	public volatile Node_Process process = null;
+	public volatile Node_Malfind malfind = null;
+	public volatile String process_name = null;
+	public volatile String pid = null;
+	public volatile String address = null;
+	public volatile String vad_tag = null;
+	public volatile String protection = null;
+	public volatile String flags = null;
+	public volatile boolean MZ_present = false;
+	public volatile boolean JMP_present = false;
+	public volatile boolean analyzed_first_0x_line = false;
 	
-	public volatile Node_Registry_Hive registry_hive = null;
-	public volatile Node_Registry_Key registry_path = null;
-	public volatile Node_Generic reg_binary = null;
+	
+	public volatile String malfind_dump_file_name = null;
 	
 	
 
 
 	
-	public Analysis_Plugin_user_assist(File file, Advanced_Analysis_Director par, String PLUGIN_NAME, String PLUGIN_DESCRIPTION, boolean execute_via_thread, JTextArea_Solomon jta_OUTPUT)
+	public Analysis_Plugin_malfind(File file, Advanced_Analysis_Director par, String PLUGIN_NAME, String PLUGIN_DESCRIPTION, boolean execute_via_thread, JTextArea_Solomon jta_OUTPUT)
 	{
 		try
 		{
@@ -95,7 +104,6 @@ public class Analysis_Plugin_user_assist extends _Analysis_Plugin_Super_Class im
 		try
 		{
 
-
 			///////////////////////////////////////////////////////////////////////////////////
 			// IMPORT FILE
 			//////////////////////////////////////////////////////////////////////////////////
@@ -134,8 +142,8 @@ public class Analysis_Plugin_user_assist extends _Analysis_Plugin_Super_Class im
 			// EXECUTE PLUGIN CMD
 			//////////////////////////////////////////////////////////////////////////////////////
 			
-			try	{ parent.tree_advanced_analysis_threads.put(this.plugin_name, this);	} catch(Exception e){}			EXECUTION_STARTED = true;
-
+			try	{ parent.tree_advanced_analysis_threads.put(this.plugin_name, this);	} catch(Exception e){}
+			EXECUTION_STARTED = true;
 			
 			try	{	Advanced_Analysis_Director.list_plugins_in_execution.add(this.plugin_name);	} catch(Exception e){}
 
@@ -144,10 +152,13 @@ public class Analysis_Plugin_user_assist extends _Analysis_Plugin_Super_Class im
 			
 			status = execute_plugin(plugin_name, plugin_description, null, "");			
 					
+			//dump files
+			dump_files();
+			
 			try	{	Advanced_Analysis_Director.list_plugins_in_execution.remove(this.plugin_name);	} catch(Exception e){}
 			
 			this.EXECUTION_COMPLETE = true;
-
+			
 			return true;
 		}
 		catch(Exception e)
@@ -162,6 +173,156 @@ public class Analysis_Plugin_user_assist extends _Analysis_Plugin_Super_Class im
 		return false;
 	}
 	
+	public boolean dump_files()
+	{
+		try
+		{
+			if(fleOutput == null || !fleOutput.exists())
+				return false;
+			
+			String path = fleOutput.getParentFile().getCanonicalPath().trim();
+			
+			if(!path.endsWith(File.separator))
+				path = path + File.separator;
+			
+			File directory = new File(path + "malfind_dump");
+			
+			try	{	directory.mkdirs();	} catch(Exception e){}
+			
+			//execute cmd
+			String cmd = "\"" + fle_volatility.getCanonicalPath().trim() + "\" -f \"" + fle_memory_image.getCanonicalPath().trim() + "\"" + " --profile=" + PROFILE + " " + this.plugin_name + " --dump-dir \"" + directory.getCanonicalPath();
+
+			//
+			//EXECUTE COMMAND!
+			//
+			ProcessBuilder process_builder = null;	
+			
+			
+			if(driver.isWindows)
+				process_builder = new ProcessBuilder("cmd.exe", "/C",  cmd);	
+							
+			//else if(driver.isLinux)
+			else
+				process_builder = new ProcessBuilder("/bin/bash", "-c",  cmd);
+			
+			//
+			//redirect error stream
+			//
+			process_builder.redirectErrorStream(true); 
+						
+			//
+			//instantiate new process
+			//
+			Process process = process_builder.start();
+			
+			BufferedReader brIn = new BufferedReader(new InputStreamReader(process.getInputStream()));
+			long line_count = 31;
+			//
+			//process command output
+			//
+			LineIterator line_iterator = new LineIterator(brIn);
+			String line = "";
+		    try 
+		    {
+		        while (line_iterator.hasNext()) 
+		        {		        	
+		        	line = line_iterator.nextLine();
+		        	
+		        	if(line == null)
+		        		continue;
+
+		        	sp(".");
+		        	
+		        	if((++line_count) % 100 == 0)
+		        		sp("\n");
+        	
+		        }		       	       		       		        	                		        		      
+		    }
+		    catch(Exception e)
+		    {
+		    	driver.sop("check plugin process execution " + plugin_name + " - " + cmd);
+		    }
+		        
+		      
+		   //clean up
+		    try	{ 	brIn.close();       		}	catch(Exception e){}
+		    try	{	process.destroy();			}	catch(Exception e){}
+		    try	{ 	line_iterator.close();      }	catch(Exception e){}
+			
+		    //rename
+		    LinkedList<File> list = new LinkedList<File>();
+		    
+		    list = driver.getFileListing(directory, true, null, list);
+		    
+		    if(list == null || list.isEmpty())
+		    	return false;
+		    
+		    String file_name = null;
+		    
+		    for(File fle : list)
+		    {
+		    	try
+		    	{
+		    		file_name = fle.getName().toLowerCase().trim();
+		    		
+		    		Node_Process node_process = null;
+		    		Node_Malfind malfind = null;
+		    		String eprocess_offset = null;
+		    		String address = null;
+		    		
+		    		
+		    		try
+		    		{
+		    			//process.0x843b9030.0x3a0000.dmp
+		    			String array [] = file_name.split("\\.");
+		    			
+		    			eprocess_offset = array[1].toLowerCase().trim();
+		    			address = array[2].toLowerCase().trim();
+		    			
+		    			node_process = parent.tree_PROCESS_linked_by_pslist_EPROCESS_base_address.get(eprocess_offset);
+		    			malfind = node_process.tree_malfind.get(address);
+		    		}
+		    		catch(Exception e){}
+		    		
+		    		if(!parent.tree_malfind_dump_name_conversion_table.containsKey(file_name))
+		    		{
+		    			//link file to process malfind
+		    			malfind.store_malfind_file_dump_attributes(fle);		    					    			
+		    			continue;
+		    		}
+		    		
+		    		File fle_new = new File(fle.getCanonicalPath().replace(file_name, ""+parent.tree_malfind_dump_name_conversion_table.get(file_name)));
+		    		
+		    		
+		    		try		
+		    		{	
+		    			fle.renameTo(fle_new);
+		    			malfind.store_malfind_file_dump_attributes(fle_new);
+		    			
+		    		} catch(Exception e)
+		    		{
+		    			malfind.store_malfind_file_dump_attributes(fle);
+		    		}
+		    		
+		    		
+		    		
+		    	}
+		    	catch(Exception e)
+		    	{
+		    		continue;
+		    	}
+		    }
+		    		    
+		    
+			return true; 
+		}
+		catch(Exception e)
+		{
+			driver.eop(myClassName, "dump_files", e);
+		}
+		
+		return false;
+	}
 	
 	public boolean execute_plugin(String plugin_name, String plugin_description, String cmd, String additional_file_name_detail)
 	{
@@ -336,18 +497,8 @@ public class Analysis_Plugin_user_assist extends _Analysis_Plugin_Super_Class im
 	{
 		try
 		{			
-			///////////////////////////////////////////////////////////////
-			//
-			// Solo, be sure to enable process_plugin_line!
-			//
-			/////////////////////////////////////////////////////////////
-			
 			if(line == null)
 				return false;
-			
-			if(line.trim().startsWith("#"))
-				return false;
-			
 			
 			line = line.replace("	", " ").replace("\t", " ").replace("\\??\\", "").trim();
 			
@@ -356,6 +507,10 @@ public class Analysis_Plugin_user_assist extends _Analysis_Plugin_Super_Class im
 			
 			if(line.equals(""))
 				return false;
+			
+			if(line.trim().startsWith("#"))
+				return false;
+			
 			
 			lower = line.toLowerCase().trim();
 									
@@ -371,98 +526,115 @@ public class Analysis_Plugin_user_assist extends _Analysis_Plugin_Super_Class im
 			if(lower.startsWith("------"))
 				return false;
 			
-			if(lower.startsWith("legend:"))
-				return false;
-			
 			//
 			//remove errors
 			//
 			if(lower.startsWith("unable to read "))  //--> e.g., Unable to read PEB for task.
 				return false;
 			
-			if(lower.startsWith("registry:"))
-			{
-				String registry = line.substring(9).trim();
-				this.registry_hive = null;
+			
+			if(lower.startsWith("process"))
+			{				
 				
-				if(parent.tree_REGISTRY_KEY_USER_ASSIST.containsKey(registry))
-					registry_hive = parent.tree_REGISTRY_KEY_USER_ASSIST.get(registry);
+				//re-init
+				malfind = null;
+				process = null;				
+				process_name = null;
+				pid = null;
+				address = null;
+				vad_tag = null;
+				protection = null;
+				flags = null;
+				MZ_present = false;
+				JMP_present = false;
+				analyzed_first_0x_line = false;
+				malfind_dump_file_name = null;
 				
-				if(registry_hive == null)
+				//process line - Process: explorer.exe Pid: 2236 Address: 0x3660000
+				process_name = line.substring(8, lower.indexOf("pid:")).trim(); 
+				pid = line.substring(lower.indexOf("pid:")+5, lower.indexOf("address:")).trim();
+				address = line.substring(line.lastIndexOf(":")+1).trim();
+				
+				String original_dump_file_name = "";
+				
+				try	
+				{					
+					process = parent.tree_PROCESS.get(Integer.parseInt(pid.trim()));
+					
+					original_dump_file_name = "process." + process.offset_pslist.toLowerCase().trim() + "." + address.toLowerCase().trim() + ".dmp";
+					
+					if(process != null && address != null && !address.trim().equals("") && !parent.tree_PROCESS_linked_by_pslist_EPROCESS_base_address.containsKey(address))
+						parent.tree_PROCESS_linked_by_pslist_EPROCESS_base_address.put(address,  process);
+						
+					//e.g. process.0x86926030.0x3660000.dmp from volatility_2.6_win64_standalone.exe -f Sample-14-3.mem --profile=Win7SP1x86 malfind --dump-dir ./
+					
+					try	{	parent.tree_malfind_dump_name_conversion_table.put(original_dump_file_name, process.process_name + "_" + pid + "_" + process.offset_pslist + "_" + address + ".dmp");} catch(Exception e){}
+					try	{	parent.tree_malfind_original_dump_name_to_process.put(original_dump_file_name, process);} catch(Exception e){}
+				} 
+				
+				catch(Exception e){	process = null;}
+				
+				//create nodes
+				malfind = new Node_Malfind(process_name, pid, process, address);
+				
+				//link to process
+				if(process != null)
 				{
-					registry_hive = new Node_Registry_Hive(registry);
-					parent.tree_REGISTRY_KEY_USER_ASSIST.put(registry,  registry_hive);
-				}																									
+					if(process.tree_malfind == null)
+						process.tree_malfind = new TreeMap<String, Node_Malfind>();
+					
+					//link to process	
+					process.tree_malfind.put(address,  malfind);
+					
+					//link by dump file name as well - not the most elegant... but it'll work
+					//process.tree_malfind.put(original_dump_file_name,  malfind);
+					
+					//link to director
+					parent.tree_MALFIND.put(process.PID, process);
+				}
 			}
-			
-			else if(lower.startsWith("path:"))
+
+			else if(lower.startsWith("vad tag") && malfind != null)
 			{
-				String path = line.substring(5).trim();
-				registry_path = null;
+				malfind.vad_tag = line.substring(9, line.indexOf(" ", 10)).trim();
+				malfind.protection = line.substring(line.lastIndexOf(":")+1).trim();
 				
-				if(this.registry_hive.tree_registry_key.containsKey(path))
-					registry_path = registry_hive.tree_registry_key.get(path);
-				
-				if(registry_path == null)
-				{
-					registry_path = new Node_Registry_Key(registry_hive, path);
-					registry_hive.tree_registry_key.put(path, registry_path);
-				}					
+				parent.tree_MALFIND_PAGE_PROTECTION_TYPES.put(malfind.protection, null);
 			}
 			
-			else if(lower.startsWith("last updated:"))
+			else if(lower.startsWith("flags:") && malfind != null)
 			{
-				if(registry_hive != null && registry_hive.last_updated == null)
-					registry_hive.last_updated = line.substring(14).trim();
-				
-				if(registry_path != null && registry_path.last_updated == null)
-					registry_path.last_updated = line.substring(14).trim();
-				
-				if(reg_binary != null && reg_binary.last_updated == null)
-					reg_binary.last_updated = line.substring(14).trim();
+				malfind.flags = line.substring(7).trim();
 			}
 			
-			else if(lower.startsWith("reg_binary"))
+			//owt, search for MZ header
+			else if(lower.startsWith("0x") && malfind != null && lower.contains("4d 5a 00 00 00 00 00 00"))			
 			{
-				reg_binary = null;				
-				
-				//REG_BINARY    UEME_CTLSESSION : Raw Data:
-				String reg_binary_value = line.substring(11).trim();
-				
-				//normalize
-				if(reg_binary_value.toLowerCase().trim().endsWith(": raw data:"))
-					reg_binary_value = reg_binary_value.substring(0, reg_binary_value.length()-12).trim();
-				
-				if(reg_binary_value.toLowerCase().trim().endsWith(": raw data"))
-					reg_binary_value = reg_binary_value.substring(0, reg_binary_value.length()-11).trim();
-				
-				if(reg_binary_value.toLowerCase().trim().endsWith(":"))
-					reg_binary_value = reg_binary_value.substring(0, reg_binary_value.length()-2).trim();
-				
-				String reg_binary_value_lower = reg_binary_value.toLowerCase().trim();
-				
-				//get node
-				if(this.registry_path.tree_reg_binary.containsKey(reg_binary_value_lower))
-					reg_binary = registry_path.tree_reg_binary.get(reg_binary_value_lower);
-				
-				if(reg_binary == null)					
-				{
-					reg_binary = new Node_Generic(this.plugin_name);
-					reg_binary.reg_binary = reg_binary_value;
-					this.registry_path.tree_reg_binary.put(reg_binary_value_lower, reg_binary);					
-				}													
+				analyzed_first_0x_line = true;
+				malfind.MZ_present = true;
+			}
+			else if(lower.startsWith("0x") && malfind != null && !analyzed_first_0x_line && lower.contains("jmp"))			
+			{
+				analyzed_first_0x_line = true;
+				malfind.Trampoline_initial_JMP_Detected = true;
+			}			
+			else if(lower.startsWith("0x"))			
+			{
+				analyzed_first_0x_line = true;				
 			}
 			
-			else if(lower.startsWith("0x"))
-				reg_binary.raw_data = line;
-			
-			else if(lower.startsWith("id:"))
-				reg_binary.id = line.substring(line.indexOf(":")+1).trim();
-			
-			else if(lower.startsWith("count:"))
-				reg_binary.count = line.substring(line.indexOf(":")+1).trim();
-			
-			
+			//store details
+			if(lower.startsWith("0x") && malfind != null)
+			{
+				if(malfind.list_details == null)
+					malfind.list_details = new LinkedList<String>();
+				
+				malfind.list_details.add(line);
+				
+				if(malfind.list_details.size() == 4)
+					malfind.list_details.add(".");
+			}
+				
 			
 			return true;
 		
@@ -515,7 +687,7 @@ public class Analysis_Plugin_user_assist extends _Analysis_Plugin_Super_Class im
 	
 	
 	
-
+	
 		
 	
 	

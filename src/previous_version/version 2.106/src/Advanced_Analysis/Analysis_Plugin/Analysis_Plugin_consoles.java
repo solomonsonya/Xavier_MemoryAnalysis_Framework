@@ -1,4 +1,6 @@
 /**
+ * Consoles - find consoles output and add it to respective process node
+ * 
  * Instantiated to execute plugin without any special processing
  * @author Solomon Sonya
  */
@@ -9,6 +11,8 @@ import Driver.*;
 import Interface.*;
 import Plugin.*;
 import Worker.*;
+import javafx.stage.DirectoryChooser;
+
 import java.awt.event.*;
 import java.io.BufferedReader;
 import java.io.File;
@@ -21,12 +25,12 @@ import java.util.TreeMap;
 
 import org.apache.commons.io.LineIterator;
 
-public class Analysis_Plugin_user_assist extends _Analysis_Plugin_Super_Class implements Runnable, ActionListener
+public class Analysis_Plugin_consoles extends _Analysis_Plugin_Super_Class implements Runnable, ActionListener
 {
-	public static final String myClassName = "Analysis_Plugin_user_assist";
+	public static final String myClassName = "Analysis_Plugin_consoles";
 	public static volatile Driver driver = new Driver();
 	
-
+	
 	
 	public volatile Advanced_Analysis_Director parent = null;
 	
@@ -35,15 +39,25 @@ public class Analysis_Plugin_user_assist extends _Analysis_Plugin_Super_Class im
 	
 	public volatile Node_Process process = null;
 	
-	public volatile Node_Registry_Hive registry_hive = null;
-	public volatile Node_Registry_Key registry_path = null;
-	public volatile Node_Generic reg_binary = null;
+	public volatile String ConsoleProcess_line_1 = null;
+	public volatile String Console_id_line_2 = null;
+	public volatile String HistoryBufferCount_line_3 = null;
+	public volatile String OriginalTitle_line_4 = null;
+	public volatile String Title_line_5 = null;
+	public volatile String AttachedProcess_line_6a = null;
+	public volatile String AttachedProcess_line_6b = null;
+	public volatile String AttachedProcess_line_6c = null;
+	public volatile String AttachedProcess_line_6d = null;
+	public volatile String AttachedProcess_line_6e = null;
+	public volatile String AttachedProcess_line_6f = null;
+	public volatile String AttachedProcess_line_6g = null;	
+	public volatile String CommandHistory = null;
+	public volatile String command_history_id = null;
+	
+	public volatile Node_CmdScan nde_cmd_scan = null;
 	
 	
-
-
-	
-	public Analysis_Plugin_user_assist(File file, Advanced_Analysis_Director par, String PLUGIN_NAME, String PLUGIN_DESCRIPTION, boolean execute_via_thread, JTextArea_Solomon jta_OUTPUT)
+	public Analysis_Plugin_consoles(File file, Advanced_Analysis_Director par, String PLUGIN_NAME, String PLUGIN_DESCRIPTION, boolean execute_via_thread, JTextArea_Solomon jta_OUTPUT)
 	{
 		try
 		{
@@ -95,7 +109,6 @@ public class Analysis_Plugin_user_assist extends _Analysis_Plugin_Super_Class im
 		try
 		{
 
-
 			///////////////////////////////////////////////////////////////////////////////////
 			// IMPORT FILE
 			//////////////////////////////////////////////////////////////////////////////////
@@ -129,6 +142,7 @@ public class Analysis_Plugin_user_assist extends _Analysis_Plugin_Super_Class im
 				
 				return true;
 			}
+			
 			
 			//////////////////////////////////////////////////////////////////////////////////////
 			// EXECUTE PLUGIN CMD
@@ -202,6 +216,12 @@ public class Analysis_Plugin_user_assist extends _Analysis_Plugin_Super_Class im
 				cmd = "\"" + fle_volatility.getCanonicalPath().trim() + "\" -f \"" + fle_memory_image.getCanonicalPath().trim() + "\" " + plugin_name + " --profile=" + PROFILE;
 			}						
 			
+			if((plugin_name.toLowerCase().contains("dump") || plugin_name.toLowerCase().contains("evtlogs")) && !(plugin_name.toLowerCase().contains("hashdump") || plugin_name.toLowerCase().contains("lsadump")))
+			{
+				//return here and specify which plugins require dumpdir from the class instantiation
+				cmd = cmd + " --dump-dir " + "\"" + fleOutput.getParentFile().getCanonicalPath(); //leave final " off
+			}
+			//+ " --dump-dir \"" + fle_dump_directory.getCanonicalPath();
 			
 			//
 			//notify
@@ -345,11 +365,7 @@ public class Analysis_Plugin_user_assist extends _Analysis_Plugin_Super_Class im
 			if(line == null)
 				return false;
 			
-			if(line.trim().startsWith("#"))
-				return false;
-			
-			
-			line = line.replace("	", " ").replace("\t", " ").replace("\\??\\", "").trim();
+			line = line.replace("	", " ").replace("\t", " ").replace("\\??\\", "");
 			
 			if(parent.system_drive != null)
 				line = line.replace("\\Device\\HarddiskVolume1", parent.system_root).replace("\\SystemRoot", parent.system_root);
@@ -358,6 +374,10 @@ public class Analysis_Plugin_user_assist extends _Analysis_Plugin_Super_Class im
 				return false;
 			
 			lower = line.toLowerCase().trim();
+			
+			if(lower.startsWith("#"))
+				return false;
+			
 									
 			//skip if volatility header
 			if(lower.startsWith("volatility foundation "))
@@ -368,108 +388,199 @@ public class Analysis_Plugin_user_assist extends _Analysis_Plugin_Super_Class im
 			if(lower.startsWith("***"))
 				return false;
 			
-			if(lower.startsWith("------"))
+			if(lower.startsWith("----"))
 				return false;
-			
-			if(lower.startsWith("legend:"))
-				return false;
-			
+									
 			//
 			//remove errors
 			//
 			if(lower.startsWith("unable to read "))  //--> e.g., Unable to read PEB for task.
 				return false;
 			
-			if(lower.startsWith("registry:"))
+			//process pid - Line 1
+			if(lower.startsWith("consoleprocess:") && lower.contains("pid:"))
 			{
-				String registry = line.substring(9).trim();
-				this.registry_hive = null;
+				String arr [] = lower.split(" ");
 				
-				if(parent.tree_REGISTRY_KEY_USER_ASSIST.containsKey(registry))
-					registry_hive = parent.tree_REGISTRY_KEY_USER_ASSIST.get(registry);
+				if(arr == null || arr.length < 1)
+					return false;
 				
-				if(registry_hive == null)
+				try
 				{
-					registry_hive = new Node_Registry_Hive(registry);
-					parent.tree_REGISTRY_KEY_USER_ASSIST.put(registry,  registry_hive);
-				}																									
-			}
-			
-			else if(lower.startsWith("path:"))
-			{
-				String path = line.substring(5).trim();
-				registry_path = null;
-				
-				if(this.registry_hive.tree_registry_key.containsKey(path))
-					registry_path = registry_hive.tree_registry_key.get(path);
-				
-				if(registry_path == null)
+					int PID = Integer.parseInt(arr[arr.length-1]);
+					this.process = parent.tree_PROCESS.get(PID);
+
+					//re-init
+					ConsoleProcess_line_1 = line;
+					
+					Console_id_line_2 = null;
+					HistoryBufferCount_line_3 = null;
+					OriginalTitle_line_4 = null;
+					Title_line_5 = null;
+					AttachedProcess_line_6a = null;
+					AttachedProcess_line_6b = null;
+					AttachedProcess_line_6c = null;
+					AttachedProcess_line_6d = null;
+					AttachedProcess_line_6e = null;
+					AttachedProcess_line_6f = null;
+					AttachedProcess_line_6g = null;
+					CommandHistory = null;
+					command_history_id = null;
+					nde_cmd_scan = null;
+					
+				}
+				catch(Exception e)
 				{
-					registry_path = new Node_Registry_Key(registry_hive, path);
-					registry_hive.tree_registry_key.put(path, registry_path);
-				}					
+					return false;
+				}
 			}
 			
-			else if(lower.startsWith("last updated:"))
+			//process console
+			else if(lower.startsWith("console:"))
 			{
-				if(registry_hive != null && registry_hive.last_updated == null)
-					registry_hive.last_updated = line.substring(14).trim();
-				
-				if(registry_path != null && registry_path.last_updated == null)
-					registry_path.last_updated = line.substring(14).trim();
-				
-				if(reg_binary != null && reg_binary.last_updated == null)
-					reg_binary.last_updated = line.substring(14).trim();
+				Console_id_line_2 = line;
 			}
 			
-			else if(lower.startsWith("reg_binary"))
+			//process HistoryBufferCount
+			else if(lower.startsWith("historybuffercount:"))
 			{
-				reg_binary = null;				
-				
-				//REG_BINARY    UEME_CTLSESSION : Raw Data:
-				String reg_binary_value = line.substring(11).trim();
-				
-				//normalize
-				if(reg_binary_value.toLowerCase().trim().endsWith(": raw data:"))
-					reg_binary_value = reg_binary_value.substring(0, reg_binary_value.length()-12).trim();
-				
-				if(reg_binary_value.toLowerCase().trim().endsWith(": raw data"))
-					reg_binary_value = reg_binary_value.substring(0, reg_binary_value.length()-11).trim();
-				
-				if(reg_binary_value.toLowerCase().trim().endsWith(":"))
-					reg_binary_value = reg_binary_value.substring(0, reg_binary_value.length()-2).trim();
-				
-				String reg_binary_value_lower = reg_binary_value.toLowerCase().trim();
-				
-				//get node
-				if(this.registry_path.tree_reg_binary.containsKey(reg_binary_value_lower))
-					reg_binary = registry_path.tree_reg_binary.get(reg_binary_value_lower);
-				
-				if(reg_binary == null)					
+				HistoryBufferCount_line_3 = line;
+			}
+			
+			//process OriginalTitle
+			else if(lower.startsWith("originaltitle:"))
+			{
+				OriginalTitle_line_4 = line;
+			}
+			
+			//process Title
+			else if(lower.startsWith("title:"))
+			{
+				Title_line_5 = line;
+			}
+			
+			//process AttachedProcess
+			else if(lower.startsWith("attachedProcess:"))
+			{
+				if(AttachedProcess_line_6a == null)
+					AttachedProcess_line_6a = line;
+				else if(AttachedProcess_line_6b == null)
+					AttachedProcess_line_6b = line;
+				else if(AttachedProcess_line_6c == null)
+					AttachedProcess_line_6c = line;
+				else if(AttachedProcess_line_6d == null)
+					AttachedProcess_line_6d = line;
+				else if(AttachedProcess_line_6e == null)
+					AttachedProcess_line_6e = line;
+				else if(AttachedProcess_line_6f == null)
+					AttachedProcess_line_6f = line;
+				else if(AttachedProcess_line_6g == null)
+					AttachedProcess_line_6g = line;
+				else
 				{
-					reg_binary = new Node_Generic(this.plugin_name);
-					reg_binary.reg_binary = reg_binary_value;
-					this.registry_path.tree_reg_binary.put(reg_binary_value_lower, reg_binary);					
-				}													
+					driver.directive("Not storing additional attached Process in " + myClassName + " on line --> " + line);
+				}
 			}
 			
-			else if(lower.startsWith("0x"))
-				reg_binary.raw_data = line;
+			//process CommandHistory
+			else if(lower.startsWith("commandhistory:"))
+			{
+				CommandHistory = line;
+				
+				//search for specific command history
+				String arr [] = line.trim().split(" ");
+				
+				command_history_id = arr[1].trim();
+				
+				//retrieve cmd_scan
+				try
+				{
+					nde_cmd_scan = process.tree_cmdscan_consoles.get(command_history_id);
+					
+					if(nde_cmd_scan == null)
+						throw new Exception("Node did not exist");
+				}
+				catch(Exception e)
+				{
+					driver.directive(process.get_process_html_header() + " did not have command history [" + command_history_id + "] I am instantiating now...");
+					
+					this.nde_cmd_scan = new Node_CmdScan(ConsoleProcess_line_1, parent);
+					
+					//process header
+					if(process.tree_cmdscan_consoles == null)
+						process.tree_cmdscan_consoles = new TreeMap<String, Node_CmdScan>();
+					
+					//link specific history
+					process.tree_cmdscan_consoles.put(command_history_id, nde_cmd_scan);										
+				}
+				
+				//store header info
+				nde_cmd_scan.ConsoleProcess_line_1 = ConsoleProcess_line_1;
+				nde_cmd_scan.Console_id_line_2 = Console_id_line_2;
+				nde_cmd_scan.HistoryBufferCount_line_3 = HistoryBufferCount_line_3;
+				nde_cmd_scan.OriginalTitle_line_4 = OriginalTitle_line_4;
+				nde_cmd_scan.Title_line_5 = Title_line_5;
+				nde_cmd_scan.AttachedProcess_line_6a = AttachedProcess_line_6a;
+				nde_cmd_scan.AttachedProcess_line_6b = AttachedProcess_line_6b;
+				nde_cmd_scan.AttachedProcess_line_6c = AttachedProcess_line_6c;
+				nde_cmd_scan.AttachedProcess_line_6d = AttachedProcess_line_6d;
+				nde_cmd_scan.AttachedProcess_line_6e = AttachedProcess_line_6e;
+				nde_cmd_scan.AttachedProcess_line_6f = AttachedProcess_line_6f;
+				nde_cmd_scan.AttachedProcess_line_6g = AttachedProcess_line_6g;
+				nde_cmd_scan.CommandHistory = CommandHistory;
+				nde_cmd_scan.command_history_id = command_history_id;
+				
+				//enrich header
+				if(!nde_cmd_scan.list_cmd_header.contains(ConsoleProcess_line_1)) nde_cmd_scan.list_cmd_header.add(ConsoleProcess_line_1);
+				if(!nde_cmd_scan.list_cmd_header.contains(Console_id_line_2)) nde_cmd_scan.list_cmd_header.add(Console_id_line_2);
+				if(!nde_cmd_scan.list_cmd_header.contains(HistoryBufferCount_line_3)) nde_cmd_scan.list_cmd_header.add(HistoryBufferCount_line_3);
+				if(!nde_cmd_scan.list_cmd_header.contains(OriginalTitle_line_4)) nde_cmd_scan.list_cmd_header.add(OriginalTitle_line_4);
+				if(!nde_cmd_scan.list_cmd_header.contains(Title_line_5)) nde_cmd_scan.list_cmd_header.add(Title_line_5);
+				if(!nde_cmd_scan.list_cmd_header.contains(AttachedProcess_line_6a)) nde_cmd_scan.list_cmd_header.add(AttachedProcess_line_6a);
+				if(!nde_cmd_scan.list_cmd_header.contains(AttachedProcess_line_6b)) nde_cmd_scan.list_cmd_header.add(AttachedProcess_line_6b);
+				if(!nde_cmd_scan.list_cmd_header.contains(AttachedProcess_line_6c)) nde_cmd_scan.list_cmd_header.add(AttachedProcess_line_6c);
+				if(!nde_cmd_scan.list_cmd_header.contains(AttachedProcess_line_6d)) nde_cmd_scan.list_cmd_header.add(AttachedProcess_line_6d);
+				if(!nde_cmd_scan.list_cmd_header.contains(AttachedProcess_line_6e)) nde_cmd_scan.list_cmd_header.add(AttachedProcess_line_6e);
+				if(!nde_cmd_scan.list_cmd_header.contains(AttachedProcess_line_6f)) nde_cmd_scan.list_cmd_header.add(AttachedProcess_line_6f);
+				if(!nde_cmd_scan.list_cmd_header.contains(AttachedProcess_line_6g)) nde_cmd_scan.list_cmd_header.add(AttachedProcess_line_6g);
+				if(!nde_cmd_scan.list_cmd_header.contains(CommandHistory)) nde_cmd_scan.list_cmd_header.add(CommandHistory);
+				
+
+			}
 			
-			else if(lower.startsWith("id:"))
-				reg_binary.id = line.substring(line.indexOf(":")+1).trim();
+			//commandcount
+			else if(lower.startsWith("commandcount:") && nde_cmd_scan != null && !nde_cmd_scan.list_cmd_header.contains(line))
+				nde_cmd_scan.list_cmd_header.add(line);
 			
-			else if(lower.startsWith("count:"))
-				reg_binary.count = line.substring(line.indexOf(":")+1).trim();
+			//first command
+			else if(lower.startsWith("firstcommand:") && nde_cmd_scan != null && !nde_cmd_scan.list_cmd_header.contains(line))
+				nde_cmd_scan.list_cmd_header.add(line);
 			
+			//processhandle
+			else if(lower.startsWith("processhandle:") && nde_cmd_scan != null && !nde_cmd_scan.list_cmd_header.contains(line))
+				nde_cmd_scan.list_cmd_header.add(line);
 			
+			//cmd
+			else if(lower.startsWith("cmd #") && nde_cmd_scan != null && !nde_cmd_scan.list_cmd_details.contains(line) && !nde_cmd_scan.list_cmd_details.contains(line.replaceFirst(" at ", " @ ")))
+				nde_cmd_scan.list_cmd_details.add(line);
+			
+			//
+			//ELSE, ADD THE CONSOLE!
+			//
+			else if(nde_cmd_scan != null && !lower.startsWith("commandcount:") && !lower.startsWith("firstcommand:") && !lower.startsWith("processhandle:") && !lower.startsWith("cmd #"))
+			{
+				 if(nde_cmd_scan.list_consoles_output == null)
+					nde_cmd_scan.list_consoles_output = new LinkedList<String>();
+				
+				nde_cmd_scan.list_consoles_output.add(line);
+			}
 			
 			return true;
 		
 		}
 		catch(Exception e)
 		{
-			driver.eop(myClassName, "process_plugin_line", e);
+			driver.eop(myClassName, "process_plugin_line", e, false);
 		}
 		
 		return false;
@@ -515,7 +626,9 @@ public class Analysis_Plugin_user_assist extends _Analysis_Plugin_Super_Class im
 	
 	
 	
-
+	
+	
+	
 		
 	
 	

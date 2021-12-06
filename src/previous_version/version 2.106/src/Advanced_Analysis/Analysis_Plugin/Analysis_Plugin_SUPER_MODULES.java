@@ -1,5 +1,5 @@
 /**
- * Instantiated to execute plugin without any special processing
+ * Instantiated to execute plugins
  * @author Solomon Sonya
  */
 package Advanced_Analysis.Analysis_Plugin;
@@ -21,9 +21,9 @@ import java.util.TreeMap;
 
 import org.apache.commons.io.LineIterator;
 
-public class Analysis_Plugin_user_assist extends _Analysis_Plugin_Super_Class implements Runnable, ActionListener
+public class Analysis_Plugin_SUPER_MODULES extends _Analysis_Plugin_Super_Class implements Runnable, ActionListener
 {
-	public static final String myClassName = "Analysis_Plugin_user_assist";
+	public static final String myClassName = "Analysis_Plugin_SUPER_MODULES";
 	public static volatile Driver driver = new Driver();
 	
 
@@ -35,15 +35,13 @@ public class Analysis_Plugin_user_assist extends _Analysis_Plugin_Super_Class im
 	
 	public volatile Node_Process process = null;
 	
-	public volatile Node_Registry_Hive registry_hive = null;
-	public volatile Node_Registry_Key registry_path = null;
-	public volatile Node_Generic reg_binary = null;
+	public volatile TreeMap<String, Node_Driver> tree_module_dump_files_to_rename = new TreeMap<String, Node_Driver>();
 	
 	
 
 
 	
-	public Analysis_Plugin_user_assist(File file, Advanced_Analysis_Director par, String PLUGIN_NAME, String PLUGIN_DESCRIPTION, boolean execute_via_thread, JTextArea_Solomon jta_OUTPUT)
+	public Analysis_Plugin_SUPER_MODULES(File file, Advanced_Analysis_Director par, String PLUGIN_NAME, String PLUGIN_DESCRIPTION, boolean execute_via_thread, JTextArea_Solomon jta_OUTPUT)
 	{
 		try
 		{
@@ -95,7 +93,6 @@ public class Analysis_Plugin_user_assist extends _Analysis_Plugin_Super_Class im
 		try
 		{
 
-
 			///////////////////////////////////////////////////////////////////////////////////
 			// IMPORT FILE
 			//////////////////////////////////////////////////////////////////////////////////
@@ -116,7 +113,7 @@ public class Analysis_Plugin_user_assist extends _Analysis_Plugin_Super_Class im
 					if(line_num% Advanced_Analysis_Director.new_line_separator_count == 0)
 						Start.intface.sp("\n");
 
-					this.process_plugin_line(line);
+					this.process_plugin_line_moddump(line);
 				}
 				
 				try	{	br.close();} catch(Exception e){}
@@ -145,9 +142,34 @@ public class Analysis_Plugin_user_assist extends _Analysis_Plugin_Super_Class im
 			status = execute_plugin(plugin_name, plugin_description, null, "");			
 					
 			try	{	Advanced_Analysis_Director.list_plugins_in_execution.remove(this.plugin_name);	} catch(Exception e){}
+										
+			//run modules
+			parent.plugin_modules = new Analysis_Plugin_modules(null, parent, "modules", "Print list of loaded modules", EXECUTE_VIA_THREAD, jta_console_output_execution_status); //run modules and modscan within moddump!
+			
+			//run modscan
+			parent.plugin_modscan = new Analysis_Plugin_modscan(null, parent, "modscan", "Pool scanner for kernel modules", EXECUTE_VIA_THREAD, jta_console_output_execution_status); 
+			
+			//run drivermodule
+			parent.plugin_drivermodule = new Analysis_Plugin_drivermodule(null, parent, "drivermodule", "Associate driver objects to kernel modules", EXECUTE_VIA_THREAD, jta_console_output_execution_status);
+			
+			//run driverscan
+			parent.plugin_driverscan = new Analysis_Plugin_driverscan(null, parent, "driverscan", "Pool scanner for driver objects", EXECUTE_VIA_THREAD, jta_console_output_execution_status);
+						
+			//run driverirp
+			parent.plugin_driverirp = new Analysis_Plugin_driverirp(null, parent, "driverirp", "Driver IRP hook detection", EXECUTE_VIA_THREAD, jta_console_output_execution_status);
+			
+			//run callbacks
+			parent.plugin_callbacks  = new Analysis_Plugin_Callbacks(null, parent, "callbacks", "Print system-wide notification routines", EXECUTE_VIA_THREAD, jta_console_output_execution_status); 
+			
+			//run unloaded modules
+			parent.plugin_unloaded_modules  = new Analysis_Plugin_Unloaded_Modules(null, parent, "unloadedmodules", "Print list of unloaded modules", EXECUTE_VIA_THREAD, jta_console_output_execution_status); 
+			
+			//run timers
+			parent.plugin_timers  = new Analysis_Plugin_Timers(null, parent, "timers", "Print kernel timers and associated module DPCs", EXECUTE_VIA_THREAD, jta_console_output_execution_status); 
 			
 			this.EXECUTION_COMPLETE = true;
 
+			
 			return true;
 		}
 		catch(Exception e)
@@ -197,12 +219,21 @@ public class Analysis_Plugin_user_assist extends _Analysis_Plugin_Super_Class im
 			//
 			//build cmd
 			//
+//			if(cmd == null)
+//			{
+//				cmd = "\"" + fle_volatility.getCanonicalPath().trim() + "\" -f \"" + fle_memory_image.getCanonicalPath().trim() + "\" " + plugin_name + " --profile=" + PROFILE;
+//			}						
+//			
+//			if(cmd.toLowerCase().contains("dump") && (!cmd.toLowerCase().contains("hashdump") || !cmd.toLowerCase().contains("evtlogs") || cmd.toLowerCase().contains("lsadump")))
+//				cmd = cmd + " --dump-dir " + "\"" + fleOutput.getParentFile().getCanonicalPath(); //leave final " off
+
 			if(cmd == null)
 			{
-				cmd = "\"" + fle_volatility.getCanonicalPath().trim() + "\" -f \"" + fle_memory_image.getCanonicalPath().trim() + "\" " + plugin_name + " --profile=" + PROFILE;
+				cmd = "\"" + fle_volatility.getCanonicalPath().trim() + "\" -f \"" + fle_memory_image.getCanonicalPath().trim() + "\" " + plugin_name + " --profile=" + PROFILE + " --dump-dir " + "\"" + fleOutput.getParentFile().getCanonicalPath(); //leave final " off;
 			}						
 			
 			
+
 			//
 			//notify
 			//
@@ -289,18 +320,22 @@ public class Analysis_Plugin_user_assist extends _Analysis_Plugin_Super_Class im
 		        		sp("\n");
 		        	
 
-		        	process_plugin_line(line);
+		        	process_plugin_line_moddump(line);
 		        	
 		        	//log
 		        	pw.println(line);
-		        }		       	       		       		        	                		        		      
+		        }
+		        
+		        //rename files
+		        rename_files(this.tree_module_dump_files_to_rename, fleOutput.getParentFile(), pw);
 		    }
 		    catch(Exception e)
 		    {
 		    	driver.sop("check plugin process execution " + plugin_name + " - " + cmd);
 		    }
 		        
-		      
+		   
+		    
 		   //clean up
 		    try	{ 	brIn.close();       		}	catch(Exception e){}
 		    try	{	process.destroy();			}	catch(Exception e){}
@@ -327,12 +362,103 @@ public class Analysis_Plugin_user_assist extends _Analysis_Plugin_Super_Class im
 		return false;
 	}
 	
+	public boolean rename_files(TreeMap<String, Node_Driver> tree, File directory, PrintWriter pw)
+	{
+		try
+		{
+			if(tree == null || tree.isEmpty())
+				return false;
+			
+			if(directory == null || !directory.exists())
+				return false;
+			
+			if(!directory.isDirectory())
+				directory = directory.getParentFile();
+			
+			LinkedList<File> list = new LinkedList<File>();
+			
+			list = driver.getFileListing(directory, true, null, list);
+			
+			if(list == null || list.isEmpty())
+				return false;
+			
+			String file_name = "", path = "";	
+						
+			//fleNew = new File(path + process.process_name + "_" + PID + "." + extension);
+			
+			pw.println("\n\n#################################################################################################################");
+			pw.println("# File Details");
+			pw.println("#################################################################################################################");
+			//pw.println(FileAttributeData.file_output_header);
+			for(File fle : list)
+			{
+				try
+				{
+					if(fle == null || !fle.exists())
+						continue;
+					
+					file_name = fle.getName();
+					
+					if(!tree.containsKey(file_name))
+						continue;
+					
+					String extension = null;
+					try
+					{
+						String [] array = file_name.split("\\.");					
+						extension = array[array.length -1].trim(); 
+					}catch(Exception e){}
+					
+					
+					path = fle.getParentFile().getCanonicalPath().trim();
+					
+					if(!path.endsWith(File.separator))
+						path = path + File.separator;
+					
+					Node_Driver node = tree.get(file_name);
+					
+					if(node == null || node.module_name == null)
+						continue;
+					
+					File fleNew = new File(path + node.module_name.trim() + "_" + file_name);
+					
+					if(fle.renameTo(fleNew))
+						node.fle = fleNew;					
+					else
+						node.fle = fle;
+					
+					node.fle_attributes = new FileAttributeData(node.fle, null, null);
+					node.fle_attributes.set_hash(false);
+					node.fle_attributes.extension = extension;
+						
+					//pw.println(node.fle_attributes.toString("\t"));
+					try	{	pw.println(node.fle_attributes.toString("", "\t ", false));	} catch(Exception e){}
+				}
+				
+				catch(Exception e)
+				{
+					continue;
+				}
+			}
+				
+			
+			
+			return true;
+		}
+		catch(Exception e)
+		{
+			driver.eop(myClassName, "rename_files", e);
+		}
+		
+		return false;
+	}
+	
 	/**
-	 * process dll list
+	 * process dll list - for moddump
 	 * @param line
 	 * @return
 	 */
-	public boolean process_plugin_line(String line)
+	public boolean process_plugin_line_moddump(String line)
 	{
 		try
 		{			
@@ -371,101 +497,28 @@ public class Analysis_Plugin_user_assist extends _Analysis_Plugin_Super_Class im
 			if(lower.startsWith("------"))
 				return false;
 			
-			if(lower.startsWith("legend:"))
-				return false;
-			
 			//
 			//remove errors
 			//
 			if(lower.startsWith("unable to read "))  //--> e.g., Unable to read PEB for task.
 				return false;
 			
-			if(lower.startsWith("registry:"))
-			{
-				String registry = line.substring(9).trim();
-				this.registry_hive = null;
-				
-				if(parent.tree_REGISTRY_KEY_USER_ASSIST.containsKey(registry))
-					registry_hive = parent.tree_REGISTRY_KEY_USER_ASSIST.get(registry);
-				
-				if(registry_hive == null)
-				{
-					registry_hive = new Node_Registry_Hive(registry);
-					parent.tree_REGISTRY_KEY_USER_ASSIST.put(registry,  registry_hive);
-				}																									
-			}
+			if(!lower.startsWith("0x"))
+				return false;
 			
-			else if(lower.startsWith("path:"))
-			{
-				String path = line.substring(5).trim();
-				registry_path = null;
-				
-				if(this.registry_hive.tree_registry_key.containsKey(path))
-					registry_path = registry_hive.tree_registry_key.get(path);
-				
-				if(registry_path == null)
-				{
-					registry_path = new Node_Registry_Key(registry_hive, path);
-					registry_hive.tree_registry_key.put(path, registry_path);
-				}					
-			}
+			String module_base = lower.substring(0, lower.indexOf(" ")).trim();					
+			String module_name = line.substring(line.indexOf(" ")+1, line.indexOf("  ")).trim();
+			String dump_file_name = line.substring(line.lastIndexOf(" ")).trim();
 			
-			else if(lower.startsWith("last updated:"))
-			{
-				if(registry_hive != null && registry_hive.last_updated == null)
-					registry_hive.last_updated = line.substring(14).trim();
-				
-				if(registry_path != null && registry_path.last_updated == null)
-					registry_path.last_updated = line.substring(14).trim();
-				
-				if(reg_binary != null && reg_binary.last_updated == null)
-					reg_binary.last_updated = line.substring(14).trim();
-			}
+			if(dump_file_name == null || dump_file_name.trim().equals("") || module_name == null || module_name.trim().equals(""))
+				return false;
 			
-			else if(lower.startsWith("reg_binary"))
-			{
-				reg_binary = null;				
-				
-				//REG_BINARY    UEME_CTLSESSION : Raw Data:
-				String reg_binary_value = line.substring(11).trim();
-				
-				//normalize
-				if(reg_binary_value.toLowerCase().trim().endsWith(": raw data:"))
-					reg_binary_value = reg_binary_value.substring(0, reg_binary_value.length()-12).trim();
-				
-				if(reg_binary_value.toLowerCase().trim().endsWith(": raw data"))
-					reg_binary_value = reg_binary_value.substring(0, reg_binary_value.length()-11).trim();
-				
-				if(reg_binary_value.toLowerCase().trim().endsWith(":"))
-					reg_binary_value = reg_binary_value.substring(0, reg_binary_value.length()-2).trim();
-				
-				String reg_binary_value_lower = reg_binary_value.toLowerCase().trim();
-				
-				//get node
-				if(this.registry_path.tree_reg_binary.containsKey(reg_binary_value_lower))
-					reg_binary = registry_path.tree_reg_binary.get(reg_binary_value_lower);
-				
-				if(reg_binary == null)					
-				{
-					reg_binary = new Node_Generic(this.plugin_name);
-					reg_binary.reg_binary = reg_binary_value;
-					this.registry_path.tree_reg_binary.put(reg_binary_value_lower, reg_binary);					
-				}													
-			}
-			
-			else if(lower.startsWith("0x"))
-				reg_binary.raw_data = line;
-			
-			else if(lower.startsWith("id:"))
-				reg_binary.id = line.substring(line.indexOf(":")+1).trim();
-			
-			else if(lower.startsWith("count:"))
-				reg_binary.count = line.substring(line.indexOf(":")+1).trim();
-			
-			
-			
-			return true;
+			Node_Driver node = new Node_Driver(module_base, module_name, dump_file_name);
 		
+			//store
+			tree_module_dump_files_to_rename.put(dump_file_name, node);
+			
+			parent.tree_DRIVERS.put(module_name.toLowerCase().trim(), node);
 		}
 		catch(Exception e)
 		{
@@ -515,9 +568,9 @@ public class Analysis_Plugin_user_assist extends _Analysis_Plugin_Super_Class im
 	
 	
 	
-
-		
 	
+	
+		
 	
 	
 	

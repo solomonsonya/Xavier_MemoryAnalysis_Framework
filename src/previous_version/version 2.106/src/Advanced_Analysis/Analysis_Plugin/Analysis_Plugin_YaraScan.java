@@ -1,4 +1,6 @@
 /**
+ *volatility_2.6_win64_standalone.exe -f .\MemoryDump_Lab1.raw --profile=Win7SP1x64 yarascan -Y "search_string" -C
+ * 
  * Instantiated to execute plugin without any special processing
  * @author Solomon Sonya
  */
@@ -19,12 +21,16 @@ import java.io.PrintWriter;
 import java.util.LinkedList;
 import java.util.TreeMap;
 
+import javax.swing.JCheckBox;
+
 import org.apache.commons.io.LineIterator;
 
-public class Analysis_Plugin_user_assist extends _Analysis_Plugin_Super_Class implements Runnable, ActionListener
+public class Analysis_Plugin_YaraScan extends _Analysis_Plugin_Super_Class implements Runnable, ActionListener
 {
-	public static final String myClassName = "Analysis_Plugin_user_assist";
+	public static final String myClassName = "Analysis_Plugin_YaraScan";
 	public static volatile Driver driver = new Driver();
+	
+	public volatile File_XREF XREF = null;
 	
 
 	
@@ -35,15 +41,15 @@ public class Analysis_Plugin_user_assist extends _Analysis_Plugin_Super_Class im
 	
 	public volatile Node_Process process = null;
 	
-	public volatile Node_Registry_Hive registry_hive = null;
-	public volatile Node_Registry_Key registry_path = null;
-	public volatile Node_Generic reg_binary = null;
+	public volatile String search_string = "";
+	
+	public volatile JTextArea_Solomon jtf = null;
 	
 	
 
 
 	
-	public Analysis_Plugin_user_assist(File file, Advanced_Analysis_Director par, String PLUGIN_NAME, String PLUGIN_DESCRIPTION, boolean execute_via_thread, JTextArea_Solomon jta_OUTPUT)
+	public Analysis_Plugin_YaraScan(File file, Advanced_Analysis_Director par, String PLUGIN_NAME, String PLUGIN_DESCRIPTION, boolean execute_via_thread, JTextArea_Solomon jta_OUTPUT, String search_STRING, JTextArea_Solomon JTF_TO_APPEND, File_XREF xref)
 	{
 		try
 		{
@@ -63,6 +69,9 @@ public class Analysis_Plugin_user_assist extends _Analysis_Plugin_Super_Class im
 			investigator_name = parent.investigator_name;
 			investigation_description = parent.investigation_description;
 			EXECUTE_VIA_THREAD = execute_via_thread;
+			search_string = search_STRING;
+			jtf = JTF_TO_APPEND;
+			XREF = xref;
 			
 			if(execute_via_thread)
 				this.start();
@@ -94,7 +103,6 @@ public class Analysis_Plugin_user_assist extends _Analysis_Plugin_Super_Class im
 	{
 		try
 		{
-
 
 			///////////////////////////////////////////////////////////////////////////////////
 			// IMPORT FILE
@@ -134,7 +142,7 @@ public class Analysis_Plugin_user_assist extends _Analysis_Plugin_Super_Class im
 			// EXECUTE PLUGIN CMD
 			//////////////////////////////////////////////////////////////////////////////////////
 			
-			try	{ parent.tree_advanced_analysis_threads.put(this.plugin_name, this);	} catch(Exception e){}			EXECUTION_STARTED = true;
+			try	{ parent.tree_advanced_analysis_threads.put("yarascan - " + search_string, this);	} catch(Exception e){}			EXECUTION_STARTED = true;
 
 			
 			try	{	Advanced_Analysis_Director.list_plugins_in_execution.add(this.plugin_name);	} catch(Exception e){}
@@ -184,7 +192,7 @@ public class Analysis_Plugin_user_assist extends _Analysis_Plugin_Super_Class im
 			//
 			String time_stamp = driver.get_time_stamp("_");
 
-			fleOutput = new File(path_fle_analysis_directory + plugin_name + File.separator + "_" + plugin_name + "_" + additional_file_name_detail + time_stamp + ".txt");
+			fleOutput = new File(path_fle_analysis_directory + plugin_name + File.separator + "yarascan" + "_" + driver.normalize_file_name(search_string) + "_" + additional_file_name_detail + time_stamp + ".txt");
 			
 			
 			try	
@@ -199,9 +207,15 @@ public class Analysis_Plugin_user_assist extends _Analysis_Plugin_Super_Class im
 			//
 			if(cmd == null)
 			{
-				cmd = "\"" + fle_volatility.getCanonicalPath().trim() + "\" -f \"" + fle_memory_image.getCanonicalPath().trim() + "\" " + plugin_name + " --profile=" + PROFILE;
+				cmd = "\"" + fle_volatility.getCanonicalPath().trim() + "\" -f \"" + fle_memory_image.getCanonicalPath().trim() + "\" " + "yarascan -Y \"" + search_string + "\" -C "+ " --profile=" + PROFILE;
 			}						
 			
+			if((plugin_name.toLowerCase().contains("dump") || plugin_name.toLowerCase().contains("evtlogs")) && !(plugin_name.toLowerCase().contains("hashdump") || plugin_name.toLowerCase().contains("lsadump")))
+			{
+				//return here and specify which plugins require dumpdir from the class instantiation
+				cmd = cmd + " --dump-dir " + "\"" + fleOutput.getParentFile().getCanonicalPath(); //leave final " off
+			}
+			//+ " --dump-dir \"" + fle_dump_directory.getCanonicalPath();
 			
 			//
 			//notify
@@ -249,6 +263,11 @@ public class Analysis_Plugin_user_assist extends _Analysis_Plugin_Super_Class im
 				execution_command = command +  params;
 			}
 			
+//			if(jtf != null)
+//        		jtf.append("\n\n");
+//        	else
+//        		driver.directive("\n\n");
+			
 			//
 			//redirect error stream
 			//
@@ -274,14 +293,19 @@ public class Analysis_Plugin_user_assist extends _Analysis_Plugin_Super_Class im
 			//
 			LineIterator line_iterator = new LineIterator(brIn);
 			String line = "";
+			String lower = "";
+			boolean update_gui = false;
 		    try 
 		    {
 		        while (line_iterator.hasNext()) 
 		        {		        	
 		        	line = line_iterator.nextLine();
 		        	
+		        	
 		        	if(line == null)
 		        		continue;
+		        	
+		        	lower = line.toLowerCase().trim();
 
 		        	sp(".");
 		        	
@@ -289,11 +313,50 @@ public class Analysis_Plugin_user_assist extends _Analysis_Plugin_Super_Class im
 		        		sp("\n");
 		        	
 
-		        	process_plugin_line(line);
+		        	//process_plugin_line(line);
+		        	if(jtf != null)
+		        		jtf.append(line);
+		        	else
+		        		driver.directive(line);
+		        	
+		        	//search for processes --> Owner: Process explorer.exe Pid 604
+		        	if(lower.startsWith("owner:") && lower.contains("pid "))
+		        	{
+		        		try
+		        		{
+		        			String [] arr = line.trim().split(" ");
+		        			
+		        			int PID = Integer.parseInt(arr[arr.length-1].trim());
+		        					        					        			
+		        			String process_line = line.trim();
+		        			
+		        			if(line.startsWith("Owner: Process "))
+		        				process_line = line.substring(15).replaceFirst("Pid", "PID").trim();
+		        					        			
+		        			//create dump process node
+		        			if(XREF != null && XREF.tree_dump_file_entries_FILEDUMP_XREF != null)
+		        			{		        				
+		        				Node_Generic node_mem_dump = new Node_Generic("yarascan");		        				
+		        				node_mem_dump.jcb = new JCheckBox("memdump - " + process_line);
+		        				node_mem_dump.jcb.setToolTipText("memdump - " + process_line);
+		        				node_mem_dump.pid = ""+PID;
+		        				XREF.tree_dump_file_entries_FILEDUMP_XREF.put("memdump - " + process_line.toLowerCase().trim(), node_mem_dump);								
+								update_gui = true;																
+		        			}
+		        		}
+		        		catch(Exception e){}
+		        	}
 		        	
 		        	//log
 		        	pw.println(line);
-		        }		       	       		       		        	                		        		      
+		        			        			        	
+		        }//end while
+		        
+		      //determine if we need to update GUI
+	        	if(update_gui)
+	        	{
+	        		XREF.intrface.populate_dump_files_FILESCAN_XREF(XREF.tree_dump_file_entries_FILEDUMP_XREF);
+	        	}
 		    }
 		    catch(Exception e)
 		    {
@@ -371,98 +434,74 @@ public class Analysis_Plugin_user_assist extends _Analysis_Plugin_Super_Class im
 			if(lower.startsWith("------"))
 				return false;
 			
-			if(lower.startsWith("legend:"))
-				return false;
-			
 			//
 			//remove errors
 			//
 			if(lower.startsWith("unable to read "))  //--> e.g., Unable to read PEB for task.
 				return false;
 			
-			if(lower.startsWith("registry:"))
-			{
-				String registry = line.substring(9).trim();
-				this.registry_hive = null;
-				
-				if(parent.tree_REGISTRY_KEY_USER_ASSIST.containsKey(registry))
-					registry_hive = parent.tree_REGISTRY_KEY_USER_ASSIST.get(registry);
-				
-				if(registry_hive == null)
-				{
-					registry_hive = new Node_Registry_Hive(registry);
-					parent.tree_REGISTRY_KEY_USER_ASSIST.put(registry,  registry_hive);
-				}																									
-			}
+			//sop(line);		
 			
-			else if(lower.startsWith("path:"))
-			{
-				String path = line.substring(5).trim();
-				registry_path = null;
-				
-				if(this.registry_hive.tree_registry_key.containsKey(path))
-					registry_path = registry_hive.tree_registry_key.get(path);
-				
-				if(registry_path == null)
-				{
-					registry_path = new Node_Registry_Key(registry_hive, path);
-					registry_hive.tree_registry_key.put(path, registry_path);
-				}					
-			}
+
+			//Split and search for key:value pair
+		/*	String [] array = line.split(":");
 			
-			else if(lower.startsWith("last updated:"))
-			{
-				if(registry_hive != null && registry_hive.last_updated == null)
-					registry_hive.last_updated = line.substring(14).trim();
-				
-				if(registry_path != null && registry_path.last_updated == null)
-					registry_path.last_updated = line.substring(14).trim();
-				
-				if(reg_binary != null && reg_binary.last_updated == null)
-					reg_binary.last_updated = line.substring(14).trim();
-			}
+			if(array == null || array.length < 2)
+				return false;
 			
-			else if(lower.startsWith("reg_binary"))
-			{
-				reg_binary = null;				
-				
-				//REG_BINARY    UEME_CTLSESSION : Raw Data:
-				String reg_binary_value = line.substring(11).trim();
-				
-				//normalize
-				if(reg_binary_value.toLowerCase().trim().endsWith(": raw data:"))
-					reg_binary_value = reg_binary_value.substring(0, reg_binary_value.length()-12).trim();
-				
-				if(reg_binary_value.toLowerCase().trim().endsWith(": raw data"))
-					reg_binary_value = reg_binary_value.substring(0, reg_binary_value.length()-11).trim();
-				
-				if(reg_binary_value.toLowerCase().trim().endsWith(":"))
-					reg_binary_value = reg_binary_value.substring(0, reg_binary_value.length()-2).trim();
-				
-				String reg_binary_value_lower = reg_binary_value.toLowerCase().trim();
-				
-				//get node
-				if(this.registry_path.tree_reg_binary.containsKey(reg_binary_value_lower))
-					reg_binary = registry_path.tree_reg_binary.get(reg_binary_value_lower);
-				
-				if(reg_binary == null)					
-				{
-					reg_binary = new Node_Generic(this.plugin_name);
-					reg_binary.reg_binary = reg_binary_value;
-					this.registry_path.tree_reg_binary.put(reg_binary_value_lower, reg_binary);					
-				}													
-			}
+			if(array[0] == null || array[1] == null)
+				return false;				
 			
-			else if(lower.startsWith("0x"))
-				reg_binary.raw_data = line;
+			lower = array[0].toLowerCase().trim();
+			String token = array[1].trim();
+						
+			if(lower.equals(""))
+				 = token;
+			else if(lower.equals(""))
+				 = token;
+			else if(lower.equals(""))
+				 = token;
+			else if(lower.equals(""))
+				 = token;
+			else if(lower.equals(""))
+				 = token;
+			else if(lower.equals(""))
+				 = token;
+			else if(lower.equals(""))
+				 = token;
+			else if(lower.equals(""))
+				 = token;
+			else if(lower.equals(""))
+				 = token;
+			else if(lower.equals(""))
+				 = token;
+			else if(lower.equals(""))
+				 = token;*/
 			
-			else if(lower.startsWith("id:"))
-				reg_binary.id = line.substring(line.indexOf(":")+1).trim();
+			////////////////////////////////////////////////////////
+			//////////////////////////////////////////////
+			//////////////////////////////
 			
-			else if(lower.startsWith("count:"))
-				reg_binary.count = line.substring(line.indexOf(":")+1).trim();
-			
-			
+			/*if(lower == null)
+				 = token;
+			else if( == null)
+				 = token;
+			else if( == null)
+				 = token;
+			else if( == null)
+				 = token;
+			else if( == null)
+				 = token;
+			else if( == null)
+				 = token;
+			else if( == null)
+				 = token;
+			else if( == null)
+				 = token;
+			else if( == null)
+				 = token;
+			else if( == null)
+				 = token;	*/	
 			
 			return true;
 		
@@ -515,7 +554,10 @@ public class Analysis_Plugin_user_assist extends _Analysis_Plugin_Super_Class im
 	
 	
 	
-
+	
+	
+	
+	
 		
 	
 	

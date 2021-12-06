@@ -21,9 +21,9 @@ import java.util.TreeMap;
 
 import org.apache.commons.io.LineIterator;
 
-public class Analysis_Plugin_user_assist extends _Analysis_Plugin_Super_Class implements Runnable, ActionListener
+public class Analysis_Plugin_svcscan extends _Analysis_Plugin_Super_Class implements Runnable, ActionListener
 {
-	public static final String myClassName = "Analysis_Plugin_user_assist";
+	public static final String myClassName = "Analysis_Plugin_svcscan";
 	public static volatile Driver driver = new Driver();
 	
 
@@ -35,15 +35,25 @@ public class Analysis_Plugin_user_assist extends _Analysis_Plugin_Super_Class im
 	
 	public volatile Node_Process process = null;
 	
-	public volatile Node_Registry_Hive registry_hive = null;
-	public volatile Node_Registry_Key registry_path = null;
-	public volatile Node_Generic reg_binary = null;
+	String offset = null;
+	String order = null;
+	String start = null;
+	String pid = null;
+	int PID = -1;
+	String service_name = null;
+	String service_name_lower = null;
+	String display_name = null;
+	String service_type = null;
+	String service_state = null;
+	String binary_path = null;
+	
+	Node_svcscan service = null;
 	
 	
 
 
 	
-	public Analysis_Plugin_user_assist(File file, Advanced_Analysis_Director par, String PLUGIN_NAME, String PLUGIN_DESCRIPTION, boolean execute_via_thread, JTextArea_Solomon jta_OUTPUT)
+	public Analysis_Plugin_svcscan(File file, Advanced_Analysis_Director par, String PLUGIN_NAME, String PLUGIN_DESCRIPTION, boolean execute_via_thread, JTextArea_Solomon jta_OUTPUT)
 	{
 		try
 		{
@@ -95,7 +105,6 @@ public class Analysis_Plugin_user_assist extends _Analysis_Plugin_Super_Class im
 		try
 		{
 
-
 			///////////////////////////////////////////////////////////////////////////////////
 			// IMPORT FILE
 			//////////////////////////////////////////////////////////////////////////////////
@@ -134,9 +143,8 @@ public class Analysis_Plugin_user_assist extends _Analysis_Plugin_Super_Class im
 			// EXECUTE PLUGIN CMD
 			//////////////////////////////////////////////////////////////////////////////////////
 			
-			try	{ parent.tree_advanced_analysis_threads.put(this.plugin_name, this);	} catch(Exception e){}			EXECUTION_STARTED = true;
+			try	{ parent.tree_advanced_analysis_threads.put(this.plugin_name, this);	} catch(Exception e){driver.directive("check svc");}			EXECUTION_STARTED = true;
 
-			
 			try	{	Advanced_Analysis_Director.list_plugins_in_execution.add(this.plugin_name);	} catch(Exception e){}
 
 			
@@ -336,12 +344,6 @@ public class Analysis_Plugin_user_assist extends _Analysis_Plugin_Super_Class im
 	{
 		try
 		{			
-			///////////////////////////////////////////////////////////////
-			//
-			// Solo, be sure to enable process_plugin_line!
-			//
-			/////////////////////////////////////////////////////////////
-			
 			if(line == null)
 				return false;
 			
@@ -371,97 +373,138 @@ public class Analysis_Plugin_user_assist extends _Analysis_Plugin_Super_Class im
 			if(lower.startsWith("------"))
 				return false;
 			
-			if(lower.startsWith("legend:"))
-				return false;
-			
 			//
 			//remove errors
 			//
 			if(lower.startsWith("unable to read "))  //--> e.g., Unable to read PEB for task.
 				return false;
 			
-			if(lower.startsWith("registry:"))
+			//Split and search for key:value pair
+			String [] array = line.split(":");
+			
+			if(array == null || array.length < 2)
+				return false;
+			
+			if(array[0] == null || array[1] == null)
+				return false;				
+			
+			lower = array[0].toLowerCase().trim();
+			String token = array[1].trim();
+						
+			
+			
+			if(lower.equals("offset"))
 			{
-				String registry = line.substring(9).trim();
-				this.registry_hive = null;
-				
-				if(parent.tree_REGISTRY_KEY_USER_ASSIST.containsKey(registry))
-					registry_hive = parent.tree_REGISTRY_KEY_USER_ASSIST.get(registry);
-				
-				if(registry_hive == null)
+				//store prev
+				if(service != null)
 				{
-					registry_hive = new Node_Registry_Hive(registry);
-					parent.tree_REGISTRY_KEY_USER_ASSIST.put(registry,  registry_hive);
-				}																									
+					//otw, populate
+					service.offset = offset;
+					service.order = order;
+					service.start = start;
+					service.pid = pid;
+					service.PID = PID;
+					service.process = process;
+					service.display_name = display_name;
+					service.service_type = service_type;
+					service.service_state = service_state;
+					service.binary_path = binary_path;
+					
+					
+					//link to director
+					parent.tree_SERVICES_SVCSCAN.put(service_name_lower, service);
+					
+					parent.tree_SERVICES_START_TYPE_only.put(start, null);
+					
+					//link to process if applicable
+					if(process != null)
+					{												
+						if(process.tree_services_svcscan == null)
+							process.tree_services_svcscan = new TreeMap<String, Node_svcscan>(); 
+							
+						process.tree_services_svcscan.put(service_name_lower, service);
+					}
+				}							
+				
+				
+				
+				//reinit
+				offset = null;
+				order = null;
+				start = null;
+				pid = null;
+				service_name = null;
+				service_name_lower = null;
+				display_name = null;
+				service_type = null;
+				service_state = null;
+				binary_path = null;
+				process = null;				
+				service = null;
+				
+				//set
+				offset = token;
 			}
-			
-			else if(lower.startsWith("path:"))
+			else if(lower.equals("order"))
+				order = token;
+			else if(lower.equals("start"))
+				start = token;
+			else if(lower.equals("process id") || lower.equals("pid"))
 			{
-				String path = line.substring(5).trim();
-				registry_path = null;
+				pid = token;
 				
-				if(this.registry_hive.tree_registry_key.containsKey(path))
-					registry_path = registry_hive.tree_registry_key.get(path);
-				
-				if(registry_path == null)
-				{
-					registry_path = new Node_Registry_Key(registry_hive, path);
-					registry_hive.tree_registry_key.put(path, registry_path);
-				}					
+				try				
+				{		
+					process = parent.tree_PROCESS.get(Integer.parseInt(pid.trim()));		
+					PID = process.PID;					
+					
+				}				catch(Exception e){}				
 			}
-			
-			else if(lower.startsWith("last updated:"))
+			else if(lower.equals("service name"))
 			{
-				if(registry_hive != null && registry_hive.last_updated == null)
-					registry_hive.last_updated = line.substring(14).trim();
+				service_name = token;
+				service_name_lower = token.toLowerCase().trim();
 				
-				if(registry_path != null && registry_path.last_updated == null)
-					registry_path.last_updated = line.substring(14).trim();
-				
-				if(reg_binary != null && reg_binary.last_updated == null)
-					reg_binary.last_updated = line.substring(14).trim();
+				service = new Node_svcscan(service_name);
 			}
-			
-			else if(lower.startsWith("reg_binary"))
+			else if(lower.equals("display name"))
+				 display_name = token;
+			else if(lower.equals("service type"))
+				 service_type = token;
+			else if(lower.equals("service state"))
+				 service_state = token;
+			else if(lower.equals("binary path"))
 			{
-				reg_binary = null;				
-				
-				//REG_BINARY    UEME_CTLSESSION : Raw Data:
-				String reg_binary_value = line.substring(11).trim();
-				
-				//normalize
-				if(reg_binary_value.toLowerCase().trim().endsWith(": raw data:"))
-					reg_binary_value = reg_binary_value.substring(0, reg_binary_value.length()-12).trim();
-				
-				if(reg_binary_value.toLowerCase().trim().endsWith(": raw data"))
-					reg_binary_value = reg_binary_value.substring(0, reg_binary_value.length()-11).trim();
-				
-				if(reg_binary_value.toLowerCase().trim().endsWith(":"))
-					reg_binary_value = reg_binary_value.substring(0, reg_binary_value.length()-2).trim();
-				
-				String reg_binary_value_lower = reg_binary_value.toLowerCase().trim();
-				
-				//get node
-				if(this.registry_path.tree_reg_binary.containsKey(reg_binary_value_lower))
-					reg_binary = registry_path.tree_reg_binary.get(reg_binary_value_lower);
-				
-				if(reg_binary == null)					
-				{
-					reg_binary = new Node_Generic(this.plugin_name);
-					reg_binary.reg_binary = reg_binary_value;
-					this.registry_path.tree_reg_binary.put(reg_binary_value_lower, reg_binary);					
-				}													
+				binary_path = line.substring(line.indexOf(":")+1);
 			}
 			
-			else if(lower.startsWith("0x"))
-				reg_binary.raw_data = line;
 			
-			else if(lower.startsWith("id:"))
-				reg_binary.id = line.substring(line.indexOf(":")+1).trim();
 			
-			else if(lower.startsWith("count:"))
-				reg_binary.count = line.substring(line.indexOf(":")+1).trim();
 			
+			////////////////////////////////////////////////////////
+			//////////////////////////////////////////////
+			//////////////////////////////
+			
+			/*if(lower == null)
+				 = token;
+			else if( == null)
+				 = token;
+			else if( == null)
+				 = token;
+			else if( == null)
+				 = token;
+			else if( == null)
+				 = token;
+			else if( == null)
+				 = token;
+			else if( == null)
+				 = token;
+			else if( == null)
+				 = token;
+			else if( == null)
+				 = token;
+			else if( == null)
+				 = token;	*/	
 			
 			
 			return true;
@@ -516,8 +559,10 @@ public class Analysis_Plugin_user_assist extends _Analysis_Plugin_Super_Class im
 	
 	
 
-		
 	
+	
+	
+		
 	
 	
 	

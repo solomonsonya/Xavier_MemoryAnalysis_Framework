@@ -1,5 +1,5 @@
 /**
- * Instantiated to execute plugin without any special processing
+ * Instantiated to iterate through indicated registry startup locations
  * @author Solomon Sonya
  */
 package Advanced_Analysis.Analysis_Plugin;
@@ -16,34 +16,65 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
+import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.TreeMap;
 
 import org.apache.commons.io.LineIterator;
 
-public class Analysis_Plugin_user_assist extends _Analysis_Plugin_Super_Class implements Runnable, ActionListener
+
+
+public class Analysis_Plugin_Registry_Startup_Apps extends _Analysis_Plugin_Super_Class implements Runnable, ActionListener
 {
-	public static final String myClassName = "Analysis_Plugin_user_assist";
+	public static final String myClassName = "Analysis_Plugin_Registry_Startup_Apps";
 	public static volatile Driver driver = new Driver();
 	
-
+	
 	
 	public volatile Advanced_Analysis_Director parent = null;
 	
+	
+	public volatile Node_Registry_Hive registry_hive = null;
+	public volatile Node_Registry_Key registry_key_name = null;
+	public volatile LinkedList<String> list_to_store = null;
+	
+	
+	public static volatile String [] array_registry_startup_locations = new String []
+	{
+			"Microsoft\\Windows\\CurrentVersion\\Run", 
+			"Microsoft\\Windows\\CurrentVersion\\RunOnce", 
+			"Microsoft\\Windows\\CurrentVersion\\RunServices", 
+			"Microsoft\\Windows\\CurrentVersion\\RunServicesOnce", 
+			"Microsoft\\Windows NT\\CurrentVersion\\Winlogon\\Userinit", 
+			"Microsoft\\Windows\\CurrentVersion\\Policies\\Explorer\\Run",
+
+			"Microsoft\\Windows\\CurrentVersion\\Run", 
+			"Microsoft\\Windows\\CurrentVersion\\RunOnce", 
+			"Microsoft\\Windows\\CurrentVersion\\RunServices", 
+			"Microsoft\\Windows\\CurrentVersion\\RunServicesOnce", 
+			"Microsoft\\Windows NT\\CurrentVersion\\Windows",
+			"Microsoft\\Windows\\CurrentVersion\\Policies\\Explorer\\Run",
+			
+			//user logons
+			"Microsoft\\Windows NT\\CurrentVersion\\Windows",
+			"Microsoft\\Windows NT\\CurrentVersion\\Windows\\Run",
+			
+			"ControlSet001\\services",
+			"Microsoft\\Security Center\\Svc",
+			
+	};
+	
+	//public static volatile LinkedList<String> list_registry_startup_locations = new LinkedList<String>(Arrays.asList(array_registry_startup_locations));
 
 	public volatile String lower = "";
 	
 	public volatile Node_Process process = null;
 	
-	public volatile Node_Registry_Hive registry_hive = null;
-	public volatile Node_Registry_Key registry_path = null;
-	public volatile Node_Generic reg_binary = null;
-	
 	
 
 
 	
-	public Analysis_Plugin_user_assist(File file, Advanced_Analysis_Director par, String PLUGIN_NAME, String PLUGIN_DESCRIPTION, boolean execute_via_thread, JTextArea_Solomon jta_OUTPUT)
+	public Analysis_Plugin_Registry_Startup_Apps(File file, Advanced_Analysis_Director par, String PLUGIN_NAME, String PLUGIN_DESCRIPTION, boolean execute_via_thread, JTextArea_Solomon jta_OUTPUT)
 	{
 		try
 		{
@@ -95,7 +126,6 @@ public class Analysis_Plugin_user_assist extends _Analysis_Plugin_Super_Class im
 		try
 		{
 
-
 			///////////////////////////////////////////////////////////////////////////////////
 			// IMPORT FILE
 			//////////////////////////////////////////////////////////////////////////////////
@@ -142,7 +172,12 @@ public class Analysis_Plugin_user_assist extends _Analysis_Plugin_Super_Class im
 			
 			boolean status = false;
 			
-			status = execute_plugin(plugin_name, plugin_description, null, "");			
+			for(String registry : array_registry_startup_locations)
+			{
+				status = execute_plugin(plugin_name, plugin_description, null, "", registry);	
+			}
+			
+						
 					
 			try	{	Advanced_Analysis_Director.list_plugins_in_execution.remove(this.plugin_name);	} catch(Exception e){}
 			
@@ -163,7 +198,7 @@ public class Analysis_Plugin_user_assist extends _Analysis_Plugin_Super_Class im
 	}
 	
 	
-	public boolean execute_plugin(String plugin_name, String plugin_description, String cmd, String additional_file_name_detail)
+	public boolean execute_plugin(String plugin_name, String plugin_description, String cmd, String additional_file_name_detail, String registry_name)
 	{
 		try
 		{							
@@ -184,7 +219,7 @@ public class Analysis_Plugin_user_assist extends _Analysis_Plugin_Super_Class im
 			//
 			String time_stamp = driver.get_time_stamp("_");
 
-			fleOutput = new File(path_fle_analysis_directory + plugin_name + File.separator + "_" + plugin_name + "_" + additional_file_name_detail + time_stamp + ".txt");
+			fleOutput = new File(path_fle_analysis_directory + plugin_name + File.separator + "_" + plugin_name + "_" + registry_name + "_" + time_stamp + ".txt");
 			
 			
 			try	
@@ -199,17 +234,17 @@ public class Analysis_Plugin_user_assist extends _Analysis_Plugin_Super_Class im
 			//
 			if(cmd == null)
 			{
-				cmd = "\"" + fle_volatility.getCanonicalPath().trim() + "\" -f \"" + fle_memory_image.getCanonicalPath().trim() + "\" " + plugin_name + " --profile=" + PROFILE;
+				cmd = "\"" + fle_volatility.getCanonicalPath().trim() + "\" -f \"" + fle_memory_image.getCanonicalPath().trim() + "\" " + " --profile=" + PROFILE + " printkey -K \"" + registry_name;
 			}						
-			
+						
 			
 			//
 			//notify
 			//
 			if(parent.DEBUG)
-				sop("\n* * * Processing plugin: [" + plugin_name + "]\n");
+				sop("\n* * * Processing plugin: [" + plugin_name + " - " + registry_name + "]\n");
 			else
-				sp("\nprocessing plugin: [" + plugin_name + "]...");
+				sp("\nprocessing plugin: [" + plugin_name + " - " + registry_name + "]...");
 								
 			
 			//split the command now into command and params
@@ -274,6 +309,7 @@ public class Analysis_Plugin_user_assist extends _Analysis_Plugin_Super_Class im
 			//
 			LineIterator line_iterator = new LineIterator(brIn);
 			String line = "";
+			
 		    try 
 		    {
 		        while (line_iterator.hasNext()) 
@@ -315,7 +351,7 @@ public class Analysis_Plugin_user_assist extends _Analysis_Plugin_Super_Class im
 			//NOTIFY
 			//
 			//sop("\n\nExecution complete. If successful, output file has been written to --> " + fleOutput + "\n");
-			sop("\n" + this.plugin_name + " execution complete.");		
+			sop("\n" + this.plugin_name + " - " + registry_name + " execution complete.");		
 											
 			return true;
 		}
@@ -328,7 +364,7 @@ public class Analysis_Plugin_user_assist extends _Analysis_Plugin_Super_Class im
 	}
 	
 	/**
-	 * process dll list
+	 * process list
 	 * @param line
 	 * @return
 	 */
@@ -351,7 +387,7 @@ public class Analysis_Plugin_user_assist extends _Analysis_Plugin_Super_Class im
 			
 			line = line.replace("	", " ").replace("\t", " ").replace("\\??\\", "").trim();
 			
-			if(parent.system_drive != null)
+			if(parent.system_root != null)
 				line = line.replace("\\Device\\HarddiskVolume1", parent.system_root).replace("\\SystemRoot", parent.system_root);
 			
 			if(line.equals(""))
@@ -374,6 +410,9 @@ public class Analysis_Plugin_user_assist extends _Analysis_Plugin_Super_Class im
 			if(lower.startsWith("legend:"))
 				return false;
 			
+			if(lower.startsWith("the requested key could not"))
+				return false;
+			
 			//
 			//remove errors
 			//
@@ -385,82 +424,79 @@ public class Analysis_Plugin_user_assist extends _Analysis_Plugin_Super_Class im
 				String registry = line.substring(9).trim();
 				this.registry_hive = null;
 				
-				if(parent.tree_REGISTRY_KEY_USER_ASSIST.containsKey(registry))
-					registry_hive = parent.tree_REGISTRY_KEY_USER_ASSIST.get(registry);
+				list_to_store = null;
+				
+				if(parent.tree_REGISTRY_KEY_PRINTKEY.containsKey(registry))
+					registry_hive = parent.tree_REGISTRY_KEY_PRINTKEY.get(registry);
 				
 				if(registry_hive == null)
 				{
 					registry_hive = new Node_Registry_Hive(registry);
-					parent.tree_REGISTRY_KEY_USER_ASSIST.put(registry,  registry_hive);
+					parent.tree_REGISTRY_KEY_PRINTKEY.put(registry,  registry_hive);
 				}																									
-			}
-			
-			else if(lower.startsWith("path:"))
-			{
-				String path = line.substring(5).trim();
-				registry_path = null;
-				
-				if(this.registry_hive.tree_registry_key.containsKey(path))
-					registry_path = registry_hive.tree_registry_key.get(path);
-				
-				if(registry_path == null)
-				{
-					registry_path = new Node_Registry_Key(registry_hive, path);
-					registry_hive.tree_registry_key.put(path, registry_path);
-				}					
 			}
 			
 			else if(lower.startsWith("last updated:"))
 			{
-				if(registry_hive != null && registry_hive.last_updated == null)
-					registry_hive.last_updated = line.substring(14).trim();
+				registry_hive.last_updated = line.substring(line.indexOf(":")+1).trim();
 				
-				if(registry_path != null && registry_path.last_updated == null)
-					registry_path.last_updated = line.substring(14).trim();
-				
-				if(reg_binary != null && reg_binary.last_updated == null)
-					reg_binary.last_updated = line.substring(14).trim();
+				if(this.registry_key_name != null)
+					registry_key_name.last_updated = line.substring(line.indexOf(":")+1).trim();
+					
 			}
 			
-			else if(lower.startsWith("reg_binary"))
+			else if(lower.startsWith("key name:"))
 			{
-				reg_binary = null;				
+				String key_name = line.substring(9).trim();
+				registry_key_name = null;
 				
-				//REG_BINARY    UEME_CTLSESSION : Raw Data:
-				String reg_binary_value = line.substring(11).trim();
+				if(this.registry_hive.tree_registry_key.containsKey(key_name))
+					registry_key_name = registry_hive.tree_registry_key.get(key_name);
 				
-				//normalize
-				if(reg_binary_value.toLowerCase().trim().endsWith(": raw data:"))
-					reg_binary_value = reg_binary_value.substring(0, reg_binary_value.length()-12).trim();
-				
-				if(reg_binary_value.toLowerCase().trim().endsWith(": raw data"))
-					reg_binary_value = reg_binary_value.substring(0, reg_binary_value.length()-11).trim();
-				
-				if(reg_binary_value.toLowerCase().trim().endsWith(":"))
-					reg_binary_value = reg_binary_value.substring(0, reg_binary_value.length()-2).trim();
-				
-				String reg_binary_value_lower = reg_binary_value.toLowerCase().trim();
-				
-				//get node
-				if(this.registry_path.tree_reg_binary.containsKey(reg_binary_value_lower))
-					reg_binary = registry_path.tree_reg_binary.get(reg_binary_value_lower);
-				
-				if(reg_binary == null)					
+				if(registry_key_name == null)
 				{
-					reg_binary = new Node_Generic(this.plugin_name);
-					reg_binary.reg_binary = reg_binary_value;
-					this.registry_path.tree_reg_binary.put(reg_binary_value_lower, reg_binary);					
-				}													
+					registry_key_name = new Node_Registry_Key(registry_hive, null);
+					registry_key_name.key_name = key_name;
+					registry_hive.tree_registry_key.put(key_name, registry_key_name);
+				}					
 			}
 			
-			else if(lower.startsWith("0x"))
-				reg_binary.raw_data = line;
+			else if(lower.startsWith("subkeys:"))
+			{
+				if(registry_key_name.list_sub_key_names == null)
+					registry_key_name.list_sub_key_names = new LinkedList<String>();
+											
+				list_to_store = registry_key_name.list_sub_key_names;
+			}
 			
-			else if(lower.startsWith("id:"))
-				reg_binary.id = line.substring(line.indexOf(":")+1).trim();
+			else if(lower.startsWith("values:"))
+			{
+				if(registry_key_name.list_values == null)
+					registry_key_name.list_values = new LinkedList<String>();
+								
+				list_to_store = registry_key_name.list_values;
+			}
 			
-			else if(lower.startsWith("count:"))
-				reg_binary.count = line.substring(line.indexOf(":")+1).trim();
+			else if(lower.startsWith("("))
+			{
+				if(registry_key_name.list_sub_key_names == null)
+					registry_key_name.list_sub_key_names = new LinkedList<String>();
+				
+				line = line.replace("\"", "").trim();
+				
+				if(!registry_key_name.list_sub_key_names.contains(line))
+					registry_key_name.list_sub_key_names.add(line);
+				
+				list_to_store = registry_key_name.list_sub_key_names;
+			}
+			
+			else if(list_to_store != null)
+			{
+				line = line.replace("\"", "").trim();
+				
+				if(!list_to_store.contains(line))				
+					list_to_store.add(line);
+			}
 			
 			
 			
@@ -515,8 +551,11 @@ public class Analysis_Plugin_user_assist extends _Analysis_Plugin_Super_Class im
 	
 	
 	
-
+	
+	
 		
+	
+
 	
 	
 	
