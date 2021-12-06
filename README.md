@@ -35,7 +35,9 @@ Volatility, Mandiant's Redline, Rekall, Autopsy, FTK Imager, OSForensics
 
 ## **Memory Image CTFs to Analyze:**
 
-Below are links to memory images/challenges/writeups I liked and would like to reference for you to use and enhance your knowledge. NOTE: These resources are maintained by others, thus, I would expect some links will die over time, if so, please contact me to update.
+Below are links to memory images/challenges/writeups I liked and would like to reference for you to use and enhance your knowledge. 
+
+> **Note**: These resources are maintained by others, thus, I would expect some links will die over time, if so, please contact me to update.
 + AceBear CTF 19: https://ret2.life/posts/AceBear-CTF-19/
 + AllesCTF19: https://ctftime.org/writeup/16248
 + CyberDefenders.org (Awesome site for forensics challenges and writeups!)
