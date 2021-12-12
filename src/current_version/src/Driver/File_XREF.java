@@ -214,7 +214,7 @@ public class File_XREF extends Thread implements Runnable
 					
 					if(use_updated_import_routine)
 					{
-						intrface.import_advanced_analysis_directory(this);
+						intrface.import_advanced_analysis_directory(this, false);
 						return true;
 					}
 					else //do not configure and rebuild trees, only search given directory of output files

@@ -65,7 +65,26 @@ public class Node_Handle
 	}
 	
 	
-	
+	public String get_manifest_file_entry(String delimiter)
+	{
+		try
+		{
+			delimiter = delimiter + " ";
+			
+			return "offset: " 	+ delimiter + offset.replace(delimiter, " ") + delimiter + 
+					"PID: " 	+ delimiter + PID + delimiter + 
+					"handle_value: "	+ delimiter + handle_value.replace(delimiter, " ") + delimiter +
+					"access_value: " 	+ delimiter + this.access_value.replace(delimiter, " ") + delimiter +
+					"type: " 	+ delimiter + type.replace(delimiter, " ") + delimiter +
+					"details: "	+ delimiter + details.replace(delimiter, " ") + delimiter;								
+		}
+		catch(Exception e)
+		{
+			driver.eop(myClassName, "get_manifest_file_entry", e);
+		}
+		
+		return toString();
+	}
 	
 	
 	/**

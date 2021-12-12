@@ -1039,7 +1039,79 @@ public class Node_DLL
 		return false;
 	}
 	
-	
+	/**
+	 * basic attributes, does not include info from trees or discuss node_process linkages
+	 * @param pw
+	 * @return
+	 */
+	public boolean write_manifest_basic(String header, PrintWriter pw)
+	{
+		try
+		{
+			//leave off fle, fle_attributes, file_dump_name - include this in the full details manifest export
+			
+			//
+			//DLLLIST
+			//
+			driver.write_manifest_entry(pw, header + "\t " + "base", base);
+			driver.write_manifest_entry(pw, header + "\t " + "size", size);
+			driver.write_manifest_entry(pw, header + "\t " + "load_count", load_count);
+			driver.write_manifest_entry(pw, header + "\t " + "path", path);
+			driver.write_manifest_entry(pw, header + "\t " + "found_in_dlllist", found_in_dlllist);
+			driver.write_manifest_entry(pw, header + "\t " + "found_in_ldrmodule", found_in_ldrmodule);
+			
+
+			//
+			//LDRMODULES
+			//
+			driver.write_manifest_entry(pw, header + "\t " + "in_load", in_load);
+			driver.write_manifest_entry(pw, header + "\t " + "in_init", in_init);
+			driver.write_manifest_entry(pw, header + "\t " + "in_mem", in_mem);
+			
+			//
+			//VERINFO
+			//
+			driver.write_manifest_entry(pw, header + "\t " + "found_in_verinfo_plugin", ""+found_in_verinfo_plugin);
+			driver.write_manifest_entry(pw, header + "\t " + "file_version", file_version);
+			driver.write_manifest_entry(pw, header + "\t " + "product_name", product_name);
+			driver.write_manifest_entry(pw, header + "\t " + "comments", comments);
+			driver.write_manifest_entry(pw, header + "\t " + "company_name", company_name);
+			driver.write_manifest_entry(pw, header + "\t " + "flags", flags);
+			driver.write_manifest_entry(pw, header + "\t " + "internal_name", internal_name);
+			driver.write_manifest_entry(pw, header + "\t " + "legal_trademarks", legal_trademarks);
+			driver.write_manifest_entry(pw, header + "\t " + "ole_self_register", ole_self_register);
+			driver.write_manifest_entry(pw, header + "\t " + "os", os);
+			driver.write_manifest_entry(pw, header + "\t " + "original_file_name", original_file_name);
+			driver.write_manifest_entry(pw, header + "\t " + "copyright_legal_copyright", copyright_legal_copyright);
+			driver.write_manifest_entry(pw, header + "\t " + "file_description", file_description);
+			driver.write_manifest_entry(pw, header + "\t " + "file_type", file_type);
+			driver.write_manifest_entry(pw, header + "\t " + "product_version", product_version);
+			driver.write_manifest_entry(pw, header + "\t " + "file_size", file_size);
+			driver.write_manifest_entry(pw, header + "\t " + "date_modified", date_modified);
+			driver.write_manifest_entry(pw, header + "\t " + "language", language);
+
+
+
+
+
+
+
+
+
+
+
+
+			
+			
+			return true;
+		}
+		catch(Exception e)
+		{
+			driver.eop(myClassName, "write_manifest_basic", e);
+		}
+		
+		return false;
+	}
 	
 	
 	

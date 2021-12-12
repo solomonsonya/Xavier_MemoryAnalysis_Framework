@@ -94,6 +94,8 @@ public class Interface extends Thread implements Runnable, ActionListener
 			
 	public static volatile JMenu jmnuAdvancedAnalysis = null;
 	public static volatile JMenu jmnuAnalysisReport = null;
+	public static volatile JMenu jmnuSystemManifest = null;
+		public static volatile JMenuItem jmnuitm_ExportSystemManifest = null;
 	public static volatile JMenu jmnuAnalysisReportProcessTree = null;
 	public static volatile JMenu jmnuAnalysisReportProcessInformationTree = null;
 		public static volatile JMenuItem jmnuitm_Set_Node_Length_PROCESS_TREE = null;
@@ -447,12 +449,16 @@ public class Interface extends Thread implements Runnable, ActionListener
 			jmnuAdvancedAnalysis = new JMenu("Advanced Analysis");
 				jmnuAdvancedAnalysis.setMnemonic(KeyEvent.VK_A);	
 				jmnuAnalysisReport = new JMenu("Analysis Report");
+				jmnuSystemManifest = new JMenu("System Manifest");
+					jmnuitm_ExportSystemManifest = new JMenuItem("Export System Manifest");	jmnuSystemManifest.add(jmnuitm_ExportSystemManifest);	jmnuitm_ExportSystemManifest.addActionListener(this);  jmnuitm_ExportSystemManifest.setEnabled(false);
+				
 				jmnuAnalysisReportProcessTree = new JMenu("Process Tree");
 				jmnuAnalysisReportProcessInformationTree = new JMenu("Process Information Tree");
 				
 				menu_bar.add(jmnuAdvancedAnalysis);
 				menu_bar.add(jmnuDataXREF);
 				jmnuAdvancedAnalysis.add(jmnuAnalysisReport);
+				jmnuAdvancedAnalysis.add(jmnuSystemManifest);
 				jmnuAnalysisReport.add(jmnuAnalysisReportProcessTree);
 				jmnuAnalysisReport.add(jmnuAnalysisReportProcessInformationTree);
 				
@@ -1594,6 +1600,7 @@ public class Interface extends Thread implements Runnable, ActionListener
 			jbtnInitiateAdvancedAnalysis_AdvancedAnalysis.setEnabled(true);
 			this.jtfFile_XREF_SearchString.setEditable(true);
 			jmnuitm_Import_Directory.setEnabled(true);
+			this.jmnuitm_ExportSystemManifest.setEnabled(true);
 			
 			if(AUTO_START_ADVANCED_ANALYSIS)
 			{
@@ -2166,7 +2173,7 @@ public class Interface extends Thread implements Runnable, ActionListener
 		return false;
 	}
 	
-	public boolean import_advanced_analysis_directory(File_XREF xref)
+	public boolean import_advanced_analysis_directory(File_XREF xref, boolean execute_manifest_export)
 	{
 		try
 		{
@@ -2202,6 +2209,7 @@ public class Interface extends Thread implements Runnable, ActionListener
 			if(list != null && list.size() > 0)
 			{
 				advanced_analysis_director = new Advanced_Analysis_Director(list, import_directory, fle_volatility, fle_memory_image, PROFILE, path_fle_analysis_directory, file_attr_volatility, file_attr_memory_image, investigator_name, investigation_description, true, xref);
+				advanced_analysis_director.EXECUTE_EXPORT_MANIFEST = execute_manifest_export;
 			}
 			
 			return true;			
@@ -2290,6 +2298,43 @@ public class Interface extends Thread implements Runnable, ActionListener
 		return false;
 	}
 	
+	public boolean export_system_manifest()
+	{
+		try
+		{
+			if(advanced_analysis_director == null || advanced_analysis_director.tree_PROCESS == null || advanced_analysis_director.tree_PROCESS.isEmpty())
+			{								
+				Object [] buttons = new Object[] {"Initiate Advanced Analysis", "Import Advanced Analysis Directory", "Canel"};
+				int selection = driver.jop_custom_buttons("It looks like you have not executed Advanced Analysis or imported results from a previous analysis directory. \n\nPlease choose how to proceed:\n", "Advanced Analysis Required Before Continuing...", buttons);
+			
+				if(selection == 0)
+				{
+					try	{	jtabbedPane_MAIN.setSelectedIndex(1);	}	catch(Exception e){}
+					advanced_analysis_director = new Advanced_Analysis_Director(fle_volatility, fle_memory_image, PROFILE, path_fle_analysis_directory, file_attr_volatility, file_attr_memory_image, investigator_name, investigation_description, true);
+					advanced_analysis_director.EXECUTE_EXPORT_MANIFEST = true;
+					return true;
+				}
+				
+				else if(selection == 1)
+				{
+					return import_advanced_analysis_directory(null, true);
+				}
+			}
+			
+			//otw, import/load was successful, export manifest file
+			advanced_analysis_director.export_system_manifest();
+			
+			return true;
+		}
+		
+		catch(Exception e)
+		{
+			driver.eop(myClassName, "export_system_manifest", e);
+		}
+		
+		return false;
+	}
+	
 	public void actionPerformed(ActionEvent ae)
 	{
 		try
@@ -2297,6 +2342,11 @@ public class Interface extends Thread implements Runnable, ActionListener
 			if(ae.getSource() == jmnuitm_Close)
 			{
 				close();
+			}
+			
+			else if(ae.getSource() == jmnuitm_ExportSystemManifest)
+			{
+				export_system_manifest();
 			}
 			
 			else if(ae.getSource() == this.jmnuitm_DataXREF_Specify_YARA_Signature_File)
@@ -2316,7 +2366,7 @@ public class Interface extends Thread implements Runnable, ActionListener
 			
 			else if (ae.getSource() == jmnuitm_Import_Directory)
 			{
-				import_advanced_analysis_directory(null);
+				import_advanced_analysis_directory(null, false);
 			}
 			
 			else if(ae.getSource() == this.jbtnOpenSelectedFiles)

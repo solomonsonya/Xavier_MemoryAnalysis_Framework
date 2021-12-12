@@ -574,6 +574,49 @@ public class FileAttributeData
 		return false;
 	}
 	
+	public boolean write_manifest_entry(PrintWriter pw)
+	{
+		try
+		{
+			if(pw == null)
+				return false;
+			
+			String header = "file_attr\t ";
+			
+			pw.println(header + "raw_file_length" + ":\t" + raw_file_length);
+			
+			pw.println(header + "length" + ":\t" + length);
+			pw.println(header + "file_name" + ":\t" + file_name);
+			pw.println(header + "creation_date" + ":\t" + creation_date);
+			pw.println(header + "last_accessed" + ":\t" + last_accessed);
+			pw.println(header + "last_modified" + ":\t" + last_modified);
+			pw.println(header + "hash_md5" + ":\t" + hash_md5);
+			pw.println(header + "hash_sha256" + ":\t" + hash_sha256);
+			
+			if(is_hashing_complete)
+				pw.println(header + "is_hashing_complete" + ":\t" + is_hashing_complete);
+			
+			if(attributes != null && !attributes.trim().equals("") && !attributes.toLowerCase().trim().equals("not specified"))
+				pw.println(header + "attributes" + ":\t" + attributes);
+			
+			if(short_file_name != null && !short_file_name.trim().equals("") && !short_file_name.toLowerCase().trim().equals("unspecified"))
+				pw.println(header + "short_file_name" + ":\t" + short_file_name);
+			
+			if(is_file)
+				pw.println(header + "is_file" + ":\t" + is_file);
+			
+			if(is_directory)
+				pw.println(header + "is_directory" + ":\t" + is_directory);
+			
+			return true;
+		}
+		catch(Exception e)
+		{
+			driver.eop(myClassName, "write_manifest_entry", e);
+		}
+		
+		return false;
+	}
 	
 	
 	

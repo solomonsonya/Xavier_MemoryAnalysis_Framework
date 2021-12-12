@@ -55,15 +55,19 @@ import Plugin.Process_Plugin;
 		
 		public static final String NAME = "Xavier Framework";
 		public static final String NAME_LOWERCASE = "xavier_framework";
-		public static final String VERSION = "2.106";
+		public static final String VERSION = "2.107";
 		public static final String FULL_NAME = NAME + " vrs " + VERSION;
 						
 		public static Log log_unrecognized = null; 
 		
+		public static final String delimiter = "\t";
 		public static final String delimiter1 = "#####";
 		public static final String delimiter2 = "~~~~~";
 		public static final String delimiter3 = "````````";
+		
 		public static volatile String UNDERLINE = "=====================================================================================";
+		public static volatile String END_OF_ENTRY_MAJOR = "****************************************************************************************************";
+		public static volatile String END_OF_ENTRY_MINOR = "----------------------------------------------------------------------------------------------------";
 		
 		public static volatile String encryption_key = null;
 		
@@ -3425,8 +3429,14 @@ import Plugin.Process_Plugin;
 				pw.println("# Investigation Description: " + investigation_description);	
 			
 			pw.println("# Investigation Date: " + EXECUTION_TIME_STAMP);
+			pw.println("#");
 			
-			pw.println("");
+			pw.println("# Analysis Framework");
+			pw.println("# ======================");
+			pw.println("# Analysis Framework Name: " + this.NAME);
+			pw.println("# Analysis Framework Version: " + this.VERSION);
+			
+			pw.println("#");
 			
 			if(file_attr_volatility != null)
 			{
@@ -3438,7 +3448,7 @@ import Plugin.Process_Plugin;
 			
 			if(fle_memory_image != null)
 			{
-				pw.println("\n# Analysis Image Details");
+				pw.println("#\n# Analysis Image Details");
 				pw.println("# ======================");	
 				
 				pw.println("# Memory Image Path: " + fle_memory_image.getCanonicalPath());
@@ -3448,12 +3458,12 @@ import Plugin.Process_Plugin;
 				pw.println(file_attr_memory_image.toString("# ", "\t ", true));
 			
 			
-			pw.println("\n# Plugin Details");
+			pw.println("#\n# Plugin Details");
 			pw.println("# ======================");	
 			pw.println("# Plugin Name: " + plugin_name);
 			pw.println("# Plugin Description: " + plugin_description);
 			
-			pw.println("\n# Execution Details");
+			pw.println("#\n# Execution Details");
 			pw.println("# ======================");	
 			pw.println("# Execution Command: " + execution_command);
 			
@@ -3584,12 +3594,110 @@ import Plugin.Process_Plugin;
 		return base_address_trimmed;
 	}
 	
+	/**
+	 * continuation mtd
+	 * @param pw
+	 * @param key
+	 * @param value
+	 * @return
+	 */
+	public boolean write_manifest_entry(PrintWriter pw, String key, String value)
+	{
+		try
+		{
+			if(pw == null)
+				return false;
+			
+			if(key == null || key.trim().equals("") || value == null || value.trim().equals(""))
+				return false;
+			
+			key = key.replace("\\??\\", "");
+			value = value.replace("\\??\\", "");
+			
+			pw.println(key + ":\t" + value);
+			
+			return true;
+		}
+		catch(Exception e)
+		{
+			eop(myClassName, "write_manifest_entry", e);
+		}
+		
+		return false;
+	}
 	
+	/**
+	 * better delineates header, key, and value
+	 * @param pw
+	 * @param header
+	 * @param key
+	 * @param value
+	 * @return
+	 */
+	public boolean write_manifest_entry(PrintWriter pw, String header, String key, String value)
+	{
+		try
+		{
+			if(pw == null)
+				return false;
+			
+			if(key == null || key.trim().equals("") || value == null || value.trim().equals(""))
+				return false;
+
+			//if no header is provided
+			if(header == null || header.trim().equals(""))
+				return write_manifest_entry(pw, key, value);
+			
+			//otw, include header
+			return write_manifest_entry(pw, header + "\t " + key, value);													
+		}
+		catch(Exception e)
+		{
+			eop(myClassName, "write_manifest_entry", e);
+		}
+		
+		return false;
+	}
 	
-	
-	
-	
-	
+	/**
+	 * if key or value is null or "", then empty string ("") is returned. This function reduces need for to hard code (if key == null || key.trim().equals("") || value == null || value.trim().equals(""), then skip entry when writing manifest entries). 
+	 * 
+	 *   ex: say key_identifier_token == ":", delimiter == "\t", include_head_delimiter == false, and include_tail_delimiter == true, then return is key: value \t
+	 * @param key
+	 * @param value
+	 * @param delimiter
+	 * @return
+	 */
+	public String get_trimmed_entry(String key, String value, String delimiter, boolean include_head_delimiter, boolean include_tail_delimiter, String key_identifier_token)
+	{
+		try
+		{
+			if(key == null || key.trim().equals("") || value == null || value.trim().equals(""))
+				return "";
+			
+			if(delimiter == null)
+				delimiter = "\t ";
+			
+			key = key.replace(delimiter, " ");
+			value = value.replace(delimiter, " ");
+			
+			if(include_head_delimiter)
+				key = delimiter + key;
+			
+			if(include_tail_delimiter)
+				return key + key_identifier_token + " " + delimiter + value + delimiter;
+			
+			//otw, return key: value (without tail delimiter)
+			return key + key_identifier_token + " " + delimiter + value;
+			
+		}
+		catch(Exception e)
+		{
+			this.eop(myClassName, "get_trimmed_entry", e);
+		}
+		
+		return "";
+	}
 	
 	
 	

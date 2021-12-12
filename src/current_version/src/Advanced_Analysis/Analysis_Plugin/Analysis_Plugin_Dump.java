@@ -776,6 +776,7 @@ public class Analysis_Plugin_Dump extends _Analysis_Plugin_Super_Class implement
 				status = fle.renameTo(fleNew);								
 
 			process.fle = fleNew;
+			try	{	process.file_name = fle.getName();	} catch(Exception e){}
 			process.fle_attributes = new FileAttributeData(fleNew, process, null);
 			process.fle_attributes.set_hash(false);
 			process.fle_attributes.extension = extension;

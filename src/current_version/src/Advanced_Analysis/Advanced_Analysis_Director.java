@@ -36,6 +36,7 @@ public class Advanced_Analysis_Director extends Thread implements Runnable
 	
 	public volatile boolean AUTOMATED_ANALYSIS_STARTED = false;
 	public volatile boolean AUTOMATED_ANALYSIS_COMPLETE = false;
+	public volatile boolean EXECUTE_EXPORT_MANIFEST = false;
 	
 	public static volatile boolean PROCESS_IMPSCAN = true;
 	
@@ -145,6 +146,8 @@ public class Advanced_Analysis_Director extends Thread implements Runnable
 	public volatile FileAttributeData file_attr_memory_image = null;
 	public volatile String investigator_name = "";
 	public volatile String investigation_description = "";
+	
+	public volatile File fle_manifest = null;
 	
 	public volatile Analysis_Plugin_dlllist plugin_dlllist = null;
 	public volatile Analysis_Plugin_ldrmodules plugin_ldrmodules = null;
@@ -265,8 +268,9 @@ public class Advanced_Analysis_Director extends Thread implements Runnable
 	
 	public volatile JTextArea_Solomon jta = Interface.jpnlAdvancedAnalysisConsole;
 	
-	/**Load previously completed advanced analysis output files
-	 * note compatible yet: /malfind/malfind_dump directory
+	/**Import Advanced analysis Directory:
+	 * Load previously completed advanced analysis output files
+	 * not compatible yet: /malfind/malfind_dump directory
 	 * */
 	public Advanced_Analysis_Director(LinkedList<File> list, File import_directory, File file_volatily, File file_memory_image, String profile, String PATH_fle_analysis_directory, FileAttributeData fle_attr_volatility, FileAttributeData fle_attr_memory_image, String investigator_NAME, String investigation_DESCRIPTION, boolean initiate_analysis_upon_instantiation, File_XREF xref)
 	{
@@ -1302,10 +1306,16 @@ public class Advanced_Analysis_Director extends Thread implements Runnable
 				
 			}
 				
+			//////////////////////////////////////////////////////////////////////
+			// Create Tree Structure - including building parent, child trees
+			/////////////////////////////////////////////////////////////////////
+			create_tree_structure(this.tree_PROCESS);
 			
 			Start.intface.sop("\n\nImport process complete!");
 			
 			check_to_display_consoles();
+			
+
 			
 			PROCESS_IMPSCAN = prev_enable_impscan;
 			AUTOMATED_ANALYSIS_COMPLETE = true;
@@ -1313,6 +1323,9 @@ public class Advanced_Analysis_Director extends Thread implements Runnable
 			//check if xref search initiated this process
 			if(XREF != null)
 				XREF.process_search_File_XREF();
+			
+			if(EXECUTE_EXPORT_MANIFEST)
+				this.export_system_manifest();
 			
 			return true;
 		}
@@ -1857,7 +1870,12 @@ plugin_timeliner = new Analysis_Plugin_EXECUTION(null, this, "timeliner", "Creat
 			// PRINT!
 		    /////////////////////////////////////////////////////////////////////
 			
+			Start.intface.sop("\nPrimary Advanced Analysis Actions Complete");
+			try	{ check_to_display_consoles();} catch(Exception e){}
 			execute_completion_actions();
+			
+			if(EXECUTE_EXPORT_MANIFEST)
+				this.export_system_manifest();
 			
 			return true;
 		}
@@ -3654,6 +3672,100 @@ plugin_timeliner = new Analysis_Plugin_EXECUTION(null, this, "timeliner", "Creat
 	}
 	
 	
+	public boolean write_manifest_header(PrintWriter pw, String header)
+	{
+		try
+		{
+			if(pw == null)
+				return false;
+			
+			if(header == null)
+				header = "";
+			
+			String outline = "####################################################################################################";
+			
+			pw.println(outline);
+			pw.println("# " + header);
+			pw.println(outline);
+			
+			return true;
+		}
+		catch(Exception e)
+		{
+			driver.eop(myClassName, "write_manifest_header", e);
+		}
+		
+		return false;
+	}
+	
+	public boolean export_system_manifest()
+	{
+		PrintWriter pw = null;
+		String fle_manifest_path = null;
+		
+		try
+		{
+			if(this.tree_PROCESS == null || this.tree_PROCESS.isEmpty())
+			{
+				driver.jop_Error("It looks like advanced analysis is not complete. Please try again later...");
+				return false;
+			}
+			
+			fle_manifest = new File(path_fle_analysis_directory + "manifest" + File.separator + "_manifest.txt");
+			
+			try	{	fle_manifest.getParentFile().mkdir();} catch(Exception e){}
+			
+			pw = new PrintWriter(new FileWriter(fle_manifest));
+			
+			//////////////////////////////////////////////////////////
+			//
+			// process
+			//
+			////////////////////////////////////////////////////////
+			write_manifest_header(pw, "Process");
+			
+			if(this.tree_PROCESS != null)
+			{
+				for(Node_Process process : this.tree_PROCESS.values())
+				{
+					process.write_manifest(pw);
+				}
+			}
+			
+			//////////////////////////////////////////////////////////
+			//
+			// child process
+			//
+			////////////////////////////////////////////////////////
+			write_manifest_header(pw, "Child Process(es)");
+			
+			if(this.tree_PROCESS != null)
+			{
+				for(Node_Process process : this.tree_PROCESS.values())
+				{					
+					process.write_manifest_child_process(pw);
+				}
+			}
+			
+			
+			
+			try	{	pw.close();} catch(Exception e){}
+			
+			try	{	fle_manifest_path = fle_manifest.getCanonicalPath();} catch(Exception e){}
+			
+			Start.intface.sop("\nDone! If successful, manifest file has been written to " + fle_manifest_path);
+			return true;
+		}
+		catch(Exception e)
+		{
+			driver.eop(myClassName, "export_system_manifest", e);
+		}
+		
+		
+		try	{	pw.close();} catch(Exception e){}
+		Start.intface.sop("\n* * * Complete! If successful, manifest file has been written to " + fle_manifest_path);
+		return false;
+	}
 	
 	
 	

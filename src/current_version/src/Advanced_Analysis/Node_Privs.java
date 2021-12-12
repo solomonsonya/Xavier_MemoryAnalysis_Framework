@@ -42,6 +42,7 @@ public class Node_Privs
 			process_name = PROCESS_NAME;
 			attributes = ATTRIBUTES;
 			description = DESCRIPTION;
+			value = VALUE;
 			
 			privilege = privilege.trim();
 			privilege_lower = privilege.toLowerCase().trim();
@@ -182,6 +183,72 @@ public class Node_Privs
 		
 		return false;
 	}
+	
+	
+	
+	
+	/**
+	 * continuation mtd
+	 * @param pw
+	 * @param key
+	 * @param value
+	 * @return
+	 */
+	public boolean write_manifest(PrintWriter pw, String header, String delimiter)
+	{
+		try
+		{
+			if(pw == null)
+				return false;	
+			
+			delimiter = delimiter + " ";
+			
+			return driver.write_manifest_entry(pw, header, 
+										"PID: " 			+ delimiter + 	PID 			+ delimiter +
+										"process_name: " 	+ delimiter + 	process_name 	+ delimiter +
+										"value: " 			+ delimiter + 	value 			+ delimiter +
+										"privilege: " 		+ delimiter + 	privilege 			+ delimiter +
+										"privilege_lower: " + delimiter + 	privilege_lower 			+ delimiter +
+										"attributes: " 		+ delimiter + 	attributes 			+ delimiter +
+										"description: " 	+ delimiter + 	description);						
+		}
+		catch(Exception e)
+		{
+			driver.eop(myClassName, "write_manifest", e);
+		}
+		
+		return false;
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	
 	

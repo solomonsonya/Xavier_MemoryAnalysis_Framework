@@ -21,6 +21,7 @@ public class Node_Process
 	public static volatile Driver driver = new Driver();
 	public static final boolean PROCESS_IMPSCAN_IN_SEPARATE_THREAD = true;
 	
+	
 	public volatile Advanced_Analysis_Director director = null;
 	
 	public volatile String lower = null;
@@ -90,9 +91,10 @@ public class Node_Process
 		
 	public volatile TreeMap<String, Node_Envar> tree_environment_vars = new TreeMap<String, Node_Envar>();
 			
-	//Set in analyzeplugin class
+	//Set in analyzeplugin dump class
 	public volatile File fle = null;
 	public volatile FileAttributeData fle_attributes = null;
+	public volatile String file_name = null;
 	public volatile String extension = "";
 	
 	public volatile Node_Process parent_process = null;
@@ -3272,13 +3274,253 @@ public class Node_Process
 	
 	
 	
+	public boolean write_manifest(PrintWriter pw)
+	{
+		try
+		{
+			if(pw == null)
+				return false;
+			
+			//public volatile Node_DLL my_module_description = null;
+			//public volatile TreeMap<String, Node_DLL> tree_import_functions_DEPRECATED = new TreeMap<String, Node_DLL>();
+			/**linked by DLL path*/
+			//public volatile TreeMap<String, Node_DLL> tree_dll = new TreeMap<String, Node_DLL>();
+			/**linked by DLL VAD_base_start address*/
+			//public volatile TreeMap<String, Node_DLL> tree_dll_VAD_base_start_address = new TreeMap<String, Node_DLL>();
+			
+			
+			
+			//not needed?
+			//public volatile boolean alert_user_regarding_presence_of_console = false;
+			//public volatile File fle_vadtree_output_data = null;
+			//public volatile File fle_vadtree_output_image = null;
+			//public volatile JTextArea_Solomon jtaConsolesOutput = null;
+			//public volatile boolean consoles_has_been_added_to_gui = false;
+			
+			
+			driver.write_manifest_entry(pw, "process_name", process_name);
+			driver.write_manifest_entry(pw, "PID", ""+PID);
+			driver.write_manifest_entry(pw, "PPID", ""+PPID);
+			driver.write_manifest_entry(pw, "command_line", command_line);
+			
+			driver.write_manifest_entry(pw, "file_name", file_name);			
+			driver.write_manifest_entry(pw, "extension", extension);
+			
+			if(my_module_description != null)
+				my_module_description.write_manifest_basic("my_module_description", pw);
+			
+			if(fle_attributes != null)
+				fle_attributes.write_manifest_entry(pw);				
+			
+			//
+			//pslist
+			//			
+			driver.write_manifest_entry(pw, "thread_count", threads);
+			driver.write_manifest_entry(pw, "handle_count", handles);
+			driver.write_manifest_entry(pw, "wow64", wow64);
+			driver.write_manifest_entry(pw, "session", session);
+			driver.write_manifest_entry(pw, "offset_pslist", offset_pslist);
+						
+			//
+			//psscan
+			//
+			driver.write_manifest_entry(pw, "PDB", PDB);
+			driver.write_manifest_entry(pw, "time_created_date", time_created_date);
+			driver.write_manifest_entry(pw, "time_created_time", time_created_time);
+			driver.write_manifest_entry(pw, "time_created_UTC", time_created_UTC);
+			driver.write_manifest_entry(pw, "time_exited_date", time_exited_date);
+			driver.write_manifest_entry(pw, "time_exited_time", time_exited_time);
+			driver.write_manifest_entry(pw, "time_exited_UTC", time_exited_UTC);
+			driver.write_manifest_entry(pw, "offset_psscan", offset_psscan);
+			
+			//
+			//pstree
+			//
+			driver.write_manifest_entry(pw, "offset_pstree", offset_pstree);
+			
+			//
+			//psxview
+			//
+			driver.write_manifest_entry(pw, "offset_psxview", offset_psxview);
+			driver.write_manifest_entry(pw, "psxview_pslist", psxview_pslist);
+			driver.write_manifest_entry(pw, "psxview_psscan", psxview_psscan);
+			driver.write_manifest_entry(pw, "psxview_thrdproc", psxview_thrdproc);
+			driver.write_manifest_entry(pw, "psxview_pspcid", psxview_pspcid);
+			driver.write_manifest_entry(pw, "psxview_csrss", psxview_csrss);
+			driver.write_manifest_entry(pw, "psxview_session", psxview_session);
+			driver.write_manifest_entry(pw, "psxview_deskthrd", psxview_deskthrd);
+						
+			//
+			//dlldump
+			//
+			driver.write_manifest_entry(pw, "offset_V_dlldump", offset_V_dlldump);
+			driver.write_manifest_entry(pw, "offset_P_dlldump_trimmed", offset_P_dlldump_trimmed);
+			driver.write_manifest_entry(pw, "module_base_address_dlldump", module_base_address_dlldump);
+			driver.write_manifest_entry(pw, "module_base_address_dlldump_trimmed", module_base_address_dlldump_trimmed);
+			
+			//
+			//dlllist
+			//
+			driver.write_manifest_entry(pw, "path", path);
+			
+			//
+			//other
+			//
+			driver.write_manifest_entry(pw, "found_in_pslist", ""+found_in_pslist);
+			driver.write_manifest_entry(pw, "found_in_psscan", ""+found_in_psscan);
+			driver.write_manifest_entry(pw, "relative_path_vadtree_image", relative_path_vadtree_image);
+			
+			//
+			//netstat
+			//
+			write_manifest_netstat(pw);
+			
+			//
+			//Handles
+			//
+			write_manifest_handles(pw, this.tree_handles);
+			
+			//
+			//Privs
+			//
+			write_manifest_privilege(pw, this.tree_privs, "privilege", driver.delimiter);
+			
+			//
+			//Service Scan
+			//
+			
+			
+			
+			
+			
+			pw.println(driver.END_OF_ENTRY_MAJOR);
+			return true;
+		}
+		catch(Exception e)
+		{
+			driver.eop(myClassName, "write_manifest", e);
+		}
+		
+		pw.println(driver.END_OF_ENTRY_MAJOR);
+		return false;
+	}
+	
+	public boolean write_manifest_privilege(PrintWriter pw, TreeMap<String, Node_Privs> tree, String header, String delimiter)
+	{
+		try
+		{
+			if(pw == null)
+				return false;
+			
+			if(tree == null)
+				return false;
+			
+			for(Node_Privs node : tree.values())
+			{
+				if(node == null)
+					continue;
+
+				node.write_manifest(pw, header, delimiter);			}			
+			
+			return true;
+		}
+		catch(Exception e)
+		{
+			driver.eop(myClassName, "write_manifest_" + header, e);
+		}
+		
+		return false;
+	}
+	
+	public boolean write_manifest_netstat(PrintWriter pw)
+	{
+		try
+		{
+			if(pw == null)
+				return false;
+			
+			if(tree_netstat != null)
+			{
+				for(Node_Netstat_Entry netstat : tree_netstat.values())
+				{
+					if(netstat == null)
+						continue;
+					
+					netstat.write_manifest(pw);
+				}
+			}
+			
+			return true;
+		}
+		catch(Exception e)
+		{
+			driver.eop(myClassName, "write_manifest_netstat", e);
+		}
+		
+		return false;
+	}
+	
+	public boolean write_manifest_handles(PrintWriter pw, TreeMap<String, Node_Handle> tree)
+	{
+		try
+		{
+			if(pw == null || tree == null || tree.isEmpty())
+				return false;
+			
+			for(Node_Handle handle : tree.values())
+			{
+				if(handle == null)
+					continue;
+				
+				driver.write_manifest_entry(pw, "handle", handle.get_manifest_file_entry("\t"));
+			}
+			
+			return true;
+		}
+		catch(Exception e)
+		{
+			driver.eop(myClassName, "write_manifest_handles", e);
+		}
+		
+		return false;
+	}
 	
 	
-	
-	
-	
-	
-	
+	public boolean write_manifest_child_process(PrintWriter pw)
+	{
+		try
+		{
+			if(pw == null || tree_child_process == null || tree_child_process.isEmpty())
+				return false;
+			
+			String child_process_list = "";			
+			
+			LinkedList<Integer> list_child_process = new LinkedList<Integer>(this.tree_child_process.keySet());
+			
+			if(list_child_process == null || list_child_process.isEmpty())
+				return false;
+			
+			//write processes
+			child_process_list = ""+list_child_process.removeFirst();
+			
+			//accumulate pid list
+			for(int child_pid : list_child_process)
+			{
+				child_process_list = child_process_list + ", " + child_pid;
+			}
+			
+			//write data
+			pw.println("child_process:\t" + this.PID + "\t=\t" + child_process_list);
+			
+			return true;
+		}
+		catch(Exception e)
+		{
+			driver.eop(myClassName, "write_manifest_child_process", e);
+		}
+		
+		return false;
+	}
 	
 	
 	

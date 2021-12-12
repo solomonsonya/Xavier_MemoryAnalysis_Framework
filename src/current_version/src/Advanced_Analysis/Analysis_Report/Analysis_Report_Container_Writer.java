@@ -1623,6 +1623,17 @@ if(fle.getName().toLowerCase().trim().startsWith("_dumpfiles --regex .evtx$ --ig
 	continue;
 			
 	/**change this --> */button_title = plugin.plugin_name;
+	
+					//change for impscan to provide more detail
+					try
+					{
+						if(plugin.plugin_name.equalsIgnoreCase("impscan"))
+							button_title = plugin.plugin_name + " " + plugin.plugin_special_identifer;
+					}
+					catch(Exception e)
+					{
+						button_title = plugin.plugin_name;
+					}
 
 					page_title = button_title + " Plugin - " + parent.fle_memory_image.getName();						
 					import_file_path = "./../" + plugin.plugin_name + "./" + fle.getName();

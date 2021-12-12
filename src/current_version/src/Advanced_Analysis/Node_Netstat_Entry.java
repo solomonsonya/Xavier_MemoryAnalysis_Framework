@@ -29,6 +29,8 @@ public class Node_Netstat_Entry
 	public static final String myClassName = "Node_Netstat_Entry";
 	public static volatile Driver driver = new Driver();
 	
+	public static final String header = "netstat ";
+	
 	public static volatile boolean use_system_out_println_for_output = true;
 	
 	public volatile String lower = null;
@@ -554,7 +556,115 @@ public class Node_Netstat_Entry
 	}
 	
 	
+	/**
+	 * continuation mtd
+	 * @param pw
+	 * @param key
+	 * @param value
+	 * @return
+	 */
+	private boolean write_manifest_entry(PrintWriter pw, String key, String value)
+	{
+		try
+		{
+			if(pw == null)
+				return false;
+			
+			if(key == null || key.trim().equals("") || value == null || value.trim().equals(""))
+				return false;
+			
+			
+			
+			pw.println(header + key + ":\t" + value);
+			
+			return true;
+		}
+		catch(Exception e)
+		{
+			driver.eop(myClassName, "write_manifest_entry", e);
+		}
+		
+		return false;
+	}
 	
+	public boolean write_manifest(PrintWriter pw)
+	{
+		try
+		{
+			if(pw == null)
+				return false;
+			
+			//public static volatile TreeMap<String, Node_Netstat_Entry> tree_whois_lookup = new TreeMap<String, Node_Netstat_Entry>();
+			//public volatile int PID = -1;
+			//public volatile Node_Process process = null;
+			
+			//public volatile File fle_whois_directory
+			//public volatile File fle_whois_output
+			
+			//
+			//connections - Windows XP and 2003 only
+			//			
+			write_manifest_entry(pw, "offset_connections", offset_connections);			
+			write_manifest_entry(pw, "local_address", local_address);
+			write_manifest_entry(pw, "foreign_address", foreign_address);
+
+			//
+			//connscan
+			//						
+			write_manifest_entry(pw, "offset_connscan", offset_connscan);
+						
+			//
+			//sockets
+			//
+			write_manifest_entry(pw, "offset_sockets", offset_sockets);
+			write_manifest_entry(pw, "local_port", local_port);
+			write_manifest_entry(pw, "proto_value", proto_value);
+			write_manifest_entry(pw, "protocol", protocol);
+			write_manifest_entry(pw, "creation_date", creation_date);
+			write_manifest_entry(pw, "creation_time", creation_time);
+			write_manifest_entry(pw, "creation_utc", creation_utc);
+			
+			//
+			//sockscan
+			//
+			write_manifest_entry(pw, "offset_sockscan", offset_sockscan);
+			
+			//
+			//netscan
+			//
+			write_manifest_entry(pw, "offset_netscan", offset_netscan);
+			write_manifest_entry(pw, "state", state);
+			write_manifest_entry(pw, "owner_name", owner_name);
+			
+			//
+			//whois
+			//
+			write_manifest_entry(pw, "path_whois_directory", path_whois_directory);
+			write_manifest_entry(pw, "lookup", lookup);
+			
+			if(list_whois_entry != null && !list_whois_entry.isEmpty())
+			{
+				for(String entry : list_whois_entry)
+				{
+					pw.println(header + "whois" + ":\t" + entry);
+				}
+				
+			}
+			
+			
+			
+			pw.println(Driver.END_OF_ENTRY_MINOR);
+			return true;
+		}
+		catch(Exception e)
+		{
+			driver.eop(myClassName, "write_manifest", e);
+		}
+		
+		pw.println(Driver.END_OF_ENTRY_MINOR);
+		return false;
+	}
+			
 	
 	
 }
