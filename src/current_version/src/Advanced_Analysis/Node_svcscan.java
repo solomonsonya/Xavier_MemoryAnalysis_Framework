@@ -188,7 +188,7 @@ public class Node_svcscan
 			
 			//hit found!
 			if(jta != null)
-				jta.append("\n\n" + this.display_name + "[" + this.service_name + "]" + "\n" + driver.UNDERLINE);
+				jta.append("\n\nService: " + this.display_name + "[" + this.service_name + "]" + "\n" + driver.UNDERLINE);
 			
 			I_HAVE_WRITTEN_PROCESS_HEADER_ALREADY = true;
 										
@@ -223,6 +223,71 @@ public class Node_svcscan
 		
 		return false;
 	}
+	
+	
+	
+	/**
+	 * continuation mtd
+	 * @param pw
+	 * @param key
+	 * @param value
+	 * @return
+	 */
+	public boolean write_manifest(PrintWriter pw, String header, String delimiter)
+	{
+		try
+		{
+			if(pw == null)
+				return false;	
+			
+			delimiter = delimiter + " ";
+			
+			return driver.write_manifest_entry(pw, header, 
+										"PID: " 			+ delimiter +	PID 			+ delimiter +
+										"offset: " 			+ delimiter + 	offset			+ delimiter +
+										"order: " 			+ delimiter + 	order			+ delimiter +
+										"start: " 			+ delimiter + 	start			+ delimiter +
+										"pid: " 			+ delimiter + 	pid			 	+ delimiter +
+										"service_name: " 	+ delimiter + 	service_name 	+ delimiter +
+										"display_name: " 	+ delimiter + 	display_name 	+ delimiter +
+										"service_type: " 	+ delimiter + 	service_type 	+ delimiter +
+										"service_state: " 	+ delimiter + 	service_state 	+ delimiter +
+										"binary_path: " 	+ delimiter + 	binary_path);						
+		}
+		catch(Exception e)
+		{
+			driver.eop(myClassName, "write_manifest", e);
+		}
+		
+		return false;
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	
 	

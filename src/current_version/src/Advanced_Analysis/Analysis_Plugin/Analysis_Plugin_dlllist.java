@@ -593,7 +593,7 @@ public class Analysis_Plugin_dlllist extends _Analysis_Plugin_Super_Class implem
 			
 			if(this.process == null)
 			{
-				sop("\n\nNOTE: I found a new process [" + process_name + "] PID:[ " + PID + "] that not extracted from previous process analysis while executing plugin [" + this.plugin_name + "]");
+				sop("\n\nNOTE: I found a new process [" + process_name + "] PID:[ " + PID + "] that was not extracted from previous process analysis while executing plugin [" + this.plugin_name + "]");
 				
 				//Link!
 				Node_Process proc = new Node_Process(parent, PID, process_name);

@@ -477,7 +477,7 @@ public class Analysis_Plugin_impscan extends _Analysis_Plugin_Super_Class implem
 				if(dll_container == null)
 					dll_container = new Node_DLL_Container_Impscan(process, module_name, IAT, call, function);
 				else
-					dll_container.process_import_function(IAT, call, function);										
+					dll_container.process_import_function(IAT, call, function, process);										
 				
 				
 			}

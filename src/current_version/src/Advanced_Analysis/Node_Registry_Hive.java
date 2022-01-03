@@ -28,6 +28,7 @@ public class Node_Registry_Hive
 	public volatile TreeMap<String, Node_Registry_Key> tree_registry_key = new TreeMap<String, Node_Registry_Key>();
 	
 	public volatile String last_updated = null;
+	public volatile String path = null;
 	
 	/**Registry: \Device\HarddiskVolume1\Documents and Settings\Administrator\NTUSER.DAT*/
 	public Node_Registry_Hive(String REGISTRY)
@@ -70,6 +71,7 @@ public class Node_Registry_Hive
 			
 			XREF_SEARCH_HIT_FOUND |= this.check_value(this.registry, "registry", search_chars_from_user, search_chars_from_user_lower, jta, searching_proces, container_search_name);
 			XREF_SEARCH_HIT_FOUND |= this.check_value(this.last_updated, "last_updated", search_chars_from_user, search_chars_from_user_lower, jta, searching_proces, container_search_name);
+			XREF_SEARCH_HIT_FOUND |= this.check_value(this.path, "path", search_chars_from_user, search_chars_from_user_lower, jta, searching_proces, container_search_name);
 			
 			if(this.tree_registry_key != null)
 			{
@@ -111,9 +113,11 @@ public class Node_Registry_Hive
 							//search ussesrassist
 							//
 							XREF_SEARCH_HIT_FOUND |= this.check_value(nde.reg_binary, "reg_binary", search_chars_from_user, search_chars_from_user_lower, jta, searching_proces, container_search_name);
-							XREF_SEARCH_HIT_FOUND |= this.check_value(nde.raw_data, "raw_data", search_chars_from_user, search_chars_from_user_lower, jta, searching_proces, container_search_name);
+							XREF_SEARCH_HIT_FOUND |= this.check_value(nde.raw_data_first_line, "raw_data_first_line", search_chars_from_user, search_chars_from_user_lower, jta, searching_proces, container_search_name);
 							XREF_SEARCH_HIT_FOUND |= this.check_value(nde.id, "id", search_chars_from_user, search_chars_from_user_lower, jta, searching_proces, container_search_name);
 							XREF_SEARCH_HIT_FOUND |= this.check_value(nde.count, "count", search_chars_from_user, search_chars_from_user_lower, jta, searching_proces, container_search_name);
+							XREF_SEARCH_HIT_FOUND |= this.check_value(nde.focus_count, "focus_count", search_chars_from_user, search_chars_from_user_lower, jta, searching_proces, container_search_name);
+							XREF_SEARCH_HIT_FOUND |= this.check_value(nde.time_focused, "time_focused", search_chars_from_user, search_chars_from_user_lower, jta, searching_proces, container_search_name);
 							XREF_SEARCH_HIT_FOUND |= this.check_value(nde.last_updated, "last_updated", search_chars_from_user, search_chars_from_user_lower, jta, searching_proces, container_search_name);
 					
 						}
@@ -232,9 +236,48 @@ public class Node_Registry_Hive
 	
 	
 	
+	public boolean write_manifest(PrintWriter pw, String header, String delimiter)
+	{				
+		try
+		{
+			if(pw == null)
+				return false;
+			
+			if(delimiter == null)
+				delimiter = "\t ";
+			
+			driver.write_manifest_entry(pw, header, "registry_hive", registry);
+			driver.write_manifest_entry(pw, header, "path", path);
+			driver.write_manifest_entry(pw, header, "last_updated", last_updated);
+			
+			if(this.tree_registry_key == null || this.tree_registry_key.isEmpty())
+				return true;
+			
+			for(Node_Registry_Key registry_key : this.tree_registry_key.values())
+			{								
+				if(registry_key == null)
+					continue;
+				
+				registry_key.write_manifest(pw, header, delimiter);
+			
+				if(registry_key.path != null)
+					pw.println(Driver.END_OF_ENTRY_MINOR);
+			}
+			
+			
+			
+			
+			
+			return true;
+		}
 	
-	
-	
+		catch(Exception e)
+		{
+			driver.eop(myClassName, "write_manifest", e);
+		}
+		
+		return false;
+	}
 	
 	
 	

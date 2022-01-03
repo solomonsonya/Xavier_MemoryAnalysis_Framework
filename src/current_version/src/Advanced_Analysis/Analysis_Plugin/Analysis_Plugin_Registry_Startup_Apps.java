@@ -436,6 +436,15 @@ public class Analysis_Plugin_Registry_Startup_Apps extends _Analysis_Plugin_Supe
 				}																									
 			}
 			
+			else if(lower.startsWith("path:"))
+			{
+				registry_hive.path = line.substring(line.indexOf(":")+1).trim();
+				
+				if(this.registry_key_name != null)
+					registry_key_name.path = line.substring(line.indexOf(":")+1).trim();
+					
+			}
+			
 			else if(lower.startsWith("last updated:"))
 			{
 				registry_hive.last_updated = line.substring(line.indexOf(":")+1).trim();

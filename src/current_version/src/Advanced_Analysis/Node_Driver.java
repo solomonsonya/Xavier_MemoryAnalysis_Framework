@@ -66,7 +66,7 @@ public class Node_Driver
 	//
 	//driverirp
 	//
-	public volatile String driver_start_io = null;
+	public volatile String start_io = null;
 	public volatile LinkedList<Node_Driver_IRP>  list_driver_irp = null;
 	
 	//
@@ -352,7 +352,7 @@ public class Node_Driver
 			XREF_SEARCH_HIT_FOUND |= this.check_value(start, "start", search_chars_from_user, search_chars_from_user_lower, jta, searching_proces, searching_module, container_search_name);
 			XREF_SEARCH_HIT_FOUND |= this.check_value(service_key, "service_key", search_chars_from_user, search_chars_from_user_lower, jta, searching_proces, searching_module, container_search_name);
 			XREF_SEARCH_HIT_FOUND |= this.check_value(size_P, "size_P", search_chars_from_user, search_chars_from_user_lower, jta, searching_proces, searching_module, container_search_name);
-			XREF_SEARCH_HIT_FOUND |= this.check_value(driver_start_io, "driver_start_io", search_chars_from_user, search_chars_from_user_lower, jta, searching_proces, searching_module, container_search_name);
+			XREF_SEARCH_HIT_FOUND |= this.check_value(start_io, "driver_start_io", search_chars_from_user, search_chars_from_user_lower, jta, searching_proces, searching_module, container_search_name);
 
 			//
 			//File
@@ -523,7 +523,7 @@ public class Node_Driver
 			
 			//hit found!
 			if(jta != null)
-				jta.append("\n" + this.get_module_name() + "\n" + driver.UNDERLINE);
+				jta.append("\nDriver: " + this.get_module_name() + "\n" + driver.UNDERLINE);
 			
 			I_HAVE_WRITTEN_PROCESS_HEADER_ALREADY = true;
 										
@@ -557,6 +557,162 @@ public class Node_Driver
 		
 		return false;
 	}
+	
+	
+	public boolean write_manifest(PrintWriter pw, String header)
+	{
+		try
+		{
+			/////////////////////////////////////////////////////////
+			//
+			// particulars
+			//
+			////////////////////////////////////////////////////////
+			driver.write_manifest_entry(pw, header, "driver_name", driver_name);
+			driver.write_manifest_entry(pw, header, "module_name", module_name);
+			driver.write_manifest_entry(pw, header, "alt_name", alt_name);
+			driver.write_manifest_entry(pw, header, "module_base_module_dump", module_base_module_dump);
+			driver.write_manifest_entry(pw, header, "offset_modules", offset_modules);
+			driver.write_manifest_entry(pw, header, "offset_modscan", offset_modscan);
+			driver.write_manifest_entry(pw, header, "dump_file_name", dump_file_name);
+			driver.write_manifest_entry(pw, header, "size_V", size_V);
+			driver.write_manifest_entry(pw, header, "file_path_from_memory", file_path_from_memory);
+			driver.write_manifest_entry(pw, header, "offset_driverscan", offset_driverscan);
+			driver.write_manifest_entry(pw, header, "num_ptr", num_ptr);
+			driver.write_manifest_entry(pw, header, "num_handle", num_handle);
+			driver.write_manifest_entry(pw, header, "start", start);
+			driver.write_manifest_entry(pw, header, "service_key", service_key);
+			driver.write_manifest_entry(pw, header, "size_P", size_P);
+			driver.write_manifest_entry(pw, header, "start_io", start_io);
+
+			/////////////////////////////////////////////////////////
+			//
+			// fle_attributes
+			//
+			////////////////////////////////////////////////////////
+			if(this.fle_attributes != null)
+			{
+				pw.println(Driver.END_OF_ENTRY_MINOR);
+				this.fle_attributes.write_manifest_entry(pw, header + "\t file_attr\t ", null);				
+			}
+			
+			/////////////////////////////////////////////////////////
+			//
+			// list_driver_irp
+			//
+			////////////////////////////////////////////////////////
+			if(list_driver_irp != null && list_driver_irp.size() > 0)
+			{								
+				for(Node_Driver_IRP node : list_driver_irp)
+				{
+					if(node == null)
+						continue;
+					
+					pw.println(Driver.END_OF_ENTRY_MINOR);
+					
+					node.write_manifest(pw, header);
+				}
+			}
+			
+			
+			/////////////////////////////////////////////////////////
+			//
+			// tree_callbacks
+			//
+			////////////////////////////////////////////////////////
+			if(tree_callbacks != null && !tree_callbacks.isEmpty())
+			{
+				pw.println(Driver.END_OF_ENTRY_MINOR);
+				for(Node_Generic node : tree_callbacks.values())
+				{
+					if(node == null)
+						continue;
+					
+					//pw.println(Driver.END_OF_ENTRY_MINOR);
+					
+					node.write_manifest_as_single_line(pw, header + "\t callback", "\t");
+				}
+			}			
+			
+			/////////////////////////////////////////////////////////
+			//
+			// tree_timers
+			//
+			////////////////////////////////////////////////////////
+			if(tree_timers != null && !tree_timers.isEmpty())
+			{
+				pw.println(Driver.END_OF_ENTRY_MINOR);
+				
+				for(Node_Generic node : tree_timers.values())
+				{
+					if(node == null)
+						continue;
+
+					//pw.println(Driver.END_OF_ENTRY_MINOR);
+
+					node.write_manifest_as_single_line(pw, header + "\t timer", "\t");
+				}
+			}
+			
+			
+			/////////////////////////////////////////////////////////
+			//
+			// tree_unloaded_modules
+			//
+			////////////////////////////////////////////////////////
+			if(tree_unloaded_modules != null && !tree_unloaded_modules.isEmpty())
+			{
+				pw.println(Driver.END_OF_ENTRY_MINOR);
+				
+				for(Node_Generic node : tree_unloaded_modules.values())
+				{
+					if(node == null)
+						continue;
+
+					node.write_manifest_as_single_line(pw, header + "\t unloaded_module", "\t");
+				}
+			}
+			
+			return true;
+		}
+		catch(Exception e)
+		{
+			driver.eop(myClassName, "write_manifest", e);
+		}
+		
+		return false;
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	
 	

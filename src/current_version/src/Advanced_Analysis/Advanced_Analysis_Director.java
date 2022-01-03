@@ -4,9 +4,34 @@
  * 
  * 
  * 		
- * 		
+ * 	Future Works:
+ * 	- strings: memdump --> strings and include strings in Data XREF
+ *  - STORE_REGISTRY_RAW_DATA: add entry in .conf file to indicate if we want to store all raw data from registry e.g. userassist. it is not stored att to reduce RAM utilization
+ *  - complete compatibility XREF search add File_XREF functions for tree_hivelist and tree_get_service_sids  
  * 
- */
+ * 
+ * 
+ * System Manifest:
+ * 	Intentionally not printing separately - I'll have to come back and verify outliers if necessary similar to printing_vad_node_called_by_process in Node_process to prevent duplication of VAD entries when printed by this director class:
+ * 		- assuming all entries are printed under respective Node_Process:
+ * 			-- tree_NETSTAT 
+ * 			-- tree_ENVIRONMENT_VARS  
+ * 			-- tree_API_HOOK
+ * 			-- tree_PRIVS_PROCESSES
+ * 			-- tree_SERVICES_SVCSCAN
+ * 			-- tree_MALFIND
+ * 			-- tree_GDI_TIMERS
+ * 			-- tree_VAD_INFO
+ * 		- assuming all entries are printed under respective Node_Driver:
+ * 			-- tree_CALLBACKS
+ * 			-- tree_UNLOADED_MODULES
+ * 			-- tree_TIMERS
+ * 			-- tree_DRIVER_IRP_HOOK
+ * 
+ *  Special NOTES:
+ *  	- User_Assist: we only store the first string of raw data for now to reduce amount of RAM used for this data. If needed, I may come back here and store the contents to the list details
+ * 
+ * 	*/
 
 //
 
@@ -37,6 +62,11 @@ public class Advanced_Analysis_Director extends Thread implements Runnable
 	public volatile boolean AUTOMATED_ANALYSIS_STARTED = false;
 	public volatile boolean AUTOMATED_ANALYSIS_COMPLETE = false;
 	public volatile boolean EXECUTE_EXPORT_MANIFEST = false;
+
+	public static volatile JTextArea_Solomon jtaUserAssistConsole = null;
+	
+	/**add */
+	public static volatile boolean STORE_REGISTRY_RAW_DATA = false; 
 	
 	public static volatile boolean PROCESS_IMPSCAN = true;
 	
@@ -48,6 +78,7 @@ public class Advanced_Analysis_Director extends Thread implements Runnable
 	public static final String import_complete_separator = " ";
 	
 	public static final int MAX_TREE_NODE_COUNT = 20;
+	public static volatile String WRITE_MANIFEST_DELIMITER = "\t";
 	
 	public volatile Analysis_Report_Container_Writer analysis_report = null;
 	
@@ -124,6 +155,9 @@ public class Advanced_Analysis_Director extends Thread implements Runnable
 	public volatile TreeMap<String, Node_Registry_Hive> tree_REGISTRY_KEY_PRINTKEY = new TreeMap<String, Node_Registry_Hive>();
 	public volatile TreeMap<Integer, Node_Process> tree_VAD_INFO = new TreeMap<Integer, Node_Process>();
 	
+	/**focussed time is they key, each registry node that has the focussed time is stored in the LL. This way, we can reverse search by the user assist keys that took the longest time... these may be processes that are more important to the user that the analyst may wish to review*/
+	public volatile TreeMap<String, LinkedList<Node_Generic>> tree_user_assist_linked_by_time_focused = new TreeMap<String, LinkedList<Node_Generic>>();
+	
 	public volatile TreeMap<String, Node_Generic> tree_DESKSCAN = new TreeMap<String, Node_Generic>();
 	
 	/**Link each process that has VAD entry for PAGE_EXECUTE_WRITECOPY, PAGE_READWRITE, etc*/
@@ -142,6 +176,7 @@ public class Advanced_Analysis_Director extends Thread implements Runnable
 	public volatile String PROFILE = Interface.PROFILE;
 	public volatile String profile_lower = ""; 
 	public volatile String path_fle_analysis_directory = "";
+	public volatile String relative_path_to_file_analysis_directory = "";
 	public volatile FileAttributeData file_attr_volatility = null;  
 	public volatile FileAttributeData file_attr_memory_image = null;
 	public volatile String investigator_name = "";
@@ -863,7 +898,9 @@ public class Advanced_Analysis_Director extends Thread implements Runnable
 								process.fle_attributes.last_modified = last_modified;
 								process.fle_attributes.hash_md5 = md5;
 								process.fle_attributes.hash_sha256 = sha_256;
-								process.fle_attributes.extension = extension;																
+								process.fle_attributes.extension = extension;
+								
+								try	{	FileAttributeData.tree_file_attributes.put(name, process.fle_attributes);	} catch(Exception e){}
 							}
 							catch(Exception e)
 							{
@@ -951,6 +988,8 @@ public class Advanced_Analysis_Director extends Thread implements Runnable
 									process.fle_attributes.hash_md5 = md5;
 									process.fle_attributes.hash_sha256 = sha_256;
 									process.fle_attributes.extension = extension;	
+									
+									try	{	FileAttributeData.tree_file_attributes.put(name, process.fle_attributes);	} catch(Exception e){}
 								}
 								
 								if(DLL != null && DLL.fle_attributes == null)
@@ -972,6 +1011,8 @@ public class Advanced_Analysis_Director extends Thread implements Runnable
 											DLL.tree_process.put(PID,  process);
 									if(process != null)
 										DLL.store_dll_base(module_base_address, process, this);
+									
+									try	{	FileAttributeData.tree_file_attributes.put(name, DLL.fle_attributes);	} catch(Exception e){}
 								}
 								
 								
@@ -1325,7 +1366,9 @@ public class Advanced_Analysis_Director extends Thread implements Runnable
 				XREF.process_search_File_XREF();
 			
 			if(EXECUTE_EXPORT_MANIFEST)
-				this.export_system_manifest();
+				this.write_manifest(WRITE_MANIFEST_DELIMITER);
+			
+			
 			
 			return true;
 		}
@@ -1401,8 +1444,15 @@ public class Advanced_Analysis_Director extends Thread implements Runnable
 					
 					driver.sop("Instantiating Autoplugin --> " + plugin);
 					
-					//instantiate plugin
-					Analysis_Plugin_EXECUTION PLUGIN = new Analysis_Plugin_EXECUTION(null, this, plugin, description, true, Start.intface.jpnlAdvancedAnalysisConsole);										
+					if(plugin_lower.equals("userassist"))
+						plugin_userassist = new Analysis_Plugin_user_assist(null, this, "userassist", "Print userassist registry keys and information", true, jta);
+					else					
+					{
+						//handle specific plugins differently
+											
+						//instantiate plugin
+						Analysis_Plugin_EXECUTION PLUGIN = new Analysis_Plugin_EXECUTION(null, this, plugin, description, true, Start.intface.jpnlAdvancedAnalysisConsole);
+					}
 				}
 				
 				catch(Exception e)
@@ -1436,7 +1486,9 @@ public class Advanced_Analysis_Director extends Thread implements Runnable
 	public boolean commence_action()
 	{
 		try
-		{
+		{			
+			//first, save relative path
+			relative_path_to_file_analysis_directory = driver.get_relative_path_from_directory_path(path_fle_analysis_directory, true);
 			
 			///////////////////////////////////////////////////////////////////
 			//Load import file - rebuild analysis from output files
@@ -1875,7 +1927,7 @@ plugin_timeliner = new Analysis_Plugin_EXECUTION(null, this, "timeliner", "Creat
 			execute_completion_actions();
 			
 			if(EXECUTE_EXPORT_MANIFEST)
-				this.export_system_manifest();
+				this.write_manifest(WRITE_MANIFEST_DELIMITER);
 			
 			return true;
 		}
@@ -3698,7 +3750,7 @@ plugin_timeliner = new Analysis_Plugin_EXECUTION(null, this, "timeliner", "Creat
 		return false;
 	}
 	
-	public boolean export_system_manifest()
+	public boolean write_manifest(String delimiter)
 	{
 		PrintWriter pw = null;
 		String fle_manifest_path = null;
@@ -3719,6 +3771,15 @@ plugin_timeliner = new Analysis_Plugin_EXECUTION(null, this, "timeliner", "Creat
 			
 			//////////////////////////////////////////////////////////
 			//
+			// Investigation Particulars
+			//
+			////////////////////////////////////////////////////////
+			write_manifest_header(pw, "Investigation Particulars");
+			write_manifest_investigation_particulars(pw, "investigation_particulars");
+			
+			
+			//////////////////////////////////////////////////////////
+			//
 			// process
 			//
 			////////////////////////////////////////////////////////
@@ -3728,6 +3789,9 @@ plugin_timeliner = new Analysis_Plugin_EXECUTION(null, this, "timeliner", "Creat
 			{
 				for(Node_Process process : this.tree_PROCESS.values())
 				{
+					if(process == null)
+						continue;
+					
 					process.write_manifest(pw);
 				}
 			}
@@ -3743,9 +3807,402 @@ plugin_timeliner = new Analysis_Plugin_EXECUTION(null, this, "timeliner", "Creat
 			{
 				for(Node_Process process : this.tree_PROCESS.values())
 				{					
+					if(process == null)
+						continue;
+					
 					process.write_manifest_child_process(pw);
 				}
 			}
+			
+			//////////////////////////////////////////////////////////
+			//
+			// Orphaned Process(es)
+			//
+			////////////////////////////////////////////////////////
+			try
+			{
+				if(tree_ORPHAN_process != null && tree_ORPHAN_process.size() > 0)
+				{
+					LinkedList<Integer> list = new LinkedList<Integer>(tree_ORPHAN_process.keySet());
+					
+					String process_list = ""+list.removeFirst();
+					
+					for(int i : list)
+						process_list = process_list + ", " + i;
+					
+					if(process_list != null && process_list.trim().length() > 0)
+					{
+						write_manifest_header(pw, "Orphaned Process(es)");   //tree_ORPHAN_process
+						driver.write_manifest_entry(pw, "orphaned_process_list", process_list);
+					}
+					
+				}
+				
+				  
+			}
+			catch(Exception e)
+			{
+				driver.directive("unexpected Punt in " + this.myClassName + " while accumulating orphaned processing...");
+			}
+	
+			//////////////////////////////////////////////////////////
+			//
+			// tree_process_to_link_cmdline_cmdscan_consoles
+			//
+			////////////////////////////////////////////////////////
+			try
+			{
+				if(tree_process_to_link_cmdline_cmdscan_consoles != null && tree_process_to_link_cmdline_cmdscan_consoles.size() > 0)
+				{
+					LinkedList<Integer> list = new LinkedList<Integer>(tree_process_to_link_cmdline_cmdscan_consoles.keySet());
+					
+					String process_list = ""+list.removeFirst();
+					
+					for(int i : list)
+						process_list = process_list + ", " + i;
+					
+					if(process_list != null && process_list.trim().length() > 0)
+					{
+						write_manifest_header(pw, "Processes linked to cmdline, cmdscan, consoles");
+						driver.write_manifest_entry(pw, "processes_linked_to_cmdline_cmdscan_consoles", process_list);
+					}
+					
+				}
+				
+				  
+			}
+			catch(Exception e)
+			{
+				driver.directive("unexpected Punt in " + this.myClassName + " while accumulating processes linked to cmdline, cmdscan, consoles...");
+			}
+			
+			
+			
+			
+			//////////////////////////////////////////////////////////
+			//
+			// DLL
+			//
+			////////////////////////////////////////////////////////
+			if(tree_DLL_by_path != null && !tree_DLL_by_path.isEmpty())
+			{
+				write_manifest_header(pw, "DLL");
+				if(this.tree_DLL_by_path != null)
+				{
+					boolean include_underline = (tree_DLL_by_path != null) & (!tree_DLL_by_path.isEmpty());
+					
+					for(Node_DLL node : this.tree_DLL_by_path.values())
+					{
+						if(node == null)
+							continue;
+						
+						node.write_manifest(pw, delimiter, include_underline);
+					}
+				}
+			}
+			
+			//////////////////////////////////////////////////////////
+			//
+			// Drivers
+			//
+			////////////////////////////////////////////////////////
+			if(tree_DRIVERS != null && !tree_DRIVERS.isEmpty())
+			{
+				write_manifest_header(pw, "Driver Modules"); //tree_DRIVERS = new TreeMap<String, >();
+				if(this.tree_DRIVERS != null)
+				{
+					for(Node_Driver node : this.tree_DRIVERS.values())
+					{
+						if(node == null)
+							continue;
+						
+						node.write_manifest(pw, "driver_module");
+						pw.println(Driver.END_OF_ENTRY_MAJOR);
+					}
+				}
+			}
+			
+			//////////////////////////////////////////////////////////
+			//
+			// Driver RP Hook Modules
+			//
+			////////////////////////////////////////////////////////
+//			write_manifest_header(pw, "Driver IRP Hook Modules"); 
+//			if(this.tree_DRIVER_IRP_HOOK != null)
+//			{
+//				for(Node_Driver node : this.tree_DRIVER_IRP_HOOK.values())
+//				{
+//					node.write_manifest(pw, "driver_irp_hook");
+//					pw.println(Driver.END_OF_ENTRY_MAJOR);
+//				}
+//			}
+
+		
+					
+			//////////////////////////////////////////////////////////
+			//
+			// Callbacks
+			//
+			////////////////////////////////////////////////////////
+//			write_manifest_header(pw, "Callbacks"); 
+//			if(this.tree_CALLBACKS != null)
+//			{
+//				for(Node_Driver node : this.tree_CALLBACKS.values())
+//				{
+//					node.write_manifest(pw, "callback");
+//					pw.println(Driver.END_OF_ENTRY_MAJOR);
+//				}
+//			}
+					
+			
+			//////////////////////////////////////////////////////////
+			//
+			// Temp Environment Vars
+			//
+			////////////////////////////////////////////////////////
+//			write_manifest_header(pw, "Temp Environment Variables"); //tree_ENVIRONMENT_TEMP = new TreeMap<String, Node_Envar>();
+//			if(this.tree_PROCESS != null)
+//			{
+//				for(Node_Process process : this.tree_PROCESS.values())
+//				{
+//					process.write_manifest(pw);
+//				}
+//			}
+			
+			//////////////////////////////////////////////////////////
+			//
+			// tree_session_entries
+			//
+			////////////////////////////////////////////////////////
+			if(tree_session_entries != null && tree_session_entries.size() > 0)
+			{
+				write_manifest_header(pw, "Sessions");		//tree_session_entries = new TreeMap<String, LinkedList<String>>();
+
+				boolean i_have_printed_first_entry = false;
+				String header = "sessions";
+				
+				for(String key : tree_session_entries.keySet())
+				{
+					try
+					{
+						LinkedList<String> list = tree_session_entries.get(key);
+						
+						//print new major heading if this is not the first entry
+						if(i_have_printed_first_entry)
+							pw.println(Driver.END_OF_ENTRY_MAJOR);
+						else
+							i_have_printed_first_entry = true;
+						
+						driver.write_manifest_entry(pw, header, "session_container", key);
+						
+						//output details
+						for(String entry : list)
+							driver.write_manifest_entry(pw, header, "session_entry", entry);
+							
+					}
+					catch(Exception e)
+					{
+						driver.directive("Exception handled in in " + myClassName + " on tree_session_entries key [" + key + "]");
+						continue;
+					}
+
+				}				
+			}
+			
+			
+			
+			//////////////////////////////////////////////////////////
+			//
+			// tree_DESKSCAN
+			//
+			////////////////////////////////////////////////////////
+			if(this.tree_DESKSCAN != null && tree_DESKSCAN.size() > 0)
+			{
+				String header = "deskscan";
+				
+				write_manifest_header(pw, "DeskScan");		
+							
+				for(Node_Generic desktop : tree_DESKSCAN.values())
+				{
+					if(desktop == null)
+						continue;
+					
+					desktop.write_manifest(pw, header, delimiter, false, false, false);
+					
+					//print processes
+					if(desktop.tree_process != null && !desktop.tree_process.isEmpty() && desktop.desktop_offset != null)
+					{						
+						for(Node_Process process : desktop.tree_process.values())
+						{
+							if(process == null)
+								continue;
+							
+							driver.write_manifest_entry(pw, header, "process", process.get_deskscan_manifest_thread_list(desktop.desktop_offset));
+						}												
+					}					
+					pw.println(Driver.END_OF_ENTRY_MAJOR);
+				}				
+			}
+			
+			
+			//////////////////////////////////////////////////////////
+			//
+			// tree_REGISTRY_KEY_USER_ASSIST
+			//
+			////////////////////////////////////////////////////////
+			if(tree_REGISTRY_KEY_USER_ASSIST != null && !tree_REGISTRY_KEY_USER_ASSIST.isEmpty())
+			{
+				write_manifest_header(pw, "User Assist");
+				
+				String header = "user_assist";
+				
+				for(Node_Registry_Hive node : this.tree_REGISTRY_KEY_USER_ASSIST.values())
+				{
+					if(node == null)
+						continue;
+					
+					node.write_manifest(pw, header, delimiter);
+					pw.println(Driver.END_OF_ENTRY_MAJOR);
+				}
+			}
+
+			
+			//////////////////////////////////////////////////////////
+			//
+			// tree_REGISTRY_KEY_PRINTKEY
+			//
+			////////////////////////////////////////////////////////
+			if(tree_REGISTRY_KEY_PRINTKEY != null && !tree_REGISTRY_KEY_PRINTKEY.isEmpty())
+			{
+				write_manifest_header(pw, "Print Key");
+				
+				String header = "print_key";
+				
+				for(Node_Registry_Hive node : this.tree_REGISTRY_KEY_PRINTKEY.values())
+				{
+					if(node == null)
+						continue;
+					
+					node.write_manifest(pw, header, delimiter);
+					pw.println(Driver.END_OF_ENTRY_MAJOR);
+				}
+			}
+			
+			
+			
+			//////////////////////////////////////////////////////////
+			//
+			// tree_hashdump
+			//
+			////////////////////////////////////////////////////////
+			if(this.tree_hashdump != null && this.tree_hashdump.size() > 0)
+			{
+				write_manifest_header(pw, "HashDump"); // = new TreeMap<String, String>();
+				
+				for(String hash : tree_hashdump.keySet())
+				{
+					driver.write_manifest_entry(pw, "hashdump", hash);
+				}
+			}
+			
+
+			
+			//////////////////////////////////////////////////////////
+			//
+			// tree_hivelist
+			//
+			////////////////////////////////////////////////////////
+			if(tree_hivelist != null && !tree_hivelist.isEmpty())
+			{
+				write_manifest_header(pw, "HiveList");
+				
+				String header = "hivelist";
+				
+				for(Node_hivelist node : tree_hivelist.values())
+				{
+					if(node == null)
+						continue;
+					
+					node.write_manifest(pw, header, delimiter);
+				}
+			}
+			 //tree_hivelist = new TreeMap<String, Node_hivelist>();
+
+			
+			//////////////////////////////////////////////////////////
+			//
+			// tree_get_service_sids
+			//
+			////////////////////////////////////////////////////////
+			if(tree_get_service_sids != null && !tree_get_service_sids.isEmpty())
+			{
+				write_manifest_header(pw, "Service SIDS");
+				
+				String header = "getservicesid";
+				
+				for(Node_get_service_sid node : tree_get_service_sids.values())
+				{
+					if(node == null)
+						continue;
+					
+					node.write_manifest(pw, header, delimiter);
+				}
+			}
+
+			
+			//////////////////////////////////////////////////////////
+			//
+			// tree_SIDS
+			//
+			////////////////////////////////////////////////////////
+			if(tree_SIDS != null && !tree_SIDS.isEmpty())
+			{
+				write_manifest_header(pw, "SIDS");
+				
+				String owner_name = null;
+				
+				String header = "getsids";
+				
+				for(String sid : tree_SIDS.keySet())
+				{
+					try
+					{
+						if(sid == null || sid.trim().equals(""))
+							continue;
+						
+						owner_name = tree_SIDS.get(sid);
+						
+						driver.write_manifest_entry(pw, header, "sid:\t " + sid + delimiter + "owner_name:\t " + owner_name);						
+					}
+					catch(Exception e)
+					{
+						driver.directive("Exception handled in " + this.myClassName + " attempting to extract SID/Ower_name tuple on SID: " + sid);
+						continue;
+					}
+					
+					
+					
+					
+				}
+			}
+			 //tree_SIDS = new TreeMap<String, String>();
+
+					
+		
+
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
 			
 			
 			
@@ -3758,7 +4215,7 @@ plugin_timeliner = new Analysis_Plugin_EXECUTION(null, this, "timeliner", "Creat
 		}
 		catch(Exception e)
 		{
-			driver.eop(myClassName, "export_system_manifest", e);
+			driver.eop(myClassName, "write_manifest", e);
 		}
 		
 		
@@ -3769,13 +4226,46 @@ plugin_timeliner = new Analysis_Plugin_EXECUTION(null, this, "timeliner", "Creat
 	
 	
 	
+	public boolean write_manifest_investigation_particulars(PrintWriter pw, String header)
+	{
+		try
+		{						
+			driver.write_manifest_entry(pw, header, "investigator_name", investigator_name);
+			driver.write_manifest_entry(pw, header, "investigation_description", investigation_description);
+			driver.write_manifest_entry(pw, header, "execution_time_stamp", EXECUTION_TIME_STAMP);
+			driver.write_manifest_entry(pw, header, "profile", PROFILE);
+			driver.write_manifest_entry(pw, header, "profile_lower ", profile_lower );
+			driver.write_manifest_entry(pw, header, "relative_path_to_file_analysis_directory", relative_path_to_file_analysis_directory);
+			
+			if(file_attr_volatility != null)
+				file_attr_volatility.write_manifest_investigation_particulars(pw, header, "analysis_kit", "\t ");
+			
+			if(file_attr_memory_image != null)
+				file_attr_memory_image.write_manifest_investigation_particulars(pw, header, "analysis_image", "\t ");
+			
+			driver.write_manifest_entry(pw, header, "memory_image_system_drive", system_drive);
+			driver.write_manifest_entry(pw, header, "memory_image_system_root", system_root);
+			driver.write_manifest_entry(pw, header, "memory_image_computer_name", computer_name);
+			driver.write_manifest_entry(pw, header, "memory_image_processor_identifier", PROCESSOR_IDENTIFIER);
+			driver.write_manifest_entry(pw, header, "memory_image_processor_architecture", PROCESSOR_ARCHITECTURE);
+			
+			
+			
+			//Node_Generic node_shutdown_time
+			//Node_Generic node_audit_policy
+			
+			
+			return true;
+		}
+		catch(Exception e)
+		{
+			driver.eop(myClassName, "write_manifest_investigation_particulars", e);
+		}
+		
+		return false;
+	}
 	
-	
-	
-	
-	
-	
-	
+			
 	
 	
 	

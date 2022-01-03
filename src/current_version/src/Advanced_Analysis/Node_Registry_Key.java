@@ -267,7 +267,66 @@ public class Node_Registry_Key
 		return false;
 	}
 	
-	
+	public boolean write_manifest(PrintWriter pw, String header, String delimiter)
+	{				
+		try
+		{
+			if(pw == null)
+				return false;
+			
+			if(delimiter == null)
+				delimiter = "\t ";
+			
+			String sub_header = "\t registry_key";
+			String sub_header_sub_key = "\t registry_subkey";
+			
+			if(registry_hive != null)
+				driver.write_manifest_entry(pw, header + sub_header, "parent_container_registry", registry_hive.registry);
+			
+			driver.write_manifest_entry(pw, header + sub_header, "key_name", key_name);
+			driver.write_manifest_entry(pw, header + sub_header, "path", path);
+			driver.write_manifest_entry(pw, header + sub_header, "last_updated", last_updated);
+			
+			if(list_sub_key_names != null && !list_sub_key_names.isEmpty())
+			{
+				for(String name : list_sub_key_names)
+				{
+					driver.write_manifest_entry(pw, header + sub_header, "list_sub_key_names", name);
+				}
+			}
+			
+			if(list_values != null && !list_values.isEmpty())
+			{
+				for(String values : list_values)
+				{
+					driver.write_manifest_entry(pw, header + sub_header, "list_values", values);
+				}
+			}
+			
+			if(this.tree_reg_binary != null && !this.tree_reg_binary.isEmpty())
+			{
+				for(Node_Generic node : this.tree_reg_binary.values())
+				{
+					if(node == null)
+						continue;
+					
+					pw.println(Driver.END_OF_ENTRY_MINOR_SUB_CATEGORY_1);
+					
+					
+					node.write_manifest(pw, header + sub_header_sub_key, delimiter, false, false, false);
+				}
+			}
+			
+			
+		}
+		
+		catch(Exception e)
+		{
+			driver.eop(myClassName, "write_manifest", e);
+		}
+		
+		return false;
+	}
 	
 	
 	

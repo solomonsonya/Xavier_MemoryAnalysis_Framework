@@ -20,9 +20,9 @@ public class Node_Driver_IRP
 	public volatile boolean XREF_SEARCH_HIT_FOUND = false;
 	
 	public volatile Node_Driver nde_driver = null;
-	public volatile String driver_start = null;
-	public volatile String driver_size = null;
-	public volatile String driver_start_io = null;
+	public volatile String driver_irp_start = null;
+	public volatile String driver_irp_size = null;
+	public volatile String driver_irp_start_io = null;
 	public volatile LinkedList<String> list_irp_entries = new LinkedList<String>();
 	
 	public volatile int index = 0;
@@ -52,9 +52,9 @@ public class Node_Driver_IRP
 			else
 				driver.write_node_ENTRY("Driver Name: ", this.nde_driver.module_name, pw);
 			
-			driver.write_node_ENTRY("Driver Start: ", this.driver_start, pw);
-			driver.write_node_ENTRY("Driver Size: ", this.driver_size, pw);
-			driver.write_node_ENTRY("Driver Start IO: ", this.driver_start_io, pw);
+			driver.write_node_ENTRY("Driver Start: ", this.driver_irp_start, pw);
+			driver.write_node_ENTRY("Driver Size: ", this.driver_irp_size, pw);
+			driver.write_node_ENTRY("Driver Start IO: ", this.driver_irp_start_io, pw);
 			
 			if(this.list_irp_entries != null && this.list_irp_entries.size() > 0)
 			{
@@ -110,9 +110,9 @@ public class Node_Driver_IRP
 		{  
 			XREF_SEARCH_HIT_FOUND = false;
 			
-			XREF_SEARCH_HIT_FOUND |= this.check_value(driver_start, "driver_start", search_chars_from_user, search_chars_from_user_lower, jta, searching_proces, container_search_name);
-			XREF_SEARCH_HIT_FOUND |= this.check_value(driver_size, "driver_size", search_chars_from_user, search_chars_from_user_lower, jta, searching_proces, container_search_name);
-			XREF_SEARCH_HIT_FOUND |= this.check_value(driver_start_io, "driver_start_io", search_chars_from_user, search_chars_from_user_lower, jta, searching_proces, container_search_name);
+			XREF_SEARCH_HIT_FOUND |= this.check_value(driver_irp_start, "driver_start", search_chars_from_user, search_chars_from_user_lower, jta, searching_proces, container_search_name);
+			XREF_SEARCH_HIT_FOUND |= this.check_value(driver_irp_size, "driver_size", search_chars_from_user, search_chars_from_user_lower, jta, searching_proces, container_search_name);
+			XREF_SEARCH_HIT_FOUND |= this.check_value(driver_irp_start_io, "driver_start_io", search_chars_from_user, search_chars_from_user_lower, jta, searching_proces, container_search_name);
 	
 			
 			if(this.list_irp_entries != null)
@@ -177,6 +177,48 @@ public class Node_Driver_IRP
 	}
 	
 		
+	public boolean write_manifest(PrintWriter pw, String header)
+	{
+		try
+		{
+			driver.write_manifest_entry(pw, header, "driver_irp_start", driver_irp_start);
+			driver.write_manifest_entry(pw, header, "driver_irp_size", driver_irp_size);
+			driver.write_manifest_entry(pw, header, "driver_irp_start_io", driver_irp_start_io);
+			
+			if(list_irp_entries != null && !list_irp_entries.isEmpty())
+			{
+				for(String entry : list_irp_entries)
+				{
+					driver.write_manifest_entry(pw, header, "list_irp_entries", entry);
+				}
+			}
+			
+			
+			return true;
+		}
+		catch(Exception e)
+		{
+			driver.eop(myClassName, "write_manifest", e);
+		}
+		
+		return false;
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	
 	

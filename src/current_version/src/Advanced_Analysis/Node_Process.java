@@ -2020,10 +2020,15 @@ public class Node_Process
 						if(lookup.contains(":"))
 							lookup = lookup.substring(0, lookup.indexOf(":")).trim();
 						
-						if(lookup.length() < 2)
-							return false;	
+//						if(lookup.length() < 2)
+//							return false;	
+//						
+//						pw.print(" <td> " + "<a href =\"https://www.virustotal.com/gui/ip-address/" + driver.normalize_html(lookup).replace("\\", "&#92") + "/detection\" target=\"_blank\"> Link </a></td>");
 						
-						pw.print(" <td> " + "<a href =\"https://www.virustotal.com/gui/ip-address/" + driver.normalize_html(lookup).replace("\\", "&#92") + "/detection\" target=\"_blank\"> Link </a></td>");
+						if(lookup.length() > 3)
+							pw.print(" <td> " + "<a href =\"https://www.virustotal.com/gui/ip-address/" + driver.normalize_html(lookup).replace("\\", "&#92") + "/detection\" target=\"_blank\"> Link </a></td>");
+						else
+							pw.print(" <td> " + "-" + "</td>");
 					}
 					
 					
@@ -2461,7 +2466,7 @@ public class Node_Process
 			
 			//hit found!
 			if(jta != null)
-				jta.append(this.get_process_html_header() + "\n" + driver.UNDERLINE);
+				jta.append("Process: " + this.get_process_html_header() + "\n" + driver.UNDERLINE);
 			
 			I_HAVE_WRITTEN_PROCESS_HEADER_ALREADY = true;
 			
@@ -2771,12 +2776,12 @@ public class Node_Process
 				{
 					for(TreeMap<String, Node_Generic> tree: this.tree_deskscan.values())
 					{
-						if(tree == null)
+						if(tree == null || tree.isEmpty())
 							continue;
 							
 						for(Node_Generic node: tree.values())
 						{
-							if(tree == null)
+							if(tree == null || tree.isEmpty())
 								continue;
 						
 							node.search_XREF(search_chars_from_user, search_chars_from_user_lower, jta, this, "Deskscan");
@@ -2991,13 +2996,17 @@ public class Node_Process
 			{
 				if(this.tree_sids != null)
 				{
+					String value = "";
+					
 					for(String key : tree_sids.keySet())
 					{
 						if(key == null)
 							continue;
 						
-						if(key.toLowerCase().trim().contains(search_chars_from_user_lower))
-							this.append_to_jta_XREF("SID: " + key, jta);
+						try	{	value = tree_sids.get(key); } catch(Exception e){ value = "";}
+						
+						if(key.toLowerCase().trim().contains(search_chars_from_user_lower) || value.toLowerCase().trim().contains(search_chars_from_user_lower))
+							this.append_to_jta_XREF("SID: " + key + "\t" + value, jta);
 					}
 				}
 			}
@@ -3307,10 +3316,16 @@ public class Node_Process
 			driver.write_manifest_entry(pw, "extension", extension);
 			
 			if(my_module_description != null)
+			{
 				my_module_description.write_manifest_basic("my_module_description", pw);
+				pw.println(Driver.END_OF_ENTRY_MINOR);
+			}
 			
 			if(fle_attributes != null)
-				fle_attributes.write_manifest_entry(pw);				
+			{
+				fle_attributes.write_manifest_entry(pw, "process\tfile_attr\t", null);
+				pw.println(Driver.END_OF_ENTRY_MINOR);
+			}
 			
 			//
 			//pslist
@@ -3370,6 +3385,14 @@ public class Node_Process
 			driver.write_manifest_entry(pw, "found_in_psscan", ""+found_in_psscan);
 			driver.write_manifest_entry(pw, "relative_path_vadtree_image", relative_path_vadtree_image);
 			
+			pw.println(Driver.END_OF_ENTRY_MINOR);
+			
+			//
+			//my vad
+			//
+			try	{	if(this.VAD != null)	VAD.write_manifest(pw, "my_vad_info", "\t", false, false, true);			}	catch(Exception e){}
+				
+			
 			//
 			//netstat
 			//
@@ -3388,10 +3411,64 @@ public class Node_Process
 			//
 			//Service Scan
 			//
+			write_manifest_svcscan(pw, this.tree_services_svcscan, "svcscan", driver.delimiter);
+			
+			//
+			//SIDS
+			//
+			write_manifest_STRING(pw, this.tree_sids, "sids", driver.delimiter, true, false, false);
+			
+			//
+			//malfind
+			//
+			write_manifest_malfind(pw, this.tree_malfind, "malfind", driver.delimiter);
+			
+			//
+			//threads
+			//
+			write_manifest_threads(pw, this.tree_threads, "threads", driver.delimiter);
+			
+			//
+			//GDI Timers
+			//
+			write_manifest_Node_Generic(pw, this.tree_gdi_timers, "gdi_timers", driver.delimiter, true);
+			
+			//
+			//APIHooks
+			//
+			write_manifest_api_hooks(pw, this.tree_api_hook, "api_hooks", driver.delimiter);
 			
 			
+			//			
+			//vad_info
+			//
+			write_manifest_Node_Generic(pw, this.tree_vad_info, "vad_info", driver.delimiter, false);
+			
+			//
+			//deskscan
+			//
+			write_manifest_deskscan(pw, this.tree_deskscan, "process deskscan", driver.delimiter, false);
+			
+			//
+			//list_cmd_scan
+			//
+			write_manifest_cmdscan(pw, this.list_cmd_scan, "cmdscan", driver.delimiter, false);
 			
 			
+			//
+			//tree_cmdscan_consoles
+			//
+			write_manifest_cmdscan_consoles(pw, this.tree_cmdscan_consoles, "cmdscan_consoles", driver.delimiter, false);
+
+			//			
+			//envars
+			//
+			write_manifest_envars(pw, this.tree_environment_vars, "envars", driver.delimiter, true);
+			
+			//
+			//import functions
+			//
+			write_manifest_impscan(pw, this.tree_impscan_DLL_containers, "impscan", driver.delimiter);
 			
 			pw.println(driver.END_OF_ENTRY_MAJOR);
 			return true;
@@ -3405,6 +3482,362 @@ public class Node_Process
 		return false;
 	}
 	
+	
+	public boolean write_manifest_impscan(PrintWriter pw,TreeMap<String, Node_DLL_Container_Impscan> tree, String header, String delimiter)
+	{
+		try
+		{
+			if(pw == null)
+				return false;
+			
+			if(tree == null || tree.isEmpty())
+				return false;
+			
+			boolean include_underline = (tree.size() > 1);
+			
+			for(Node_DLL_Container_Impscan node : tree.values())
+			{
+				if(node == null)
+					continue;
+
+				node.write_manifest(pw, header, delimiter, include_underline);			
+				
+			}			
+			
+			if(!include_underline)
+				pw.println(Driver.END_OF_ENTRY_MINOR);
+						
+			
+			return true;
+		}
+		catch(Exception e)
+		{
+			driver.eop(myClassName, "write_manifest_Node_Generic of type " + header, e);
+		}
+		
+		return false;
+	}
+	
+	public boolean write_manifest_envars(PrintWriter pw,TreeMap<String, Node_Envar> tree, String header, String delimiter, boolean print_output_as_single_line)
+	{
+		try
+		{
+			if(pw == null)
+				return false;
+			
+			if(tree == null || tree.isEmpty())
+				return false;
+			
+			boolean include_underline = (tree.size() > 1);
+			
+			for(Node_Envar node : tree.values())
+			{
+				if(node == null)
+					continue;
+
+				node.write_manifest(pw, header, delimiter, include_underline, print_output_as_single_line);			}			
+			
+			
+			pw.println(Driver.END_OF_ENTRY_MINOR);
+			
+			return true;
+		}
+		catch(Exception e)
+		{
+			driver.eop(myClassName, "write_manifest_Node_Generic of type " + header, e);
+		}
+		
+		return false;
+	}
+	
+	public boolean write_manifest_cmdscan_consoles(PrintWriter pw, TreeMap<String, Node_CmdScan> tree, String header, String delimiter, boolean print_output_as_single_line)
+	{
+		try
+		{
+			if(pw == null)
+				return false;
+			
+			if(tree == null || tree.isEmpty())
+				return false;
+			
+			boolean include_underline = (tree.size() > 1);
+			
+			for(Node_CmdScan node  : tree.values())
+			{
+				if(node == null)
+					continue;
+								
+				node.write_manifest(pw, header, delimiter, include_underline, print_output_as_single_line);
+			}	
+			
+			if(!include_underline)
+				pw.println(Driver.END_OF_ENTRY_MINOR);
+			
+			return true;
+		}
+		catch(Exception e)
+		{
+			driver.eop(myClassName, "write_manifest_");
+		}
+		
+		return false;
+	}
+	
+	
+	public boolean write_manifest_cmdscan(PrintWriter pw, LinkedList<Node_CmdScan> list, String header, String delimiter, boolean print_output_as_single_line)
+	{
+		try
+		{
+			if(pw == null)
+				return false;
+			
+			if(list == null)
+				return false;
+			
+			boolean include_underline = (list.size() > 1);
+			
+			for(Node_CmdScan node  : list)
+			{
+				if(node == null)
+					continue;				
+				
+				node.write_manifest(pw, header, delimiter, include_underline, print_output_as_single_line);				
+			}	
+			
+			if(!include_underline)
+				pw.println(Driver.END_OF_ENTRY_MINOR);
+			
+			return true;
+		}
+		catch(Exception e)
+		{
+			driver.eop(myClassName, "write_manifest_");
+		}
+		
+		return false;
+	}
+	
+	public boolean write_manifest_deskscan(PrintWriter pw, TreeMap<String, TreeMap<String, Node_Generic>> tree, String header, String delimiter, boolean print_output_as_single_line)
+	{
+		try
+		{
+			if(pw == null)
+				return false;
+			
+			if(tree == null || tree.isEmpty())
+				return false;
+			
+			boolean include_underline = (tree.size() > 1);
+			
+			for(TreeMap<String, Node_Generic> tree_deskscan  : tree.values())
+			{
+				if(tree_deskscan == null || tree_deskscan.isEmpty())
+					continue;
+				
+				for(Node_Generic node : tree_deskscan.values())
+				{
+					if(node == null)
+						continue;
+
+					node.write_manifest(pw, header, delimiter, include_underline, print_output_as_single_line, true);	
+				}
+				
+			}			
+			
+			if(!include_underline)
+				pw.println(Driver.END_OF_ENTRY_MINOR);
+			
+			return true;
+		}
+		catch(Exception e)
+		{
+			driver.eop(myClassName, "write_manifest_");
+		}
+		
+		return false;
+	}
+	
+	
+	public boolean write_manifest_api_hooks(PrintWriter pw, TreeMap<String, Node_ApiHook> tree, String header, String delimiter)
+	{
+		try
+		{
+			if(pw == null)
+				return false;
+			
+			if(tree == null || tree.isEmpty())
+				return false;
+			
+			boolean include_underline = (tree.size() > 1);
+			
+			for(Node_ApiHook node : tree.values())
+			{
+				if(node == null)
+					continue;
+
+				node.write_manifest(pw, header, delimiter, include_underline);			
+				
+			}			
+			
+			if(!include_underline)
+				pw.println(Driver.END_OF_ENTRY_MINOR);
+			
+			return true;
+		}
+		catch(Exception e)
+		{
+			driver.eop(myClassName, "write_manifest_" + header, e);
+		}
+		
+		return false;
+	}
+	
+	
+	public boolean write_manifest_Node_Generic(PrintWriter pw, TreeMap<String, Node_Generic> tree, String header, String delimiter, boolean print_output_as_single_line)
+	{
+		try
+		{
+			if(pw == null)
+				return false;
+			
+			if(tree == null || tree.isEmpty())
+				return false;
+			
+			boolean include_underline = (tree.size() > 1);
+			
+			for(Node_Generic node : tree.values())
+			{
+				if(node == null)
+					continue;
+
+				node.write_manifest(pw, header, delimiter, include_underline, print_output_as_single_line, true);			
+						
+			}			
+			
+			if(!include_underline)
+				pw.println(Driver.END_OF_ENTRY_MINOR);
+						
+			
+			return true;
+		}
+		catch(Exception e)
+		{
+			driver.eop(myClassName, "write_manifest_Node_Generic of type " + header, e);
+		}
+		
+		return false;
+	}
+	
+	public boolean write_manifest_threads(PrintWriter pw, TreeMap<String, Node_Threads> tree, String header, String delimiter)
+	{
+		try
+		{
+			if(pw == null)
+				return false;
+			
+			if(tree == null || tree.isEmpty())
+				return false;
+			
+			boolean include_underline = (tree.size() > 1);
+			
+			for(Node_Threads node : tree.values())
+			{
+				if(node == null)
+					continue;
+
+				//do not output as single line bcs Threads could inlcude "eax=0x006ef490 ebx=0x006ef9f4 ecx=0x00000007 edx=0x0000007a esi=0x00000003 edi=0x00000000" e.g. Malware Analysis Engineering Sample 14.1
+				node.write_manifest(pw, header, delimiter, include_underline);			
+				
+			}				
+			
+								
+			
+			return true;
+		}
+		catch(Exception e)
+		{
+			driver.eop(myClassName, "write_manifest_" + header, e);
+		}
+		
+		return false;
+	}
+	
+	
+	public boolean write_manifest_malfind(PrintWriter pw, TreeMap<String, Node_Malfind> tree, String header, String delimiter)
+	{
+		try
+		{
+			if(pw == null)
+				return false;
+			
+			if(tree == null || tree.isEmpty())
+				return false;
+			
+			boolean include_underline = (tree.size() > 1);
+			
+			for(Node_Malfind node : tree.values())
+			{
+				if(node == null)
+					continue;
+
+				node.write_manifest(pw, header, delimiter, include_underline);			
+				
+			}					
+			
+			if(!include_underline)
+				pw.println(Driver.END_OF_ENTRY_MINOR);
+				
+			
+			return true;
+		}
+		catch(Exception e)
+		{
+			driver.eop(myClassName, "write_manifest_" + header, e);
+		}
+		
+		return false;
+	}
+	
+	public boolean write_manifest_STRING(PrintWriter pw, TreeMap<String, String> tree, String header, String delimiter, boolean include_key_and_value, boolean include_key_ONLY, boolean include_value_ONLY)
+	{
+		try
+		{
+			if(pw == null)
+				return false;
+			
+			if(tree == null || tree.isEmpty())
+				return false;
+			
+			String value = "";
+			
+			for(String key : tree.keySet())
+			{
+				if(key == null)
+					continue;
+				
+				try	{	value = tree.get(key);}	catch(Exception e){value = "";}
+
+				if(include_key_and_value)
+					driver.write_manifest_entry(pw, header, key, value);
+				else if(include_key_ONLY)
+					driver.write_manifest_entry(pw, header, key);
+				else if(include_value_ONLY)
+					driver.write_manifest_entry(pw, header, value);				
+			}			
+			
+			pw.println(Driver.END_OF_ENTRY_MINOR);
+			
+			
+			return true;
+		}
+		catch(Exception e)
+		{
+			driver.eop(myClassName, "write_manifest_STRING for type:" + header, e);
+		}
+		
+		return false;
+	}
+	
 	public boolean write_manifest_privilege(PrintWriter pw, TreeMap<String, Node_Privs> tree, String header, String delimiter)
 	{
 		try
@@ -3412,7 +3845,7 @@ public class Node_Process
 			if(pw == null)
 				return false;
 			
-			if(tree == null)
+			if(tree == null || tree.isEmpty())
 				return false;
 			
 			for(Node_Privs node : tree.values())
@@ -3420,7 +3853,44 @@ public class Node_Process
 				if(node == null)
 					continue;
 
-				node.write_manifest(pw, header, delimiter);			}			
+				node.write_manifest(pw, header, delimiter);			
+				
+			}			
+			
+			pw.println(Driver.END_OF_ENTRY_MINOR);
+						
+			
+			return true;
+		}
+		catch(Exception e)
+		{
+			driver.eop(myClassName, "write_manifest_" + header, e);
+		}
+		
+		return false;
+	}
+	
+	public boolean write_manifest_svcscan(PrintWriter pw, TreeMap<String, Node_svcscan> tree, String header, String delimiter)
+	{
+		try
+		{
+			if(pw == null)
+				return false;
+			
+			if(tree == null || tree.isEmpty())
+				return false;
+			
+			for(Node_svcscan node : tree.values())
+			{
+				if(node == null)
+					continue;
+
+				node.write_manifest(pw, header, delimiter);			
+				
+			}					
+			
+			pw.println(Driver.END_OF_ENTRY_MINOR);
+				
 			
 			return true;
 		}
@@ -3446,9 +3916,12 @@ public class Node_Process
 					if(netstat == null)
 						continue;
 					
-					netstat.write_manifest(pw);
+					netstat.write_manifest(pw, "netstat", "\t", ":");
 				}
-			}
+			}			
+			
+			pw.println(Driver.END_OF_ENTRY_MINOR);
+			
 			
 			return true;
 		}
@@ -3473,7 +3946,10 @@ public class Node_Process
 					continue;
 				
 				driver.write_manifest_entry(pw, "handle", handle.get_manifest_file_entry("\t"));
-			}
+			}			
+			
+			pw.println(Driver.END_OF_ENTRY_MINOR);
+			
 			
 			return true;
 		}
@@ -3511,7 +3987,7 @@ public class Node_Process
 			
 			//write data
 			pw.println("child_process:\t" + this.PID + "\t=\t" + child_process_list);
-			
+												
 			return true;
 		}
 		catch(Exception e)
@@ -3523,7 +3999,46 @@ public class Node_Process
 	}
 	
 	
-	
+	public String get_deskscan_manifest_thread_list(String desktop_offset)
+	{
+		try
+		{
+			if(this.tree_deskscan == null || this.tree_deskscan.isEmpty() || !this.tree_deskscan.containsKey(desktop_offset))
+				return null;
+				
+			//Locate the Desktop
+			TreeMap<String, Node_Generic> tree_DESKTOP = tree_deskscan.get(desktop_offset);
+			
+			if(tree_DESKTOP == null)
+				return null;
+			
+			//each entry is the thread ID for this process
+			LinkedList<String> list = new LinkedList<String>(tree_DESKTOP.keySet());
+			
+			if(list == null || list.isEmpty())
+				return null;
+			
+			String thread_list = list.removeFirst();
+			
+			for(String thread_id : list)
+			{
+				if(thread_id == null || thread_id.trim().equals(""))
+					continue;
+				
+				if(!thread_list.contains(thread_id))
+					thread_list = thread_list + ", " + thread_id;
+			}
+			
+			return "PID:\t " + this.PID + "\t thread_list:\t " + thread_list;
+			
+		}
+		catch(Exception e)
+		{
+			driver.eop(myClassName, "get_deskscan_manifest_thread_list", e);
+		}
+		
+		return null;
+	}
 	
 	
 	

@@ -386,7 +386,81 @@ public volatile Node_Process process = null;
 	
 	
 	
-	
+	/**
+	 * continuation mtd
+	 * @param pw
+	 * @param key
+	 * @param value
+	 * @return
+	 */
+	public boolean write_manifest(PrintWriter pw, String header, String delimiter, boolean include_underline)
+	{
+		try
+		{
+			if(pw == null)
+				return false;	
+			
+			delimiter = delimiter + " ";
+			
+			driver.write_manifest_entry(pw, header, "ethread_address", ethread_address); 
+			driver.write_manifest_entry(pw, header, "PID", pid);
+			driver.write_manifest_entry(pw, header, "TID", TID);
+			driver.write_manifest_entry(pw, header, "tags", tags);
+			driver.write_manifest_entry(pw, header, "created", created);
+			driver.write_manifest_entry(pw, header, "exited", exited);
+			driver.write_manifest_entry(pw, header, "owning_process_name", owning_process_name);
+			driver.write_manifest_entry(pw, header, "attached_process_name", attached_process_name);
+			driver.write_manifest_entry(pw, header, "state", state);
+			driver.write_manifest_entry(pw, header, "base_priority", base_priority);
+			driver.write_manifest_entry(pw, header, "priority", priority);
+			driver.write_manifest_entry(pw, header, "TEB", TEB);
+			driver.write_manifest_entry(pw, header, "start_address", start_address);
+			driver.write_manifest_entry(pw, header, "service_table_address", service_table_address);
+			driver.write_manifest_entry(pw, header, "service_table_0", service_table_0);
+			driver.write_manifest_entry(pw, header, "service_table_1", service_table_1);
+			driver.write_manifest_entry(pw, header, "service_table_2", service_table_2);
+			driver.write_manifest_entry(pw, header, "service_table_3", service_table_3);
+			driver.write_manifest_entry(pw, header, "win32thread", win32thread);
+			driver.write_manifest_entry(pw, header, "crossThreadFlags", crossThreadFlags);
+			driver.write_manifest_entry(pw, header, "eax", eax);
+			driver.write_manifest_entry(pw, header, "ebx", ebx);
+			driver.write_manifest_entry(pw, header, "ecx", ecx);
+			driver.write_manifest_entry(pw, header, "edx", edx);
+			driver.write_manifest_entry(pw, header, "esi", esi);
+			driver.write_manifest_entry(pw, header, "edi", edi);
+			driver.write_manifest_entry(pw, header, "eip", eip);
+			driver.write_manifest_entry(pw, header, "esp", esp);
+			driver.write_manifest_entry(pw, header, "ebp", ebp);
+			driver.write_manifest_entry(pw, header, "err", err);
+			driver.write_manifest_entry(pw, header, "cs", cs);
+			driver.write_manifest_entry(pw, header, "ss", ss);
+			driver.write_manifest_entry(pw, header, "ds", ds);
+			driver.write_manifest_entry(pw, header, "es", es);
+			driver.write_manifest_entry(pw, header, "gs", gs);
+			driver.write_manifest_entry(pw, header, "fs", fs);
+			driver.write_manifest_entry(pw, header, "efl", efl);
+			driver.write_manifest_entry(pw, header, "dr0", dr0);
+			driver.write_manifest_entry(pw, header, "dr1", dr1);
+			driver.write_manifest_entry(pw, header, "dr2", dr2);
+			driver.write_manifest_entry(pw, header, "dr3", dr3);
+			driver.write_manifest_entry(pw, header, "dr4", dr4);
+			driver.write_manifest_entry(pw, header, "dr5", dr5);
+			driver.write_manifest_entry(pw, header, "dr6", dr6);
+			driver.write_manifest_entry(pw, header, "dr7", dr7);											
+			
+			
+			if(include_underline)
+				pw.println(Driver.END_OF_ENTRY_MINOR);
+			
+			return true;
+		}
+		catch(Exception e)
+		{
+			driver.eop(myClassName, "write_manifest", e);
+		}
+		
+		return false;
+	}
 	
 	
 	

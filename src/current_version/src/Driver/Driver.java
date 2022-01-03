@@ -55,7 +55,7 @@ import Plugin.Process_Plugin;
 		
 		public static final String NAME = "Xavier Framework";
 		public static final String NAME_LOWERCASE = "xavier_framework";
-		public static final String VERSION = "2.107";
+		public static final String VERSION = "2.108";
 		public static final String FULL_NAME = NAME + " vrs " + VERSION;
 						
 		public static Log log_unrecognized = null; 
@@ -68,6 +68,7 @@ import Plugin.Process_Plugin;
 		public static volatile String UNDERLINE = "=====================================================================================";
 		public static volatile String END_OF_ENTRY_MAJOR = "****************************************************************************************************";
 		public static volatile String END_OF_ENTRY_MINOR = "----------------------------------------------------------------------------------------------------";
+		public static volatile String END_OF_ENTRY_MINOR_SUB_CATEGORY_1 = "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~";
 		
 		public static volatile String encryption_key = null;
 		
@@ -3608,13 +3609,13 @@ import Plugin.Process_Plugin;
 			if(pw == null)
 				return false;
 			
-			if(key == null || key.trim().equals("") || value == null || value.trim().equals(""))
+			if(key == null || key.trim().equals("") || key.toLowerCase().trim().equals("null") || value == null || value.trim().equals("") || value.toLowerCase().trim().equals("null"))
 				return false;
 			
 			key = key.replace("\\??\\", "");
 			value = value.replace("\\??\\", "");
 			
-			pw.println(key + ":\t" + value);
+			pw.println(key + "\t " + value);
 			
 			return true;
 		}
@@ -3672,7 +3673,7 @@ import Plugin.Process_Plugin;
 	{
 		try
 		{
-			if(key == null || key.trim().equals("") || value == null || value.trim().equals(""))
+			if(key == null || key.trim().equals("") || key.toLowerCase().trim().equals("null") || value == null || value.trim().equals("") || value.toLowerCase().trim().equals("null"))
 				return "";
 			
 			if(delimiter == null)
@@ -3699,9 +3700,88 @@ import Plugin.Process_Plugin;
 		return "";
 	}
 	
+	/**
+	 * given canoncal path from file, this will return --> /parent name/file name
+	 * @param fle
+	 * @return
+	 */
+	public String get_relative_path(File fle)
+	{
+		if(fle == null)
+			return "";
+		
+		try
+		{
+			return "/" + fle.getParentFile().getName() + "/" + fle.getName();
+		}
+		catch(Exception e)
+		{
+			try
+			{
+				//perhaps parent did not exist, i.e. this is executing from root directory somehow...
+				return "/" + fle.getName();
+			}
+			catch(Exception ee)
+			{
+				//do n/t
+			}
+		}
+		
+		return "";
+	}
 	
-	
-	
+	public String get_relative_path_from_directory_path(String path, boolean enforce_trailing_slash)
+	{
+		try
+		{
+			if(path == null || path.trim().equals(""))
+				return "";
+			
+			path = path.trim();
+			
+			path = path.replace("\\", "/").trim();
+			
+			//remove trailing / if present
+			try	
+			{
+				if(this.isLinux)
+				{
+					String path_temp = path.replace("\\", "/"); 
+					
+					if(path_temp.endsWith("/") && path_temp.length() > 1)
+						path_temp = path_temp.substring(0, path_temp.length()-2).trim();
+					
+					path = path_temp; 
+				}
+				
+			}
+			catch(Exception e){}
+			
+			String [] arr = path.split("/");
+			
+			//if(arr == null || arr.length < 1)
+			//	arr = path.split("\\\\");
+			
+			if(arr.length < 2)
+			{
+				if(enforce_trailing_slash)
+					return "/" + arr[1] + "/";
+					
+				return "/" + arr[1];
+			}
+			
+			if(enforce_trailing_slash)
+				return "/" + arr[arr.length-2].trim() + "/" + arr[arr.length -1].trim() + "/";
+			
+			return "/" + arr[arr.length-2].trim() + "/" + arr[arr.length -1].trim();										
+		}
+		catch(Exception e)
+		{
+			this.eop(myClassName, "get_relative_path_from_directory_path", e, true);
+		}
+		
+		return "";
+	}
 	
 	
 	

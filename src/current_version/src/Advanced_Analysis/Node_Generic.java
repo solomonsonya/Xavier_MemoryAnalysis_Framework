@@ -78,10 +78,17 @@ public class Node_Generic
 	//userassist
 	//
 	public volatile String reg_binary = null;
-	public volatile String raw_data = null;
+	public volatile String raw_data_first_line = null;
 	public volatile String id = null;
 	public volatile String count = null;
+	public volatile String focus_count = null;
+	public volatile String time_focused = null;	
 	public volatile String last_updated = null;
+	
+	//do not link these in xref search, it is just to link back to registry and hive for user assist time focused value
+	public volatile Node_Registry_Hive registry_hive = null;
+	public volatile Node_Registry_Key registry_key = null;
+		
 	
 	//
 	//vadinfo
@@ -148,6 +155,11 @@ public class Node_Generic
 	public volatile String module_base_address_trimmed = null;
 	public volatile String module_basse_address_trimmed = null;
 	public volatile int PID = -1;
+	
+	//
+	//indicate if vad_node has been printed under process vad tree  - use this to remove duplication of vad_info being printed by write_manifest
+	//
+	public volatile boolean printed_vad_info_node_under_process = false;
 	
 	public Node_Generic(String PLUGIN_NAME)
 	{
@@ -324,8 +336,10 @@ public class Node_Generic
 			this.driver.write_node_ENTRY("REG_BINARY: ", this.reg_binary, pw);
 			this.driver.write_node_ENTRY("ID: ", this.id, pw);
 			this.driver.write_node_ENTRY("Count: ", this.count, pw);
+			this.driver.write_node_ENTRY("Focus Count: ", this.focus_count, pw);
+			this.driver.write_node_ENTRY("Time Focused: ", this.time_focused, pw);
 			this.driver.write_node_ENTRY("Last Updated: ", this.last_updated, pw);
-			this.driver.write_node_ENTRY("Raw Data: ", this.raw_data, pw);
+			this.driver.write_node_ENTRY("Raw Data First Line: ", this.raw_data_first_line, pw);
 			
 			pw.println("\t\t" +  "]},");			
 			return true;
@@ -539,9 +553,11 @@ public class Node_Generic
 			//userassist
 			//
 			XREF_SEARCH_HIT_FOUND |= this.check_value(reg_binary, "reg_binary", search_chars_from_user, search_chars_from_user_lower, jta, searching_proces, container_search_name);
-			XREF_SEARCH_HIT_FOUND |= this.check_value(raw_data, "raw_data", search_chars_from_user, search_chars_from_user_lower, jta, searching_proces, container_search_name);
+			XREF_SEARCH_HIT_FOUND |= this.check_value(raw_data_first_line, "raw_data_first_line", search_chars_from_user, search_chars_from_user_lower, jta, searching_proces, container_search_name);
 			XREF_SEARCH_HIT_FOUND |= this.check_value(id, "id", search_chars_from_user, search_chars_from_user_lower, jta, searching_proces, container_search_name);
 			XREF_SEARCH_HIT_FOUND |= this.check_value(count, "count", search_chars_from_user, search_chars_from_user_lower, jta, searching_proces, container_search_name);
+			XREF_SEARCH_HIT_FOUND |= this.check_value(this.focus_count, "focus_count", search_chars_from_user, search_chars_from_user_lower, jta, searching_proces, container_search_name);
+			XREF_SEARCH_HIT_FOUND |= this.check_value(this.time_focused, "time_focused", search_chars_from_user, search_chars_from_user_lower, jta, searching_proces, container_search_name);
 			XREF_SEARCH_HIT_FOUND |= this.check_value(last_updated, "last_updated", search_chars_from_user, search_chars_from_user_lower, jta, searching_proces, container_search_name);
 
 			//
@@ -670,15 +686,377 @@ public class Node_Generic
 		return false;
 	}
 	
+	public boolean write_manifest_as_single_line(PrintWriter pw, String header, String delimiter)
+	{
+		try
+		{
+			if(pw == null)
+				return false;	
+			
+			String output = "";
+			
+			output = output + driver.get_trimmed_entry("pid", pid, delimiter, true, false, ":");
+			if(PID > -1)	output = output + delimiter + PID;
+			
+			output = output + driver.get_trimmed_entry("process_name", process_name, delimiter, true, false, ":");
+
+			//
+			//GDI Timers
+			//
+			output = output + driver.get_trimmed_entry("session", session, delimiter, true, false, ":");
+			output = output + driver.get_trimmed_entry("handle", handle, delimiter, true, false, ":");
+			output = output + driver.get_trimmed_entry("object", object, delimiter, true, false, ":");
+			output = output + driver.get_trimmed_entry("thread", thread, delimiter, true, false, ":");
+			output = output + driver.get_trimmed_entry("process_details", process_details, delimiter, true, false, ":");
+			output = output + driver.get_trimmed_entry("nID", nID, delimiter, true, false, ":");
+			output = output + driver.get_trimmed_entry("rate_ms", rate_ms, delimiter, true, false, ":");
+			output = output + driver.get_trimmed_entry("countdown_ms", countdown_ms, delimiter, true, false, ":");
+			output = output + driver.get_trimmed_entry("function", function, delimiter, true, false, ":");
+
+			//
+			//Callbacks
+			//	
+			//public volatile Node_Driver node_driver = null;
+			output = output + driver.get_trimmed_entry("type", type, delimiter, true, false, ":");
+			output = output + driver.get_trimmed_entry("callback", callback, delimiter, true, false, ":");
+			output = output + driver.get_trimmed_entry("module_name", module_name, delimiter, true, false, ":");
+			output = output + driver.get_trimmed_entry("details", details, delimiter, true, false, ":");
+
+			//
+			//timers
+			//
+			output = output + driver.get_trimmed_entry("offset_v", offset_v, delimiter, true, false, ":");
+			output = output + driver.get_trimmed_entry("due_time", due_time, delimiter, true, false, ":");
+			output = output + driver.get_trimmed_entry("period_ms", period_ms, delimiter, true, false, ":");
+			output = output + driver.get_trimmed_entry("signaled", signaled, delimiter, true, false, ":");
+			output = output + driver.get_trimmed_entry("routine", routine, delimiter, true, false, ":");
+
+			//
+			//Unloaded Modules
+			//
+			output = output + driver.get_trimmed_entry("start_address", start_address, delimiter, true, false, ":");
+			output = output + driver.get_trimmed_entry("end_address", end_address, delimiter, true, false, ":");
+			output = output + driver.get_trimmed_entry("date", date, delimiter, true, false, ":");
+			output = output + driver.get_trimmed_entry("time", time, delimiter, true, false, ":");
+
+			//
+			//userassist
+			//
+			output = output + driver.get_trimmed_entry("reg_binary", reg_binary, delimiter, true, false, ":");
+			output = output + driver.get_trimmed_entry("raw_data_first_line", raw_data_first_line, delimiter, true, false, ":");
+			output = output + driver.get_trimmed_entry("id", id, delimiter, true, false, ":");
+			output = output + driver.get_trimmed_entry("count", count, delimiter, true, false, ":");
+			output = output + driver.get_trimmed_entry("focus_count", this.focus_count, delimiter, true, false, ":");
+			output = output + driver.get_trimmed_entry("time_focused", this.time_focused, delimiter, true, false, ":");
+			output = output + driver.get_trimmed_entry("last_updated", last_updated, delimiter, true, false, ":");
+
+			//
+			//vadinfo
+			//
+			output = output + driver.get_trimmed_entry("offset", offset, delimiter, true, false, ":");
+			output = output + driver.get_trimmed_entry("name", name, delimiter, true, false, ":");
+			output = output + driver.get_trimmed_entry("path", path, delimiter, true, false, ":");
+
+			//
+			//deskscan
+			//
+			output = output + driver.get_trimmed_entry("desktop_offset", desktop_offset, delimiter, true, false, ":");
+			output = output + driver.get_trimmed_entry("next", next, delimiter, true, false, ":");
+			output = output + driver.get_trimmed_entry("session_id", session_id, delimiter, true, false, ":");
+			output = output + driver.get_trimmed_entry("desktop_info", desktop_info, delimiter, true, false, ":");
+			output = output + driver.get_trimmed_entry("size", size, delimiter, true, false, ":");
+			output = output + driver.get_trimmed_entry("fshooks", fshooks, delimiter, true, false, ":");
+			output = output + driver.get_trimmed_entry("spwnd", spwnd, delimiter, true, false, ":");
+			output = output + driver.get_trimmed_entry("windows", windows, delimiter, true, false, ":");
+			output = output + driver.get_trimmed_entry("heap", heap, delimiter, true, false, ":");
+			output = output + driver.get_trimmed_entry("limit", limit, delimiter, true, false, ":");
+			output = output + driver.get_trimmed_entry("base", base, delimiter, true, false, ":");
+
+			//
+			//impscan
+			//
+			output = output + driver.get_trimmed_entry("impscan_start_address", impscan_start_address, delimiter, true, false, ":");
+			output = output + driver.get_trimmed_entry("impscan_end_address", impscan_end_address, delimiter, true, false, ":");
+			output = output + driver.get_trimmed_entry("IAT", IAT, delimiter, true, false, ":");
+			output = output + driver.get_trimmed_entry("call", call, delimiter, true, false, ":");
+			//public volatile Node_DLL_Container_Impscan DLL_Container_Impscan, delimiter, true, false, ":");
+			output = output + driver.get_trimmed_entry("function_name_lower", function_name_lower, delimiter, true, false, ":");
+
+			//
+			//filescan
+			//
+			output = output + driver.get_trimmed_entry("offset_p", offset_p, delimiter, true, false, ":");
+			output = output + driver.get_trimmed_entry("num_ptr", num_ptr, delimiter, true, false, ":");
+			output = output + driver.get_trimmed_entry("num_hnd", num_hnd, delimiter, true, false, ":");
+			output = output + driver.get_trimmed_entry("access", access, delimiter, true, false, ":");
+			output = output + driver.get_trimmed_entry("path_name", path_name, delimiter, true, false, ":");
+
+			//
+			//File XREF
+			//
+			output = output + driver.get_trimmed_entry("file_name", file_name, delimiter, true, false, ":");
+
+			//
+			//DLLDUMP
+			//Process(V)         Name                 Module Base        Module Name          Result
+			//------------------ -------------------- ------------------ -------------------- ------
+			//0xfffffa800148f040 smss.exe             0x0000000047ef0000 smss.exe             OK: module.248.3f68f040.47ef0000.dll, delimiter, true, false, ":");
+			//0xfffffa800148f040 smss.exe             0x0000000077c90000 ntdll.dll            OK: module.248.3f68f040.77c90000.dll, delimiter, true, false, ":");
+			output = output + driver.get_trimmed_entry("process_offset_V", process_offset_V, delimiter, true, false, ":");
+			output = output + driver.get_trimmed_entry("module_base_address", module_base_address, delimiter, true, false, ":");
+			output = output + driver.get_trimmed_entry("process_offset_P_trimmed", process_offset_P_trimmed, delimiter, true, false, ":");
+			output = output + driver.get_trimmed_entry("module_base_address_trimmed", module_base_address_trimmed, delimiter, true, false, ":");
+			output = output + driver.get_trimmed_entry("module_basse_address_trimmed", module_basse_address_trimmed, delimiter, true, false, ":");
+				
+			//
+			//file
+			//
+			if(this.fle != null && file_name == null)
+				output = output + driver.get_trimmed_entry("fle", "/" + fle.getParentFile().getName() + "/" + fle.getName(), delimiter, true, false, ":"); 
+
+
+			if(list_details != null && !list_details.isEmpty())
+			{
+				output = output + delimiter + "list_details";
+				
+				for(String entry : list_details)
+				{
+					output = output + delimiter + entry;
+				}
+			}
+			//
+			//write string!
+			//
+			driver.write_manifest_entry(pw, header, output);
+			
+		}
+		catch(Exception e)
+		{
+			driver.eop(myClassName, "write_manifest_as_single_line", e);
+		}
+		
+		return false;
+	}
+	
+	/**
+	 * continuation mtd
+	 * @param pw
+	 * @param key
+	 * @param value
+	 * @return
+	 */
+	public boolean write_manifest(PrintWriter pw, String header, String delimiter, boolean include_underline, boolean print_output_as_single_line, boolean printing_vad_node_called_by_process)
+	{
+		try
+		{
+			if(pw == null)
+				return false;	
+			
+			delimiter = delimiter + " ";
+			
+			if(print_output_as_single_line)
+				return write_manifest_as_single_line(pw, header, delimiter);
+							 			
+			driver.write_manifest_entry(pw, header, "plugin_name", plugin_name);
+			driver.write_manifest_entry(pw, header, "pid", pid);
+			if(PID > -1)	driver.write_manifest_entry(pw, header, "PID", ""+PID);
+			driver.write_manifest_entry(pw, header, "process_name", process_name);
+			
+			//
+			//GDI Timers
+			//
+			driver.write_manifest_entry(pw, header, "session", session);
+			driver.write_manifest_entry(pw, header, "handle", handle);
+			driver.write_manifest_entry(pw, header, "object", object);
+			driver.write_manifest_entry(pw, header, "thread", thread);
+			driver.write_manifest_entry(pw, header, "process_details", process_details);
+			driver.write_manifest_entry(pw, header, "nID", nID);
+			driver.write_manifest_entry(pw, header, "rate_ms", rate_ms);
+			driver.write_manifest_entry(pw, header, "countdown_ms", countdown_ms);
+			driver.write_manifest_entry(pw, header, "function", function);
+			
+			//
+			//Callbacks
+			//	
+//public volatile Node_Driver node_driver = null;
+			driver.write_manifest_entry(pw, header, "type", type);
+			driver.write_manifest_entry(pw, header, "callback", callback);
+			driver.write_manifest_entry(pw, header, "module_name", module_name);
+			driver.write_manifest_entry(pw, header, "details", details);
+			
+			//
+			//timers
+			//
+			driver.write_manifest_entry(pw, header, "offset_v", offset_v);
+			driver.write_manifest_entry(pw, header, "due_time", due_time);
+			driver.write_manifest_entry(pw, header, "period_ms", period_ms);
+			driver.write_manifest_entry(pw, header, "signaled", signaled);
+			driver.write_manifest_entry(pw, header, "routine", routine);
+
+			//
+			//Unloaded Modules
+			//
+			driver.write_manifest_entry(pw, header, "start_address", start_address);
+			driver.write_manifest_entry(pw, header, "end_address", end_address);
+			driver.write_manifest_entry(pw, header, "date", date);
+			driver.write_manifest_entry(pw, header, "time", time);
+
+			//
+			//userassist
+			//
+			driver.write_manifest_entry(pw, header, "reg_binary", reg_binary);
+			driver.write_manifest_entry(pw, header, "raw_data_first_line", raw_data_first_line);
+			driver.write_manifest_entry(pw, header, "id", id);
+			driver.write_manifest_entry(pw, header, "count", count);
+			driver.write_manifest_entry(pw, header, "focus_count", this.focus_count);
+			driver.write_manifest_entry(pw, header, "time_focused", this.time_focused);
+			driver.write_manifest_entry(pw, header, "last_updated", last_updated);
+
+			//
+			//vadinfo
+			//
+			driver.write_manifest_entry(pw, header, "offset", offset);
+			driver.write_manifest_entry(pw, header, "name", name);
+			driver.write_manifest_entry(pw, header, "path", path);
+
+			//
+			//deskscan
+			//
+			driver.write_manifest_entry(pw, header, "desktop_offset", desktop_offset);
+			driver.write_manifest_entry(pw, header, "next", next);
+			driver.write_manifest_entry(pw, header, "session_id", session_id);
+			driver.write_manifest_entry(pw, header, "desktop_info", desktop_info);
+			driver.write_manifest_entry(pw, header, "size", size);
+			driver.write_manifest_entry(pw, header, "fshooks", fshooks);
+			driver.write_manifest_entry(pw, header, "spwnd", spwnd);
+			driver.write_manifest_entry(pw, header, "windows", windows);
+			driver.write_manifest_entry(pw, header, "heap", heap);
+			driver.write_manifest_entry(pw, header, "limit", limit);
+			driver.write_manifest_entry(pw, header, "base", base);
+						
+			//
+			//impscan
+			//			
+			driver.write_manifest_entry(pw, header, "impscan_start_address", impscan_start_address);
+			driver.write_manifest_entry(pw, header, "impscan_end_address", impscan_end_address);
+			driver.write_manifest_entry(pw, header, "IAT", IAT);
+			driver.write_manifest_entry(pw, header, "call", call);
+//public volatile Node_DLL_Container_Impscan DLL_Container_Impscan);
+			driver.write_manifest_entry(pw, header, "function_name_lower", function_name_lower);
+
+			//
+			//filescan
+			//
+			driver.write_manifest_entry(pw, header, "offset_p", offset_p);
+			driver.write_manifest_entry(pw, header, "num_ptr", num_ptr);
+			driver.write_manifest_entry(pw, header, "num_hnd", num_hnd);
+			driver.write_manifest_entry(pw, header, "access", access);
+			driver.write_manifest_entry(pw, header, "path_name", path_name);
+
+			//
+			//File XREF
+			//
+			driver.write_manifest_entry(pw, header, "file_name", file_name);
+
+			//
+			//DLLDUMP
+			//Process(V)         Name                 Module Base        Module Name          Result
+			//------------------ -------------------- ------------------ -------------------- ------
+			//0xfffffa800148f040 smss.exe             0x0000000047ef0000 smss.exe             OK: module.248.3f68f040.47ef0000.dll);
+			//0xfffffa800148f040 smss.exe             0x0000000077c90000 ntdll.dll            OK: module.248.3f68f040.77c90000.dll);
+			driver.write_manifest_entry(pw, header, "process_offset_V", process_offset_V);
+			driver.write_manifest_entry(pw, header, "module_base_address", module_base_address);
+			driver.write_manifest_entry(pw, header, "process_offset_P_trimmed", process_offset_P_trimmed);
+			driver.write_manifest_entry(pw, header, "module_base_address_trimmed", module_base_address_trimmed);
+			driver.write_manifest_entry(pw, header, "module_basse_address_trimmed", module_basse_address_trimmed);
+			
+
+			
+			
+			
+			
+			
+			
+			
+			if(this.fle != null)
+				driver.write_manifest_entry(pw, header, "fle", "/" + fle.getParentFile().getName() + "/" + fle.getName());
+
+
+			if(list_details != null && !list_details.isEmpty())
+			{
+				for(String entry : list_details)
+				{
+					driver.write_manifest_entry(pw, header, " list_details\t " + entry);
+				}
+			}
+
+			if(include_underline)
+				pw.println(Driver.END_OF_ENTRY_MINOR);
+			
+			//indicate printed node under process
+			this.printed_vad_info_node_under_process = printing_vad_node_called_by_process;
+
+			return true;
+		}
+		catch(Exception e)
+		{
+			driver.eop(myClassName, "write_manifest", e);
+		}
+		
+		return false;
+	}
 	
 	
 	
+	public String get_manifest_impscan(String end_token, String delimiter)
+	{
+		try
+		{
+			return 	"IAT" + end_token + "\t " + IAT + delimiter +  
+					"call" + end_token + "\t "+ call + delimiter +
+					"function" + end_token + "\t " + function + delimiter + 
+					"function_name_lower" + end_token + "\t " + function_name_lower + delimiter;
+			
+		}
+		catch(Exception e)
+		{
+			driver.eop(myClassName, "get_manifest_impscan");
+		}
+		
+		return "";
+	}
 	
 	
-	
-	
-	
-	
+	public String get_user_assist_line_for_sortable_array(String delimiter)
+	{
+		String line = "";
+		
+		try
+		{
+			if(this.registry_hive != null)
+				line = this.registry_hive.registry + delimiter;
+			else if(this.registry_key != null && this.registry_key.registry_hive != null)
+				line = registry_key.registry_hive.registry + delimiter;
+								
+			if(this.registry_key != null && this.registry_key.path != null)
+				line = line + this.registry_key.path + delimiter;
+			else if(this.registry_hive != null && this.registry_hive.path != null)
+				line = line + this.registry_hive.path + delimiter;
+			
+			line = line + 	this.reg_binary + delimiter + 
+							this.time_focused + delimiter + 
+							this.last_updated + delimiter + 
+							this.count + delimiter + 
+							this.focus_count + delimiter + 
+							this.raw_data_first_line;									
+		}
+		catch(Exception e)
+		{
+			driver.eop(myClassName, "get_user_assist_line_for_sortable_array", e);
+		}
+		
+		return line;
+	}
 	
 	
 	

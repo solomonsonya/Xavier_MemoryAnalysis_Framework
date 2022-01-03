@@ -271,6 +271,100 @@ public class Node_ApiHook
 	
 	
 	
+	/**
+	 * continuation mtd
+	 * @param pw
+	 * @param key
+	 * @param value
+	 * @return
+	 */
+	public boolean write_manifest(PrintWriter pw, String header, String delimiter, boolean include_underline)
+	{
+		try
+		{
+			if(pw == null)
+				return false;	
+			
+			delimiter = delimiter + " ";
+			
+			if(PID > -1)	driver.write_manifest_entry(pw, header, "PID", ""+PID);
+			driver.write_manifest_entry(pw, header, "hook_mode", hook_mode);
+			driver.write_manifest_entry(pw, header, "hook_type", hook_type);
+			driver.write_manifest_entry(pw, header, "process_line", process_line);
+			driver.write_manifest_entry(pw, header, "pid", pid);
+			driver.write_manifest_entry(pw, header, "process_name", process_name);
+			driver.write_manifest_entry(pw, header, "victim_module_line", victim_module_line);
+			driver.write_manifest_entry(pw, header, "victim_module_name", victim_module_name);
+			driver.write_manifest_entry(pw, header, "victim_module_base_address", victim_module_base_address);
+			driver.write_manifest_entry(pw, header, "function", function);
+			driver.write_manifest_entry(pw, header, "hook_address", hook_address);
+			driver.write_manifest_entry(pw, header, "hooking_module", hooking_module);
+			driver.write_manifest_entry(pw, header, "MZ_Detected", ""+MZ_Detected);
+			driver.write_manifest_entry(pw, header, "Trampoline_Initial_JMP_Detected", ""+Trampoline_Initial_JMP_Detected);	
+			
+			
+			if(list_dissassembly_0 != null && !list_dissassembly_0.isEmpty())
+			{
+				for(String entry : list_dissassembly_0)
+				{
+					driver.write_manifest_entry(pw, header, "list_dissassembly_0:\t " + entry);
+				}
+			}
+			
+			if(list_dissassembly_1 != null && !list_dissassembly_1.isEmpty())
+			{
+				for(String entry : list_dissassembly_1)
+				{
+					driver.write_manifest_entry(pw, header, "list_dissassembly_1:\t " + entry);
+				}
+			}
+			
+			if(list_dissassembly_2 != null && !list_dissassembly_2.isEmpty())
+			{
+				for(String entry : list_dissassembly_2)
+				{
+					driver.write_manifest_entry(pw, header, "list_dissassembly_2:\t " + entry);
+				}
+			}
+			
+			if(list_dissassembly_3 != null && !list_dissassembly_3.isEmpty())
+			{
+				for(String entry : list_dissassembly_3)
+				{
+					driver.write_manifest_entry(pw, header, "list_dissassembly_3:\t " + entry);
+				}
+			}
+			
+			if(include_underline)
+				pw.println(Driver.END_OF_ENTRY_MINOR);
+			
+			return true;
+		}
+		catch(Exception e)
+		{
+			driver.eop(myClassName, "write_manifest", e);
+		}
+		
+		return false;
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	
 }

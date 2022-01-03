@@ -408,6 +408,14 @@ public class Analysis_Plugin_print_key extends _Analysis_Plugin_Super_Class impl
 				}					
 			}
 			
+			else if(lower.startsWith("last updated:"))
+			{
+				String last_updated = line.substring(13).trim();
+				
+				if(this.registry_key_name != null)
+					this.registry_key_name.last_updated = last_updated;												
+			}
+			
 			else if(lower.startsWith("("))
 			{
 				if(registry_key_name.list_sub_key_names == null)

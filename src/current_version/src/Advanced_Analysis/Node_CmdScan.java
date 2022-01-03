@@ -35,7 +35,7 @@ public class Node_CmdScan
 	public volatile String command_history_id = null;
 	
 	//
-	//pupulated by consoles
+	//populated by consoles
 	//
 	public volatile String ConsoleProcess_line_1 = null;
 	public volatile String Console_id_line_2 = null;
@@ -261,6 +261,93 @@ public class Node_CmdScan
 		
 		return false;
 	}
+	
+	
+	/**
+	 * continuation mtd
+	 * @param pw
+	 * @param key
+	 * @param value
+	 * @return
+	 */
+	public boolean write_manifest(PrintWriter pw, String header, String delimiter, boolean include_underline, boolean print_output_as_single_line)
+	{
+		try
+		{
+			if(pw == null)
+				return false;	
+			
+			delimiter = delimiter + " ";
+			
+			//if(print_output_as_single_line)
+				//return write_manifest_as_single_line(pw, header, delimiter); // emulate deskscan if necessary
+							 			
+			driver.write_manifest_entry(pw, header, "command_history_id", command_history_id);
+			driver.write_manifest_entry(pw, header, "CommandHistory", CommandHistory);
+			driver.write_manifest_entry(pw, header, "ConsoleProcess", ConsoleProcess_line_1);
+			driver.write_manifest_entry(pw, header, "Console_id", Console_id_line_2);
+			driver.write_manifest_entry(pw, header, "HistoryBufferCount", HistoryBufferCount_line_3);
+			driver.write_manifest_entry(pw, header, "OriginalTitle", OriginalTitle_line_4);
+			driver.write_manifest_entry(pw, header, "Title", Title_line_5);
+			driver.write_manifest_entry(pw, header, "AttachedProcess", AttachedProcess_line_6a);
+			driver.write_manifest_entry(pw, header, "AttachedProcess", AttachedProcess_line_6b);
+			driver.write_manifest_entry(pw, header, "AttachedProcess", AttachedProcess_line_6c);
+			driver.write_manifest_entry(pw, header, "AttachedProcess", AttachedProcess_line_6d);
+			driver.write_manifest_entry(pw, header, "AttachedProcess", AttachedProcess_line_6e);
+			driver.write_manifest_entry(pw, header, "AttachedProcess", AttachedProcess_line_6f);
+			driver.write_manifest_entry(pw, header, "AttachedProcess", AttachedProcess_line_6g);
+			
+			
+			if(list_cmd_header != null && !list_cmd_header.isEmpty())
+			{
+				for(String entry : list_cmd_header)
+				{
+					driver.write_manifest_entry(pw, header, " list_cmd_header\t " + entry);
+				}
+			}
+			
+			if(list_cmd_details != null && !list_cmd_details.isEmpty())
+			{
+				for(String entry : list_cmd_details)
+				{
+					driver.write_manifest_entry(pw, header, " list_cmd_details\t " + entry);
+				}
+			}
+			
+			if(list_consoles_output != null && !list_consoles_output.isEmpty())
+			{
+				for(String entry : list_consoles_output)
+				{
+					driver.write_manifest_entry(pw, header, " list_consoles_output\t " + entry);
+				}
+			}
+
+			if(include_underline)
+				pw.println(Driver.END_OF_ENTRY_MINOR);
+
+			return true;
+		}
+		catch(Exception e)
+		{
+			driver.eop(myClassName, "write_manifest", e);
+		}
+		
+		return false;
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	
 	

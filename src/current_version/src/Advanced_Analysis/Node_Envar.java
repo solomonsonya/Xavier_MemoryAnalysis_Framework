@@ -131,6 +131,70 @@ public class Node_Envar
 	}
 	
 	
+	public boolean write_manifest_as_single_line(PrintWriter pw, String header, String delimiter)
+	{
+		try
+		{
+			if(pw == null)
+				return false;	
+			
+			String output = "";
+			
+			output = output + driver.get_trimmed_entry("block", block, delimiter, false, true, ":");
+			output = output + driver.get_trimmed_entry("variable", variable, delimiter, true, false, ":");	
+			output = output + driver.get_trimmed_entry("value", value, delimiter, true, false, ":");
+
+			//
+			//write string!
+			//
+			driver.write_manifest_entry(pw, header, output);
+			
+		}
+		catch(Exception e)
+		{
+			driver.eop(myClassName, "write_manifest_as_single_line", e);
+		}
+		
+		return false;
+	}
+	
+	/**
+	 * continuation mtd
+	 * @param pw
+	 * @param key
+	 * @param value
+	 * @return
+	 */
+	public boolean write_manifest(PrintWriter pw, String header, String delimiter, boolean include_underline, boolean print_output_as_single_line)
+	{
+		try
+		{
+			if(pw == null)
+				return false;	
+			
+			delimiter = delimiter + " ";
+			
+			if(print_output_as_single_line)
+				return write_manifest_as_single_line(pw, header, delimiter);
+							 			
+			driver.write_manifest_entry(pw, header, "block", block);
+			driver.write_manifest_entry(pw, header, "variable", variable);
+			driver.write_manifest_entry(pw, header, "value", value);
+			
+
+			if(include_underline)
+				pw.println(Driver.END_OF_ENTRY_MINOR);
+
+			return true;
+		}
+		catch(Exception e)
+		{
+			driver.eop(myClassName, "write_manifest", e);
+		}
+		
+		return false;
+	}
+	
 	
 	
 	

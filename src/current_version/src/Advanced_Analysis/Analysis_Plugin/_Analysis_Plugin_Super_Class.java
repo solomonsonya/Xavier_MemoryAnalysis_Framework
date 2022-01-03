@@ -18,13 +18,13 @@ public class _Analysis_Plugin_Super_Class extends Thread implements Runnable
 	
 	public volatile boolean EXECUTION_STARTED = false;
 	public volatile boolean EXECUTION_COMPLETE = false;
-	public volatile File fleOutput = null;
+	public volatile File fleOutput = null;	
 	public volatile File fle_import = null;
 	
 	public static volatile boolean use_system_out_println_for_output = true;
 	public volatile boolean EXECUTE_VIA_THREAD = false;
 	
-	public String EXECUTION_TIME_STAMP = driver.getTime_Specified_Hyphenated_with_seconds_using_colon(System.currentTimeMillis());
+	public static volatile String EXECUTION_TIME_STAMP = driver.getTime_Specified_Hyphenated_with_seconds_using_colon(System.currentTimeMillis());
 	
 	public volatile File fle_volatility = null;
 	public volatile File fle_memory_image = null;

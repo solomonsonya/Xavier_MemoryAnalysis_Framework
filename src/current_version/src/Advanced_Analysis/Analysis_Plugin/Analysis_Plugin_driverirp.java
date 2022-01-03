@@ -432,10 +432,10 @@ public class Analysis_Plugin_driverirp extends _Analysis_Plugin_Super_Class impl
 			{
 				String [] array = line.split(":");
 				
-				if(node_driver.driver_start_io == null || node_driver.driver_start_io.trim().equals("") || node_driver.driver_start_io.trim().equals("-") || node_driver.driver_start_io.trim().toLowerCase().equals("unknown"))
-					node_driver.driver_start_io = array[1].trim();
+				if(node_driver.start_io == null || node_driver.start_io.trim().equals("") || node_driver.start_io.trim().equals("-") || node_driver.start_io.trim().toLowerCase().equals("unknown"))
+					node_driver.start_io = array[1].trim();
 				
-				driver_irp.driver_start_io = array[1].trim();
+				driver_irp.driver_irp_start_io = array[1].trim();
 			}
 			
 			else if(lower.startsWith("driverstart:") && node_driver != null)
@@ -445,7 +445,7 @@ public class Analysis_Plugin_driverirp extends _Analysis_Plugin_Super_Class impl
 				if(node_driver.start == null || node_driver.start.trim().equals("") || node_driver.start.trim().equals("-") || node_driver.start.trim().toLowerCase().equals("unknown"))
 					node_driver.start = array[1].trim();
 				
-				driver_irp.driver_start = array[1].trim();
+				driver_irp.driver_irp_start = array[1].trim();
 			}
 			
 			else if(lower.startsWith("driversize:") && node_driver != null)
@@ -455,7 +455,7 @@ public class Analysis_Plugin_driverirp extends _Analysis_Plugin_Super_Class impl
 				if(node_driver.size_P == null || node_driver.size_P.trim().equals("") || node_driver.size_P.trim().equals("-") || node_driver.size_P.trim().toLowerCase().equals("unknown"))
 					node_driver.size_P = array[1].trim();
 				
-				driver_irp.driver_size = array[1].trim();
+				driver_irp.driver_irp_size = array[1].trim();
 			}
 			
 			else if(driver_irp != null)

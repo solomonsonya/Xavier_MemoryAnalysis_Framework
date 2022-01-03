@@ -1,3 +1,11 @@
+/**
+ * Known Issues: printing file_attr entry may have a file name referencing a process, but could be imported by serveral processes - each with a different MD5 dump. However, most (if not all) are the same file size.
+ * I may come back and print out each file name to the same dump if needed...
+ * 
+ * @author Solomon Sonya
+ */
+
+
 package Advanced_Analysis;
 
 import java.io.*;
@@ -21,10 +29,10 @@ public class Node_DLL
 	//unique processes linked to this DLL
 	public volatile TreeMap<Integer, Node_Process> tree_process = new TreeMap<Integer, Node_Process>();
 	
-	public volatile TreeMap<String, Node_ApiHook> tree_api_hook = new TreeMap<String, Node_ApiHook>();
-	
 	//list of processes that store this DLL at base address
 	public volatile TreeMap<String, LinkedList<Node_Process>> tree_base_address = new TreeMap<String, LinkedList<Node_Process>>();
+		
+	public volatile TreeMap<String, Node_ApiHook> tree_api_hook = new TreeMap<String, Node_ApiHook>();	
 	
 	//Import function names
 	/**populated by dependencies*/
@@ -39,10 +47,10 @@ public class Node_DLL
 	
 	public volatile String base_addresses = null;
 
-	//Set in analyzeplugin class
+	//Set in analyze_dlldump plugin class
+	/**use data from fle_attributes vice this fle object*/
 	public volatile File fle = null;
 	public volatile FileAttributeData fle_attributes = null;
-	public volatile String file_dump_name = null;
 	
 	//
 	//DLLLIST
@@ -88,7 +96,7 @@ public class Node_DLL
 	
 	public volatile boolean I_HAVE_WRITTEN_PROCESS_HEADER_ALREADY = false;
 	
-	
+	public volatile boolean printed_node_under_process = false;
 	
 	
 	public Node_DLL()
@@ -779,7 +787,7 @@ public class Node_DLL
 			
 			//hit found!
 			if(jta != null && append_own_header_and_underline)
-				jta.append("\n\n" + this.get_name() + "\n" + driver.UNDERLINE);
+				jta.append("\n\nDLL: " + this.get_name() + "\n" + driver.UNDERLINE);
 			
 			I_HAVE_WRITTEN_PROCESS_HEADER_ALREADY = true;
 			
@@ -834,6 +842,9 @@ public class Node_DLL
 			
 			if(in_mem != null && this.in_mem.toLowerCase().trim().contains(search_chars_from_user_lower))
 				this.append_to_jta_XREF("in_mem: " + this.in_mem, jta, append_own_header_and_underline, searching_proces, searching_driver, searching_dll, structure_name);
+			
+			if(base_addresses != null && this.base_addresses.toLowerCase().trim().contains(search_chars_from_user_lower))
+				this.append_to_jta_XREF("Base_Address: " + this.base_addresses, jta, append_own_header_and_underline, searching_proces, searching_driver, searching_dll, structure_name);
 			
 			if(base != null && this.base.toLowerCase().trim().contains(search_chars_from_user_lower))
 				this.append_to_jta_XREF("Base: " + this.base, jta, append_own_header_and_underline, searching_proces, searching_driver, searching_dll, structure_name);
@@ -1049,10 +1060,11 @@ public class Node_DLL
 		try
 		{
 			//leave off fle, fle_attributes, file_dump_name - include this in the full details manifest export
-			
+									
 			//
 			//DLLLIST
 			//
+			driver.write_manifest_entry(pw, header + "\t " + "base_addresses", base_addresses);
 			driver.write_manifest_entry(pw, header + "\t " + "base", base);
 			driver.write_manifest_entry(pw, header + "\t " + "size", size);
 			driver.write_manifest_entry(pw, header + "\t " + "load_count", load_count);
@@ -1090,8 +1102,12 @@ public class Node_DLL
 			driver.write_manifest_entry(pw, header + "\t " + "date_modified", date_modified);
 			driver.write_manifest_entry(pw, header + "\t " + "language", language);
 
-
-
+			//
+			//File attribute
+			//
+			write_manifest_file_attributes(pw, header, "\t");
+			
+			
 
 
 
@@ -1112,10 +1128,196 @@ public class Node_DLL
 		
 		return false;
 	}
+	/**
+	 * Search tree of attrs for my specific dll attribute
+	 * */	
+	public boolean write_manifest_file_attributes(PrintWriter pw, String header, String delimiter)	
+	{
+		try
+		{
+			if(FileAttributeData.tree_file_attributes == null || FileAttributeData.tree_file_attributes.isEmpty())
+				return false;
+			
+			boolean found = false;
+			
+			
+			for(FileAttributeData attr : FileAttributeData.tree_file_attributes.values())
+			{
+				try
+				{
+					//file name is in format: WinRAR.exe_1512_gdiplus.dll_3fa10b30_7fefbc20000
+					String [] arr = attr.file_name.split("_");
+														
+					if(arr[2].toLowerCase().trim().equals(this.get_name()))
+					{						
+						fle_attributes.write_manifest_entry(pw, header + "\t file_attr\t ", this.get_name());						
+						found = true;
+						break;
+					}
+					
+					
+				}
+				catch(Exception e)
+				{
+					continue;
+				}
+			}
+			
+			if(!found & fle_attributes != null)
+			{
+				pw.println(Driver.END_OF_ENTRY_MINOR);
+				fle_attributes.write_manifest_entry(pw, header + "\t file_attr\t ", this.get_name());				
+			}
+			
+			return true;
+		}
+		catch(Exception e)
+		{
+			driver.eop(myClassName, "write_manifest_file_attributes", e);
+		}
+		
+		return false;
+	}
 	
 	
+	public boolean write_manifest(PrintWriter pw, String delimiter, boolean include_underline)
+	{
+		
+		String process_list = "";
+		
+		try
+		{
+			if(pw == null)
+				return false;
+			
+			String header = "dll";
+			
+			//////////////////////////////////////////////////////
+			//
+			// write_manifest_basic
+			//
+			/////////////////////////////////////////////////////
+			write_manifest_basic(header, pw);
+			
+			
+			
+			try
+			{
+				//////////////////////////////////////////////////////
+				//
+				// importing processes
+				//
+				/////////////////////////////////////////////////////
+				if(tree_process != null && !tree_process.isEmpty())
+				{		
+					
+					
+					LinkedList<Node_Process> list = new LinkedList<Node_Process>(tree_process.values());
+					
+					process_list = "" + list.removeFirst().PID;
+					if(list != null && !list.isEmpty())
+					{
+						for(Node_Process process : list)
+						{
+							if(process == null || process.PID < 0 || process_list.contains(""+process.PID))
+								continue;
+							
+							process_list = process_list + ", " + process.PID;
+						}
+												
+					}					 					
+				}
+				
+				
+				////////////////////////////////////////////////////////
+				//
+				// tree_base_address processes
+				//
+				/////////////////////////////////////////////////////
+				if(tree_base_address != null && !tree_base_address.isEmpty())
+				{
+					for(LinkedList<Node_Process> list_base : tree_base_address.values())
+					{
+						if(list_base == null || list_base.isEmpty())
+							continue;														
+						
+						for(Node_Process process : list_base)
+						{
+							if(process == null || process.PID < 0 || process_list.contains(""+process.PID))
+								continue;
+							
+							//check if this is the first PID
+							if(process_list == null || process_list.trim().startsWith(","))
+								process_list = ""+process.PID;
+							else
+								process_list = process_list + ", " + process.PID;
+						}
+					}
+				}
+				
+				////////////////////////////////////////////////////////
+				//
+				// write output
+				//
+				/////////////////////////////////////////////////////
+				if(process_list != null && !process_list.trim().equals(""))
+					pw.println(Driver.END_OF_ENTRY_MINOR);
+				driver.write_manifest_entry(pw, header + "\t " + "importing_processes", process_list);
+				
+				
+				////////////////////////////////////////////////////////
+				//
+				// APIHOOKS
+				//
+				/////////////////////////////////////////////////////
+				write_manifest_apihooks(header, pw, delimiter, include_underline);
+				
+			}
+			catch(Exception ee)
+			{
+				driver.directive("NOTE: manifest caught exception printing process import list in " + this.myClassName);
+			}
+			
+			pw.println(Driver.END_OF_ENTRY_MAJOR);
+		}
+		
+		catch(Exception e)
+		{
+			driver.eop(myClassName, "write_manifest", e);
+		}
+		
+		return false;
+	}
 	
 	
+	public boolean write_manifest_apihooks(String header, PrintWriter pw, String delimiter, boolean include_underline)
+	{
+		try
+		{
+			if(this.tree_api_hook == null || this.tree_api_hook.isEmpty())
+				return false;
+			
+			pw.println(Driver.END_OF_ENTRY_MINOR);
+			
+			for(Node_ApiHook node : tree_api_hook.values())
+			{
+				if(node == null)
+					continue;
+				
+				node.write_manifest(pw,  header, delimiter, include_underline);
+				pw.println(Driver.END_OF_ENTRY_MINOR);
+			}
+			
+			return true;
+		}
+		catch(Exception e) 
+		{
+			driver.eop(myClassName, "write_manifest_apihooks", e);
+		}
+		
+		return false;
+		
+	}
 	
 	
 	

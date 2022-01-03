@@ -144,6 +144,49 @@ public class Node_get_service_sid
 	}
 	
 	
+	public boolean write_manifest(PrintWriter pw, String header, String delimiter)
+	{				
+		try
+		{
+			if(pw == null)
+				return false;
+			
+			if(delimiter == null)
+				delimiter = "\t";
+			
+			delimiter = delimiter + " ";
+			
+			String output = "sid:\t " + sid + delimiter + 
+							"name:\t " + name;;
+			
+			driver.write_manifest_entry(pw, header, output);											
+		}
+		
+		catch(Exception e)
+		{
+			driver.eop(myClassName, "write_manifest", e);
+		}
+		
+		return false;
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	
 	

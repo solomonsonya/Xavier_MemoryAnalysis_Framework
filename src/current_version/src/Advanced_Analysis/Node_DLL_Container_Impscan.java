@@ -29,6 +29,8 @@ public class Node_DLL_Container_Impscan
 	
 	public volatile TreeMap<String, Node_Generic> tree_impscan_functions = new TreeMap<String, Node_Generic>();
 	
+	public volatile TreeMap<String, LinkedList<Node_Process>> tree_import_function_mapped_to_importing_process = new TreeMap<String, LinkedList<Node_Process>>();
+	
 		
 	public Node_DLL_Container_Impscan(Node_Process PROCESS, String MODULE_NAME, String IAT, String call, String FUNCTION_NAME)
 	{
@@ -49,7 +51,7 @@ public class Node_DLL_Container_Impscan
 					dll = process.tree_impscan_DLL_containers.get(module_name_lower);
 				
 				if(dll != null)
-					dll.process_import_function(IAT, call, FUNCTION_NAME);
+					dll.process_import_function(IAT, call, FUNCTION_NAME, PROCESS);
 				else
 				{
 					//
@@ -59,7 +61,7 @@ public class Node_DLL_Container_Impscan
 
 					
 					//process entry					
-					this.process_import_function(IAT, call, FUNCTION_NAME);
+					this.process_import_function(IAT, call, FUNCTION_NAME, PROCESS);
 				}
 			}
 			
@@ -70,7 +72,7 @@ public class Node_DLL_Container_Impscan
 		}
 	}
 	
-	public boolean process_import_function(String IAT, String call, String function_name)
+	public boolean process_import_function(String IAT, String call, String function_name, Node_Process PROCESS)
 	{
 		try
 		{
@@ -79,6 +81,39 @@ public class Node_DLL_Container_Impscan
 			
 			function_name = function_name.trim();						
 			String function_name_lower = function_name.toLowerCase().trim();
+			
+			//map import function to importing process
+			LinkedList<Node_Process> list_processes = null;
+			
+			////////////////////////////////////////////////////////////////
+			//
+			// link process to import function
+			//
+			////////////////////////////////////////////////////////////////
+			if(PROCESS != null)
+			{
+				if(this.tree_import_function_mapped_to_importing_process.containsKey(function_name_lower))
+					list_processes = this.tree_import_function_mapped_to_importing_process.get(function_name_lower);
+				
+				if(list_processes == null)
+				{
+					//create list
+					list_processes = new LinkedList<Node_Process>();
+					
+					//link list to tree
+					this.tree_import_function_mapped_to_importing_process.put(function_name_lower, list_processes);
+				}
+				
+				//put process
+				if(list_processes!= null && !list_processes.contains(PROCESS))
+					list_processes.add(PROCESS);
+			}
+			
+			////////////////////////////////////////////////////////////////
+			//
+			// store/update particulars regarding specific import fcn
+			//
+			////////////////////////////////////////////////////////////////
 			
 			Node_Generic import_function = null;
 			
@@ -102,6 +137,8 @@ public class Node_DLL_Container_Impscan
 						else
 							driver.sop("[impscan] NOTE: duplicate import function [" + function_name + "] found for DLL [" + this.module_name + "]");
 					}
+					
+					
 				}
 				catch(Exception e){}
 				
@@ -291,6 +328,49 @@ public class Node_DLL_Container_Impscan
 	
 	
 	
+	
+	
+	/**
+	 * continuation mtd
+	 * @param pw
+	 * @param key
+	 * @param value
+	 * @return
+	 */
+	public boolean write_manifest(PrintWriter pw, String header, String delimiter, boolean include_underline)
+	{
+		try
+		{
+			if(pw == null)
+				return false;	
+			
+			delimiter = delimiter + " ";
+			
+			if(tree_impscan_functions == null || tree_impscan_functions.isEmpty())
+				return false;
+			
+			for(Node_Generic node : tree_impscan_functions.values())
+			{
+				driver.write_manifest_entry(pw, header, 	"module_name " + delimiter + module_name + delimiter + 
+															"module_name_lower " + delimiter + module_name_lower + delimiter + 
+															node.get_manifest_impscan("", delimiter)												
+						);
+			}
+							 			
+			
+
+			if(include_underline)
+				pw.println(Driver.END_OF_ENTRY_MINOR);
+
+			return true;
+		}
+		catch(Exception e)
+		{
+			driver.eop(myClassName, "write_manifest", e);
+		}
+		
+		return false;
+	}
 	
 	
 	

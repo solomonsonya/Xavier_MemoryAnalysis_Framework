@@ -151,7 +151,35 @@ public class Node_hivelist
 	
 	
 	
-	
+	public boolean write_manifest(PrintWriter pw, String header, String delimiter)
+	{				
+		try
+		{
+			if(pw == null)
+				return false;
+			
+			if(delimiter == null)
+				delimiter = "\t";
+			
+			delimiter = delimiter + " ";
+			
+			String output = "virtual_address:\t " + virtual_address + delimiter + 
+							"physical_address:\t " + physical_address + delimiter +
+							"name_registry:\t " + name_registry;
+			
+			driver.write_manifest_entry(pw, header, output);
+			
+						
+			
+		}
+		
+		catch(Exception e)
+		{
+			driver.eop(myClassName, "write_manifest", e);
+		}
+		
+		return false;
+	}
 	
 	
 	

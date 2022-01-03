@@ -24,7 +24,7 @@ public class Analysis_Plugin_apihooks extends _Analysis_Plugin_Super_Class imple
 	
 	public volatile Advanced_Analysis_Director parent = null;
 
-	
+	public static volatile TreeMap<String, String> tree_notifed_user_about_api_hook = new TreeMap<String, String>();
 	
 	
 	public volatile LinkedList<String> list_notified_user_of_import_issues = new LinkedList<String>();
@@ -591,11 +591,18 @@ public class Analysis_Plugin_apihooks extends _Analysis_Plugin_Super_Class imple
 				//ensure we finally have the node, otherwise, exit!
 				if(dll == null)
 				{
-					//search drivers if if failed to find a dll
+					//search drivers if failed to find a dll
 					if(parent.tree_DRIVERS.containsKey(victim_module_name.toLowerCase().trim()))
 					{
-						kernel_module = parent.tree_DRIVERS.get(victim_module_name.toLowerCase().trim());
-						driver.directive("NOTE: APIHOOK detected on kernel module: [" + victim_module_name + "] - refer to APIHOOKS for more details --> " + victim_module_line);
+						if(tree_notifed_user_about_api_hook != null && !tree_notifed_user_about_api_hook.containsKey(victim_module_line))
+						{
+							tree_notifed_user_about_api_hook.put(victim_module_line, null);
+							
+							kernel_module = parent.tree_DRIVERS.get(victim_module_name.toLowerCase().trim());
+							driver.directive("[apihooks]\tNOTE: APIHOOK detected on kernel module: [" + victim_module_name + "] - refer to APIHOOKS for more details --> " + victim_module_line);
+						}
+						
+						
 					}
 					
 					else if(!list_notified_user_of_import_issues.contains(victim_module_line))

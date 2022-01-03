@@ -14,7 +14,7 @@ import Advanced_Analysis.Analysis_Plugin.*;
 public class Node_Malfind 
 {
 	public static volatile Driver driver = new Driver();
-	public static final String myClassName = "Node_svcscan";
+	public static final String myClassName = "Node_Malfind";
 	
 	public volatile Node_Process process = null;
 	public volatile String process_name = null;
@@ -269,6 +269,58 @@ public class Node_Malfind
 	}
 	
 	
+	/**
+	 * continuation mtd
+	 * @param pw
+	 * @param key
+	 * @param value
+	 * @return
+	 */
+	public boolean write_manifest(PrintWriter pw, String header, String delimiter, boolean include_underline)
+	{
+		try
+		{
+			if(pw == null)
+				return false;	
+			
+			delimiter = delimiter + " ";
+			
+			driver.write_manifest_entry(pw, header, 
+										"PID: " 			+ delimiter + 	pid 			+ delimiter +
+										"process_name: " 	+ delimiter + 	process_name 	+ delimiter +
+										"address: " 		+ delimiter + 	address 			+ delimiter +
+										"vad_tag: " 		+ delimiter + 	vad_tag 			+ delimiter +
+										"protection: " 		+ delimiter + 	protection 			+ delimiter +
+										"flags: " 			+ delimiter + 	flags 			+ delimiter +
+										"MZ_present: " 		+ delimiter + 	MZ_present 			+ delimiter +
+										"Trampoline_initial_JMP_Detected: " 			+ delimiter + 	Trampoline_initial_JMP_Detected);	
+			
+			if(this.fle != null)
+				driver.write_manifest_entry(pw, header, "fle", "/" + fle.getParentFile().getName() + "/" + fle.getName());
+			
+			if(this.fle_attributes != null)
+				fle_attributes.write_manifest_entry(pw, header, null);
+			
+			if(list_details != null && !list_details.isEmpty())
+			{
+				for(String entry : list_details)
+				{
+					driver.write_manifest_entry(pw, header, "list_details:\t " + entry);
+				}
+			}
+			
+			if(include_underline)
+				pw.println(Driver.END_OF_ENTRY_MINOR);
+			
+			return true;
+		}
+		catch(Exception e)
+		{
+			driver.eop(myClassName, "write_manifest", e);
+		}
+		
+		return false;
+	}
 	
 	
 	

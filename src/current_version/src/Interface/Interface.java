@@ -96,6 +96,7 @@ public class Interface extends Thread implements Runnable, ActionListener
 	public static volatile JMenu jmnuAnalysisReport = null;
 	public static volatile JMenu jmnuSystemManifest = null;
 		public static volatile JMenuItem jmnuitm_ExportSystemManifest = null;
+		public static volatile JMenuItem jmnuitm_AnalyseUserAssist = null;
 	public static volatile JMenu jmnuAnalysisReportProcessTree = null;
 	public static volatile JMenu jmnuAnalysisReportProcessInformationTree = null;
 		public static volatile JMenuItem jmnuitm_Set_Node_Length_PROCESS_TREE = null;
@@ -451,16 +452,21 @@ public class Interface extends Thread implements Runnable, ActionListener
 				jmnuAnalysisReport = new JMenu("Analysis Report");
 				jmnuSystemManifest = new JMenu("System Manifest");
 					jmnuitm_ExportSystemManifest = new JMenuItem("Export System Manifest");	jmnuSystemManifest.add(jmnuitm_ExportSystemManifest);	jmnuitm_ExportSystemManifest.addActionListener(this);  jmnuitm_ExportSystemManifest.setEnabled(false);
-				
+					
 				jmnuAnalysisReportProcessTree = new JMenu("Process Tree");
 				jmnuAnalysisReportProcessInformationTree = new JMenu("Process Information Tree");
 				
 				menu_bar.add(jmnuAdvancedAnalysis);
 				menu_bar.add(jmnuDataXREF);
 				jmnuAdvancedAnalysis.add(jmnuAnalysisReport);
+												
 				jmnuAdvancedAnalysis.add(jmnuSystemManifest);
 				jmnuAnalysisReport.add(jmnuAnalysisReportProcessTree);
 				jmnuAnalysisReport.add(jmnuAnalysisReportProcessInformationTree);
+				
+				jmnuitm_AnalyseUserAssist = new JMenuItem("Analyze User Assist");	jmnuitm_AnalyseUserAssist.addActionListener(this);	jmnuitm_AnalyseUserAssist.setEnabled(false);
+				jmnuAdvancedAnalysis.add(jmnuitm_AnalyseUserAssist);
+				
 				
 				jmnuitm_Set_Node_Length_PROCESS_TREE =  new JMenuItem("Set Node Length");
 				jmnuitm_Set_Div_Height_PROCESS_TREE =  new JMenuItem("Set HTML Div Height");
@@ -1601,6 +1607,7 @@ public class Interface extends Thread implements Runnable, ActionListener
 			this.jtfFile_XREF_SearchString.setEditable(true);
 			jmnuitm_Import_Directory.setEnabled(true);
 			this.jmnuitm_ExportSystemManifest.setEnabled(true);
+			jmnuitm_AnalyseUserAssist.setEnabled(true);
 			
 			if(AUTO_START_ADVANCED_ANALYSIS)
 			{
@@ -2322,7 +2329,7 @@ public class Interface extends Thread implements Runnable, ActionListener
 			}
 			
 			//otw, import/load was successful, export manifest file
-			advanced_analysis_director.export_system_manifest();
+			advanced_analysis_director.write_manifest(Advanced_Analysis_Director.WRITE_MANIFEST_DELIMITER);
 			
 			return true;
 		}
@@ -2335,6 +2342,35 @@ public class Interface extends Thread implements Runnable, ActionListener
 		return false;
 	}
 	
+	public boolean analyze_user_assist()
+	{
+		try
+		{
+			//this.advanced_analysis_director = new Advanced_Analysis_Director(list_plugin_autorun, fle_volatility, fle_memory_image, PROFILE, path_fle_analysis_directory, file_attr_volatility, file_attr_memory_image, investigator_name, investigation_description, true);
+			
+			if(advanced_analysis_director == null || advanced_analysis_director.plugin_userassist == null || advanced_analysis_director.tree_user_assist_linked_by_time_focused == null || advanced_analysis_director.tree_user_assist_linked_by_time_focused.isEmpty())
+			{
+				LinkedList<String> list = new LinkedList<String>();
+				list.add("userassist");
+				
+				//autorun userassist
+				this.advanced_analysis_director = new Advanced_Analysis_Director(list, fle_volatility, fle_memory_image, PROFILE, path_fle_analysis_directory, file_attr_volatility, file_attr_memory_image, investigator_name, investigation_description, true);				
+			}
+			else
+			{
+				driver.jop("User Assist is already visible! \nNo further action is necessary...");
+			}
+			
+			return true;
+		}
+		catch(Exception e)
+		{
+			driver.eop(myClassName, "analyze_user_assist", e);
+		}
+		
+		return false;
+	}
+	
 	public void actionPerformed(ActionEvent ae)
 	{
 		try
@@ -2342,6 +2378,11 @@ public class Interface extends Thread implements Runnable, ActionListener
 			if(ae.getSource() == jmnuitm_Close)
 			{
 				close();
+			}
+			
+			else if(ae.getSource() == this.jmnuitm_AnalyseUserAssist)
+			{
+				analyze_user_assist();
 			}
 			
 			else if(ae.getSource() == jmnuitm_ExportSystemManifest)
@@ -4256,6 +4297,8 @@ public class Interface extends Thread implements Runnable, ActionListener
 			
 			if(this.advanced_analysis_director != null)
 				this.advanced_analysis_director.path_fle_analysis_directory = path_fle_analysis_directory;
+			
+			advanced_analysis_director.relative_path_to_file_analysis_directory = driver.get_relative_path(fle_analysis_directory);
 			
 			return true;
 		}

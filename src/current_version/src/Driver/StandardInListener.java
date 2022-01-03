@@ -127,6 +127,11 @@ public class StandardInListener extends Thread implements Runnable
 			if(lower.equals("s") || lower.equals("status") || lower.startsWith("display_status") || lower.startsWith("display status"))
 				display_status();
 			
+			else if(lower.equals("gc"))
+			{
+				try	{	System.gc();} catch(Exception e){}
+			}
+			
 			else if(lower.startsWith("import_geo") || lower.startsWith("import geo") || lower.startsWith("import_gps") || lower.startsWith("import gps"))
 			{
 				GEO_Location geo = new GEO_Location(true, null);

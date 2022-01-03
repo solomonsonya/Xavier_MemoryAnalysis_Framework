@@ -587,7 +587,7 @@ public class Node_Netstat_Entry
 		return false;
 	}
 	
-	public boolean write_manifest(PrintWriter pw)
+	public boolean write_manifest(PrintWriter pw, String header, String delimiter, String key_identifier_token)
 	{
 		try
 		{
@@ -601,59 +601,103 @@ public class Node_Netstat_Entry
 			//public volatile File fle_whois_directory
 			//public volatile File fle_whois_output
 			
-			//
-			//connections - Windows XP and 2003 only
-			//			
-			write_manifest_entry(pw, "offset_connections", offset_connections);			
-			write_manifest_entry(pw, "local_address", local_address);
-			write_manifest_entry(pw, "foreign_address", foreign_address);
-
-			//
-			//connscan
-			//						
-			write_manifest_entry(pw, "offset_connscan", offset_connscan);
-						
-			//
-			//sockets
-			//
-			write_manifest_entry(pw, "offset_sockets", offset_sockets);
-			write_manifest_entry(pw, "local_port", local_port);
-			write_manifest_entry(pw, "proto_value", proto_value);
-			write_manifest_entry(pw, "protocol", protocol);
-			write_manifest_entry(pw, "creation_date", creation_date);
-			write_manifest_entry(pw, "creation_time", creation_time);
-			write_manifest_entry(pw, "creation_utc", creation_utc);
 			
-			//
-			//sockscan
-			//
-			write_manifest_entry(pw, "offset_sockscan", offset_sockscan);
+			delimiter = delimiter + " ";
 			
-			//
-			//netscan
-			//
-			write_manifest_entry(pw, "offset_netscan", offset_netscan);
-			write_manifest_entry(pw, "state", state);
-			write_manifest_entry(pw, "owner_name", owner_name);
+			String netstat = 	 					
+								//
+								//connections - Windows XP and 2003 only
+								//
+								driver.get_trimmed_entry("offset_connections", offset_connections, delimiter, true, false, key_identifier_token) 	+ 
+								driver.get_trimmed_entry("local_address", local_address, delimiter, true, false, key_identifier_token) 				+ 
+								driver.get_trimmed_entry("foreign_address", foreign_address, delimiter, true, false, key_identifier_token) 			+ 
+								
+								//
+								//connscan
+								//
+								driver.get_trimmed_entry("offset_connscan", offset_connscan, delimiter, true, false, key_identifier_token)	+	
+								
+								//
+								//sockets
+								//
+								driver.get_trimmed_entry("offset_sockets", offset_sockets, delimiter, true, false, key_identifier_token)	+
+								driver.get_trimmed_entry("local_port", local_port, delimiter, true, false, key_identifier_token)	+	
+								driver.get_trimmed_entry("proto_value", proto_value, delimiter, true, false, key_identifier_token)	+
+								driver.get_trimmed_entry("protocol", protocol, delimiter, true, false, key_identifier_token)	+	
+								driver.get_trimmed_entry("creation_date", creation_date, delimiter, true, false, key_identifier_token)	+
+								driver.get_trimmed_entry("creation_time", creation_time, delimiter, true, false, key_identifier_token)	+	
+								driver.get_trimmed_entry("creation_utc", creation_utc, delimiter, true, false, key_identifier_token)	+
+								
+								//
+								//sockscan
+								//
+								driver.get_trimmed_entry("offset_sockscan", offset_sockscan, delimiter, true, false, key_identifier_token)	+	
+								
+								
+								//
+								//netscan
+								//
+								driver.get_trimmed_entry("offset_netscan", offset_netscan, delimiter, true, false, key_identifier_token)	+
+								driver.get_trimmed_entry("state", state, delimiter, true, false, key_identifier_token)	+	
+								driver.get_trimmed_entry("owner_name", owner_name, delimiter, true, false, key_identifier_token)	+	
+								driver.get_trimmed_entry("lookup", lookup, delimiter, true, false, key_identifier_token)
+								;			
+			
+			driver.write_manifest_entry(pw, header, netstat);
+			
+//			//
+//			//connections - Windows XP and 2003 only
+//			//			
+//			write_manifest_entry(pw, "offset_connections", offset_connections);			
+//			write_manifest_entry(pw, "local_address", local_address);
+//			write_manifest_entry(pw, "foreign_address", foreign_address);
+//
+//			//
+//			//connscan
+//			//						
+//			write_manifest_entry(pw, "offset_connscan", offset_connscan);
+//						
+//			//
+//			//sockets
+//			//
+//			write_manifest_entry(pw, "offset_sockets", offset_sockets);
+//			write_manifest_entry(pw, "local_port", local_port);
+//			write_manifest_entry(pw, "proto_value", proto_value);
+//			write_manifest_entry(pw, "protocol", protocol);
+//			write_manifest_entry(pw, "creation_date", creation_date);
+//			write_manifest_entry(pw, "creation_time", creation_time);
+//			write_manifest_entry(pw, "creation_utc", creation_utc);
+//			
+//			//
+//			//sockscan
+//			//
+//			write_manifest_entry(pw, "offset_sockscan", offset_sockscan);
+//			
+//			//
+//			//netscan
+//			//
+//			write_manifest_entry(pw, "offset_netscan", offset_netscan);
+//			write_manifest_entry(pw, "state", state);
+//			write_manifest_entry(pw, "owner_name", owner_name);
 			
 			//
 			//whois
 			//
-			write_manifest_entry(pw, "path_whois_directory", path_whois_directory);
-			write_manifest_entry(pw, "lookup", lookup);
+			//write_manifest_entry(pw, "path_whois_directory", path_whois_directory);
+			//write_manifest_entry(pw, "lookup", lookup);
 			
 			if(list_whois_entry != null && !list_whois_entry.isEmpty())
 			{
 				for(String entry : list_whois_entry)
 				{
-					pw.println(header + "whois" + ":\t" + entry);
+					pw.println(header + "whois" + ":\t " + entry);
 				}
 				
 			}
 			
 			
 			
-			pw.println(Driver.END_OF_ENTRY_MINOR);
+//			pw.println(Driver.END_OF_ENTRY_MINOR);
 			return true;
 		}
 		catch(Exception e)
