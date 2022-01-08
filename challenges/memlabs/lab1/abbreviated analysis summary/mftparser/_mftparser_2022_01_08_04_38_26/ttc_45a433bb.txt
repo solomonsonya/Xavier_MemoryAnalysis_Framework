@@ -1,1 +1,0 @@
-2019-12-05	02:34:14	UTC+0000	2019-12-05	02:34:14	UTC+0000	2019-12-05	02:34:14	UTC+0000	2019-12-05	02:34:14	UTC+0000	amd64_microsoft-windows-font-truetype-msmincho_31bf3856ad364e35_6.1.7600.16385_none_be34642396bfadae_msmincho.ttc_45a433bb	$FILE_NAME	ttc_45a433bb

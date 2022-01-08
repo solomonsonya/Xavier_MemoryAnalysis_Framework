@@ -1,1 +1,0 @@
-2019-12-05	02:39:46	UTC+0000	2019-12-05	02:39:46	UTC+0000	2019-12-05	02:39:46	UTC+0000	2019-12-05	02:39:46	UTC+0000	wow64_microsoft-windows-p..unterinfrastructure_31bf3856ad364e35_6.1.7601.17514_none_da00ad1949e715ad_perfhost.exe_df3332ad	$FILE_NAME	exe_df3332ad

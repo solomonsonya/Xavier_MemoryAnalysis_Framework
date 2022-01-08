@@ -1,1 +1,0 @@
-2019-12-05	02:33:55	UTC+0000	2019-12-05	02:33:55	UTC+0000	2019-12-05	02:33:55	UTC+0000	2019-12-05	02:33:55	UTC+0000	amd64_microsoft-windows-font-truetype-gabriola_31bf3856ad364e35_6.1.7601.17514_none_e65a866e9dc81eaf_gabriola.ttf_2896bb77	$FILE_NAME	ttf_2896bb77

@@ -1,1 +1,0 @@
-2019-12-05	02:32:51	UTC+0000	2019-12-05	02:32:51	UTC+0000	2019-12-05	02:32:51	UTC+0000	2019-12-05	02:32:51	UTC+0000	Windows\winsxs\amd64_microsoft.windows.c..ration.online.setup_31bf3856ad364e35_6.1.7600.16385_none_0dbedb7c5ac04a7d	$FILE_NAME	16385_none_0dbedb7c5ac04a7d

@@ -1,1 +1,0 @@
-2019-12-05	02:33:55	UTC+0000	2019-12-05	02:33:55	UTC+0000	2019-12-05	02:33:55	UTC+0000	2019-12-05	02:33:55	UTC+0000	amd64_microsoft-windows-font-truetype-gautami_31bf3856ad364e35_6.1.7600.16385_none_d7a960cbb5ebb166_gautamib.ttf_eba5f98c	$FILE_NAME	ttf_eba5f98c

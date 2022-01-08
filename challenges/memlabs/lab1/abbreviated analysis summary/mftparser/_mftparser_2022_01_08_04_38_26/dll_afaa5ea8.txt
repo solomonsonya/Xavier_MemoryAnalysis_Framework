@@ -1,1 +1,0 @@
-2019-12-05	02:36:02	UTC+0000	2019-12-05	02:36:02	UTC+0000	2019-12-05	02:36:02	UTC+0000	2019-12-05	02:36:02	UTC+0000	amd64_microsoft-windows-n..-domain-clients-svc_31bf3856ad364e35_6.1.7601.17514_none_a2347d4102a4c8ad_fwremotesvr.dll_afaa5ea8	$FILE_NAME	dll_afaa5ea8
