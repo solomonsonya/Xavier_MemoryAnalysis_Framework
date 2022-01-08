@@ -1,0 +1,1 @@
+2019-12-05	02:35:48	UTC+0000	2019-12-05	02:35:48	UTC+0000	2019-12-05	02:35:48	UTC+0000	2019-12-05	02:35:48	UTC+0000	amd64_microsoft-windows-x..rtificateenrollment_31bf3856ad364e35_6.1.7601.17514_none_51bcbc61a5466a58_certenrollctrl.exe_9495aa75	$FILE_NAME	exe_9495aa75

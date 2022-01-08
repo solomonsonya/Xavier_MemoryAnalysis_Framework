@@ -1,0 +1,1 @@
+2019-12-05	02:34:25	UTC+0000	2019-12-05	02:34:25	UTC+0000	2019-12-05	02:34:25	UTC+0000	2019-12-05	02:34:25	UTC+0000	amd64_microsoft-windows-font-truetype-shruti_31bf3856ad364e35_6.1.7600.16385_none_295c980d6b8c1975_shrutib.ttf_cc31ccfb	$FILE_NAME	ttf_cc31ccfb

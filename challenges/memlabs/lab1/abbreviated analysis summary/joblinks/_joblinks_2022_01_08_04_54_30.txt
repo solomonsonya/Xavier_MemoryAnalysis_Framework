@@ -1,0 +1,9 @@
+Volatility Foundation Volatility Framework 2.6
+Offset(V)          Name                    PID   PPID   Sess JobSess  Wow64  Total Active   Term  JobLink Process
+------------------ -------------------- ------ ------ ------ ------- ------ ------ ------ ------ -------- -------
+0xfffffa8000ecea60 SearchFilterHo         1720    480      0       0      0      1      1      0        - (Original Process)
+0xfffffa8000ecea60 SearchFilterHo         1720    480      0       -      0      -      -      -      Yes C:\Windows\system32\SearchFilterHost.exe
+***********************************************************************************************************
+0xfffffa8001048060 DumpIt.exe              796    604      1       1      1      1      1      0        - (Original Process)
+0xfffffa8001048060 DumpIt.exe              796    604      1       -      1      -      -      -      Yes C:\Users\SmartNet\Downloads\DumpIt\DumpIt.exe
+***********************************************************************************************************

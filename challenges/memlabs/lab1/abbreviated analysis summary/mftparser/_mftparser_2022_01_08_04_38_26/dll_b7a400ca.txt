@@ -1,0 +1,1 @@
+2019-12-05	02:36:40	UTC+0000	2019-12-05	02:36:40	UTC+0000	2019-12-05	02:36:40	UTC+0000	2019-12-05	02:36:40	UTC+0000	amd64_microsoft-windows-directory-services-sam_31bf3856ad364e35_6.1.7601.17514_none_10145eccb79418a5_samsrv.dll_b7a400ca	$FILE_NAME	dll_b7a400ca

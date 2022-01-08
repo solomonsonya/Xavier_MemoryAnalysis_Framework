@@ -1,0 +1,216 @@
+Volatility Foundation Volatility Framework 2.6
+Last Modified                  Path
+------------------------------ ----
+2010-11-21 03:24:09 UTC+0000   \??\C:\Windows\system32\LogonUI.exe
+2009-07-14 01:39:37 UTC+0000   \??\C:\Windows\system32\SearchFilterHost.exe
+2009-07-14 01:39:37 UTC+0000   \??\C:\Windows\system32\SearchProtocolHost.exe
+2009-07-14 01:39:06 UTC+0000   \??\C:\Windows\system32\DllHost.exe
+2010-11-21 03:24:03 UTC+0000   \??\C:\Windows\System32\usercpl.dll
+2009-07-14 01:38:52 UTC+0000   \??\C:\Windows\System32\wscui.cpl
+2009-07-14 01:14:18 UTC+0000   \??\C:\Windows\SysWOW64\DllHost.exe
+2010-11-21 03:23:51 UTC+0000   \??\C:\Windows\System32\DeviceCenter.dll
+2010-11-21 03:24:01 UTC+0000   \??\C:\Windows\System32\zipfldr.dll
+2009-07-14 01:41:53 UTC+0000   \??\C:\Windows\System32\PhotoMetadataHandler.dll
+2010-11-21 03:24:16 UTC+0000   \??\C:\Windows\System32\slui.exe
+2010-11-21 03:24:52 UTC+0000   \??\C:\Windows\System32\wpdshext.dll
+2010-11-21 03:25:08 UTC+0000   \??\C:\Windows\System32\mssvp.dll
+2010-11-21 03:24:11 UTC+0000   \??\C:\Windows\Explorer.EXE
+2010-11-21 03:24:02 UTC+0000   \??\C:\Windows\System32\networkexplorer.dll
+2010-11-21 03:23:51 UTC+0000   \??\C:\Windows\System32\ntshrui.dll
+2010-11-21 03:24:41 UTC+0000   \??\C:\Windows\System32\cscui.dll
+2009-07-14 01:40:36 UTC+0000   \??\C:\Windows\System32\EhStorShell.dll
+2009-07-14 01:39:46 UTC+0000   \??\C:\Windows\System32\svchost.exe
+2009-07-14 01:39:24 UTC+0000   \??\C:\Windows\system32\mspaint.exe
+2010-11-21 03:24:01 UTC+0000   \??\C:\Windows\System32\mydocs.dll
+2009-07-14 01:41:53 UTC+0000   \??\C:\Windows\System32\sendmail.dll
+2010-11-21 03:24:51 UTC+0000   \??\C:\Windows\System32\syncui.dll
+2019-12-05 07:37:57 UTC+0000   \??\C:\Program Files\WinRAR\RarExt.dll
+2010-11-21 03:24:16 UTC+0000   \??\C:\Windows\System32\twext.dll
+2019-12-10 15:13:11 UTC+0000   \??\C:\Users\SmartNet\Downloads\DumpIt\DumpIt.exe
+2010-11-21 03:24:08 UTC+0000   \??\C:\Windows\system32\consent.exe
+2019-10-10 18:48:14 UTC+0000   \??\C:\Windows\System32\VBoxControl.exe
+2019-10-10 18:48:12 UTC+0000   \??\C:\Windows\System32\VBoxService.exe
+2019-10-10 18:48:12 UTC+0000   \??\C:\Windows\System32\VBoxTray.exe
+2014-05-14 16:23:46 UTC+0000   \??\C:\Windows\System32\wuauclt.exe
+2009-07-14 01:38:55 UTC+0000   \??\C:\Windows\System32\AdapterTroubleshooter.exe
+2010-11-21 03:23:55 UTC+0000   \??\C:\Windows\system32\cmd.exe
+2009-07-14 01:41:53 UTC+0000   \??\C:\Program Files\Windows Sidebar\sbdrop.dll
+2010-11-21 03:24:08 UTC+0000   \??\C:\Windows\system32\taskhost.exe
+2009-07-14 01:39:51 UTC+0000   \??\C:\Windows\system32\wermgr.exe
+2010-11-21 03:24:24 UTC+0000   \??\C:\Windows\System32\remotepg.dll
+2009-07-14 01:39:47 UTC+0000   \??\C:\Windows\System32\SystemPropertiesAdvanced.exe
+2010-11-21 03:24:15 UTC+0000   \??\C:\Windows\system32\wbem\wmiprvse.exe
+2010-11-21 03:24:09 UTC+0000   \??\C:\Windows\System32\ExplorerFrame.dll
+2010-11-21 03:23:54 UTC+0000   \??\C:\Windows\System32\shdocvw.dll
+2009-07-14 01:39:01 UTC+0000   \??\C:\Windows\System32\control.exe
+2009-07-14 01:39:56 UTC+0000   \??\C:\Program Files\Windows Media Player\wmpnscfg.exe
+2010-11-21 03:24:42 UTC+0000   \??\C:\Windows\System32\ieframe.dll
+2010-11-21 03:23:48 UTC+0000   \??\C:\Windows\System32\prnfldr.dll
+2010-11-21 03:24:49 UTC+0000   \??\C:\Windows\System32\gameux.dll
+2009-07-14 01:39:08 UTC+0000   \??\C:\Windows\system32\Dwm.exe
+2010-11-21 03:24:28 UTC+0000   \??\C:\Windows\system32\userinit.exe
+2019-12-02 12:03:11 UTC+0000   \??\C:\Users\SmartNet\AppData\Local\Mozilla Firefox\pingsender.exe
+2010-11-21 03:24:07 UTC+0000   \??\C:\Windows\SysWOW64\shdocvw.dll
+2019-12-02 12:03:11 UTC+0000   \??\C:\Users\SmartNet\AppData\Local\Mozilla Firefox\firefox.exe
+2010-11-21 03:23:55 UTC+0000   \??\C:\Windows\system32\vssvc.exe
+2009-07-14 01:39:31 UTC+0000   \??\C:\Windows\System32\rundll32.exe
+2010-11-21 03:24:26 UTC+0000   \??\C:\Windows\system32\mcbuilder.exe
+2009-07-14 01:39:16 UTC+0000   \??\C:\Windows\system32\lpremove.exe
+2009-07-14 01:39:02 UTC+0000   \??\C:\Windows\system32\defrag.exe
+2009-07-14 01:39:55 UTC+0000   \??\C:\Windows\system32\wbem\WMIADAP.EXE
+2009-07-14 01:41:56 UTC+0000   \??\C:\Program Files\Common Files\System\wab32.dll
+2010-11-21 03:24:26 UTC+0000   \??\C:\Windows\system32\schtasks.exe
+2010-11-21 03:24:49 UTC+0000   \??\C:\Windows\System32\wsqmcons.exe
+2010-11-21 03:23:56 UTC+0000   \??\C:\Windows\system32\sppsvc.exe
+2010-11-21 03:25:05 UTC+0000   \??\C:\Program Files\Windows Media Player\wmpnetwk.exe
+2009-07-14 01:39:37 UTC+0000   \??\C:\Windows\system32\SearchIndexer.exe
+2009-07-14 01:39:46 UTC+0000   \??\C:\Windows\system32\StikyNot.exe
+2009-07-14 01:39:47 UTC+0000   \??\C:\Windows\System32\tcpsvcs.exe
+2010-11-21 03:24:27 UTC+0000   \??\C:\Windows\System32\spoolsv.exe
+2010-11-21 03:23:53 UTC+0000   \??\C:\Windows\system32\lsm.exe
+2009-07-14 01:39:16 UTC+0000   \??\C:\Windows\system32\lsass.exe
+2009-07-14 01:39:37 UTC+0000   \??\C:\Windows\system32\services.exe
+2009-09-16 09:53:24 UTC+0000   \??\Z:\NOTEPAD.EXE
+2019-08-04 12:53:18 UTC+0000   \??\Z:\VMware-player-15.1.0-13591040.exe
+2009-07-14 01:39:20 UTC+0000   \??\c:\program files\windows defender\MpCmdRun.exe
+2019-12-11 09:51:50 UTC+0000   \??\C:\Users\SmartNet\Downloads\winrar-x64-580.exe
+2010-11-21 03:24:23 UTC+0000   \??\C:\Windows\System32\acppage.dll
+2014-05-14 03:50:46 UTC+0000   \??\C:\Windows\System32\wuapp.exe
+2009-07-14 01:38:53 UTC+0000   \??\C:\Windows\System32\scrnsave.scr
+2009-07-14 01:39:36 UTC+0000   \??\C:\Windows\System32\sdbinst.exe
+2009-07-14 01:39:36 UTC+0000   \??\C:\Windows\System32\sdchange.exe
+2010-11-21 03:25:06 UTC+0000   \??\C:\Windows\System32\sdclt.exe
+2009-07-14 01:39:37 UTC+0000   \??\C:\Windows\System32\sdiagnhost.exe
+2009-07-14 01:39:35 UTC+0000   \??\C:\Windows\System32\sbunattend.exe
+2010-11-21 03:24:41 UTC+0000   \??\C:\Windows\System32\rwinsta.exe
+2009-07-14 01:39:35 UTC+0000   \??\C:\Windows\system32\sc.exe
+2009-07-14 01:39:12 UTC+0000   \??\C:\Windows\hh.exe
+2009-07-14 01:39:12 UTC+0000   \??\C:\Windows\HelpPane.exe
+2009-07-14 01:39:10 UTC+0000   \??\C:\Windows\fveupdate.exe
+2010-11-21 03:24:22 UTC+0000   \??\C:\Windows\bfsvc.exe
+2009-07-14 01:39:25 UTC+0000   \??\C:\Windows\System32\notepad.exe
+2019-12-05 07:37:57 UTC+0000   \??\C:\Program Files\WinRAR\WinRAR.exe
+2009-07-14 01:39:11 UTC+0000   \??\C:\Windows\system32\gpscript.exe
+2009-07-14 01:39:16 UTC+0000   \??\C:\Windows\system32\magnify.exe
+2010-11-21 03:23:56 UTC+0000   \??\C:\Windows\system32\mstsc.exe
+2009-07-14 01:39:41 UTC+0000   \??\C:\Windows\system32\SnippingTool.exe
+2009-07-14 01:38:57 UTC+0000   \??\C:\Windows\system32\calc.exe
+2009-07-14 01:39:09 UTC+0000   \??\C:\Windows\ehome\ehshell.exe
+2010-11-21 03:25:10 UTC+0000   \??\C:\Program Files (x86)\Windows Media Player\wmplayer.exe
+2019-12-05 07:37:56 UTC+0000   \??\C:\Program Files\WinRAR\uninstall.exe
+2010-11-21 03:24:01 UTC+0000   \??\C:\Windows\SysWOW64\ntshrui.dll
+2009-07-14 01:15:14 UTC+0000   \??\C:\Windows\SysWOW64\EhStorShell.dll
+2010-11-21 03:24:36 UTC+0000   \??\C:\Windows\System32\wpccpl.dll
+2009-07-14 01:39:48 UTC+0000   \??\C:\Windows\system32\UserAccountControlSettings.exe
+2009-07-14 01:39:13 UTC+0000   \??\C:\Windows\system32\iscsicpl.exe
+2010-11-21 03:25:07 UTC+0000   \??\C:\Windows\system32\WFS.exe
+2010-11-21 03:24:08 UTC+0000   \??\C:\Windows\system32\aitagent.EXE
+2010-11-21 03:24:00 UTC+0000   \??\C:\Windows\System32\appwiz.cpl
+2010-11-21 03:24:39 UTC+0000   \??\C:\Windows\system32\mblctr.exe
+2009-07-14 01:39:20 UTC+0000   \??\C:\WINDOWS\system32\WindowsPowerShell\v1.0\powershell.exe
+2010-11-21 03:24:19 UTC+0000   \??\C:\Windows\system32\perfmon.exe
+2010-11-21 03:25:09 UTC+0000   \??\C:\Windows\System32\tquery.dll
+2009-07-14 01:39:49 UTC+0000   \??\C:\Windows\system32\verclsid.exe
+2009-07-14 01:39:17 UTC+0000   \??\C:\Windows\System32\mctadmin.exe
+2010-11-21 03:24:51 UTC+0000   \??\C:\Program Files\Windows Sidebar\sidebar.exe
+2009-07-14 01:39:29 UTC+0000   \??\C:\Windows\System32\regsvr32.exe
+2009-07-14 01:39:48 UTC+0000   \??\C:\Windows\System32\unregmp2.exe
+2009-07-14 01:39:53 UTC+0000   \??\C:\Program Files\Windows Mail\WinMail.exe
+2009-07-14 01:39:12 UTC+0000   \??\C:\Windows\System32\ie4uinit.exe
+2009-07-14 01:14:31 UTC+0000   \??\C:\Windows\SysWOW64\rundll32.exe
+2009-07-14 01:14:45 UTC+0000   \??\C:\Program Files (x86)\Windows Mail\WinMail.exe
+2010-11-21 03:25:08 UTC+0000   \??\C:\Windows\SysWOW64\ie4uinit.exe
+2010-11-21 03:24:51 UTC+0000   \??\C:\Windows\System32\ssText3d.scr
+2009-07-14 01:39:45 UTC+0000   \??\C:\Windows\System32\srdelayed.exe
+2019-12-11 09:02:30 UTC+0000   \??\C:\Users\SmartNet\Desktop\st4G3$$1.bat
+2009-07-14 01:40:32 UTC+0000   \??\C:\Windows\System32\docprop.dll
+2009-07-14 01:41:53 UTC+0000   \??\C:\Windows\System32\rshx32.dll
+2009-07-14 01:40:24 UTC+0000   \??\C:\Windows\System32\cryptext.dll
+2009-07-14 01:39:25 UTC+0000   \??\C:\Windows\System32\newdev.exe
+2010-11-21 03:24:33 UTC+0000   \??\C:\Windows\System32\nltest.exe
+2010-11-21 03:24:08 UTC+0000   \??\C:\Windows\System32\nslookup.exe
+2010-11-21 03:24:42 UTC+0000   \??\C:\Windows\System32\rdpsign.exe
+2009-07-14 01:39:26 UTC+0000   \??\C:\Windows\System32\odbcconf.exe
+2009-07-14 01:39:28 UTC+0000   \??\C:\Windows\System32\psr.exe
+2010-11-21 03:25:09 UTC+0000   \??\C:\Windows\System32\WindowsAnytimeUpgradeResults.exe
+2010-11-21 03:25:10 UTC+0000   \??\C:\Windows\System32\wisptis.exe
+2009-07-14 01:39:53 UTC+0000   \??\C:\Windows\System32\winrshost.exe
+2010-11-21 03:24:32 UTC+0000   \??\C:\Windows\System32\wksprt.exe
+2009-07-14 01:39:54 UTC+0000   \??\C:\Windows\System32\wlanext.exe
+2010-11-21 03:23:55 UTC+0000   \??\C:\Windows\System32\wusa.exe
+2010-11-21 03:23:50 UTC+0000   \??\C:\Windows\System32\WUDFHost.exe
+2009-07-14 01:39:51 UTC+0000   \??\C:\Windows\System32\WerFault.exe
+2010-11-21 03:24:01 UTC+0000   \??\C:\Windows\System32\WerFaultSecure.exe
+2009-07-14 01:39:51 UTC+0000   \??\C:\Windows\System32\wecutil.exe
+2009-07-14 01:39:55 UTC+0000   \??\C:\Windows\System32\wlrmdr.exe
+2009-07-14 01:39:59 UTC+0000   \??\C:\Windows\System32\xpsrchvw.exe
+2009-07-14 01:39:58 UTC+0000   \??\C:\Windows\System32\xcopy.exe
+2009-07-14 01:39:59 UTC+0000   \??\C:\Windows\System32\xwizard.exe
+2009-07-14 01:39:57 UTC+0000   \??\C:\Windows\System32\write.exe
+2009-07-14 01:39:57 UTC+0000   \??\C:\Windows\System32\wscript.exe
+2009-07-14 01:39:17 UTC+0000   \??\C:\Windows\System32\MdRes.exe
+2010-11-21 03:24:11 UTC+0000   \??\C:\Windows\System32\MdSched.exe
+2009-07-14 01:39:17 UTC+0000   \??\C:\Windows\System32\mfpmp.exe
+2009-07-14 01:39:46 UTC+0000   \??\C:\Windows\System32\systeminfo.exe
+2009-07-14 01:39:47 UTC+0000   \??\C:\Windows\System32\SystemPropertiesComputerName.exe
+2009-07-14 01:39:47 UTC+0000   \??\C:\Windows\System32\SystemPropertiesDataExecutionPrevention.exe
+2009-07-14 01:39:47 UTC+0000   \??\C:\Windows\System32\SystemPropertiesHardware.exe
+2009-07-14 01:39:47 UTC+0000   \??\C:\Windows\System32\SystemPropertiesPerformance.exe
+2009-07-14 01:39:47 UTC+0000   \??\C:\Windows\System32\SystemPropertiesProtection.exe
+2009-07-14 01:39:47 UTC+0000   \??\C:\Windows\System32\SystemPropertiesRemote.exe
+2009-07-14 01:39:47 UTC+0000   \??\C:\Windows\System32\systray.exe
+2010-11-21 03:24:33 UTC+0000   \??\C:\Windows\System32\tabcal.exe
+2010-11-21 03:23:55 UTC+0000   \??\C:\Windows\System32\takeown.exe
+2009-07-14 01:41:26 UTC+0000   \??\C:\Windows\System32\mmcshext.dll
+2009-07-14 01:38:56 UTC+0000   \??\C:\Windows\System32\AxInstUI.exe
+2009-07-14 01:41:54 UTC+0000   \??\C:\Windows\System32\SNTSearch.dll
+2019-12-10 15:13:11 UTC+0000   \??\C:\Users\SmartNet\Downloads\DumpIt.exe
+2019-12-10 15:06:42 UTC+0000   \??\C:\Users\SmartNet\Downloads\DumpIt_2451523934.exe
+2019-12-04 14:24:28 UTC+0000   \??\C:\Users\SmartNet\Downloads\Firefox Installer.exe
+2010-11-21 03:24:15 UTC+0000   \??\C:\Windows\SysWOW64\networkexplorer.dll
+2010-11-21 03:24:51 UTC+0000   \??\C:\Windows\System32\mobsync.exe
+2010-11-21 03:24:03 UTC+0000   \??\C:\Windows\servicing\TrustedInstaller.exe
+2019-12-02 12:03:11 UTC+0000   \??\C:\Users\SmartNet\AppData\Local\Mozilla Firefox\uninstall\helper.exe
+2014-05-22 09:04:06 UTC+0000   \??\C:\Windows\SoftwareDistribution\SelfUpdate\Handler\WuSetupV.exe
+2010-11-21 03:24:25 UTC+0000   \??\C:\Windows\system32\wuauclt.exe
+2009-07-14 01:39:07 UTC+0000   \??\C:\Windows\system32\DrvInst.exe
+2010-11-21 03:25:10 UTC+0000   \??\C:\Windows\SysWOW64\gameux.dll
+2010-11-21 03:25:08 UTC+0000   \??\C:\Windows\SysWOW64\ieframe.dll
+2009-07-14 01:39:39 UTC+0000   \??\C:\Windows\PSXRUN.EXE
+2010-11-21 03:25:08 UTC+0000   \??\C:\Windows\WinSxS\x86_microsoft-windows-ie-gc-registeriepkeys_31bf3856ad364e35_8.0.7601.17514_none_44aa873ff9136c27\RegisterIEPKEYs.exe
+2010-11-21 03:25:08 UTC+0000   \??\C:\Windows\WinSxS\x86_microsoft-windows-i..eoptionalcomponents_31bf3856ad364e35_8.0.7601.17514_none_1e7b93842c84c912\ConfigureIEOptionalComponents.exe
+2010-11-21 03:24:43 UTC+0000   \??\C:\Windows\WinSxS\amd64_microsoft-windows-i..eoptionalcomponents_31bf3856ad364e35_8.0.7601.17514_none_7a9a2f07e4e23a48\ConfigureIEOptionalComponents.exe
+2010-11-21 03:24:43 UTC+0000   \??\C:\Windows\WinSxS\amd64_microsoft-windows-ie-gc-registeriepkeys_31bf3856ad364e35_8.0.7601.17514_none_a0c922c3b170dd5d\RegisterIEPKEYs.exe
+2009-07-14 01:39:26 UTC+0000   \??\C:\Windows\system32\OptionalFeatures.exe
+2010-11-21 03:25:08 UTC+0000   \??\C:\Program Files (x86)\Internet Explorer\iexplore.exe
+2009-07-14 01:39:13 UTC+0000   \??\C:\Windows\system32\ipconfig.exe
+2009-07-14 01:39:26 UTC+0000   \??\C:\Windows\system32\PING.EXE
+2009-07-14 01:39:50 UTC+0000   \??\C:\Windows\system32\w32tm.exe
+2010-11-21 03:24:28 UTC+0000   \??\C:\Windows\Microsoft.NET\Framework64\v2.0.50727\cvtres.exe
+2009-06-10 20:39:47 UTC+0000   \??\C:\Windows\Microsoft.NET\Framework64\v2.0.50727\csc.exe
+2009-07-14 01:14:30 UTC+0000   \??\C:\Windows\SysWOW64\regsvr32.exe
+2010-11-21 03:24:35 UTC+0000   \??\C:\Windows\system32\winsat.exe
+2019-12-02 12:03:12 UTC+0000   \??\C:\Users\SmartNet\AppData\Local\Temp\7zS4F3B9C9D\setup.exe
+2019-12-04 14:23:16 UTC+0000   \??\C:\Users\SmartNet\Downloads\Firefox Installer.exe
+2019-12-04 14:18:50 UTC+0000   \??\C:\Users\SmartNet\Downloads\Firefox Installer.exe
+2019-12-02 12:04:01 UTC+0000   \??\C:\Users\SmartNet\AppData\Local\Temp\7zS4F6F72A8\setup-stub.exe
+2019-12-04 14:18:45 UTC+0000   \??\C:\Users\SmartNet\Downloads\Firefox Installer.exe
+2009-07-14 01:14:35 UTC+0000   \??\C:\Windows\SysWOW64\sdiagnhost.exe
+2009-07-14 01:14:25 UTC+0000   \??\C:\Windows\SysWOW64\msdt.exe
+2009-07-14 01:14:25 UTC+0000   \??\C:\Windows\system32\msdt.exe
+2019-10-10 18:48:12 UTC+0000   \??\C:\Program Files\Oracle\VirtualBox Guest Additions\VBoxDrvInst.exe
+2019-10-10 18:50:58 UTC+0000   \??\D:\VBoxWindowsAdditions-amd64.exe
+2019-10-10 18:46:21 UTC+0000   \??\D:\VBoxWindowsAdditions.exe
+2019-10-10 18:48:27 UTC+0000   \??\D:\VBoxWindowsAdditions-x86.exe
+2009-07-14 01:39:27 UTC+0000   \??\C:\Windows\System32\powercfg.exe
+2009-06-10 20:39:58 UTC+0000   \??\C:\Windows\Microsoft.NET\Framework64\v2.0.50727\mscorsvw.exe
+2009-06-10 21:23:09 UTC+0000   \??\C:\Windows\Microsoft.NET\Framework\v2.0.50727\mscorsvw.exe
+2010-11-21 03:24:51 UTC+0000   \??\C:\Windows\System32\sbe.dll
+2010-11-21 03:24:52 UTC+0000   \??\C:\Windows\System32\mf.dll
+2010-11-21 03:24:52 UTC+0000   \??\C:\Program Files\Windows Media Player\wmpshare.exe
+2010-11-21 03:24:27 UTC+0000   \??\C:\Windows\system32\runonce.exe
+2010-11-21 03:23:52 UTC+0000   \??\C:\Windows\system32\oobe\msoobe.exe
+2009-07-14 01:39:26 UTC+0000   \??\C:\Windows\system32\oobe\oobeldr.exe
+2010-11-21 03:24:24 UTC+0000   \??\C:\Windows\system32\oobe\windeploy.exe
+2010-11-21 03:24:15 UTC+0000   \??\C:\Windows\WinSxS\amd64_netfx-clrgc_b03f5f7f11d50a3a_6.1.7601.17514_none_ad7a390fa131c970\clrgc.exe
+2009-07-14 01:39:25 UTC+0000   \??\C:\Windows\System32\netsh.exe
