@@ -1,0 +1,1 @@
+2019-12-05	02:35:57	UTC+0000	2019-12-05	02:35:57	UTC+0000	2019-12-05	02:35:57	UTC+0000	2019-12-05	02:35:57	UTC+0000	amd64_microsoft-windows-d..pwindowmanager-core_31bf3856ad364e35_6.1.7601.17514_none_ebc99983d3d18578_dwmredir.dll_a25c13fe	$FILE_NAME	dll_a25c13fe

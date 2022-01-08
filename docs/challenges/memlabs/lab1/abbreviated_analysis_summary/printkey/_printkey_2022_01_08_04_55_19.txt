@@ -1,0 +1,222 @@
+Volatility Foundation Volatility Framework 2.6
+Legend: (S) = Stable   (V) = Volatile
+
+----------------------------
+Registry: \SystemRoot\System32\Config\DEFAULT
+Key name: CMI-CreateHive{BD6FA63F-599C-4F99-99DE-A05742AA2377} (S)
+Last updated: 2009-07-14 04:57:10 UTC+0000
+
+Subkeys:
+  (S) Control Panel
+  (S) Environment
+  (S) EUDC
+  (S) Keyboard Layout
+  (S) Printers
+  (S) Software
+  (S) SYSTEM
+
+Values:
+----------------------------
+Registry: \SystemRoot\System32\Config\SECURITY
+Key name: CMI-CreateHive{0297523D-E529-4E42-8BE7-E1AABC063C84} (S)
+Last updated: 2019-12-11 13:41:37 UTC+0000
+
+Subkeys:
+  (S) Cache
+  (S) Policy
+  (S) Recovery
+  (S) RXACT
+  (V) SAM
+
+Values:
+----------------------------
+Registry: \??\C:\Windows\ServiceProfiles\LocalService\NTUSER.DAT
+Key name: CMI-CreateHive{D43B12B8-09B5-40DB-B4F6-F6DFEB78DAEC} (S)
+Last updated: 2009-07-14 04:45:48 UTC+0000
+
+Subkeys:
+  (S) AppEvents
+  (S) Console
+  (S) Control Panel
+  (S) Environment
+  (S) EUDC
+  (S) Keyboard Layout
+  (S) Network
+  (S) Printers
+  (S) Software
+  (S) System
+
+Values:
+----------------------------
+Registry: \??\C:\Users\Alissa Simpson\ntuser.dat
+Key name: CMI-CreateHive{D43B12B8-09B5-40DB-B4F6-F6DFEB78DAEC} (S)
+Last updated: 2019-12-11 14:37:13 UTC+0000
+
+Subkeys:
+  (S) AppEvents
+  (S) Console
+  (S) Control Panel
+  (S) Environment
+  (S) EUDC
+  (S) Identities
+  (S) Keyboard Layout
+  (S) Network
+  (S) Printers
+  (S) Software
+  (S) System
+  (V) Volatile Environment
+
+Values:
+----------------------------
+Registry: [no name]
+Key name: REGISTRY (S)
+Last updated: 2019-12-11 13:41:22 UTC+0000
+
+Subkeys:
+  (S) A
+  (S) MACHINE
+  (S) USER
+
+Values:
+----------------------------
+Registry: \??\C:\Users\Alissa Simpson\AppData\Local\Microsoft\Windows\UsrClass.dat
+Key name: S-1-5-21-3073570648-3149397540-2269648332-1003_Classes (S)
+Last updated: 2019-12-11 09:11:30 UTC+0000
+
+Subkeys:
+  (S) Local Settings
+
+Values:
+----------------------------
+Registry: \REGISTRY\MACHINE\HARDWARE
+Key name: HARDWARE (S)
+Last updated: 2019-12-11 13:41:22 UTC+0000
+
+Subkeys:
+  (S) ACPI
+  (S) DESCRIPTION
+  (S) DEVICEMAP
+  (V) RESOURCEMAP
+
+Values:
+----------------------------
+Registry: \SystemRoot\System32\Config\SAM
+Key name: CMI-CreateHive{C4E7BA2B-68E8-499C-B1A1-371AC8D717C7} (S)
+Last updated: 2009-07-14 04:45:46 UTC+0000
+
+Subkeys:
+  (S) SAM
+
+Values:
+----------------------------
+Registry: \??\C:\Users\SmartNet\ntuser.dat
+Key name: CMI-CreateHive{D43B12B8-09B5-40DB-B4F6-F6DFEB78DAEC} (S)
+Last updated: 2019-12-11 14:32:24 UTC+0000
+
+Subkeys:
+  (S) AppEvents
+  (S) Console
+  (S) Control Panel
+  (S) Environment
+  (S) EUDC
+  (S) Identities
+  (S) Keyboard Layout
+  (S) Network
+  (S) Printers
+  (S) Software
+  (S) System
+  (V) Volatile Environment
+
+Values:
+----------------------------
+Registry: \??\C:\Users\SmartNet\AppData\Local\Microsoft\Windows\UsrClass.dat
+Key name: S-1-5-21-3073570648-3149397540-2269648332-1001_Classes (S)
+Last updated: 2019-12-10 15:05:19 UTC+0000
+
+Subkeys:
+  (S) .htm
+  (S) .html
+  (S) .oga
+  (S) .ogg
+  (S) .ogv
+  (S) .pdf
+  (S) .shtml
+  (S) .svg
+  (S) .webm
+  (S) .xht
+  (S) .xhtml
+  (S) FirefoxHTML-771EB45391718800
+  (S) FirefoxURL-771EB45391718800
+  (S) ftp
+  (S) http
+  (S) https
+  (S) Local Settings
+
+Values:
+----------------------------
+Registry: \SystemRoot\System32\Config\SOFTWARE
+Key name: CMI-CreateHive{199DAFC2-6F16-4946-BF90-5A3FC3A60902} (S)
+Last updated: 2019-12-11 09:52:04 UTC+0000
+
+Subkeys:
+  (S) ATI Technologies
+  (S) CBSTEST
+  (S) Classes
+  (S) Clients
+  (S) Intel
+  (S) Microsoft
+  (S) Mozilla
+  (S) ODBC
+  (S) Oracle
+  (S) Policies
+  (S) RegisteredApplications
+  (S) Sonic
+  (S) WinRAR
+  (S) Wow6432Node
+
+Values:
+----------------------------
+Registry: \REGISTRY\MACHINE\SYSTEM
+Key name: CMI-CreateHive{2A7FB991-7BBE-4F9D-B91E-7CB51D4737F5} (S)
+Last updated: 2019-12-11 13:41:22 UTC+0000
+
+Subkeys:
+  (S) ControlSet001
+  (S) ControlSet002
+  (S) MountedDevices
+  (S) RNG
+  (S) Select
+  (S) Setup
+  (S) Software
+  (S) WPA
+  (V) CurrentControlSet
+
+Values:
+----------------------------
+Registry: \??\C:\Windows\ServiceProfiles\NetworkService\NTUSER.DAT
+Key name: CMI-CreateHive{D43B12B8-09B5-40DB-B4F6-F6DFEB78DAEC} (S)
+Last updated: 2009-07-14 04:45:47 UTC+0000
+
+Subkeys:
+  (S) AppEvents
+  (S) Console
+  (S) Control Panel
+  (S) Environment
+  (S) EUDC
+  (S) Keyboard Layout
+  (S) Network
+  (S) Printers
+  (S) Software
+  (S) System
+
+Values:
+----------------------------
+Registry: \Device\HarddiskVolume1\Boot\BCD
+Key name: NewStoreRoot (S)
+Last updated: 2019-12-11 13:41:26 UTC+0000
+
+Subkeys:
+  (S) Description
+  (S) Objects
+
+Values:

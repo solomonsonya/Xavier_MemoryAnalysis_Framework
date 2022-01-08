@@ -1,0 +1,2 @@
+2019-12-11	09:11:29	UTC+0000	2019-12-11	09:11:29	UTC+0000	2019-12-11	09:11:29	UTC+0000	2019-12-11	09:11:29	UTC+0000	Users\ALISSA~1\AppData\Roaming\MICROS~1\Windows\SendTo\Compressed (zipped) Folder.ZFSendToTarget	$FILE_NAME	zfsendtotarget
+2019-12-04	13:27:24	UTC+0000	2019-12-04	13:27:24	UTC+0000	2019-12-04	13:27:24	UTC+0000	2019-12-04	13:27:24	UTC+0000	Users\SmartNet\AppData\Roaming\Microsoft\Windows\SendTo\Compressed (zipped) Folder.ZFSendToTarget	$FILE_NAME	zfsendtotarget

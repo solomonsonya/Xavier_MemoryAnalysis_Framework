@@ -1,0 +1,1 @@
+2019-12-05	02:33:50	UTC+0000	2019-12-05	02:33:50	UTC+0000	2019-12-05	02:33:50	UTC+0000	2019-12-05	02:33:50	UTC+0000	amd64_microsoft-windows-f..-truetype-aparajita_31bf3856ad364e35_6.1.7601.17514_none_d123c185ad71f4d5_aparajb.ttf_caad65b5	$FILE_NAME	ttf_caad65b5

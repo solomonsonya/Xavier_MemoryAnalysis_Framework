@@ -1,0 +1,1 @@
+2019-12-05	02:37:17	UTC+0000	2019-12-05	02:37:17	UTC+0000	2019-12-05	02:37:17	UTC+0000	2019-12-05	02:37:17	UTC+0000	amd64_microsoft-windows-rasbase-raspppoe_31bf3856ad364e35_6.1.7600.16385_none_b22875c7b448dfbb_raspppoe.sys_5bc9d88d	$FILE_NAME	sys_5bc9d88d

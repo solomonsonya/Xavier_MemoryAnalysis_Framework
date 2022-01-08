@@ -1,0 +1,1 @@
+2019-12-05	02:36:11	UTC+0000	2019-12-05	02:36:11	UTC+0000	2019-12-05	02:36:11	UTC+0000	2019-12-05	02:36:11	UTC+0000	amd64_microsoft-windows-t..localsessionmanager_31bf3856ad364e35_6.1.7601.17514_none_036ad230212a39ce_lsm.exe_ecbd567a	$FILE_NAME	exe_ecbd567a

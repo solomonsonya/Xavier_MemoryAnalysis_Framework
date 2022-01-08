@@ -1,0 +1,16 @@
+Volatility Foundation Volatility Framework 2.6
+Legend: (S) = Stable   (V) = Volatile
+
+----------------------------
+Registry: \SystemRoot\System32\Config\SOFTWARE
+Key name: Svc (S)
+Last updated: 2019-12-11 14:16:09 UTC+0000
+
+Subkeys:
+  (V) Vol
+
+Values:
+REG_QWORD     VistaSp1        : (S) 128920218544262440
+REG_DWORD     AntiVirusOverride : (S) 0
+REG_DWORD     AntiSpywareOverride : (S) 0
+REG_DWORD     FirewallOverride : (S) 0

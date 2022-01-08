@@ -1,0 +1,1 @@
+2019-12-05	02:35:57	UTC+0000	2019-12-05	02:35:57	UTC+0000	2019-12-05	02:35:57	UTC+0000	2019-12-05	02:35:57	UTC+0000	amd64_microsoft-windows-efs-lsa-extension_31bf3856ad364e35_6.1.7600.16385_none_252f55f1cea824ce_efslsaext.dll_fdd731ab	$FILE_NAME	dll_fdd731ab

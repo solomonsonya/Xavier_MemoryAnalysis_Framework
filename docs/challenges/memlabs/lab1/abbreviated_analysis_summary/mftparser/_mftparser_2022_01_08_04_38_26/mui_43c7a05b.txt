@@ -1,0 +1,1 @@
+2019-12-05	02:38:11	UTC+0000	2019-12-05	02:38:11	UTC+0000	2019-12-05	02:38:11	UTC+0000	2019-12-05	02:38:11	UTC+0000	amd64_networking-mpssvc-svc.resources_31bf3856ad364e35_6.1.7601.17514_en-us_e58eb9a1a517b5e1_firewallapi.dll.mui_43c7a05b	$FILE_NAME	mui_43c7a05b
