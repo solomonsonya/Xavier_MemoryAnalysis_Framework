@@ -1,0 +1,1 @@
+2019-12-05	02:34:30	UTC+0000	2019-12-05	02:34:30	UTC+0000	2019-12-05	02:34:30	UTC+0000	2019-12-05	02:34:30	UTC+0000	amd64_microsoft-windows-f..etype-timesnewroman_31bf3856ad364e35_6.1.7601.17514_none_3b958c66aff6cdb7_timesi.ttf_88bb465f	$FILE_NAME	ttf_88bb465f

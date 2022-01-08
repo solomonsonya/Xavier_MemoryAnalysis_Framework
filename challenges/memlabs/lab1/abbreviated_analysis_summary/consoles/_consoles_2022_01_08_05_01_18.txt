@@ -1,0 +1,51 @@
+Volatility Foundation Volatility Framework 2.6
+**************************************************
+ConsoleProcess: conhost.exe Pid: 2692
+Console: 0xff756200 CommandHistorySize: 50
+HistoryBufferCount: 1 HistoryBufferMax: 4
+OriginalTitle: %SystemRoot%\system32\cmd.exe
+Title: C:\Windows\system32\cmd.exe - St4G3$1
+AttachedProcess: cmd.exe Pid: 1984 Handle: 0x60
+----
+CommandHistory: 0x1fe9c0 Application: cmd.exe Flags: Allocated, Reset
+CommandCount: 1 LastAdded: 0 LastDisplayed: 0
+FirstCommand: 0 CommandCountMax: 50
+ProcessHandle: 0x60
+Cmd #0 at 0x1de3c0: St4G3$1
+----
+Screen 0x1e0f70 X:80 Y:300
+Dump:
+Microsoft Windows [Version 6.1.7601]                                            
+Copyright (c) 2009 Microsoft Corporation.  All rights reserved.                 
+                                                                                
+C:\Users\SmartNet>St4G3$1                                                       
+ZmxhZ3t0aDFzXzFzX3RoM18xc3Rfc3Q0ZzMhIX0=                                        
+Press any key to continue . . .                                                 
+**************************************************
+ConsoleProcess: conhost.exe Pid: 2260
+Console: 0xff756200 CommandHistorySize: 50
+HistoryBufferCount: 1 HistoryBufferMax: 4
+OriginalTitle: C:\Users\SmartNet\Downloads\DumpIt\DumpIt.exe
+Title: C:\Users\SmartNet\Downloads\DumpIt\DumpIt.exe
+AttachedProcess: DumpIt.exe Pid: 796 Handle: 0x60
+----
+CommandHistory: 0x38ea90 Application: DumpIt.exe Flags: Allocated
+CommandCount: 0 LastAdded: -1 LastDisplayed: -1
+FirstCommand: 0 CommandCountMax: 50
+ProcessHandle: 0x60
+----
+Screen 0x371050 X:80 Y:300
+Dump:
+  DumpIt - v1.3.2.20110401 - One click memory memory dumper                     
+  Copyright (c) 2007 - 2011, Matthieu Suiche <http://www.msuiche.net>           
+  Copyright (c) 2010 - 2011, MoonSols <http://www.moonsols.com>                 
+                                                                                
+                                                                                
+    Address space size:        1073676288 bytes (   1023 Mb)                    
+    Free space size:          24185389056 bytes (  23064 Mb)                    
+                                                                                
+    * Destination = \??\C:\Users\SmartNet\Downloads\DumpIt\SMARTNET-PC-20191211-
+143755.raw                                                                      
+                                                                                
+    --> Are you sure you want to continue? [y/n] y                              
+    + Processing...                                                             

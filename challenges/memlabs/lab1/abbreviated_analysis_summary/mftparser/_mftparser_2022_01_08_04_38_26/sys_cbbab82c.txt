@@ -1,0 +1,1 @@
+2019-12-05	02:37:15	UTC+0000	2019-12-05	02:37:15	UTC+0000	2019-12-05	02:37:15	UTC+0000	2019-12-05	02:37:15	UTC+0000	amd64_microsoft-windows-tcpip-binaries_31bf3856ad364e35_6.1.7601.17514_none_114417c17d05cb37_fwpkclnt.sys_cbbab82c	$FILE_NAME	sys_cbbab82c

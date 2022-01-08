@@ -1,0 +1,1 @@
+2019-12-05	02:37:00	UTC+0000	2019-12-05	02:37:00	UTC+0000	2019-12-05	02:37:00	UTC+0000	2019-12-05	02:37:00	UTC+0000	amd64_microsoft-windows-s..cardsubsystemclient_31bf3856ad364e35_6.1.7601.17514_none_770a7fb29038c2c0_winscard.dll_cfd3258d	$FILE_NAME	dll_cfd3258d

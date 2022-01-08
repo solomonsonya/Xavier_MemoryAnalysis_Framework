@@ -1,0 +1,57 @@
+Volatility Foundation Volatility Framework 2.6
+**************************************************
+WindowStation: 0x3eb8e8d0, Name: WinSta0, Next: 0x0
+SessionId: 2, AtomTable: 0xfffff8a002263c70, Interactive: True
+Desktops: Default, Disconnect, Winlogon
+ptiDrawingClipboard: pid - tid -
+spwndClipOpen: 0x0, spwndClipViewer: 0x0  
+cNumClipFormats: 4, iClipSerialNumber: 1
+pClipBase: 0xfffff900c1f9cdc0, Formats: CF_UNICODETEXT,Unknown choice 0,Unknown choice 65791,CF_TEXT
+**************************************************
+WindowStation: 0x3ed4eb90, Name: msswindowstation, Next: 0x0
+SessionId: 0, AtomTable: 0xfffff8a001bd5680, Interactive: False
+Desktops: mssrestricteddesk
+ptiDrawingClipboard: pid - tid -
+spwndClipOpen: 0x0, spwndClipViewer: 0x0  
+cNumClipFormats: 0, iClipSerialNumber: 0
+pClipBase: 0x0, Formats: 
+**************************************************
+WindowStation: 0x3ee682f0, Name: WinSta0, Next: 0x0
+SessionId: 1, AtomTable: 0xfffff8a001382860, Interactive: True
+Desktops: Default, Disconnect, Winlogon
+ptiDrawingClipboard: pid - tid -
+spwndClipOpen: 0x0, spwndClipViewer: 0x0  
+cNumClipFormats: 4, iClipSerialNumber: 2
+pClipBase: 0xfffff900c01bf300, Formats: CF_UNICODETEXT,CF_TEXT,Unknown choice 721387,CF_TEXT
+**************************************************
+WindowStation: 0x3ee69f60, Name: WinSta0, Next: 0xfffffa8001caedb0
+SessionId: 0, AtomTable: 0xfffff8a001384c70, Interactive: True
+Desktops: Default, Disconnect, Winlogon
+ptiDrawingClipboard: pid - tid -
+spwndClipOpen: 0x0, spwndClipViewer: 0x0  
+cNumClipFormats: 0, iClipSerialNumber: 0
+pClipBase: 0x0, Formats: 
+**************************************************
+WindowStation: 0x3eeaedb0, Name: Service-0x0-3e7$, Next: 0xfffffa8001d56920
+SessionId: 0, AtomTable: 0xfffff8a001481c70, Interactive: False
+Desktops: Default
+ptiDrawingClipboard: pid - tid -
+spwndClipOpen: 0x0, spwndClipViewer: 0x0  
+cNumClipFormats: 0, iClipSerialNumber: 0
+pClipBase: 0x0, Formats: 
+**************************************************
+WindowStation: 0x3ef56920, Name: Service-0x0-3e4$, Next: 0xfffffa8001d87540
+SessionId: 0, AtomTable: 0xfffff8a0015fc5b0, Interactive: False
+Desktops: Default
+ptiDrawingClipboard: pid - tid -
+spwndClipOpen: 0x0, spwndClipViewer: 0x0  
+cNumClipFormats: 0, iClipSerialNumber: 0
+pClipBase: 0x0, Formats: 
+**************************************************
+WindowStation: 0x3ef87540, Name: Service-0x0-3e5$, Next: 0xfffffa8001f4eb90
+SessionId: 0, AtomTable: 0xfffff8a001650c70, Interactive: False
+Desktops: Default
+ptiDrawingClipboard: pid - tid -
+spwndClipOpen: 0x0, spwndClipViewer: 0x0  
+cNumClipFormats: 0, iClipSerialNumber: 0
+pClipBase: 0x0, Formats: 

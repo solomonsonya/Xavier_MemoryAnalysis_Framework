@@ -1,0 +1,1 @@
+2019-12-05	02:34:29	UTC+0000	2019-12-05	02:34:29	UTC+0000	2019-12-05	02:34:29	UTC+0000	2019-12-05	02:34:29	UTC+0000	amd64_microsoft-windows-font-truetype-simsunb_31bf3856ad364e35_6.1.7600.16385_none_ecef7b9d35a0dabd_simsunb.ttf_08f71e3f	$FILE_NAME	ttf_08f71e3f

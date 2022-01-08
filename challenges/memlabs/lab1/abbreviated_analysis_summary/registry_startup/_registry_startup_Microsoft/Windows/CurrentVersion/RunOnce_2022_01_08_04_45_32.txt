@@ -1,0 +1,11 @@
+Volatility Foundation Volatility Framework 2.6
+Legend: (S) = Stable   (V) = Volatile
+
+----------------------------
+Registry: \SystemRoot\System32\Config\SOFTWARE
+Key name: RunOnce (S)
+Last updated: 2019-12-04 14:39:12 UTC+0000
+
+Subkeys:
+
+Values:

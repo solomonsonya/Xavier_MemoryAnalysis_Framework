@@ -1,0 +1,1 @@
+2019-12-05	02:38:16	UTC+0000	2019-12-05	02:38:16	UTC+0000	2019-12-05	02:38:16	UTC+0000	2019-12-05	02:38:16	UTC+0000	amd64_microsoft-windows-w..ure-other.resources_31bf3856ad364e35_6.1.7600.16385_en-us_09d25d5db275f73d_winsockhc.dll.mui_a8a7d1fa	$FILE_NAME	mui_a8a7d1fa
