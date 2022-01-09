@@ -1,4 +1,0 @@
-Volatility Foundation Volatility Framework 2.6
-Legend: (S) = Stable   (V) = Volatile
-
-The requested key could not be found in the hive(s) searched

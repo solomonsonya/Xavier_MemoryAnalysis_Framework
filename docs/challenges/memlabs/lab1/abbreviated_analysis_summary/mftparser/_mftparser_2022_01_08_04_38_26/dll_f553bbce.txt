@@ -1,1 +1,0 @@
-2019-12-05	02:35:48	UTC+0000	2019-12-05	02:35:48	UTC+0000	2019-12-05	02:35:48	UTC+0000	2019-12-05	02:35:48	UTC+0000	amd64_microsoft-windows-c..tionauthorityclient_31bf3856ad364e35_6.1.7601.17514_none_35a3baeb53471267_certcli.dll_f553bbce	$FILE_NAME	dll_f553bbce

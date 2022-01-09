@@ -1,1 +1,0 @@
-2019-12-05	02:34:09	UTC+0000	2019-12-05	02:34:09	UTC+0000	2019-12-05	02:34:09	UTC+0000	2019-12-05	02:34:09	UTC+0000	amd64_microsoft-windows-f..e-microsoftjhenghei_31bf3856ad364e35_6.1.7600.16385_none_c135aa29f9c5f8da_msjh.ttf_ea675e5c	$FILE_NAME	ttf_ea675e5c

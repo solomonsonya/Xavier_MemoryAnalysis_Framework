@@ -1,1 +1,0 @@
-2019-12-05	02:38:52	UTC+0000	2019-12-05	02:38:52	UTC+0000	2019-12-05	02:38:52	UTC+0000	2019-12-05	02:38:52	UTC+0000	amd64_microsoft-windows-s..trics-sensoradapter_31bf3856ad364e35_6.1.7600.16385_none_6fa6b9c88f2a3ba1_winbiosensoradapter.dll_27e23485	$FILE_NAME	dll_27e23485

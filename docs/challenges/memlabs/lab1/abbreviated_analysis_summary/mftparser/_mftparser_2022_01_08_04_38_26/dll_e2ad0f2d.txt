@@ -1,1 +1,0 @@
-2019-12-05	02:36:15	UTC+0000	2019-12-05	02:36:15	UTC+0000	2019-12-05	02:36:15	UTC+0000	2019-12-05	02:36:15	UTC+0000	amd64_microsoft-windows-w..-infrastructure-bsp_31bf3856ad364e35_6.1.7601.17514_none_16795c7543eb48cf_mswsock.dll_e2ad0f2d	$FILE_NAME	dll_e2ad0f2d

@@ -1,1 +1,0 @@
-2019-12-05	02:37:03	UTC+0000	2019-12-05	02:37:03	UTC+0000	2019-12-05	02:37:03	UTC+0000	2019-12-05	02:37:03	UTC+0000	amd64_microsoft-windows-winlogon-tools_31bf3856ad364e35_6.1.7600.16385_none_f0686b7ca6acde00_wlrmdr.exe_f8ebac58	$FILE_NAME	exe_f8ebac58

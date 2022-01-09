@@ -1,4 +1,0 @@
-Volatility Foundation Volatility Framework 2.6
-ERROR   : volatility.debug    : Cannot load DLLs in process AS
-IAT                Call               Module               Function
------------------- ------------------ -------------------- --------

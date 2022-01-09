@@ -1,1 +1,0 @@
-2019-12-05	02:38:10	UTC+0000	2019-12-05	02:38:10	UTC+0000	2019-12-05	02:38:10	UTC+0000	2019-12-05	02:38:10	UTC+0000	amd64_microsoft-windows-lua.resources_31bf3856ad364e35_6.1.7600.16385_en-us_4a7fbba98600197c_consent.exe.mui_2eb3b9db	$FILE_NAME	mui_2eb3b9db

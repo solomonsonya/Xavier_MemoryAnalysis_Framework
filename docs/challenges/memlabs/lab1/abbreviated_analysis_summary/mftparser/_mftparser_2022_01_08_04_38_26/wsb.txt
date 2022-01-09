@@ -1,1 +1,0 @@
-2019-12-11	11:40:01	UTC+0000	2019-12-11	11:40:01	UTC+0000	2019-12-11	11:40:01	UTC+0000	2019-12-11	11:40:01	UTC+0000	ProgramData\Microsoft\Search\Data\Applications\Windows\Projects\SystemIndex\Indexer\CiFiles\00010007.wsb	$FILE_NAME	wsb

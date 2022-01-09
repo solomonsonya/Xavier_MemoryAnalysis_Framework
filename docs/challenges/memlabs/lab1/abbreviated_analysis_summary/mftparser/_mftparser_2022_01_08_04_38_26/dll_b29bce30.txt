@@ -1,1 +1,0 @@
-2019-12-05	02:36:35	UTC+0000	2019-12-05	02:36:35	UTC+0000	2019-12-05	02:36:35	UTC+0000	2019-12-05	02:36:35	UTC+0000	amd64_microsoft-windows-s..ty-protectedstorage_31bf3856ad364e35_6.1.7600.16385_none_a43e06414a0fcb4b_psbase.dll_b29bce30	$FILE_NAME	dll_b29bce30

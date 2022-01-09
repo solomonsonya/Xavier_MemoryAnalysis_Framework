@@ -1,1 +1,0 @@
-2019-12-04	13:28:06	UTC+0000	2019-12-04	13:28:06	UTC+0000	2019-12-04	13:28:06	UTC+0000	2019-12-04	13:28:06	UTC+0000	Windows\ServiceProfiles\NetworkService\AppData\Local\Microsoft\Windows Media Player NSS\3.0\ICONFI~1	$FILE_NAME	0\iconfi~1

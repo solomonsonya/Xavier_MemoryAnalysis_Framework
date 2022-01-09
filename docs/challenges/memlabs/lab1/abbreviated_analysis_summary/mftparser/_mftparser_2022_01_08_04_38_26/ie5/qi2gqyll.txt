@@ -1,1 +1,0 @@
-2019-12-04	13:34:01	UTC+0000	2019-12-04	13:34:01	UTC+0000	2019-12-04	13:34:01	UTC+0000	2019-12-04	13:34:01	UTC+0000	Windows\ServiceProfiles\LocalService\AppData\Local\Microsoft\Windows\Temporary Internet Files\Content.IE5\QI2GQYLL	$FILE_NAME	ie5\qi2gqyll

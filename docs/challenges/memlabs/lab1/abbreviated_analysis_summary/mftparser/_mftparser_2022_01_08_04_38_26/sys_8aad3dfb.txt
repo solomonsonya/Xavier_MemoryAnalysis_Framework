@@ -1,1 +1,0 @@
-2019-12-05	02:37:15	UTC+0000	2019-12-05	02:37:15	UTC+0000	2019-12-05	02:37:15	UTC+0000	2019-12-05	02:37:15	UTC+0000	amd64_microsoft-windows-lddmcore_31bf3856ad364e35_6.1.7601.17514_none_09ee9e0dfa2c4fbd_dxgkrnl.sys_8aad3dfb	$FILE_NAME	sys_8aad3dfb

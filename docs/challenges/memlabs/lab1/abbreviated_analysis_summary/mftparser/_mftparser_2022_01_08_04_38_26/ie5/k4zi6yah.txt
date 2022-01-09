@@ -1,1 +1,0 @@
-2019-12-05	02:47:57	UTC+0000	2019-12-05	02:47:57	UTC+0000	2019-12-05	02:47:57	UTC+0000	2019-12-05	02:47:57	UTC+0000	Windows\System32\config\systemprofile\AppData\Local\Microsoft\Windows\Temporary Internet Files\Content.IE5\K4ZI6YAH	$FILE_NAME	ie5\k4zi6yah

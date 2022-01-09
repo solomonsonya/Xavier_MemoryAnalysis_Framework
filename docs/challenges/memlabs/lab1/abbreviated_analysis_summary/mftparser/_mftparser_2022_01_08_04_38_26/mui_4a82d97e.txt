@@ -1,1 +1,0 @@
-2019-12-05	02:38:16	UTC+0000	2019-12-05	02:38:16	UTC+0000	2019-12-05	02:38:16	UTC+0000	2019-12-05	02:38:16	UTC+0000	amd64_microsoft-windows-s..temclient.resources_31bf3856ad364e35_6.1.7600.16385_en-us_2e336fbd1d49b11b_winscard.dll.mui_4a82d97e	$FILE_NAME	mui_4a82d97e

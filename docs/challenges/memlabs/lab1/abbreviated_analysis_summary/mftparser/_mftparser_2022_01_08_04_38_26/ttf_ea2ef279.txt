@@ -1,1 +1,0 @@
-2019-12-05	02:34:23	UTC+0000	2019-12-05	02:34:23	UTC+0000	2019-12-05	02:34:23	UTC+0000	2019-12-05	02:34:23	UTC+0000	amd64_microsoft-windows-font-truetype-segoeui_31bf3856ad364e35_6.1.7600.16385_none_2cb0f5602bedb50f_segoeuib.ttf_ea2ef279	$FILE_NAME	ttf_ea2ef279
