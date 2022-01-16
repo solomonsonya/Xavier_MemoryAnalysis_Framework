@@ -1,7 +1,0 @@
-Volatility Foundation Volatility Framework 2.6
-Name                 StartAddress       EndAddress         Time
--------------------- ------------------ ------------------ ----
-dump_dumpfve.sys     0xfffff88001617000 0xfffff8800162a000 2019-12-11 13:41:29 
-dump_msahci.sys      0xfffff8800160c000 0xfffff88001617000 2019-12-11 13:41:29 
-dump_pciidex.sys     0xfffff88001600000 0xfffff8800160c000 2019-12-11 13:41:29 
-crashdmp.sys         0xfffff880019f2000 0xfffff88001a00000 2019-12-11 13:41:29 

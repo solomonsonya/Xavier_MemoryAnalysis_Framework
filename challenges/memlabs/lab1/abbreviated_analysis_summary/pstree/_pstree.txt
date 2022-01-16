@@ -1,0 +1,85 @@
+#########################################################################################################################################################################################################################################
+# Investigation Details
+# ======================
+# Investigator Name: Solomon Sonya
+# Investigation Description: MemLabs Lab 1
+# Investigation Date: 2022-01-16-0854:41
+#
+# Analysis Framework
+# ======================
+# Analysis Framework Name: Xavier Framework
+# Analysis Framework Version: 2.111
+#
+# Memory Analysis Binary
+# ======================
+# File Name: vol_2.6.exe	 File Size: 15.79 MBs	 Creation Date: 2022-01-08-0433:36	 Last Accessed: 2022-01-08-0433:36	 Last Modified: 2021-02-28-2153:29	 
+# MD5: 2fc05486a3fe93cef213cc37748bf556	 SHA-256: 672a00461ffb8d59536c86192450b66d552e67809fc8584d1792b42b22c5f4e1	 
+#
+# Analysis Image Details
+# ======================
+# Memory Image Path: C:\xavier\xavier_framework\import\memory_image\MemoryDump_Lab1.raw
+# File Name: MemoryDump_Lab1.raw	 File Size: 1.07 GBs	 Creation Date: 2022-01-16-0853:49	 Last Accessed: 2022-01-16-0853:50	 Last Modified: 2019-12-11-0838:17	 
+# MD5: b9fec1a443907d870cb32b048bda9380	 SHA-256: 88e708413898c98351d1a5a221799fc34460dfecb20e482ca5247b0b113b8cf2	 
+#
+# Plugin Details
+# ======================
+# Plugin Name: pstree
+# Plugin Description: Print process list as a tree
+#
+# Execution Details
+# ======================
+# Execution Command: "C:\xavier\xavier_framework\import\memory_analysis\vol_2.6.exe" -f "C:\xavier\xavier_framework\import\memory_image\MemoryDump_Lab1.raw" pstree --profile=Win7SP1x64
+#########################################################################################################################################################################################################################################
+
+
+Volatility Foundation Volatility Framework 2.6
+Name                                                  Pid   PPid   Thds   Hnds Time
+-------------------------------------------------- ------ ------ ------ ------ ----
+ 0xfffffa8000f4c670:explorer.exe                     2504   3000     34    825 2019-12-11 14:37:14 UTC+0000
+. 0xfffffa8000f9a4e0:VBoxTray.exe                    2304   2504     14    144 2019-12-11 14:37:14 UTC+0000
+. 0xfffffa8001010b30:WinRAR.exe                      1512   2504      6    207 2019-12-11 14:37:23 UTC+0000
+ 0xfffffa8001c5f630:wininit.exe                       424    312      3     75 2019-12-11 13:41:34 UTC+0000
+. 0xfffffa8001c98530:services.exe                     484    424     13    219 2019-12-11 13:41:35 UTC+0000
+.. 0xfffffa8002170630:wmpnetwk.exe                   1856    484     16    451 2019-12-11 14:16:08 UTC+0000
+.. 0xfffffa8001f91b30:TCPSVCS.EXE                    1416    484      4     97 2019-12-11 13:41:55 UTC+0000
+.. 0xfffffa8001da96c0:svchost.exe                     876    484     32    941 2019-12-11 13:41:43 UTC+0000
+.. 0xfffffa8001d327c0:VBoxService.ex                  652    484     13    137 2019-12-11 13:41:40 UTC+0000
+.. 0xfffffa8000eac770:svchost.exe                    2660    484      6    100 2019-12-11 14:35:14 UTC+0000
+.. 0xfffffa80022199e0:svchost.exe                    2368    484      9    365 2019-12-11 14:32:51 UTC+0000
+.. 0xfffffa8001e50b30:svchost.exe                    1044    484     14    366 2019-12-11 13:41:48 UTC+0000
+.. 0xfffffa8001d8c420:svchost.exe                     816    484     23    569 2019-12-11 13:41:42 UTC+0000
+... 0xfffffa80021da060:audiodg.exe                   2064    816      6    131 2019-12-11 14:32:37 UTC+0000
+.. 0xfffffa8001c38580:svchost.exe                     948    484     13    322 2019-12-11 14:16:07 UTC+0000
+.. 0xfffffa8001eba230:spoolsv.exe                    1208    484     13    282 2019-12-11 13:41:51 UTC+0000
+.. 0xfffffa8001d376f0:SearchIndexer.                  480    484     14    701 2019-12-11 14:16:09 UTC+0000
+... 0xfffffa8000fff630:SearchProtocol                2524    480      7    226 2019-12-11 14:37:21 UTC+0000
+... 0xfffffa8001020b30:SearchProtocol                2868    480      8    279 2019-12-11 14:37:23 UTC+0000
+... 0xfffffa8000ecea60:SearchFilterHo                1720    480      5     90 2019-12-11 14:37:21 UTC+0000
+.. 0xfffffa8000f3aab0:taskhost.exe                   2908    484      9    158 2019-12-11 14:37:13 UTC+0000
+.. 0xfffffa8001cf4b30:svchost.exe                     588    484     11    358 2019-12-11 13:41:39 UTC+0000
+.. 0xfffffa8001d49b30:svchost.exe                     720    484      8    279 2019-12-11 13:41:41 UTC+0000
+.. 0xfffffa8001da5b30:svchost.exe                     852    484     28    542 2019-12-11 13:41:43 UTC+0000
+... 0xfffffa8000f4db30:dwm.exe                       3004    852      5     72 2019-12-11 14:37:14 UTC+0000
+... 0xfffffa8001dfa910:dwm.exe                       1988    852      5     72 2019-12-11 14:32:25 UTC+0000
+.. 0xfffffa8001e1bb30:svchost.exe                     472    484     19    476 2019-12-11 13:41:47 UTC+0000
+.. 0xfffffa8000d3c400:sppsvc.exe                     1508    484      4    141 2019-12-11 14:16:06 UTC+0000
+.. 0xfffffa8001f58890:svchost.exe                    1372    484     22    295 2019-12-11 13:41:54 UTC+0000
+.. 0xfffffa8001eda060:svchost.exe                    1248    484     19    313 2019-12-11 13:41:52 UTC+0000
+.. 0xfffffa8001eb47f0:taskhost.exe                    296    484      8    151 2019-12-11 14:32:24 UTC+0000
+. 0xfffffa8001ca0580:lsass.exe                        492    424      9    764 2019-12-11 13:41:35 UTC+0000
+. 0xfffffa8001ca4b30:lsm.exe                          500    424     11    185 2019-12-11 13:41:35 UTC+0000
+ 0xfffffa800154f740:csrss.exe                         320    312      9    457 2019-12-11 13:41:32 UTC+0000
+ 0xfffffa8000ca0040:System                              4      0     80    570 2019-12-11 13:41:25 UTC+0000
+. 0xfffffa800148f040:smss.exe                         248      4      3     37 2019-12-11 13:41:25 UTC+0000
+.. 0xfffffa8001c45060:psxss.exe                       376    248     18    786 2019-12-11 13:41:33 UTC+0000
+ 0xfffffa8001c5f060:winlogon.exe                      416    360      4    118 2019-12-11 13:41:34 UTC+0000
+ 0xfffffa8000ca81e0:csrss.exe                         368    360      7    199 2019-12-11 13:41:33 UTC+0000
+. 0xfffffa8002227140:conhost.exe                     2692    368      2     50 2019-12-11 14:34:54 UTC+0000
+. 0xfffffa800104a780:conhost.exe                     2260    368      2     50 2019-12-11 14:37:54 UTC+0000
+ 0xfffffa8002046960:explorer.exe                      604   2016     33    927 2019-12-11 14:32:25 UTC+0000
+. 0xfffffa80021c75d0:VBoxTray.exe                    1844    604     11    140 2019-12-11 14:32:35 UTC+0000
+. 0xfffffa8002222780:cmd.exe                         1984    604      1     21 2019-12-11 14:34:54 UTC+0000
+. 0xfffffa80022bab30:mspaint.exe                     2424    604      6    128 2019-12-11 14:35:14 UTC+0000
+. 0xfffffa8001048060:DumpIt.exe                       796    604      2     45 2019-12-11 14:37:54 UTC+0000
+ 0xfffffa8001e68060:csrss.exe                        2760   2680      7    172 2019-12-11 14:37:05 UTC+0000
+ 0xfffffa8000ecbb30:winlogon.exe                     2808   2680      4    119 2019-12-11 14:37:05 UTC+0000

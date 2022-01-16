@@ -1,0 +1,130 @@
+#########################################################################################################################################################################################################################################
+# Investigation Details
+# ======================
+# Investigator Name: Solomon Sonya
+# Investigation Description: MemLabs Lab 1
+# Investigation Date: 2022-01-16-0854:41
+#
+# Analysis Framework
+# ======================
+# Analysis Framework Name: Xavier Framework
+# Analysis Framework Version: 2.111
+#
+# Memory Analysis Binary
+# ======================
+# File Name: vol_2.6.exe	 File Size: 15.79 MBs	 Creation Date: 2022-01-08-0433:36	 Last Accessed: 2022-01-08-0433:36	 Last Modified: 2021-02-28-2153:29	 
+# MD5: 2fc05486a3fe93cef213cc37748bf556	 SHA-256: 672a00461ffb8d59536c86192450b66d552e67809fc8584d1792b42b22c5f4e1	 
+#
+# Analysis Image Details
+# ======================
+# Memory Image Path: C:\xavier\xavier_framework\import\memory_image\MemoryDump_Lab1.raw
+# File Name: MemoryDump_Lab1.raw	 File Size: 1.07 GBs	 Creation Date: 2022-01-16-0853:49	 Last Accessed: 2022-01-16-0853:50	 Last Modified: 2019-12-11-0838:17	 
+# MD5: b9fec1a443907d870cb32b048bda9380	 SHA-256: 88e708413898c98351d1a5a221799fc34460dfecb20e482ca5247b0b113b8cf2	 
+#
+# Plugin Details
+# ======================
+# Plugin Name: timers
+# Plugin Description: Print kernel timers and associated module DPCs
+#
+# Execution Details
+# ======================
+# Execution Command: "C:\xavier\xavier_framework\import\memory_analysis\vol_2.6.exe" -f "C:\xavier\xavier_framework\import\memory_image\MemoryDump_Lab1.raw" timers --profile=Win7SP1x64
+#########################################################################################################################################################################################################################################
+
+
+Volatility Foundation Volatility Framework 2.6
+Offset(V)          DueTime                  Period(ms) Signaled   Routine            Module
+------------------ ------------------------ ---------- ---------- ------------------ ------
+0xfffff880010685b0 0x00000003:0x72261400         10000 Yes        0xfffff88001005360 cng.sys
+0xfffffa8001443f78 0x00000003:0x7e11d600         30000 Yes        0xfffff88002ccae30 afd.sys
+0xfffff88002475ba0 0x00000003:0x78c325e7             0 -          0xfffff8800242f2b0 HTTP.sys
+0xfffff80002847740 0x00000003:0x700da2e6         15000 Yes        0xfffff8000265c5b0 ntoskrnl.exe
+0xfffff8000283cb40 0x00000fdb:0x26e818cf             0 -          0xfffff80002754340 ntoskrnl.exe
+0xfffff8000283cbe0 0x0059c108:0x354718cf             0 -          0xfffff80002754370 ntoskrnl.exe
+0xfffffa8002233c60 0x00000003:0x93d37165             0 -          0xfffff88002d1c750 afd.sys
+0xfffff88004930480 0x00000004:0x35a6e800             0 -          0xfffff8800492cc3c dfsc.sys
+0xfffff880010685b0 0x00000003:0x72261400         10000 Yes        0xfffff88001005360 cng.sys
+0xfffffa8001443f78 0x00000003:0x7e11d600         30000 Yes        0xfffff88002ccae30 afd.sys
+0xfffffa8000cd2c14 0x00000003:0x80eb279c             0 -          0xfffff80002754370 ntoskrnl.exe
+0xfffff8000289cc80 0x00000003:0x7044c547             0 -          0xfffff8000264c800 ntoskrnl.exe
+0xfffff8800246c580 0x00000003:0x908e258e         60000 Yes        0xfffff8800243a680 HTTP.sys
+0xfffff880024759c0 0x00000003:0x908e258e         60000 Yes        0xfffff8800243a700 HTTP.sys
+0xfffff880011af960 0x00000003:0x78b48b80             0 -          0xfffff880011945a4 rdbss.sys
+0xfffff88004bbf710 0x00000003:0x7b16e580             0 -          0xfffff88004bb982c luafv.sys
+0xfffff80002c326b8 0x00000003:0x81223baa         60000 Yes        0xfffff80002c1b19c hal.dll
+0xfffffa8000f5db10 0x00000003:0x99c71631             0 -          0xfffff88002d1c750 afd.sys
+0xfffff880017eb5f0 0x00000003:0x6ec053c0             0 -          0xfffff880014012c0 NETIO.SYS
+0xfffff880017f5870 0x00000003:0x6ec053c0             0 -          0xfffff880014012c0 NETIO.SYS
+0xfffff880017ea530 0x00000003:0x6ec053c0             0 -          0xfffff880014012c0 NETIO.SYS
+0xfffff880017e9470 0x00000003:0x6ec053c0             0 -          0xfffff880014012c0 NETIO.SYS
+0xfffffa8000cc6db0 0x00000003:0x78778280             0 -          0xfffff880014012c0 NETIO.SYS
+0xfffff880017f88e0 0x00000003:0x6e7e4c90           500 Yes        0xfffff880016fa260 tcpip.sys
+0xfffff880017f88e0 0x00000003:0x6e7e4c90           500 Yes        0xfffff880016fa260 tcpip.sys
+0xfffffa80012e1f60 0x00000003:0x7857dc15            10 -          0xfffff880016f7090 tcpip.sys
+0xfffff880017f88e0 0x00000003:0x6e7e4c90           500 Yes        0xfffff880016fa260 tcpip.sys
+0xfffffa8000e12460 0x00000003:0x785a05ac           500 Yes        0xfffff88000dd2830 ataport.SYS
+0xfffffa8000e0a460 0x00000003:0x785a05ac           500 Yes        0xfffff88000dd2830 ataport.SYS
+0xfffffa8000c60460 0x00000003:0x785a05ac           500 Yes        0xfffff88000dd2830 ataport.SYS
+0xfffffa8001b292c0 0x00000003:0x785ca0c9             0 -          0xfffff88001570010 ndis.sys
+0xfffffa8001512278 0x00000003:0x7cbd3205             0 -          0xfffff88001570160 ndis.sys
+0xfffffa8000f267a0 0x00000003:0x78fc1202             0 -          0xfffff88001082110 VBoxGuest.sys
+0xfffffa80014d1278 0x00000003:0x78fc5e57             0 -          0xfffff88001570160 ndis.sys
+0xfffffa8000e33b90 0x00000003:0x8023200c         60000 Yes        0xfffff880010d6cf0 fltmgr.sys
+0xfffff88001068500 0x00000004:0xe5c50d39             0 -          0xfffff8800102e890 cng.sys
+0xfffff88004972cb8 0x00000003:0x77cfa9c0           500 Yes        0xfffff8800495b750 tunnel.sys
+0xfffff880017eb5f0 0x00000003:0x6ec053c0             0 -          0xfffff880014012c0 NETIO.SYS
+0xfffff880017f5870 0x00000003:0x6ec053c0             0 -          0xfffff880014012c0 NETIO.SYS
+0xfffff880017ea530 0x00000003:0x6ec053c0             0 -          0xfffff880014012c0 NETIO.SYS
+0xfffff880017e9470 0x00000003:0x6ec053c0             0 -          0xfffff880014012c0 NETIO.SYS
+0xfffffa8000cc6db0 0x00000003:0x78778280             0 -          0xfffff880014012c0 NETIO.SYS
+0xfffff880010f2480 0x00000003:0x6e49168a             0 -          0xfffff880010d6790 fltmgr.sys
+0xfffffa8001cd2490 0x00000003:0x7870ff05        120000 Yes        0xfffff8000279c390 ntoskrnl.exe
+0xfffffa8001052060 0x00000004:0xcfda2b1d        600000 -          0xfffff8000279c390 ntoskrnl.exe
+0xfffff88001943220 0x00000003:0x80258266        300000 Yes        0xfffff880019298b0 rdyboost.sys
+0xfffff88001284198 0x00000003:0x8025a88b             0 -          0xfffff8800122a6c0 Ntfs.sys
+0xfffff880012840e8 0x00000003:0x6e6c6760             0 -          0xfffff88001242be0 Ntfs.sys
+0xfffffa8001512278 0x00000003:0x7cbd3205             0 -          0xfffff88001570160 ndis.sys
+0xfffffa8001512278 0x00000003:0x7cbd3205             0 -          0xfffff88001570160 ndis.sys
+0xfffffa8001520278 0x00000003:0x7933346d             0 -          0xfffff88001570160 ndis.sys
+0xfffffa8000e63218 0x00000003:0x9a2ffda9             0 -          0xfffff88002ad01c8 spsys.sys
+0xfffffa8001cd2490 0x00000003:0x7870ff05        120000 Yes        0xfffff8000279c390 ntoskrnl.exe
+0xfffff880017eb5f0 0x00000003:0x6ec053c0             0 -          0xfffff880014012c0 NETIO.SYS
+0xfffff880017f5870 0x00000003:0x6ec053c0             0 -          0xfffff880014012c0 NETIO.SYS
+0xfffff880017ea530 0x00000003:0x6ec053c0             0 -          0xfffff880014012c0 NETIO.SYS
+0xfffff880017e9470 0x00000003:0x6ec053c0             0 -          0xfffff880014012c0 NETIO.SYS
+0xfffffa8000cc6db0 0x00000003:0x78778280             0 -          0xfffff880014012c0 NETIO.SYS
+0xfffff88002a48fd0 0x00000003:0x7d1a2dbb             0 -          0xfffff88002a2c150 srv.sys
+0xfffffa8001cd2490 0x00000003:0x7870ff05        120000 Yes        0xfffff8000279c390 ntoskrnl.exe
+0xfffffa8001b71810 0x00000003:0x796545cf             0 -          0xfffff88002d53010 netbt.sys
+0xfffff88001943220 0x00000003:0x80258266        300000 Yes        0xfffff880019298b0 rdyboost.sys
+0xfffff88001284198 0x00000003:0x8025a88b             0 -          0xfffff8800122a6c0 Ntfs.sys
+0xfffff880011af960 0x00000003:0x78b48b80             0 -          0xfffff880011945a4 rdbss.sys
+0xfffff88004bbf710 0x00000003:0x7b16e580             0 -          0xfffff88004bb982c luafv.sys
+0xfffff8800246c580 0x00000003:0x908e258e         60000 Yes        0xfffff8800243a680 HTTP.sys
+0xfffff880024759c0 0x00000003:0x908e258e         60000 Yes        0xfffff8800243a700 HTTP.sys
+0xfffff880017f88e0 0x00000003:0x6e7e4c90           500 Yes        0xfffff880016fa260 tcpip.sys
+0xfffffa8001c38eb8 0x00000004:0x948307d7             0 -          0xfffff88002ad01c8 spsys.sys
+0xfffffa8001c38fa8 0x00000005:0xfa24cede             0 -          0xfffff88002ad01c8 spsys.sys
+0xfffffa8000e63218 0x00000003:0x9a2ffda9             0 -          0xfffff88002ad01c8 spsys.sys
+0xfffffa8001c489c0 0x00000003:0x7d9b12dc         10000 Yes        0xfffff880014bfa94 watchdog.sys
+0xfffffa8001c488b0 0x00000003:0x7d9b12dc         10000 Yes        0xfffff880014bfa94 watchdog.sys
+0xfffffa8001050ba0 0x00000003:0x7d9b12dc         10000 Yes        0xfffff880014bfa94 watchdog.sys
+0xfffff8000283caa0 0x00000008:0x63b6b37a             0 -          0xfffff80002630670 ntoskrnl.exe
+0xfffff8000289be10 0x00000003:0x800683d4         60000 Yes        0xfffff8000264d91c ntoskrnl.exe
+0xfffffa8001497278 0x00000003:0x78e6e92d             0 -          0xfffff88001570160 ndis.sys
+0xfffffa8001495278 0x00000003:0x78e6e92d             0 -          0xfffff88001570160 ndis.sys
+0xfffffa8001497278 0x00000003:0x78e6e92d             0 -          0xfffff88001570160 ndis.sys
+0xfffffa8001495278 0x00000003:0x78e6e92d             0 -          0xfffff88001570160 ndis.sys
+0xfffffa8000e33b90 0x00000003:0x8023200c         60000 Yes        0xfffff880010d6cf0 fltmgr.sys
+0xfffff88001068500 0x00000004:0xe5c50d39             0 -          0xfffff8800102e890 cng.sys
+0xfffff88001943220 0x00000003:0x80258266        300000 Yes        0xfffff880019298b0 rdyboost.sys
+0xfffff88001284198 0x00000003:0x8025a88b             0 -          0xfffff8800122a6c0 Ntfs.sys
+0xfffffa8001514278 0x00000131:0x319c2c06             0 -          0xfffff88001570160 ndis.sys
+0xfffffa8001516278 0x00000131:0x319c2c06             0 -          0xfffff88001570160 ndis.sys
+0xfffffa8001518278 0x00000131:0x319e8e60             0 -          0xfffff88001570160 ndis.sys
+0xfffffa800151a278 0x00000131:0x319e8e60             0 -          0xfffff88001570160 ndis.sys
+0xfffffa8001e34d80 0x00000003:0x8e9e88ba        300000 Yes        0xfffff8000279c390 ntoskrnl.exe
+0xfffffa8001e34ef0 0x00000003:0x8e9e88ba         60000 Yes        0xfffff8000279c390 ntoskrnl.exe
+0xfffffa8001e348e0 0x00000003:0xb261ceba        300000 Yes        0xfffff8000279c390 ntoskrnl.exe
+0xfffffa8001e34060 0x00000008:0x725141ca       3600000 Yes        0xfffff8000279c390 ntoskrnl.exe
+0xfffffa8001fb3378 0x00000003:0x7b9cb57b             0 -          0xfffff88002926370 srvnet.sys

@@ -1,0 +1,40 @@
+#########################################################################################################################################################################################################################################
+# Investigation Details
+# ======================
+# Investigator Name: Solomon Sonya
+# Investigation Description: MemLabs Lab 1
+# Investigation Date: 2022-01-16-0854:41
+#
+# Analysis Framework
+# ======================
+# Analysis Framework Name: Xavier Framework
+# Analysis Framework Version: 2.111
+#
+# Memory Analysis Binary
+# ======================
+# File Name: vol_2.6.exe	 File Size: 15.79 MBs	 Creation Date: 2022-01-08-0433:36	 Last Accessed: 2022-01-08-0433:36	 Last Modified: 2021-02-28-2153:29	 
+# MD5: 2fc05486a3fe93cef213cc37748bf556	 SHA-256: 672a00461ffb8d59536c86192450b66d552e67809fc8584d1792b42b22c5f4e1	 
+#
+# Analysis Image Details
+# ======================
+# Memory Image Path: C:\xavier\xavier_framework\import\memory_image\MemoryDump_Lab1.raw
+# File Name: MemoryDump_Lab1.raw	 File Size: 1.07 GBs	 Creation Date: 2022-01-16-0853:49	 Last Accessed: 2022-01-16-0853:50	 Last Modified: 2019-12-11-0838:17	 
+# MD5: b9fec1a443907d870cb32b048bda9380	 SHA-256: 88e708413898c98351d1a5a221799fc34460dfecb20e482ca5247b0b113b8cf2	 
+#
+# Plugin Details
+# ======================
+# Plugin Name: hashdump
+# Plugin Description: Dumps passwords hashes (LM/NTLM) from memory
+#
+# Execution Details
+# ======================
+# Execution Command: "C:\xavier\xavier_framework\import\memory_analysis\vol_2.6.exe" -f "C:\xavier\xavier_framework\import\memory_image\MemoryDump_Lab1.raw" hashdump --profile=Win7SP1x64
+#########################################################################################################################################################################################################################################
+
+
+Volatility Foundation Volatility Framework 2.6
+Administrator:500:aad3b435b51404eeaad3b435b51404ee:31d6cfe0d16ae931b73c59d7e0c089c0:::
+Guest:501:aad3b435b51404eeaad3b435b51404ee:31d6cfe0d16ae931b73c59d7e0c089c0:::
+SmartNet:1001:aad3b435b51404eeaad3b435b51404ee:4943abb39473a6f32c11301f4987e7e0:::
+HomeGroupUser$:1002:aad3b435b51404eeaad3b435b51404ee:f0fc3d257814e08fea06e63c5762ebd5:::
+Alissa Simpson:1003:aad3b435b51404eeaad3b435b51404ee:f4ff64c8baac57d22f22edc681055ba6:::

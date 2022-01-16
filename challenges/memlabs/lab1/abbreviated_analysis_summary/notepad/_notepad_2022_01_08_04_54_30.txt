@@ -1,2 +1,0 @@
-Volatility Foundation Volatility Framework 2.6
-ERROR   : volatility.debug    : This command does not support the profile Win7SP1x64

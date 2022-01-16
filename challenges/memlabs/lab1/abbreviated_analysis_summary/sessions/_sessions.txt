@@ -1,0 +1,99 @@
+#########################################################################################################################################################################################################################################
+# Investigation Details
+# ======================
+# Investigator Name: Solomon Sonya
+# Investigation Description: MemLabs Lab 1
+# Investigation Date: 2022-01-16-0854:41
+#
+# Analysis Framework
+# ======================
+# Analysis Framework Name: Xavier Framework
+# Analysis Framework Version: 2.111
+#
+# Memory Analysis Binary
+# ======================
+# File Name: vol_2.6.exe	 File Size: 15.79 MBs	 Creation Date: 2022-01-08-0433:36	 Last Accessed: 2022-01-08-0433:36	 Last Modified: 2021-02-28-2153:29	 
+# MD5: 2fc05486a3fe93cef213cc37748bf556	 SHA-256: 672a00461ffb8d59536c86192450b66d552e67809fc8584d1792b42b22c5f4e1	 
+#
+# Analysis Image Details
+# ======================
+# Memory Image Path: C:\xavier\xavier_framework\import\memory_image\MemoryDump_Lab1.raw
+# File Name: MemoryDump_Lab1.raw	 File Size: 1.07 GBs	 Creation Date: 2022-01-16-0853:49	 Last Accessed: 2022-01-16-0853:50	 Last Modified: 2019-12-11-0838:17	 
+# MD5: b9fec1a443907d870cb32b048bda9380	 SHA-256: 88e708413898c98351d1a5a221799fc34460dfecb20e482ca5247b0b113b8cf2	 
+#
+# Plugin Details
+# ======================
+# Plugin Name: sessions
+# Plugin Description: List details on _MM_SESSION_SPACE (user logon sessions)
+#
+# Execution Details
+# ======================
+# Execution Command: "C:\xavier\xavier_framework\import\memory_analysis\vol_2.6.exe" -f "C:\xavier\xavier_framework\import\memory_image\MemoryDump_Lab1.raw" sessions --profile=Win7SP1x64
+#########################################################################################################################################################################################################################################
+
+
+Volatility Foundation Volatility Framework 2.6
+**************************************************
+Session(V): fffff88004c57000 ID: 0 Processes: 27
+PagedPoolStart: fffff900c0000000 PagedPoolEnd fffff920bfffffff
+ Process: 320 csrss.exe 2019-12-11 13:41:32 UTC+0000
+ Process: 376 psxss.exe 2019-12-11 13:41:33 UTC+0000
+ Process: 424 wininit.exe 2019-12-11 13:41:34 UTC+0000
+ Process: 484 services.exe 2019-12-11 13:41:35 UTC+0000
+ Process: 492 lsass.exe 2019-12-11 13:41:35 UTC+0000
+ Process: 500 lsm.exe 2019-12-11 13:41:35 UTC+0000
+ Process: 588 svchost.exe 2019-12-11 13:41:39 UTC+0000
+ Process: 652 VBoxService.ex 2019-12-11 13:41:40 UTC+0000
+ Process: 720 svchost.exe 2019-12-11 13:41:41 UTC+0000
+ Process: 816 svchost.exe 2019-12-11 13:41:42 UTC+0000
+ Process: 852 svchost.exe 2019-12-11 13:41:43 UTC+0000
+ Process: 876 svchost.exe 2019-12-11 13:41:43 UTC+0000
+ Process: 472 svchost.exe 2019-12-11 13:41:47 UTC+0000
+ Process: 1044 svchost.exe 2019-12-11 13:41:48 UTC+0000
+ Process: 1208 spoolsv.exe 2019-12-11 13:41:51 UTC+0000
+ Process: 1248 svchost.exe 2019-12-11 13:41:52 UTC+0000
+ Process: 1372 svchost.exe 2019-12-11 13:41:54 UTC+0000
+ Process: 1416 TCPSVCS.EXE 2019-12-11 13:41:55 UTC+0000
+ Process: 1508 sppsvc.exe 2019-12-11 14:16:06 UTC+0000
+ Process: 948 svchost.exe 2019-12-11 14:16:07 UTC+0000
+ Process: 1856 wmpnetwk.exe 2019-12-11 14:16:08 UTC+0000
+ Process: 480 SearchIndexer. 2019-12-11 14:16:09 UTC+0000
+ Process: 2064 audiodg.exe 2019-12-11 14:32:37 UTC+0000
+ Process: 2368 svchost.exe 2019-12-11 14:32:51 UTC+0000
+ Process: 2660 svchost.exe 2019-12-11 14:35:14 UTC+0000
+ Process: 1720 SearchFilterHo 2019-12-11 14:37:21 UTC+0000
+ Process: 2868 SearchProtocol 2019-12-11 14:37:23 UTC+0000
+ Image: 0xfffffa8001550410, Address fffff960000e0000, Name: win32k.sys
+ Image: 0xfffffa8001545590, Address fffff960005a0000, Name: dxg.sys
+ Image: 0xfffffa80015467f0, Address fffff960007c0000, Name: TSDDD.dll
+**************************************************
+Session(V): fffff88004c7f000 ID: 1 Processes: 11
+PagedPoolStart: fffff900c0000000 PagedPoolEnd fffff920bfffffff
+ Process: 368 csrss.exe 2019-12-11 13:41:33 UTC+0000
+ Process: 416 winlogon.exe 2019-12-11 13:41:34 UTC+0000
+ Process: 296 taskhost.exe 2019-12-11 14:32:24 UTC+0000
+ Process: 1988 dwm.exe 2019-12-11 14:32:25 UTC+0000
+ Process: 604 explorer.exe 2019-12-11 14:32:25 UTC+0000
+ Process: 1844 VBoxTray.exe 2019-12-11 14:32:35 UTC+0000
+ Process: 1984 cmd.exe 2019-12-11 14:34:54 UTC+0000
+ Process: 2692 conhost.exe 2019-12-11 14:34:54 UTC+0000
+ Process: 2424 mspaint.exe 2019-12-11 14:35:14 UTC+0000
+ Process: 796 DumpIt.exe 2019-12-11 14:37:54 UTC+0000
+ Process: 2260 conhost.exe 2019-12-11 14:37:54 UTC+0000
+ Image: 0xfffffa8000ca5600, Address fffff960000e0000, Name: win32k.sys
+ Image: 0xfffffa8000ca4480, Address fffff960005a0000, Name: dxg.sys
+ Image: 0xfffffa8001050c40, Address fffff960008c0000, Name: VBoxDisp.dll
+**************************************************
+Session(V): fffff880065c9000 ID: 2 Processes: 8
+PagedPoolStart: fffff900c0000000 PagedPoolEnd fffff920bfffffff
+ Process: 2760 csrss.exe 2019-12-11 14:37:05 UTC+0000
+ Process: 2808 winlogon.exe 2019-12-11 14:37:05 UTC+0000
+ Process: 2908 taskhost.exe 2019-12-11 14:37:13 UTC+0000
+ Process: 3004 dwm.exe 2019-12-11 14:37:14 UTC+0000
+ Process: 2504 explorer.exe 2019-12-11 14:37:14 UTC+0000
+ Process: 2304 VBoxTray.exe 2019-12-11 14:37:14 UTC+0000
+ Process: 2524 SearchProtocol 2019-12-11 14:37:21 UTC+0000
+ Process: 1512 WinRAR.exe 2019-12-11 14:37:23 UTC+0000
+ Image: 0xfffffa8001f4c250, Address fffff960000e0000, Name: win32k.sys
+ Image: 0xfffffa8001c430a0, Address fffff960005a0000, Name: dxg.sys
+ Image: 0xfffffa8000ec3290, Address fffff960007c0000, Name: TSDDD.dll

@@ -1,0 +1,235 @@
+#########################################################################################################################################################################################################################################
+# Investigation Details
+# ======================
+# Investigator Name: Solomon Sonya
+# Investigation Description: MemLabs Lab 1
+# Investigation Date: 2022-01-16-0854:41
+#
+# Analysis Framework
+# ======================
+# Analysis Framework Name: Xavier Framework
+# Analysis Framework Version: 2.111
+#
+# Memory Analysis Binary
+# ======================
+# File Name: vol_2.6.exe	 File Size: 15.79 MBs	 Creation Date: 2022-01-08-0433:36	 Last Accessed: 2022-01-08-0433:36	 Last Modified: 2021-02-28-2153:29	 
+# MD5: 2fc05486a3fe93cef213cc37748bf556	 SHA-256: 672a00461ffb8d59536c86192450b66d552e67809fc8584d1792b42b22c5f4e1	 
+#
+# Analysis Image Details
+# ======================
+# Memory Image Path: C:\xavier\xavier_framework\import\memory_image\MemoryDump_Lab1.raw
+# File Name: MemoryDump_Lab1.raw	 File Size: 1.07 GBs	 Creation Date: 2022-01-16-0853:49	 Last Accessed: 2022-01-16-0853:50	 Last Modified: 2019-12-11-0838:17	 
+# MD5: b9fec1a443907d870cb32b048bda9380	 SHA-256: 88e708413898c98351d1a5a221799fc34460dfecb20e482ca5247b0b113b8cf2	 
+#
+# Plugin Details
+# ======================
+# Plugin Name: symlinkscan
+# Plugin Description: Pool scanner for symlink objects
+#
+# Execution Details
+# ======================
+# Execution Command: "C:\xavier\xavier_framework\import\memory_analysis\vol_2.6.exe" -f "C:\xavier\xavier_framework\import\memory_image\MemoryDump_Lab1.raw" symlinkscan --profile=Win7SP1x64
+#########################################################################################################################################################################################################################################
+
+
+Volatility Foundation Volatility Framework 2.6
+Offset(P)            #Ptr   #Hnd Creation time                  From                 To                                                          
+------------------ ------ ------ ------------------------------ -------------------- ------------------------------------------------------------
+0x000000000308d7a0      2      1 2019-12-11 13:41:33 UTC+0000   1                    \Sessions\1\BaseNamedObjects                                
+0x000000000308d8b0      2      1 2019-12-11 13:41:33 UTC+0000   Global               \BaseNamedObjects                                           
+0x00000000030a8c00      1      0 2019-12-11 13:41:22 UTC+0000   Global               \GLOBAL??                                                   
+0x0000000003da7740      1      0 2019-12-11 14:38:00 UTC+0000   DumpIt               \Device\DumpIt                                              
+0x00000000094fac10      1      0 2019-12-11 13:41:25 UTC+0000   Ip6                  \Device\Tdx                                                 
+0x000000000a22a4f0      1      0 2019-12-11 14:37:13 UTC+0000   Global               \Global??                                                   
+0x000000000a7bbb10      1      0 2019-12-11 14:32:22 UTC+0000   Global               \Global??                                                   
+0x000000000e35e390      1      0 2019-12-11 13:41:22 UTC+0000   Harddisk0Partition2  \Device\HarddiskVolume2                                     
+0x000000000e35e560      1      0 2019-12-11 13:41:22 UTC+0000   Partition2           \Device\HarddiskVolume2                                     
+0x000000000e35e5e0      1      0 2019-12-11 13:41:22 UTC+0000   Partition1           \Device\HarddiskVolume1                                     
+0x000000000e35e750      1      0 2019-12-11 13:41:22 UTC+0000   Harddisk0Partition1  \Device\HarddiskVolume1                                     
+0x000000000e35e8c0      1      0 2019-12-11 13:41:22 UTC+0000   multi(0)d...ition(4) \Device\Harddisk0\Partition4                                
+0x000000000e35eaf0      1      0 2019-12-11 13:41:22 UTC+0000   multi(0)d...ition(2) \Device\Harddisk0\Partition2                                
+0x000000000e35eb70      1      0 2019-12-11 13:41:22 UTC+0000   Partition0           \Device\Harddisk0\DR0                                       
+0x000000000e35ec00      1      0 2019-12-11 13:41:22 UTC+0000   multi(0)d...rdisk(0) \Device\Harddisk0\Partition0                                
+0x000000000f671980      2      1 2019-12-11 14:37:05 UTC+0000   2                    \Sessions\2\BaseNamedObjects                                
+0x000000000ff25a00      1      0 2019-12-11 14:15:59 UTC+0000   UMB#UMB#1...e1ba19f} \Device\0000004f                                            
+0x0000000011a4a6f0      1      0 2019-12-11 13:41:22 UTC+0000   IDE#DiskV...91efb8b} \Device\Ide\IdeDeviceP0T0L0-0                               
+0x0000000012efdb10      1      0 2019-12-11 14:32:24 UTC+0000   Global               \Global??                                                   
+0x00000000168c6060      1      0 2019-12-11 13:41:53 UTC+0000   MailslotRedirector   \Device\Mup\;MailslotRedirector                             
+0x0000000016f552d0      1      0 2019-12-11 13:41:53 UTC+0000   LanmanRedirector     \Device\Mup\;LanmanRedirector                               
+0x0000000017029d00      1      0 2019-12-11 13:41:53 UTC+0000   MpsDevice            \Device\MPS                                                 
+0x00000000177da640      2      1 2019-12-11 14:37:05 UTC+0000   Global               \BaseNamedObjects                                           
+0x0000000018d00dd0      1      0 2019-12-11 13:41:29 UTC+0000   NDISWANBH            \Device\NDMP6                                               
+0x0000000018e801d0      1      0 2019-12-11 13:41:29 UTC+0000   {DF4A9D2C...4183F33} \Device\NDMP10                                              
+0x0000000018e80250      1      0 2019-12-11 13:41:29 UTC+0000   Root#MS_N...abac361} \Device\00000034                                            
+0x0000000018e80470      1      0 2019-12-11 13:41:29 UTC+0000   Root#SYST...4c10000} \Device\0000003b                                            
+0x0000000018e80510      1      0 2019-12-11 13:41:29 UTC+0000   Root#SYST...4c10000} \Device\0000003b                                            
+0x0000000018e80cf0      1      0 2019-12-11 13:41:29 UTC+0000   NdisWan              \Device\NdisWan                                             
+0x0000000018e80e60      1      0 2019-12-11 13:41:29 UTC+0000   Root#MS_P...fc3358c} \Device\00000036                                            
+0x0000000019a80550      1      0 2019-12-11 13:41:42 UTC+0000   Global               \Global??                                                   
+0x000000001b3497d0      1      0 2019-12-11 13:41:22 UTC+0000   SPDevice             \Device\SPDevice                                            
+0x000000001b3499c0      1      0 2019-12-11 13:41:22 UTC+0000   WFPDev               \Device\WFP                                                 
+0x000000001b349c80      1      0 2019-12-11 13:41:22 UTC+0000   WfpAle               \Device\WfpAle                                              
+0x000000001c9d1820      1      0 2019-12-11 13:41:42 UTC+0000   Z:                   \Device\VBoxMiniRdr\;Z:\VBoxSvr\Desktop                     
+0x000000001ce328e0      1      0 2019-12-11 13:41:55 UTC+0000   Secdrv               \Device\Secdrv                                              
+0x000000001cebc6b0      1      0 2019-12-11 13:41:41 UTC+0000   Global               \Global??                                                   
+0x000000001d33cab0      1      0 2019-12-11 13:41:55 UTC+0000   AscKmd               \Device\AscKmd                                              
+0x000000001d7c0480      1      0 2019-12-11 13:41:28 UTC+0000   IDE#CdRom...91efb8b} \Device\Ide\IdeDeviceP2T0L0-2                               
+0x000000001d7c06b0      1      0 2019-12-11 13:41:28 UTC+0000   KnownDllPath         C:\Windows\syswow64                                         
+0x000000001d889b30      1      0 2019-12-11 13:41:55 UTC+0000   PEAuth               \Device\PEAuth                                              
+0x000000001f7d0af0      2      1 2019-12-11 13:41:33 UTC+0000   Session              \Sessions\BNOLINKS                                          
+0x000000001f7d0ed0      2      1 2019-12-11 13:41:33 UTC+0000   Local                \Sessions\1\BaseNamedObjects                                
+0x000000001f83af50      1      0 2019-12-11 13:41:32 UTC+0000   DISPLAY#D...8a8ccb8} \Device\VideoPdo0                                           
+0x000000001fd58ac0      1      0 2019-12-11 13:41:32 UTC+0000   Session              \Sessions\BNOLINKS                                          
+0x000000001fe8c410      1      0 2019-12-11 13:41:32 UTC+0000   Local                \BaseNamedObjects                                           
+0x000000001ff941f0      1      0 2019-12-11 13:41:32 UTC+0000   Global               \BaseNamedObjects                                           
+0x00000000202d90d0      2      1 2019-12-11 13:41:32 UTC+0000   0                    \BaseNamedObjects                                           
+0x0000000020664280      1      0 2019-12-11 13:41:29 UTC+0000   Root#SYST...9223196} \Device\0000003b                                            
+0x0000000020664450      1      0 2019-12-11 13:41:29 UTC+0000   Root#UMBU...e1ba19f} \Device\0000003c                                            
+0x0000000020664620      1      0 2019-12-11 13:41:29 UTC+0000   Root#SYST...4c10000} \Device\0000003b                                            
+0x0000000020664960      1      0 2019-12-11 13:41:29 UTC+0000   Root#RDP_...91405dd} \Device\0000003a                                            
+0x00000000206649e0      1      0 2019-12-11 13:41:29 UTC+0000   Root#MS_N...fc3358c} \Device\00000032                                            
+0x0000000020664c60      1      0 2019-12-11 13:41:29 UTC+0000   ACPI#PNP0...91405dd} \Device\00000047                                            
+0x0000000020664d10      1      0 2019-12-11 13:41:29 UTC+0000   Root#MS_S...abac361} \Device\00000037                                            
+0x000000002069ede0      1      0 2019-12-11 13:41:27 UTC+0000   {E43D242B...FBB939A} \Device\NDMP5                                               
+0x00000000206a7780      1      0 2019-12-11 13:41:31 UTC+0000   HID#VID_8...1000030} \Device\0000004e                                            
+0x00000000206b8fe0      1      0 2019-12-11 13:41:28 UTC+0000   {29898C9D...2022CEE} \Device\NDMP4                                               
+0x00000000206d1a40      1      0 2019-12-11 13:41:29 UTC+0000   Root#SYST...8b03a8e} \Device\0000003b                                            
+0x000000002075d800      1      0 2019-12-11 13:41:28 UTC+0000   {14BE490A...C788CE6} \Device\NDMP3                                               
+0x000000002077c670      1      0 2019-12-11 13:41:28 UTC+0000   PCI#VEN_8...fc3358c} \Device\NTPNP_PCI0003                                       
+0x000000002077ca80      1      0 2019-12-11 13:41:28 UTC+0000   HCD0                 \Device\USBFDO-0                                            
+0x00000000207ff5f0      1      0 2019-12-11 13:41:29 UTC+0000   Root#MS_N...abac361} \Device\00000032                                            
+0x00000000207ff750      1      0 2019-12-11 13:41:29 UTC+0000   {71F897D7...9DD2270} \Device\NDMP11                                              
+0x00000000207ffae0      1      0 2019-12-11 13:41:29 UTC+0000   Root#MS_L...abac361} \Device\00000031                                            
+0x00000000207ffc40      1      0 2019-12-11 13:41:29 UTC+0000   Root#SYST...9223196} \Device\0000003b                                            
+0x00000000207ffdd0      1      0 2019-12-11 13:41:28 UTC+0000   Volume{08...f6e6963} \Device\CdRom0                                              
+0x000000002085b1f0      1      0 2019-12-11 13:41:29 UTC+0000   HDAUDIO#F...2e6f23f} \Device\0000004b                                            
+0x0000000020872790      1      0 2019-12-11 13:41:28 UTC+0000   PCI#VEN_1...1e6af27} \Device\NTPNP_PCI0006                                       
+0x0000000022200b50      1      0 2019-12-11 13:41:27 UTC+0000   {29898C9D...2022CEE} \Device\NDMP4                                               
+0x0000000023901580      1      0 2019-12-11 13:41:27 UTC+0000   NdisWanIp            \Device\NDMP7                                               
+0x0000000024a42180      1      0 2019-12-11 13:41:28 UTC+0000   {DF4A9D2C...4183F33} \Device\NDMP10                                              
+0x0000000024a42640      1      0 2019-12-11 13:41:28 UTC+0000   {8E301A52...6A1A056} \Device\NDMP9                                               
+0x0000000024c69a70      2      1 2019-12-11 14:37:05 UTC+0000   Local                \Sessions\2\BaseNamedObjects                                
+0x0000000024e57b00      1      0 2019-12-11 13:41:29 UTC+0000   ACPI#PNP0...91405dd} \Device\00000045                                            
+0x0000000024e63660      1      0 2019-12-11 13:41:29 UTC+0000   ACPI#Genu...29dbdd0} \Device\00000041                                            
+0x0000000024e63710      1      0 2019-12-11 13:41:28 UTC+0000   D:                   \Device\CdRom0                                              
+0x0000000024e9f6f0      1      0 2019-12-11 13:41:29 UTC+0000   Root#MS_P...abac361} \Device\00000035                                            
+0x0000000024e9f9e0      1      0 2019-12-11 13:41:29 UTC+0000   {8E301A52...6A1A056} \Device\NDMP9                                               
+0x0000000024ea1220      1      0 2019-12-11 13:41:29 UTC+0000   ACPI#PNP0...0b7b32a} \Device\00000043                                            
+0x0000000024ea1580      1      0 2019-12-11 13:41:29 UTC+0000   Root#MS_P...abac361} \Device\00000036                                            
+0x0000000024ea1640      1      0 2019-12-11 13:41:29 UTC+0000   Root#MS_N...fc3358c} \Device\00000034                                            
+0x0000000024ea1a50      1      0 2019-12-11 13:41:29 UTC+0000   Root#SYST...fc3358c} \Device\0000003b                                            
+0x0000000024ea1be0      1      0 2019-12-11 13:41:29 UTC+0000   Root#MS_P...fc3358c} \Device\00000035                                            
+0x0000000024ea1f40      1      0 2019-12-11 13:41:29 UTC+0000   Root#MS_S...fc3358c} \Device\00000037                                            
+0x0000000024ea7220      1      0 2019-12-11 13:41:29 UTC+0000   Root#SYST...9223196} \Device\0000003b                                            
+0x0000000024ea7a20      1      0 2019-12-11 13:41:29 UTC+0000   Root#MS_L...fc3358c} \Device\00000031                                            
+0x0000000024ea7aa0      1      0 2019-12-11 13:41:29 UTC+0000   Root#RDP_...91405dd} \Device\00000039                                            
+0x0000000024ea7fe0      1      0 2019-12-11 13:41:29 UTC+0000   Root#MS_A...fc3358c} \Device\00000030                                            
+0x0000000024ec19d0      1      0 2019-12-11 13:41:29 UTC+0000   DISPLAY5             \Device\Video4                                              
+0x0000000024ed0360      1      0 2019-12-11 13:41:29 UTC+0000   HDAUDIO#F...9223196} \Device\0000004b                                            
+0x0000000024f384d0      1      0 2019-12-11 13:41:29 UTC+0000   {E43D242B...FBB939A} \Device\NDMP5                                               
+0x0000000024f38810      1      0 2019-12-11 13:41:29 UTC+0000   Root#MS_A...abac361} \Device\00000030                                            
+0x0000000024f38cb0      1      0 2019-12-11 13:41:28 UTC+0000   IDE#CdRom...91efb8b} \Device\Ide\IdeDeviceP2T0L0-2                               
+0x0000000024f41a30      1      0 2019-12-11 13:41:28 UTC+0000   SstpDrv              \Device\SstpDrv                                             
+0x0000000024f7a750      1      0 2019-12-11 13:41:29 UTC+0000   HDAUDIO#F...9223196} \Device\0000004b                                            
+0x0000000024f7fe80      1      0 2019-12-11 13:41:30 UTC+0000   USB#VID_8...fb951ed} \Device\USBPDO-1                                            
+0x0000000024fd9a70      1      0 2019-12-11 13:41:28 UTC+0000   Root#*ISA...fc3358c} \Device\00000002                                            
+0x0000000024fdcfe0      1      0 2019-12-11 13:41:28 UTC+0000   INTELPRO_...C788CE6} \Device\INTELPRO_{14BE490A-A984-4636-A14F-8EF1AC788CE6}     
+0x0000000024fe3ed0      1      0 2019-12-11 13:41:27 UTC+0000   AgileVPN             \Device\AgileVPN                                            
+0x0000000024ff0720      1      0 2019-12-11 13:41:29 UTC+0000   HDAUDIO#F...9223196} \Device\0000004b                                            
+0x000000002507c6b0      1      0 2019-12-11 13:41:29 UTC+0000   Root#MS_N...abac361} \Device\00000033                                            
+0x000000002507c730      1      0 2019-12-11 13:41:29 UTC+0000   NDISWANIPV6          \Device\NDMP8                                               
+0x000000002507cc30      1      0 2019-12-11 13:41:29 UTC+0000   NDISWANIP            \Device\NDMP7                                               
+0x0000000025092170      1      0 2019-12-11 13:41:29 UTC+0000   HDAUDIO#F...6b4430e} \Device\0000004b                                            
+0x0000000025092c20      1      0 2019-12-11 13:41:29 UTC+0000   HDAUDIO#F...5c10000} \Device\0000004b                                            
+0x00000000250b4e40      1      0 2019-12-11 13:41:27 UTC+0000   NdisWanIpv6          \Device\NDMP8                                               
+0x00000000250b5ea0      1      0 2019-12-11 13:41:28 UTC+0000   PCI#VEN_8...abac361} \Device\NTPNP_PCI0003                                       
+0x00000000250d36d0      1      0 2019-12-11 13:41:27 UTC+0000   NdisWanBh            \Device\NDMP6                                               
+0x000000002510bc50      1      0 2019-12-11 13:41:29 UTC+0000   HDAUDIO#F...0863be5} \Device\0000004b                                            
+0x0000000025110e20      1      0 2019-12-11 13:41:28 UTC+0000   {B4D6D196...3547F23} \Device\NDMP1                                               
+0x0000000025114340      1      0 2019-12-11 13:41:28 UTC+0000   {71F897D7...9DD2270} \Device\NDMP11                                              
+0x0000000025120950      1      0 2019-12-11 13:41:29 UTC+0000   ACPI#PNP0...4c191e2} \Device\00000043                                            
+0x0000000025123760      1      0 2019-12-11 13:41:28 UTC+0000   PCI#VEN_8...f953599} \Device\NTPNP_PCI0002                                       
+0x000000002518b6b0      1      0 2019-12-11 13:41:29 UTC+0000   Root#MS_N...fc3358c} \Device\00000033                                            
+0x000000002518b8c0      1      0 2019-12-11 13:41:28 UTC+0000   Root#*ISA...abac361} \Device\00000001                                            
+0x000000002523e290      1      0 2019-12-11 13:41:29 UTC+0000   USB#ROOT_...906bed8} \Device\USBPDO-0                                            
+0x000000002523edb0      1      0 2019-12-11 13:41:28 UTC+0000   Root#*ISA...abac361} \Device\00000002                                            
+0x0000000025329930      1      0 2019-12-11 13:41:28 UTC+0000   DISPLAY4             \Device\Video3                                              
+0x0000000025372f10      1      0 2019-12-11 13:41:27 UTC+0000   CdRom0               \Device\CdRom0                                              
+0x0000000025980c30      1      0 2019-12-11 13:41:25 UTC+0000   PIPE                 \Device\NamedPipe                                           
+0x0000000025980d40      1      0 2019-12-11 13:41:25 UTC+0000   {6CE295E2...5D18357} \Device\NDMP2                                               
+0x0000000025d19c60      1      0 2019-12-11 13:41:28 UTC+0000   {6CE295E2...5D18357} \Device\NDMP2                                               
+0x0000000025d9fe30      1      0 2019-12-11 13:41:26 UTC+0000   KnownDllPath         C:\Windows\system32                                         
+0x0000000025e2fe60      1      0 2019-12-11 13:41:26 UTC+0000   {14BE490A...C788CE6} \Device\NDMP3                                               
+0x0000000026078d10      1      0 2019-12-11 13:41:25 UTC+0000   MAILSLOT             \Device\MailSlot                                            
+0x00000000260b5fe0      1      0 2019-12-11 13:41:25 UTC+0000   UNC                  \Device\Mup                                                 
+0x00000000260b9330      1      0 2019-12-11 13:41:25 UTC+0000   NUL                  \Device\Null                                                
+0x00000000260b9460      1      0 2019-12-11 13:41:25 UTC+0000   AUX                  \DosDevices\COM1                                            
+0x00000000260b94e0      1      0 2019-12-11 13:41:25 UTC+0000   {B4D6D196...3547F23} \Device\NDMP1                                               
+0x00000000260f6f60      1      0 2019-12-11 13:41:25 UTC+0000   PRN                  \DosDevices\LPT1                                            
+0x0000000026182060      1      0 2019-12-11 13:41:22 UTC+0000   HarddiskVolume2      \Device\HarddiskVolume2                                     
+0x0000000026182120      1      0 2019-12-11 13:41:22 UTC+0000   STORAGE#V...91efb8b} \Device\HarddiskVolume2                                     
+0x00000000261825e0      1      0 2019-12-11 13:41:22 UTC+0000   Volume{08...f6e6963} \Device\HarddiskVolume2                                     
+0x0000000026182760      1      0 2019-12-11 13:41:22 UTC+0000   HarddiskV...dowCopy4 \Device\HarddiskVolumeShadowCopy4                           
+0x0000000026182a60      1      0 2019-12-11 13:41:22 UTC+0000   HarddiskV...7c6589a} \Device\HarddiskVolumeShadowCopy5                           
+0x0000000026182b50      1      0 2019-12-11 13:41:22 UTC+0000   Volume{08...f6e6963} \Device\HarddiskVolume1                                     
+0x0000000026182ec0      1      0 2019-12-11 13:41:22 UTC+0000   HarddiskV...7c6589a} \Device\HarddiskVolumeShadowCopy2                           
+0x000000002630e7d0      1      0 2019-12-11 13:41:22 UTC+0000   PCIIDE#ID...91efb8b} \Device\Ide\PciIde0Channel2                                 
+0x000000002630ec90      1      0 2019-12-11 13:41:22 UTC+0000   FltMgrMsg            \FileSystem\Filters\FltMgrMsg                               
+0x000000002630ef10      1      0 2019-12-11 13:41:22 UTC+0000   ScsiPort2            \Device\Ide\IdePort2                                        
+0x0000000026325400      1      0 2019-12-11 13:41:22 UTC+0000   NDIS                 \Device\Ndis                                                
+0x000000002637c3e0      1      0 2019-12-11 13:41:22 UTC+0000   VBoxGuest            \Device\VBoxGuest                                           
+0x00000000264effe0      1      0 2019-12-11 13:41:25 UTC+0000   Psched               \Device\Psched                                              
+0x0000000026531b10      1      0 2019-12-11 13:41:25 UTC+0000   Csc                  \Device\Mup\;Csc                                            
+0x00000000266efba0      1      0 2019-12-11 13:41:25 UTC+0000   VBoxMiniRdr          \Device\Mup\;VBoxMiniRdr                                    
+0x00000000266eff50      1      0 2019-12-11 13:41:25 UTC+0000   WanArp               \Device\WANARP                                              
+0x0000000026876cf0      1      0 2019-12-11 13:41:25 UTC+0000   fsWrap               \Device\FsWrap                                              
+0x0000000026c75680      1      0 2019-12-11 13:41:25 UTC+0000   Nsi                  \Device\Nsi                                                 
+0x0000000026c759b0      1      0 2019-12-11 13:41:25 UTC+0000   Dfs                  \Device\DfsClient                                           
+0x0000000026e219f0      1      0 2019-12-11 13:41:25 UTC+0000   Ip                   \Device\Tdx                                                 
+0x0000000027097e70      1      0 2019-12-11 13:41:25 UTC+0000   VBoxMiniRdrDN        \Device\VBoxMiniRdr                                         
+0x0000000027097f50      1      0 2019-12-11 13:41:25 UTC+0000   WanArpV6             \Device\WANARPV6                                            
+0x00000000272441f0      1      0 2019-12-11 13:41:22 UTC+0000   HarddiskV...7c6589a} \Device\HarddiskVolumeShadowCopy4                           
+0x0000000027244300      1      0 2019-12-11 13:41:22 UTC+0000   HarddiskV...dowCopy3 \Device\HarddiskVolumeShadowCopy3                           
+0x0000000027244b80      1      0 2019-12-11 13:41:22 UTC+0000   HarddiskV...dowCopy2 \Device\HarddiskVolumeShadowCopy2                           
+0x0000000027244d10      1      0 2019-12-11 13:41:22 UTC+0000   HarddiskV...7c6589a} \Device\HarddiskVolumeShadowCopy3                           
+0x0000000027407cc0      1      0 2019-12-11 13:41:28 UTC+0000   Root#*ISA...fc3358c} \Device\00000001                                            
+0x0000000027420870      1      0 2019-12-11 13:41:22 UTC+0000   FtControl            \Device\VolMgrControl                                       
+0x0000000027420aa0      1      0 2019-12-11 13:41:22 UTC+0000   CompositeBattery     \Device\CompositeBattery                                    
+0x0000000027420ef0      1      0 2019-12-11 13:41:22 UTC+0000   Scsi0:               \Device\Ide\IdePort0                                        
+0x0000000027431210      1      0 2019-12-11 13:41:22 UTC+0000   Scsi2:               \Device\Ide\IdePort2                                        
+0x0000000027431730      1      0 2019-12-11 13:41:22 UTC+0000   FltMgr               \FileSystem\Filters\FltMgr                                  
+0x0000000027483ea0      1      0 2019-12-11 13:41:22 UTC+0000   MountPointManager    \Device\MountPointManager                                   
+0x000000002749a600      1      0 2019-12-11 13:41:22 UTC+0000   multi(0)d...ition(1) \Device\Harddisk0\Partition1                                
+0x000000002749acd0      1      0 2019-12-11 13:41:22 UTC+0000   C:                   \Device\HarddiskVolume2                                     
+0x000000002749afe0      1      0 2019-12-11 13:41:22 UTC+0000   HarddiskVolume1      \Device\HarddiskVolume1                                     
+0x00000000274a09a0      1      0 2019-12-11 13:41:25 UTC+0000   DISPLAY1             \Device\Video0                                              
+0x00000000274b5d30      1      0 2019-12-11 13:41:22 UTC+0000   IPSECDOSPDevice      \Device\IPSECDOSP                                           
+0x00000000274b5e60      1      0 2019-12-11 13:41:22 UTC+0000   NXTIPSECDevice       \Device\NXTIPSEC                                            
+0x00000000274b91f0      1      0 2019-12-11 13:41:22 UTC+0000   Root#volm...91efb8b} \Device\0000003e                                            
+0x00000000274b9580      1      0 2019-12-11 13:41:22 UTC+0000   VolMgrControl        \Device\VolMgrControl                                       
+0x00000000274bd100      1      0 2019-12-11 13:41:22 UTC+0000   PhysicalDrive0       \Device\Harddisk0\DR0                                       
+0x00000000274bdaa0      1      0 2019-12-11 13:41:22 UTC+0000   multi(0)d...ition(3) \Device\Harddisk0\Partition3                                
+0x000000002753a3b0      1      0 2019-12-11 13:41:22 UTC+0000   PCIIDE#ID...91efb8b} \Device\Ide\PciIde0Channel0                                 
+0x000000002753a950      1      0 2019-12-11 13:41:22 UTC+0000   PCIIDE#ID...91efb8b} \Device\Ide\PciIde0Channel1                                 
+0x000000002753aca0      1      0 2019-12-11 13:41:22 UTC+0000   ScsiPort1            \Device\Ide\IdePort1                                        
+0x000000002753ad20      1      0 2019-12-11 13:41:22 UTC+0000   ScsiPort0            \Device\Ide\IdePort0                                        
+0x000000002753ca60      1      0 2019-12-11 13:41:22 UTC+0000   Scsi1:               \Device\Ide\IdePort1                                        
+0x000000002753f150      1      0 2019-12-11 13:41:22 UTC+0000   HarddiskV...dowCopy1 \Device\HarddiskVolumeShadowCopy1                           
+0x000000002753f5a0      1      0 2019-12-11 13:41:22 UTC+0000   STORAGE#V...91efb8b} \Device\HarddiskVolume1                                     
+0x000000002753f880      1      0 2019-12-11 13:41:22 UTC+0000   HarddiskV...7c6589a} \Device\HarddiskVolumeShadowCopy1                           
+0x0000000027545460      1      0 2019-12-11 13:41:22 UTC+0000   WMIAdminDevice       \Device\WMIAdminDevice                                      
+0x000000002754f100      1      0 2019-12-11 13:41:22 UTC+0000   PartmgrControl       \Device\PartmgrControl                                      
+0x000000002754f1e0      1      0 2019-12-11 13:41:22 UTC+0000   FtControl            \Device\VolMgrControl                                       
+0x000000002754f420      1      0 2019-12-11 13:41:22 UTC+0000   VDRVROOT             \Device\0000003d                                            
+0x000000002754f540      1      0 2019-12-11 13:41:22 UTC+0000   Root#vdrv...3bae505} \Device\0000003d                                            
+0x000000002756fb00      1      0 2019-12-11 13:41:22 UTC+0000   ACPI#Fixe...9062857} \Device\00000042                                            
+0x00000000275bdba0      1      0 2019-12-11 13:41:22 UTC+0000   LOG:                 \clfs                                                       
+0x00000000275c6ea0      1      0 2019-12-11 13:41:31 UTC+0000   HID#VID_8...91405dd} \Device\0000004e                                            
+0x00000000276c87f0      1      0 2019-12-11 13:41:22 UTC+0000   WMIDataDevice        \Device\WMIDataDevice                                       
+0x00000000277cd0f0      1      0 2019-12-11 13:41:22 UTC+0000   DosDevices           \??                                                         
+0x000000002eff57a0      2      1 2019-12-11 14:37:05 UTC+0000   Session              \Sessions\BNOLINKS                                          
+0x000000002fb7a790      1      0 2019-12-11 13:41:25 UTC+0000   Tcp                  \Device\Tcp                                                 
+0x000000002fb7aa00      1      0 2019-12-11 13:41:25 UTC+0000   DISPLAY3             \Device\Video2                                              
+0x000000002fb7ab10      1      0 2019-12-11 13:41:25 UTC+0000   DISPLAY2             \Device\Video1                                              
+0x000000003b6e9e30      1      0 2019-12-11 13:41:24 UTC+0000   SystemRoot           \Device\Harddisk0\Partition2\Windows                        
+0x000000003b6e9eb0      1      0 2019-12-11 13:41:22 UTC+0000   HarddiskV...dowCopy5 \Device\HarddiskVolumeShadowCopy5                           
