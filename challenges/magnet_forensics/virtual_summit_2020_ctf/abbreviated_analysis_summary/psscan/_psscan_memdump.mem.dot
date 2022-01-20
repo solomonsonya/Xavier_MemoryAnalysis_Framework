@@ -1,3 +1,0 @@
-digraph processtree { 
-graph [rankdir = "TB"];
-}
