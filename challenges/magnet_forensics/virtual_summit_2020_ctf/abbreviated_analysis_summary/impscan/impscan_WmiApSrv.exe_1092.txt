@@ -1,0 +1,159 @@
+#########################################################################################################################################################################################################################################
+# Investigation Details
+# ======================
+# Investigator Name: Solomon Sonya
+# Investigation Description: Magnet Virtual Summit 2020 CTF - Memory
+# Investigation Date: 2022-01-17-2008:58
+#
+# Analysis Framework
+# ======================
+# Analysis Framework Name: Xavier Framework
+# Analysis Framework Version: 2.114
+#
+# Memory Analysis Binary
+# ======================
+# File Name: vol_2.6.exe	 File Size: 15.79 MBs	 Creation Date: 2022-01-16-1019:29	 Last Accessed: 2022-01-17-1948:58	 Last Modified: 2021-02-28-2253:29	 
+# MD5: 2fc05486a3fe93cef213cc37748bf556	 SHA-256: 672a00461ffb8d59536c86192450b66d552e67809fc8584d1792b42b22c5f4e1	 
+#
+# Analysis Image Details
+# ======================
+# Memory Image Path: C:\xavier\xavier_framework\import\memory_image\memdump.mem
+# File Name: memdump.mem	 File Size: 5.37 GBs	 Creation Date: 2022-01-17-2008:08	 Last Accessed: 2022-01-17-2008:13	 Last Modified: 2021-10-14-2125:48	 
+# 
+#
+# Plugin Details
+# ======================
+# Plugin Name: impscan
+# Plugin Description: Scan for calls to imported functions
+#
+# Execution Details
+# ======================
+# Execution Command: "C:\xavier\xavier_framework\import\memory_analysis\vol_2.6.exe" -f "C:\xavier\xavier_framework\import\memory_image\memdump.mem" --profile=Win7SP1x64 impscan -v -p 1092
+#########################################################################################################################################################################################################################################
+
+
+Volatility Foundation Volatility Framework 2.6
+IAT                Call               Module               Function
+------------------ ------------------ -------------------- --------
+0x00000000ffb21000 0x000007feff144210 ADVAPI32.dll         RegOpenKeyExW
+0x00000000ffb21008 0x000007feff13e750 ADVAPI32.dll         RegEnumKeyExW
+0x00000000ffb21010 0x000007feff134160 ADVAPI32.dll         RegDeleteKeyW
+0x00000000ffb21018 0x000007feff144240 ADVAPI32.dll         RegCloseKey
+0x00000000ffb21020 0x000007feff12afd0 ADVAPI32.dll         RegDeleteValueW
+0x00000000ffb21028 0x000007feff13d5f0 ADVAPI32.dll         RegCreateKeyExW
+0x00000000ffb21030 0x000007feff134490 ADVAPI32.dll         RegSetValueExW
+0x00000000ffb21038 0x000007feff13a820 ADVAPI32.dll         CloseServiceHandle
+0x00000000ffb21040 0x000007feff12e500 ADVAPI32.dll         OpenSCManagerW
+0x00000000ffb21048 0x000007feff12e514 ADVAPI32.dll         OpenServiceW
+0x00000000ffb21050 0x000007feff12e950 ADVAPI32.dll         QueryServiceConfigW
+0x00000000ffb21058 0x000007feff135b9c ADVAPI32.dll         QueryServiceStatus
+0x00000000ffb21060 0x000007feff134750 ADVAPI32.dll         ConvertStringSecurityDescriptorToSecurityDescriptorW
+0x00000000ffb21068 0x000007feff12d9a8 ADVAPI32.dll         MakeAbsoluteSD
+0x00000000ffb21070 0x000007feff13d5d0 ADVAPI32.dll         InitializeSecurityDescriptor
+0x00000000ffb21078 0x000007feff128be0 ADVAPI32.dll         SetServiceStatus
+0x00000000ffb21080 0x000007feff122ba0 ADVAPI32.dll         RegisterServiceCtrlHandlerW
+0x00000000ffb21088 0x000007feff126bac ADVAPI32.dll         StartServiceCtrlDispatcherW
+0x00000000ffb21090 0x000007feff1449a0 ADVAPI32.dll         CreateServiceW
+0x00000000ffb21098 0x000007feff15a6d0 ADVAPI32.dll         ChangeServiceConfig2W
+0x00000000ffb210a0 0x000007feff144a40 ADVAPI32.dll         ControlService
+0x00000000ffb210a8 0x000007feff144a2c ADVAPI32.dll         DeleteService
+0x00000000ffb210b0 0x000007feff144000 ADVAPI32.dll         RegEnumValueW
+0x00000000ffb210b8 0x000007feff1355a0 ADVAPI32.dll         RegOpenKeyW
+0x00000000ffb210c0 0x000007feff13e6f0 ADVAPI32.dll         RegQueryValueExW
+0x00000000ffb210c8 0x000007feff1345d0 ADVAPI32.dll         RegOpenCurrentUser
+0x00000000ffb210d0 0x000007feff13e2e0 ADVAPI32.dll         RegEnumKeyW
+0x00000000ffb210d8 0x000007feff13e910 ADVAPI32.dll         RegQueryInfoKeyW
+0x00000000ffb21150 0x0000000076f3d370 kernel32.dll         DeleteCriticalSection
+0x00000000ffb211a8 0x0000000076f3d190 kernel32.dll         EnterCriticalSection
+0x00000000ffb211c8 0x0000000076f3d560 ntdll.dll            RtlInitializeCriticalSection
+0x00000000ffb212a0 0x0000000076f2c0b0 kernel32.dll         LeaveCriticalSection
+0x00000000ffb212a8 0x0000000076f21200 ntdll.dll            RtlTryEnterCriticalSection
+0x00000000ffb212f8 0x000007fefe106ae0 OLEAUT32.dll         24
+0x00000000ffb21300 0x000007fefe108e90 OLEAUT32.dll         20
+0x00000000ffb21308 0x000007fefe106ab0 OLEAUT32.dll         23
+0x00000000ffb21310 0x000007fefe101210 OLEAUT32.dll         6
+0x00000000ffb21318 0x000007fefe103280 OLEAUT32.dll         2
+0x00000000ffb21320 0x000007fefe101020 OLEAUT32.dll         7
+0x00000000ffb21328 0x000007fefe106230 OLEAUT32.dll         12
+0x00000000ffb21330 0x000007fefe101180 OLEAUT32.dll         9
+0x00000000ffb21338 0x000007fefe103f10 OLEAUT32.dll         16
+0x00000000ffb21340 0x000007fefe107d40 OLEAUT32.dll         19
+0x00000000ffb21348 0x000007fefe101040 OLEAUT32.dll         4
+0x00000000ffb21358 0x0000000076d02ae0 USER32.dll           CharNextW
+0x00000000ffb21360 0x0000000076cff930 USER32.dll           LoadStringW
+0x00000000ffb21370 0x000007fed447fdc8 loadperf.dll         LoadPerfCounterTextStringsW
+0x00000000ffb21378 0x000007fed4486564 loadperf.dll         UnloadPerfCounterTextStringsW
+0x00000000ffb21388 0x000007fefd721500 msvcrt.dll           _unlock
+0x00000000ffb21390 0x000007fefd752cb8 msvcrt.dll           ??1type_info@@UEAA@XZ
+0x00000000ffb21398 0x000007fefd72b0c8 msvcrt.dll           __set_app_type
+0x00000000ffb213a0 0x000007fefd7b127c msvcrt.dll           _fmode
+0x00000000ffb213a8 0x000007fefd7230e0 msvcrt.dll           _vsnwprintf
+0x00000000ffb213b0 0x000007fefd723a90 msvcrt.dll           wcsrchr
+0x00000000ffb213b8 0x000007fefd723ef0 msvcrt.dll           memmove_s
+0x00000000ffb213c0 0x000007fefd7359d0 msvcrt.dll           strlen
+0x00000000ffb213c8 0x000007fefd748c74 msvcrt.dll           ??0exception@@QEAA@XZ
+0x00000000ffb213d0 0x000007fefd748c94 msvcrt.dll           ??0exception@@QEAA@AEBQEBD@Z
+0x00000000ffb213d8 0x000007fefd723de8 msvcrt.dll           memcpy_s
+0x00000000ffb213e0 0x000007fefd724310 msvcrt.dll           realloc
+0x00000000ffb213e8 0x000007fefd722b00 msvcrt.dll           _wtol
+0x00000000ffb213f0 0x000007fefd7233b8 msvcrt.dll           _wcsicmp
+0x00000000ffb213f8 0x000007fefd728ea0 msvcrt.dll           __dllonexit
+0x00000000ffb21400 0x000007fefd7227dc msvcrt.dll           wcschr
+0x00000000ffb21408 0x000007fefd74ab88 msvcrt.dll           __CxxFrameHandler3
+0x00000000ffb21410 0x000007fefd7b1280 msvcrt.dll           _commode
+0x00000000ffb21418 0x000007fefd78da94 msvcrt.dll           __setusermatherr
+0x00000000ffb21420 0x000007fefd76bfd4 msvcrt.dll           _amsg_exit
+0x00000000ffb21428 0x000007fefd728e28 msvcrt.dll           _initterm
+0x00000000ffb21430 0x000007fefd7b10b0 msvcrt.dll           _acmdln
+0x00000000ffb21438 0x000007fefd729bb0 msvcrt.dll           exit
+0x00000000ffb21440 0x000007fefd7354fc msvcrt.dll           _cexit
+0x00000000ffb21448 0x000007fefd727764 msvcrt.dll           _ismbblead
+0x00000000ffb21450 0x000007fefd76bfa8 msvcrt.dll           _exit
+0x00000000ffb21458 0x000007fefd760b58 msvcrt.dll           _XcptFilter
+0x00000000ffb21460 0x0000000076f672fc ntdll.dll            __C_specific_handler
+0x00000000ffb21468 0x000007fefd72b1f0 msvcrt.dll           __getmainargs
+0x00000000ffb21470 0x000007fefd756890 msvcrt.dll           _callnewh
+0x00000000ffb21478 0x000007fefd721520 msvcrt.dll           _lock
+0x00000000ffb21480 0x000007fefd73001c msvcrt.dll           _onexit
+0x00000000ffb21488 0x000007fefd74a830 msvcrt.dll           ?terminate@@YAXXZ
+0x00000000ffb21490 0x000007fefd728fec msvcrt.dll           wcscspn
+0x00000000ffb21498 0x000007fefd7210e0 msvcrt.dll           memmove
+0x00000000ffb214a0 0x000007fefd723a80 msvcrt.dll           iswspace
+0x00000000ffb214a8 0x000007fefd7239cc msvcrt.dll           atol
+0x00000000ffb214b0 0x000007fefd786f84 msvcrt.dll           wcscoll
+0x00000000ffb214b8 0x000007fefd7210e0 msvcrt.dll           memmove
+0x00000000ffb214c0 0x000007fefd729344 msvcrt.dll           wcsspn
+0x00000000ffb214c8 0x000007fefd7237a4 msvcrt.dll           iswdigit
+0x00000000ffb214d0 0x000007fefd7248c8 msvcrt.dll           wcspbrk
+0x00000000ffb214d8 0x000007fefd723480 msvcrt.dll           wcsstr
+0x00000000ffb214e0 0x000007fefd723e58 msvcrt.dll           _wcsupr
+0x00000000ffb214e8 0x000007fefd72137c msvcrt.dll           malloc
+0x00000000ffb214f0 0x000007fefd721000 msvcrt.dll           memset
+0x00000000ffb214f8 0x000007fefd7210ac msvcrt.dll           free
+0x00000000ffb21500 0x000007fefd748d14 msvcrt.dll           ??0exception@@QEAA@AEBQEBDH@Z
+0x00000000ffb21508 0x000007fefd748e78 msvcrt.dll           ?what@exception@@UEBAPEBDXZ
+0x00000000ffb21510 0x000007fefd748e50 msvcrt.dll           ??1exception@@UEAA@XZ
+0x00000000ffb21518 0x000007fefd748d34 msvcrt.dll           ??0exception@@QEAA@AEBV0@@Z
+0x00000000ffb21520 0x000007fefd74a8c0 msvcrt.dll           _CxxThrowException
+0x00000000ffb21528 0x000007fefd7234f4 msvcrt.dll           _wcslwr
+0x00000000ffb21530 0x000007fefd787428 msvcrt.dll           _wcsrev
+0x00000000ffb21538 0x000007fefd722aec msvcrt.dll           _wtoi
+0x00000000ffb21548 0x0000000076f47180 ntdll.dll            RtlLookupFunctionEntry
+0x00000000ffb21550 0x0000000076f7ab20 ntdll.dll            ZwQuerySecurityObject
+0x00000000ffb21558 0x0000000076fb3640 ntdll.dll            RtlGetOwnerSecurityDescriptor
+0x00000000ffb21560 0x0000000076f27510 ntdll.dll            RtlEqualSid
+0x00000000ffb21568 0x0000000076f63370 ntdll.dll            RtlGetDaclSecurityDescriptor
+0x00000000ffb21570 0x0000000076f62f90 ntdll.dll            RtlGetAce
+0x00000000ffb21578 0x0000000076f7b6c0 ntdll.dll            RtlCaptureContext
+0x00000000ffb21580 0x0000000076f79980 ntdll.dll            ZwQueryObject
+0x00000000ffb21588 0x0000000076f4cc60 ntdll.dll            RtlVirtualUnwind
+0x00000000ffb21598 0x000007fefd404650 ole32.dll            CoCreateInstance
+0x00000000ffb215a0 0x000007fefd400870 ole32.dll            CoInitializeEx
+0x00000000ffb215a8 0x000007fefd3ff1d8 ole32.dll            CoUninitialize
+0x00000000ffb215b0 0x000007fefd3e8480 ole32.dll            CoFreeUnusedLibraries
+0x00000000ffb215b8 0x000007fefd3f74a8 ole32.dll            CoInitializeSecurity
+0x00000000ffb215c0 0x000007fefd415f10 ole32.dll            CoSetProxyBlanket
+0x00000000ffb215d0 0x000007fef7fd1270 wbemcomn.dll         ?Throttle@@YAJKKKKK@Z
+0x00000000ffb215d8 0x000007fef7fc1f50 wbemcomn.dll         ??0CStaticCritSec@@QEAA@XZ
+0x00000000ffb215e0 0x000007fef7fc13c0 wbemcomn.dll         ??1CStaticCritSec@@QEAA@XZ
+0x00000000ffb215e8 0x000007fef7fc1f7c wbemcomn.dll         ?anyFailure@CStaticCritSec@@SAHXZ

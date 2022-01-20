@@ -1,0 +1,225 @@
+#########################################################################################################################################################################################################################################
+# Investigation Details
+# ======================
+# Investigator Name: Solomon Sonya
+# Investigation Description: Magnet Virtual Summit 2020 CTF - Memory
+# Investigation Date: 2022-01-17-2008:58
+#
+# Analysis Framework
+# ======================
+# Analysis Framework Name: Xavier Framework
+# Analysis Framework Version: 2.114
+#
+# Memory Analysis Binary
+# ======================
+# File Name: vol_2.6.exe	 File Size: 15.79 MBs	 Creation Date: 2022-01-16-1019:29	 Last Accessed: 2022-01-17-1948:58	 Last Modified: 2021-02-28-2253:29	 
+# MD5: 2fc05486a3fe93cef213cc37748bf556	 SHA-256: 672a00461ffb8d59536c86192450b66d552e67809fc8584d1792b42b22c5f4e1	 
+#
+# Analysis Image Details
+# ======================
+# Memory Image Path: C:\xavier\xavier_framework\import\memory_image\memdump.mem
+# File Name: memdump.mem	 File Size: 5.37 GBs	 Creation Date: 2022-01-17-2008:08	 Last Accessed: 2022-01-17-2008:13	 Last Modified: 2021-10-14-2125:48	 
+# 
+#
+# Plugin Details
+# ======================
+# Plugin Name: impscan
+# Plugin Description: Scan for calls to imported functions
+#
+# Execution Details
+# ======================
+# Execution Command: "C:\xavier\xavier_framework\import\memory_analysis\vol_2.6.exe" -f "C:\xavier\xavier_framework\import\memory_image\memdump.mem" --profile=Win7SP1x64 impscan -v -p 2164
+#########################################################################################################################################################################################################################################
+
+
+Volatility Foundation Volatility Framework 2.6
+IAT                Call               Module               Function
+------------------ ------------------ -------------------- --------
+0x00000000ffec1000 0x0000000076f1b9f0 ntdll.dll            EtwTraceMessage
+0x00000000ffec1008 0x0000000076fc6c40 ntdll.dll            EtwGetTraceEnableFlags
+0x00000000ffec1010 0x0000000076fc6cc0 ntdll.dll            EtwGetTraceLoggerHandle
+0x00000000ffec1018 0x0000000076f537a0 ntdll.dll            EtwUnregisterTraceGuids
+0x00000000ffec1020 0x0000000076fc6c80 ntdll.dll            EtwGetTraceEnableLevel
+0x00000000ffec1028 0x0000000076f1dcd0 ntdll.dll            EtwRegisterTraceGuidsW
+0x00000000ffec1030 0x0000000076f77870 ntdll.dll            MD5Init
+0x00000000ffec1038 0x0000000076f78040 ntdll.dll            MD5Update
+0x00000000ffec1040 0x0000000076f781b0 ntdll.dll            MD5Final
+0x00000000ffec1048 0x000007feff1445e0 ADVAPI32.dll         RegSetKeyValueW
+0x00000000ffec1050 0x0000000076f5b0f0 ntdll.dll            EtwEventWrite
+0x00000000ffec1058 0x0000000076f537a0 ntdll.dll            EtwUnregisterTraceGuids
+0x00000000ffec1060 0x0000000076f26da0 ntdll.dll            EtwEventRegister
+0x00000000ffec1068 0x000007feff13d6d0 ADVAPI32.dll         ConvertSidToStringSidW
+0x00000000ffec1070 0x000007feff133b84 ADVAPI32.dll         GetSidSubAuthorityCount
+0x00000000ffec1078 0x000007feff133b98 ADVAPI32.dll         GetSidSubAuthority
+0x00000000ffec1080 0x000007feff13da68 ADVAPI32.dll         EqualSid
+0x00000000ffec1088 0x000007feff15ddc0 ADVAPI32.dll         CloseThreadWaitChainSession
+0x00000000ffec1090 0x000007feff15f840 ADVAPI32.dll         GetThreadWaitChain
+0x00000000ffec1098 0x000007feff15de38 ADVAPI32.dll         OpenThreadWaitChainSession
+0x00000000ffec10a0 0x000007feff1596c4 ADVAPI32.dll         RegisterWaitChainCOMCallback
+0x00000000ffec10a8 0x000007feff12baf0 ADVAPI32.dll         SetFileSecurityW
+0x00000000ffec10b0 0x000007feff13d664 ADVAPI32.dll         SetSecurityDescriptorDacl
+0x00000000ffec10b8 0x000007feff13d5d0 ADVAPI32.dll         InitializeSecurityDescriptor
+0x00000000ffec10c0 0x000007feff1359c0 ADVAPI32.dll         SetEntriesInAclW
+0x00000000ffec10c8 0x000007feff13e168 ADVAPI32.dll         OpenThreadToken
+0x00000000ffec10d0 0x000007feff13d690 ADVAPI32.dll         GetSecurityDescriptorDacl
+0x00000000ffec10d8 0x000007feff12b9b0 ADVAPI32.dll         GetFileSecurityW
+0x00000000ffec10e0 0x000007feff13da60 ADVAPI32.dll         FreeSid
+0x00000000ffec10e8 0x000007feff1301b0 ADVAPI32.dll         CheckTokenMembership
+0x00000000ffec10f0 0x000007feff13d83c ADVAPI32.dll         AllocateAndInitializeSid
+0x00000000ffec10f8 0x000007feff133b7c ADVAPI32.dll         CopySid
+0x00000000ffec1100 0x000007feff13d644 ADVAPI32.dll         GetLengthSid
+0x00000000ffec1108 0x000007feff133bac ADVAPI32.dll         IsValidSid
+0x00000000ffec1110 0x000007feff13d8a0 ADVAPI32.dll         GetTokenInformation
+0x00000000ffec1118 0x000007feff133b50 ADVAPI32.dll         StopTraceW
+0x00000000ffec1120 0x000007feff1329b0 ADVAPI32.dll         EnableTrace
+0x00000000ffec1128 0x000007feff1309f0 ADVAPI32.dll         StartTraceW
+0x00000000ffec1130 0x000007feff12b9e0 ADVAPI32.dll         QueryTraceW
+0x00000000ffec1138 0x000007feff139f90 ADVAPI32.dll         DeregisterEventSource
+0x00000000ffec1140 0x000007feff12fc90 ADVAPI32.dll         ReportEventW
+0x00000000ffec1148 0x000007feff135a20 ADVAPI32.dll         RegisterEventSourceW
+0x00000000ffec1150 0x000007feff134750 ADVAPI32.dll         ConvertStringSecurityDescriptorToSecurityDescriptorW
+0x00000000ffec1158 0x000007feff1355a0 ADVAPI32.dll         RegOpenKeyW
+0x00000000ffec1160 0x000007feff13a820 ADVAPI32.dll         CloseServiceHandle
+0x00000000ffec1168 0x000007feff12e950 ADVAPI32.dll         QueryServiceConfigW
+0x00000000ffec1170 0x000007feff12e514 ADVAPI32.dll         OpenServiceW
+0x00000000ffec1178 0x000007feff12e500 ADVAPI32.dll         OpenSCManagerW
+0x00000000ffec1180 0x000007feff12e47c ADVAPI32.dll         CreateProcessAsUserW
+0x00000000ffec1188 0x000007feff134160 ADVAPI32.dll         RegDeleteKeyW
+0x00000000ffec1190 0x000007feff13d8c0 ADVAPI32.dll         OpenProcessToken
+0x00000000ffec11a0 0x000007fefc6ceb14 COMCTL32.dll         TaskDialogIndirect
+0x00000000ffec11a8 0x000007fefc686508 COMCTL32.dll         SetWindowSubclass
+0x00000000ffec11b0 0x000007fefc686608 COMCTL32.dll         RemoveWindowSubclass
+0x00000000ffec11b8 0x000007fefc6866dc COMCTL32.dll         DefSubclassProc
+0x00000000ffec11c8 0x000007fefcfa1828 IMM32.dll            ImmDisableIme
+0x00000000ffec1338 0x0000000076f37a30 kernel32.dll         HeapAlloc
+0x00000000ffec1498 0x0000000076f3d370 kernel32.dll         DeleteCriticalSection
+0x00000000ffec14a0 0x0000000076f1e9c0 ntdll.dll            TpSetWait
+0x00000000ffec14a8 0x0000000076f1ebe0 ntdll.dll            TpReleaseWait
+0x00000000ffec14b0 0x0000000076f5c150 ntdll.dll            TpWaitForWait
+0x00000000ffec14b8 0x0000000076f2c0b0 kernel32.dll         LeaveCriticalSection
+0x00000000ffec14c0 0x0000000076f3d190 kernel32.dll         EnterCriticalSection
+0x00000000ffec16a8 0x000007fefd353e3c SHLWAPI.dll          IsOS
+0x00000000ffec16b8 0x0000000076d07930 USER32.dll           IsWindow
+0x00000000ffec16c0 0x0000000076cff340 USER32.dll           GetProcessWindowStation
+0x00000000ffec16c8 0x0000000076d0a840 USER32.dll           GetThreadDesktop
+0x00000000ffec16d0 0x0000000076cff950 USER32.dll           GetUserObjectInformationW
+0x00000000ffec16d8 0x0000000076cff930 USER32.dll           LoadStringW
+0x00000000ffec16e0 0x0000000076d096e0 USER32.dll           TranslateMessage
+0x00000000ffec16e8 0x0000000076d09910 USER32.dll           DispatchMessageW
+0x00000000ffec1718 0x0000000076d00e4c USER32.dll           RegisterClassExW
+0x00000000ffec1790 0x0000000076d076d4 USER32.dll           PostMessageW
+0x00000000ffec17b0 0x0000000076d1ad50 USER32.dll           CheckWindowThreadDesktop
+0x00000000ffec17b8 0x0000000076cff304 USER32.dll           RegisterWindowMessageW
+0x00000000ffec17c8 0x0000000076d007b8 USER32.dll           CreateWindowExW
+0x00000000ffec17d0 0x0000000076d09e54 USER32.dll           GetMessageW
+0x00000000ffec17d8 0x0000000076cff614 USER32.dll           ChangeWindowMessageFilter
+0x00000000ffec17e8 0x000007fef56e6c98 faultrep.dll         WerpInitiateCrashReporting
+0x00000000ffec17f8 0x000007fefd77a778 msvcrt.dll           _vscwprintf
+0x00000000ffec1800 0x000007fefd723a80 msvcrt.dll           iswspace
+0x00000000ffec1808 0x000007fefd7248c8 msvcrt.dll           wcspbrk
+0x00000000ffec1810 0x000007fefd723480 msvcrt.dll           wcsstr
+0x00000000ffec1818 0x000007fefd7296e8 msvcrt.dll           _wcstoui64
+0x00000000ffec1820 0x000007fefd762954 msvcrt.dll           _purecall
+0x00000000ffec1828 0x000007fefd7225dc msvcrt.dll           vsnprintf
+0x00000000ffec1830 0x000007fefd7227fc msvcrt.dll           wcsncmp
+0x00000000ffec1838 0x000007fefd72909c msvcrt.dll           tolower
+0x00000000ffec1840 0x000007fefd723f34 msvcrt.dll           isspace
+0x00000000ffec1848 0x000007fefd723d14 msvcrt.dll           towlower
+0x00000000ffec1850 0x000007fefd752cb8 msvcrt.dll           ??1type_info@@UEAA@XZ
+0x00000000ffec1858 0x000007fefd7210e0 msvcrt.dll           memmove
+0x00000000ffec1860 0x000007fefd722aec msvcrt.dll           _wtoi
+0x00000000ffec1868 0x000007fefd723330 msvcrt.dll           _wcsnicmp
+0x00000000ffec1870 0x000007fefd7210e0 msvcrt.dll           memmove
+0x00000000ffec1878 0x000007fefd74ab88 msvcrt.dll           __CxxFrameHandler3
+0x00000000ffec1880 0x000007fefd721000 msvcrt.dll           memset
+0x00000000ffec1888 0x000007fefd73001c msvcrt.dll           _onexit
+0x00000000ffec1890 0x000007fefd721520 msvcrt.dll           _lock
+0x00000000ffec1898 0x000007fefd728ea0 msvcrt.dll           __dllonexit
+0x00000000ffec18a0 0x000007fefd721500 msvcrt.dll           _unlock
+0x00000000ffec18a8 0x000007fefd74a830 msvcrt.dll           ?terminate@@YAXXZ
+0x00000000ffec18b0 0x000007fefd72b0c8 msvcrt.dll           __set_app_type
+0x00000000ffec18c8 0x000007fefd744d64 msvcrt.dll           _wtoi64
+0x00000000ffec18d0 0x000007fefd78da94 msvcrt.dll           __setusermatherr
+0x00000000ffec18d8 0x000007fefd76bfd4 msvcrt.dll           _amsg_exit
+0x00000000ffec18e0 0x000007fefd728e28 msvcrt.dll           _initterm
+0x00000000ffec18e8 0x000007fefd729bb0 msvcrt.dll           exit
+0x00000000ffec18f0 0x000007fefd7354fc msvcrt.dll           _cexit
+0x00000000ffec18f8 0x000007fefd76bfa8 msvcrt.dll           _exit
+0x00000000ffec1900 0x000007fefd760b58 msvcrt.dll           _XcptFilter
+0x00000000ffec1908 0x0000000076f672fc ntdll.dll            __C_specific_handler
+0x00000000ffec1910 0x000007fefd734148 msvcrt.dll           __wgetmainargs
+0x00000000ffec1918 0x000007fefd7230e0 msvcrt.dll           _vsnwprintf
+0x00000000ffec1920 0x000007fefd7227dc msvcrt.dll           wcschr
+0x00000000ffec1928 0x000007fefd7233b8 msvcrt.dll           _wcsicmp
+0x00000000ffec1930 0x000007fefd722880 msvcrt.dll           ??2@YAPEAX_K@Z
+0x00000000ffec1938 0x000007fefd722840 msvcrt.dll           _free_dbg
+0x00000000ffec1940 0x000007fefd723a90 msvcrt.dll           wcsrchr
+0x00000000ffec1948 0x000007fefd74a8c0 msvcrt.dll           _CxxThrowException
+0x00000000ffec1958 0x0000000077005e50 ntdll.dll            WinSqmAddToStream
+0x00000000ffec1960 0x0000000076f37a30 kernel32.dll         HeapAlloc
+0x00000000ffec1968 0x0000000076f3a1c0 kernel32.dll         HeapFree
+0x00000000ffec1970 0x0000000076f62100 ntdll.dll            RtlAdjustPrivilege
+0x00000000ffec1978 0x0000000076f7af70 ntdll.dll            ZwSetSystemInformation
+0x00000000ffec1980 0x0000000076f79980 ntdll.dll            ZwQueryObject
+0x00000000ffec1988 0x0000000076f3d890 ntdll.dll            RtlImageNtHeaderEx
+0x00000000ffec1990 0x0000000076f79de0 ntdll.dll            ZwQueryEvent
+0x00000000ffec1998 0x0000000077007920 ntdll.dll            WinSqmSetDWORD
+0x00000000ffec19a0 0x0000000076f79ad0 ntdll.dll            ZwQueryInformationThread
+0x00000000ffec19b0 0x0000000076f79a10 ntdll.dll            ZwQueryInformationProcess
+0x00000000ffec19b8 0x0000000076fc6b80 ntdll.dll            EtwEventWriteNoRegistration
+0x00000000ffec19c0 0x0000000076f25d00 ntdll.dll            RtlNtStatusToDosError
+0x00000000ffec19c8 0x0000000076f79c80 ntdll.dll            ZwOpenEvent
+0x00000000ffec19d0 0x0000000076f798c0 ntdll.dll            ZwWaitForSingleObject
+0x00000000ffec19d8 0x0000000077006190 ntdll.dll            WinSqmSetString
+0x00000000ffec19e0 0x0000000076f30440 ntdll.dll            RtlUpcaseUnicodeChar
+0x00000000ffec19e8 0x0000000076f5b470 ntdll.dll            WinSqmIncrementDWORD
+0x00000000ffec1a08 0x0000000076f79be0 ntdll.dll            ZwQuerySystemInformation
+0x00000000ffec1a10 0x0000000077003600 ntdll.dll            WinSqmEndSession
+0x00000000ffec1a18 0x000000007700b9f0 ntdll.dll            ShipAssert
+0x00000000ffec1a20 0x0000000077003700 ntdll.dll            WinSqmStartSession
+0x00000000ffec1a28 0x0000000076f1bed0 ntdll.dll            DbgPrint
+0x00000000ffec1a30 0x0000000076f1b9f0 ntdll.dll            EtwTraceMessage
+0x00000000ffec1a38 0x0000000076f79a90 ntdll.dll            ZwQueryInformationToken
+0x00000000ffec1a40 0x0000000076f79970 ntdll.dll            ZwClose
+0x00000000ffec1a48 0x0000000076f28e20 ntdll.dll            RtlAllocateAndInitializeSid
+0x00000000ffec1a50 0x0000000076f288b0 ntdll.dll            RtlFreeSid
+0x00000000ffec1a58 0x0000000076f7a0d0 ntdll.dll            ZwAlpcSendWaitReceivePort
+0x00000000ffec1a60 0x0000000076f7b6c0 ntdll.dll            RtlCaptureContext
+0x00000000ffec1a68 0x0000000076f47180 ntdll.dll            RtlLookupFunctionEntry
+0x00000000ffec1a70 0x0000000076f4cc60 ntdll.dll            RtlVirtualUnwind
+0x00000000ffec1a78 0x0000000076f79fc0 ntdll.dll            ZwAlpcConnectPort
+0x00000000ffec1a80 0x0000000076f4c470 ntdll.dll            RtlInitUnicodeString
+0x00000000ffec1ab8 0x000007fefd45e2e0 ole32.dll            CoGetCallState
+0x00000000ffec1ac0 0x000007fefd4f45e0 ole32.dll            CoGetActivationState
+0x00000000ffec1af8 0x000007fefc89501c wer.dll              WerpSetEventName
+0x00000000ffec1b00 0x000007fefc891970 wer.dll              WerReportSetParameter
+0x00000000ffec1b08 0x000007fefc8935e0 wer.dll              WerpSetDynamicParameter
+0x00000000ffec1b10 0x000007fefc893e00 wer.dll              WerpAddAppCompatData
+0x00000000ffec1b18 0x000007fefc89515c wer.dll              WerpAddRegisteredDataToReport
+0x00000000ffec1b20 0x000007fefc891d10 wer.dll              WerReportAddDump
+0x00000000ffec1b28 0x000007fefc89335c wer.dll              WerpGetFileByIndex
+0x00000000ffec1b30 0x000007fefc893070 wer.dll              WerpGetNumFiles
+0x00000000ffec1b38 0x000007fefc874f5c wer.dll              WerpFreeString
+0x00000000ffec1b40 0x000007fefc895a74 wer.dll              WerpCreateIntegratorReportId
+0x00000000ffec1b48 0x000007fefc895884 wer.dll              WerpReportCancel
+0x00000000ffec1b50 0x000007fefc86a024 wer.dll              WerpIsTransportAvailable
+0x00000000ffec1b58 0x000007fefc89507c wer.dll              WerpSetReportFlags
+0x00000000ffec1b60 0x000007fefc8950d8 wer.dll              WerpGetReportFlags
+0x00000000ffec1b68 0x000007fefc868450 wer.dll              WerReportCloseHandle
+0x00000000ffec1b70 0x000007fefc891a84 wer.dll              WerReportSetUIOption
+0x00000000ffec1b78 0x000007fefc891a60 wer.dll              WerReportAddFile
+0x00000000ffec1b80 0x000007fefc89394c wer.dll              WerpSetCallBack
+0x00000000ffec1b88 0x000007fefc893a9c wer.dll              WerpGetReportConsent
+0x00000000ffec1b90 0x000007fefc8959cc wer.dll              WerpSetIntegratorReportId
+0x00000000ffec1b98 0x000007fefc89165c wer.dll              WerReportCreate
+0x00000000ffec1ba0 0x000007fefc893458 wer.dll              WerpAddFile
+0x00000000ffec1ba8 0x000007fefc893a90 wer.dll              WerpPromtUser
+0x00000000ffec1bb0 0x000007fefc894b50 wer.dll              WerpAddSecondaryParameter
+0x00000000ffec1bb8 0x000007fefc891b48 wer.dll              WerReportSubmit
+0x00000000fff0ed40 0x000007fefd875c58 SETUPAPI.dll         SetupDiGetDeviceRegistryPropertyW
+0x00000000fff0ed48 0x000007fefd873c9c SETUPAPI.dll         SetupDiEnumDeviceInfo
+0x00000000fff0ed50 0x000007fefd874f44 SETUPAPI.dll         SetupDiGetClassDevsW
+0x00000000fff0ed58 0x000007fefd874be0 SETUPAPI.dll         SetupDiDestroyDeviceInfoList
+0x00000000fff0ed90 0x000007fefb7915e0 VERSION.dll          VerQueryValueW
+0x00000000fff0ed98 0x000007fefb7915fc VERSION.dll          GetFileVersionInfoSizeW
+0x00000000fff0eda0 0x000007fefb791614 VERSION.dll          GetFileVersionInfoW

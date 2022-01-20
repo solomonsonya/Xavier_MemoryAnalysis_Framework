@@ -1,1 +1,0 @@
-2019-12-05	02:33:55	UTC+0000	2019-12-05	02:33:55	UTC+0000	2019-12-05	02:33:55	UTC+0000	2019-12-05	02:33:55	UTC+0000	amd64_microsoft-windows-f..truetype-couriernew_31bf3856ad364e35_6.1.7600.16385_none_32383eb7c6ebfd9b_cour.ttf_054afabf	$FILE_NAME	ttf_054afabf

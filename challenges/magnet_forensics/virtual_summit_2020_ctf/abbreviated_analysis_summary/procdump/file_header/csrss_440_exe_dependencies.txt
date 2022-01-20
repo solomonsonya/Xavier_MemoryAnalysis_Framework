@@ -1,0 +1,21 @@
+[-] Import listing for file : C:\xavier\xavier_framework\export\memory_analysis\2022_01_17_20_08_42\procdump\csrss_440_exe
+Import from module ntdll.dll :
+	 Function NtSetInformationProcess
+	 Function RtlSetHeapInformation
+	 Function RtlSetUnhandledExceptionFilter
+	 Function NtTerminateProcess
+	 Function RtlVirtualUnwind
+	 Function RtlLookupFunctionEntry
+	 Function RtlCaptureContext
+	 Function NtTerminateThread
+	 Function RtlUnhandledExceptionFilter
+	 Function RtlSetProcessIsCritical
+	 Function isspace
+	 Function RtlUnicodeStringToAnsiString
+	 Function RtlAllocateHeap
+	 Function RtlFreeAnsiString
+	 Function RtlNormalizeProcessParams
+Import from module CSRSRV.dll :
+	 Function CsrServerInitialization
+	 Function CsrUnhandledExceptionFilter
+[-] Import listing done

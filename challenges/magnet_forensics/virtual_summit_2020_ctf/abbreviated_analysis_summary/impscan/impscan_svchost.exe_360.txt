@@ -1,0 +1,90 @@
+#########################################################################################################################################################################################################################################
+# Investigation Details
+# ======================
+# Investigator Name: Solomon Sonya
+# Investigation Description: Magnet Virtual Summit 2020 CTF - Memory
+# Investigation Date: 2022-01-17-2008:58
+#
+# Analysis Framework
+# ======================
+# Analysis Framework Name: Xavier Framework
+# Analysis Framework Version: 2.114
+#
+# Memory Analysis Binary
+# ======================
+# File Name: vol_2.6.exe	 File Size: 15.79 MBs	 Creation Date: 2022-01-16-1019:29	 Last Accessed: 2022-01-17-1948:58	 Last Modified: 2021-02-28-2253:29	 
+# MD5: 2fc05486a3fe93cef213cc37748bf556	 SHA-256: 672a00461ffb8d59536c86192450b66d552e67809fc8584d1792b42b22c5f4e1	 
+#
+# Analysis Image Details
+# ======================
+# Memory Image Path: C:\xavier\xavier_framework\import\memory_image\memdump.mem
+# File Name: memdump.mem	 File Size: 5.37 GBs	 Creation Date: 2022-01-17-2008:08	 Last Accessed: 2022-01-17-2008:13	 Last Modified: 2021-10-14-2125:48	 
+# 
+#
+# Plugin Details
+# ======================
+# Plugin Name: impscan
+# Plugin Description: Scan for calls to imported functions
+#
+# Execution Details
+# ======================
+# Execution Command: "C:\xavier\xavier_framework\import\memory_analysis\vol_2.6.exe" -f "C:\xavier\xavier_framework\import\memory_image\memdump.mem" --profile=Win7SP1x64 impscan -v -p 360
+#########################################################################################################################################################################################################################################
+
+
+Volatility Foundation Volatility Framework 2.6
+IAT                Call               Module               Function
+------------------ ------------------ -------------------- --------
+0x00000000ff495000 0x000007fefd7210e0 msvcrt.dll           memmove
+0x00000000ff495008 0x000007fefd74a830 msvcrt.dll           ?terminate@@YAXXZ
+0x00000000ff495010 0x000007fefd72b0c8 msvcrt.dll           __set_app_type
+0x00000000ff495018 0x000007fefd7b127c msvcrt.dll           _fmode
+0x00000000ff495020 0x000007fefd7b1280 msvcrt.dll           _commode
+0x00000000ff495028 0x000007fefd78da94 msvcrt.dll           __setusermatherr
+0x00000000ff495030 0x000007fefd76bfd4 msvcrt.dll           _amsg_exit
+0x00000000ff495038 0x000007fefd728e28 msvcrt.dll           _initterm
+0x00000000ff495040 0x000007fefd729bb0 msvcrt.dll           exit
+0x00000000ff495048 0x000007fefd7354fc msvcrt.dll           _cexit
+0x00000000ff495050 0x000007fefd76bfa8 msvcrt.dll           _exit
+0x00000000ff495058 0x000007fefd760b58 msvcrt.dll           _XcptFilter
+0x00000000ff495060 0x0000000076f672fc ntdll.dll            __C_specific_handler
+0x00000000ff495068 0x000007fefd734148 msvcrt.dll           __wgetmainargs
+0x00000000ff495070 0x000007fefd721000 msvcrt.dll           memset
+0x00000000ff495080 0x0000000076f63490 ntdll.dll            RtlSubAuthoritySid
+0x00000000ff495088 0x0000000076f5d430 ntdll.dll            RtlLengthRequiredSid
+0x00000000ff495090 0x0000000076f3a1c0 kernel32.dll         HeapFree
+0x00000000ff495098 0x0000000076f58e90 ntdll.dll            RtlCopySid
+0x00000000ff4950a0 0x0000000076f37a30 kernel32.dll         HeapAlloc
+0x00000000ff4950a8 0x0000000076f5d450 ntdll.dll            RtlInitializeSid
+0x00000000ff4950b0 0x0000000076f633d0 ntdll.dll            RtlSubAuthorityCountSid
+0x00000000ff4950b8 0x0000000076f5b0f0 ntdll.dll            EtwEventWrite
+0x00000000ff4950c0 0x0000000076f4c4d0 ntdll.dll            RtlImageNtHeader
+0x00000000ff4950c8 0x0000000076f26da0 ntdll.dll            EtwEventRegister
+0x00000000ff4950d0 0x0000000076fcf030 ntdll.dll            RtlUnhandledExceptionFilter
+0x00000000ff4950d8 0x0000000076f5ada0 ntdll.dll            EtwEventEnabled
+0x00000000ff4950e0 0x0000000076fc3970 ntdll.dll            RtlSetProcessIsCritical
+0x00000000ff4950e8 0x0000000076f7b6c0 ntdll.dll            RtlCaptureContext
+0x00000000ff4950f0 0x0000000076f47180 ntdll.dll            RtlLookupFunctionEntry
+0x00000000ff4950f8 0x0000000076f4cc60 ntdll.dll            RtlVirtualUnwind
+0x00000000ff495100 0x0000000076f3d560 ntdll.dll            RtlInitializeCriticalSection
+0x00000000ff495128 0x000007fefcd8b3a0 KERNELBASE.dll       OpenProcessToken
+0x00000000ff4951c8 0x0000000076f4c150 ntdll.dll            RtlExitUserProcess
+0x00000000ff4951f8 0x0000000076f3d560 ntdll.dll            RtlInitializeCriticalSection
+0x00000000ff495210 0x0000000076f2c0b0 kernel32.dll         LeaveCriticalSection
+0x00000000ff495238 0x0000000076f3d190 kernel32.dll         EnterCriticalSection
+0x00000000ff495288 0x0000000076f37a30 kernel32.dll         HeapAlloc
+0x00000000ff495298 0x000007fefcd9ab90 KERNELBASE.dll       SetSecurityDescriptorDacl
+0x00000000ff4952a0 0x000007fefcd9ab60 KERNELBASE.dll       InitializeSecurityDescriptor
+0x00000000ff4952a8 0x000007fefcd8b3d0 KERNELBASE.dll       GetTokenInformation
+0x00000000ff4952b0 0x000007fefcd95e60 KERNELBASE.dll       SetSecurityDescriptorGroup
+0x00000000ff4952b8 0x000007fefcd95e30 KERNELBASE.dll       SetSecurityDescriptorOwner
+0x00000000ff4952c0 0x000007fefcd92230 KERNELBASE.dll       AddAccessAllowedAce
+0x00000000ff4952c8 0x000007fefcd838b0 KERNELBASE.dll       GetLengthSid
+0x00000000ff4952d0 0x000007fefcd92090 KERNELBASE.dll       InitializeAcl
+0x00000000ff4952e0 0x000007fefd3c687c sechost.dll          SetServiceStatus
+0x00000000ff4952e8 0x000007fefd3c9ac8 sechost.dll          StartServiceCtrlDispatcherW
+0x00000000ff4952f8 0x000007fefd3ca51c sechost.dll          RegisterServiceCtrlHandlerW
+0x00000000ff495308 0x000007fefd633a40 RPCRT4.dll           RpcServerUnregisterIf
+0x00000000ff495310 0x000007fefd631b10 RPCRT4.dll           RpcServerUseProtseqEpW
+0x00000000ff495318 0x000007fefd63ac20 RPCRT4.dll           I_RpcMapWin32Status
+0x00000000ff495320 0x000007fefd697ff0 RPCRT4.dll           RpcMgmtSetServerStackSize

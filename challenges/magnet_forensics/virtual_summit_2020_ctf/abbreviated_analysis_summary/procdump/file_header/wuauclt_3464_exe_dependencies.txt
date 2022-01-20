@@ -1,0 +1,129 @@
+[-] Import listing for file : C:\xavier\xavier_framework\export\memory_analysis\2022_01_17_20_08_42\procdump\wuauclt_3464_exe
+Import from module KERNEL32.dll :
+	 Function SystemTimeToTzSpecificLocalTime
+	 Function GetTimeZoneInformation
+	 Function ExpandEnvironmentStringsW
+	 Function HeapFree
+	 Function GetProcessHeap
+	 Function HeapAlloc
+	 Function CreateProcessW
+	 Function lstrlenW
+	 Function VerifyVersionInfoW
+	 Function VerSetConditionMask
+	 Function OutputDebugStringW
+	 Function CompareStringW
+	 Function SetEndOfFile
+	 Function GetFileAttributesW
+	 Function MapViewOfFile
+	 Function CreateFileMappingW
+	 Function GetFileSize
+	 Function FlushFileBuffers
+	 Function WriteFile
+	 Function SetFilePointer
+	 Function WideCharToMultiByte
+	 Function GetSystemTime
+	 Function GetModuleFileNameW
+	 Function SetLastError
+	 Function GetLastError
+	 Function ReleaseMutex
+	 Function CreateMutexW
+	 Function UnhandledExceptionFilter
+	 Function GetCurrentProcess
+	 Function TerminateProcess
+	 Function GetSystemTimeAsFileTime
+	 Function GetCurrentProcessId
+	 Function GetCurrentThreadId
+	 Function GetTickCount
+	 Function QueryPerformanceCounter
+	 Function GetModuleHandleW
+	 Function SetUnhandledExceptionFilter
+	 Function GetStartupInfoW
+	 Function OpenEventW
+	 Function CreateDirectoryW
+	 Function CreateFileW
+	 Function GetSystemDirectoryW
+	 Function LoadLibraryExW
+	 Function GetVolumePathNameW
+	 Function GetDriveTypeW
+	 Function GetFileType
+	 Function Sleep
+	 Function GetCommandLineW
+	 Function CreateEventW
+	 Function SetEvent
+	 Function WaitForSingleObject
+	 Function CloseHandle
+	 Function LoadLibraryW
+	 Function FreeLibrary
+	 Function GetProcAddress
+	 Function UnmapViewOfFile
+Import from module msvcrt.dll :
+	 Function free
+	 Function _onexit
+	 Function _lock
+	 Function __dllonexit
+	 Function _unlock
+	 Function ?terminate@@YAXXZ
+	 Function memmove
+	 Function memset
+	 Function memcpy
+	 Function __set_app_type
+	 Function _fmode
+	 Function _commode
+	 Function __setusermatherr
+	 Function _amsg_exit
+	 Function _initterm
+	 Function _wcmdln
+	 Function exit
+	 Function _cexit
+	 Function _exit
+	 Function _XcptFilter
+	 Function __C_specific_handler
+	 Function __wgetmainargs
+	 Function ??3@YAXPEAX@Z
+	 Function ??2@YAPEAX_K@Z
+	 Function _vsnwprintf
+	 Function malloc
+Import from module ntdll.dll :
+	 Function RtlCaptureContext
+	 Function RtlLookupFunctionEntry
+	 Function RtlVirtualUnwind
+Import from module ole32.dll :
+	 Function CoTaskMemFree
+	 Function CoInitialize
+	 Function CoCreateInstance
+	 Function CoUninitialize
+	 Function CoInitializeEx
+Import from module ADVAPI32.dll :
+	 Function CopySid
+	 Function IsValidSid
+	 Function FreeSid
+	 Function RegSetValueExW
+	 Function RegCreateKeyExW
+	 Function RegQueryValueExW
+	 Function RegEnumValueW
+	 Function RegDeleteValueW
+	 Function GetUserNameW
+	 Function SetSecurityDescriptorDacl
+	 Function InitializeSecurityDescriptor
+	 Function AddAccessAllowedAce
+	 Function InitializeAcl
+	 Function GetLengthSid
+	 Function RegCloseKey
+	 Function RegOpenKeyExW
+	 Function CheckTokenMembership
+	 Function AllocateAndInitializeSid
+Import from module USER32.dll :
+	 Function IsWindow
+	 Function PostMessageW
+Import from module OLEAUT32.dll :
+	 Ordinal_8 
+	 Ordinal_9 
+Import from module SHLWAPI.dll :
+	 Ordinal_176 
+	 Function PathIsRootW
+	 Function PathIsRelativeW
+	 Function PathStripToRootW
+	 Function StrChrW
+	 Function StrRChrW
+	 Function PathIsUNCW
+[-] Import listing done

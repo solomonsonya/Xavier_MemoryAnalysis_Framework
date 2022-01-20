@@ -1,0 +1,204 @@
+#########################################################################################################################################################################################################################################
+# Investigation Details
+# ======================
+# Investigator Name: Solomon Sonya
+# Investigation Description: Magnet Virtual Summit 2020 CTF - Memory
+# Investigation Date: 2022-01-17-2008:58
+#
+# Analysis Framework
+# ======================
+# Analysis Framework Name: Xavier Framework
+# Analysis Framework Version: 2.114
+#
+# Memory Analysis Binary
+# ======================
+# File Name: vol_2.6.exe	 File Size: 15.79 MBs	 Creation Date: 2022-01-16-1019:29	 Last Accessed: 2022-01-17-1948:58	 Last Modified: 2021-02-28-2253:29	 
+# MD5: 2fc05486a3fe93cef213cc37748bf556	 SHA-256: 672a00461ffb8d59536c86192450b66d552e67809fc8584d1792b42b22c5f4e1	 
+#
+# Analysis Image Details
+# ======================
+# Memory Image Path: C:\xavier\xavier_framework\import\memory_image\memdump.mem
+# File Name: memdump.mem	 File Size: 5.37 GBs	 Creation Date: 2022-01-17-2008:08	 Last Accessed: 2022-01-17-2008:13	 Last Modified: 2021-10-14-2125:48	 
+# MD5: 224f93209cbea29e862890f30dfa762d	 SHA-256: 18e9007993c45f813dd5bd23b6bf6ad703d3e6ac70effd9c47a310a8443c7b8a	 
+#
+# Plugin Details
+# ======================
+# Plugin Name: modscan
+# Plugin Description: Pool scanner for kernel modules
+#
+# Execution Details
+# ======================
+# Execution Command: "C:\xavier\xavier_framework\import\memory_analysis\vol_2.6.exe" -f "C:\xavier\xavier_framework\import\memory_image\memdump.mem" modscan --profile=Win7SP1x64
+#########################################################################################################################################################################################################################################
+
+
+Volatility Foundation Volatility Framework 2.6
+Offset(P)          Name                 Base                             Size File
+------------------ -------------------- ------------------ ------------------ ----
+0x0000000002fbdec1                      0x894c304b8b48ffb0         0xb0a9e800 
+0x000000013cb7b7f0 tunnel.sys           0xfffff88003cf1000            0x26000 \SystemRoot\system32\DRIVERS\tunnel.sys
+0x000000013d22b820 dump_dumpfve.sys     0xfffff88004cd1000            0x13000 \SystemRoot\System32\Drivers\dump_dumpfve.sys
+0x000000013d30aa30 Beep.SYS             0xfffff880017f8000             0x7000 \SystemRoot\System32\Drivers\Beep.SYS
+0x000000013d43b2f0 asyncmac.sys         0xfffff880051ea000             0xb000 \SystemRoot\system32\DRIVERS\asyncmac.sys
+0x000000013d6878a0 srv2.sys             0xfffff88004673000            0x68000 \SystemRoot\System32\DRIVERS\srv2.sys
+0x000000013d6a1f30 vmhgfs.sys           0xfffff88005185000            0x2b000 \SystemRoot\system32\DRIVERS\vmhgfs.sys
+0x000000013d73d380 spsys.sys            0xfffff88005000000            0x71000 \SystemRoot\system32\drivers\spsys.sys
+0x000000013d768510 rdpdr.sys            0xfffff88005071000            0x2e000 \SystemRoot\System32\drivers\rdpdr.sys
+0x000000013d7762d0 tssecsrv.sys         0xfffff880050aa000            0x10000 \SystemRoot\System32\DRIVERS\tssecsrv.sys
+0x000000013d7882e0 RDPWD.SYS            0xfffff880051b0000            0x3a000 \SystemRoot\System32\Drivers\RDPWD.SYS
+0x000000013d801170 lltdio.sys           0xfffff88004d21000            0x15000 \SystemRoot\system32\DRIVERS\lltdio.sys
+0x000000013d8222c0 HIDCLASS.SYS         0xfffff88004d7b000            0x19000 \SystemRoot\system32\drivers\HIDCLASS.SYS
+0x000000013d823b60 HIDPARSE.SYS         0xfffff88004d94000             0x9000 \SystemRoot\system32\drivers\HIDPARSE.SYS
+0x000000013d839300 mouhid.sys           0xfffff88004d9d000             0xd000 \SystemRoot\system32\DRIVERS\mouhid.sys
+0x000000013d83cc90 vmusbmouse.sys       0xfffff88004daa000             0x9000 \SystemRoot\system32\DRIVERS\vmusbmouse.sys
+0x000000013d8b3790 HTTP.sys             0xfffff880038d4000            0xc8000 \SystemRoot\system32\drivers\HTTP.sys
+0x000000013d8ff410 bowser.sys           0xfffff8800388c000            0x1d000 \SystemRoot\system32\DRIVERS\bowser.sys
+0x000000013d925dd0 BTHUSB.sys           0xfffff8800399c000            0x18000 \SystemRoot\System32\Drivers\BTHUSB.sys
+0x000000013d92a8a0 bthport.sys          0xfffff88003800000            0x8c000 \SystemRoot\System32\Drivers\bthport.sys
+0x000000013d940bf0 mpsdrv.sys           0xfffff880038a9000            0x18000 \SystemRoot\System32\drivers\mpsdrv.sys
+0x000000013d94eb60 mrxsmb.sys           0xfffff880039b4000            0x2d000 \SystemRoot\system32\DRIVERS\mrxsmb.sys
+0x000000013d950ea0 mrxsmb10.sys         0xfffff88004c00000            0x4e000 \SystemRoot\system32\DRIVERS\mrxsmb10.sys
+0x000000013d9c5930 rfcomm.sys           0xfffff880047a8000            0x2c000 \SystemRoot\system32\DRIVERS\rfcomm.sys
+0x000000013d9c5ab0 srvnet.sys           0xfffff88004600000            0x31000 \SystemRoot\System32\DRIVERS\srvnet.sys
+0x000000013d9ca820 bthpan.sys           0xfffff88004641000            0x20000 \SystemRoot\system32\drivers\bthpan.sys
+0x000000013d9dc1e0 tcpipreg.sys         0xfffff88004661000            0x12000 \SystemRoot\System32\drivers\tcpipreg.sys
+0x000000013da52c40 luafv.sys            0xfffff88004cfe000            0x23000 \SystemRoot\system32\drivers\luafv.sys
+0x000000013db03cb0 cdrom.sys            0xfffff8800121b000            0x2a000 \SystemRoot\system32\drivers\cdrom.sys
+0x000000013db8f010 hidusb.sys           0xfffff88004d6d000             0xe000 \SystemRoot\system32\drivers\hidusb.sys
+0x000000013dc47f30 monitor.sys          0xfffff88004cf0000             0xe000 \SystemRoot\system32\drivers\monitor.sys
+0x000000013dd2e160 vmrawdsk.sys         0xfffff8800105e000             0xf000 \SystemRoot\system32\DRIVERS\vmrawdsk.sys
+0x000000013dd5ea10 cdd.dll              0xfffff96000600000            0x27000 \SystemRoot\System32\cdd.dll
+0x000000013deed520 HdAudio.sys          0xfffff88004399000            0x5c000 \SystemRoot\system32\drivers\HdAudio.sys
+0x000000013deed870 portcls.sys          0xfffff88004200000            0x3d000 \SystemRoot\system32\drivers\portcls.sys
+0x000000013deee460 drmk.sys             0xfffff88004c74000            0x22000 \SystemRoot\system32\drivers\drmk.sys
+0x000000013def0f30 ksthunk.sys          0xfffff88004c96000             0x6000 \SystemRoot\system32\drivers\ksthunk.sys
+0x000000013df14010 dump_LSI_SAS.sys     0xfffff88004cb4000            0x1d000 \SystemRoot\System32\Drivers\dump_LSI_SAS.sys
+0x000000013df14670 dump_storport.sys    0xfffff88004caa000             0xa000 \SystemRoot\System32\Drivers\dump_diskdump.sys
+0x000000013df14840 crashdmp.sys         0xfffff88004c9c000             0xe000 \SystemRoot\System32\Drivers\crashdmp.sys
+0x000000013df20b50 Dxapi.sys            0xfffff88004ce4000             0xc000 \SystemRoot\System32\drivers\Dxapi.sys
+0x000000013df20c30 win32k.sys           0xfffff96000090000           0x327000 \SystemRoot\System32\win32k.sys
+0x000000013e147a30 usbccgp.sys          0xfffff88004d4e000            0x1d000 \SystemRoot\system32\drivers\usbccgp.sys
+0x000000013e4036b0 mssmbios.sys         0xfffff88003ee9000             0xb000 \SystemRoot\system32\drivers\mssmbios.sys
+0x000000013e411690 csc.sys              0xfffff88003c3e000            0x83000 \SystemRoot\system32\drivers\csc.sys
+0x000000013e411ad0 discache.sys         0xfffff880011f0000             0xf000 \SystemRoot\System32\drivers\discache.sys
+0x000000013e412110 dfsc.sys             0xfffff88003cc1000            0x1f000 \SystemRoot\System32\Drivers\dfsc.sys
+0x000000013e419650 ws2ifsl.sys          0xfffff88003ff2000             0xb000 \SystemRoot\system32\drivers\ws2ifsl.sys
+0x000000013e41cf20 blbdrive.sys         0xfffff88003ce0000            0x11000 \SystemRoot\system32\DRIVERS\blbdrive.sys
+0x000000013e41db40 HDAudBus.sys         0xfffff88003db3000            0x24000 \SystemRoot\system32\drivers\HDAudBus.sys
+0x000000013e422e50 termdd.sys           0xfffff88003e76000            0x14000 \SystemRoot\system32\drivers\termdd.sys
+0x000000013e422f30 wanarp.sys           0xfffff88003e5b000            0x1b000 \SystemRoot\system32\DRIVERS\wanarp.sys
+0x000000013e42d620 kbdclass.sys         0xfffff88003d35000             0xf000 \SystemRoot\system32\drivers\kbdclass.sys
+0x000000013e42fc10 vmmouse.sys          0xfffff88003d44000             0x9000 \SystemRoot\system32\DRIVERS\vmmouse.sys
+0x000000013e431420 NDProxy.SYS          0xfffff88004384000            0x15000 \SystemRoot\System32\Drivers\NDProxy.SYS
+0x000000013e43ea70 tdtcp.sys            0xfffff8800509f000             0xb000 \SystemRoot\system32\drivers\tdtcp.sys
+0x000000013e441520 mouclass.sys         0xfffff88003d4d000             0xf000 \SystemRoot\system32\drivers\mouclass.sys
+0x000000013e443e10 serenum.sys          0xfffff88003d5c000             0xc000 \SystemRoot\system32\DRIVERS\serenum.sys
+0x000000013e457f30 raspptp.sys          0xfffff8800428d000            0x21000 \SystemRoot\system32\DRIVERS\raspptp.sys
+0x000000013e462710 rassstp.sys          0xfffff880042ae000            0x1a000 \SystemRoot\system32\DRIVERS\rassstp.sys
+0x000000013e466d60 rdpbus.sys           0xfffff880042c8000             0xb000 \SystemRoot\system32\DRIVERS\rdpbus.sys
+0x000000013e468a20 swenum.sys           0xfffff880042d3000             0x2000 \SystemRoot\system32\drivers\swenum.sys
+0x000000013e46d120 umbus.sys            0xfffff88004318000            0x12000 \SystemRoot\system32\DRIVERS\umbus.sys
+0x000000013e46dbc0 ks.sys               0xfffff880042d5000            0x43000 \SystemRoot\system32\drivers\ks.sys
+0x000000013e473650 usbuhci.sys          0xfffff88004046000             0xd000 \SystemRoot\system32\drivers\usbuhci.sys
+0x000000013e473f10 dxgkrnl.sys          0xfffff880040e9000            0xf5000 \SystemRoot\System32\drivers\dxgkrnl.sys
+0x000000013e47d8d0 dxgmms1.sys          0xfffff88004000000            0x46000 \SystemRoot\System32\drivers\dxgmms1.sys
+0x000000013e4828d0 USBPORT.SYS          0xfffff88004053000            0x57000 \SystemRoot\system32\drivers\USBPORT.SYS
+0x000000013e4b3660 usbhub.sys           0xfffff8800432a000            0x5a000 \SystemRoot\system32\drivers\usbhub.sys
+0x000000013e502d10 usbehci.sys          0xfffff880040ce000            0x12000 \SystemRoot\system32\drivers\usbehci.sys
+0x000000013e50b860 amdppm.sys           0xfffff880041de000            0x15000 \SystemRoot\system32\drivers\amdppm.sys
+0x000000013e50cf20 CompositeBus.sys     0xfffff88003dd7000            0x10000 \SystemRoot\system32\drivers\CompositeBus.sys
+0x000000013e51cb40 AgileVpn.sys         0xfffff88003de7000            0x16000 \SystemRoot\system32\DRIVERS\AgileVpn.sys
+0x000000013e520c90 rasl2tp.sys          0xfffff88003c00000            0x24000 \SystemRoot\system32\DRIVERS\rasl2tp.sys
+0x000000013e529b00 ndistapi.sys         0xfffff880041f3000             0xc000 \SystemRoot\system32\DRIVERS\ndistapi.sys
+0x000000013e52b860 ndiswan.sys          0xfffff88004243000            0x2f000 \SystemRoot\system32\DRIVERS\ndiswan.sys
+0x000000013e52b940 raspppoe.sys         0xfffff88004272000            0x1b000 \SystemRoot\system32\DRIVERS\raspppoe.sys
+0x000000013e609160 rdprefmp.sys         0xfffff880011dc000             0x9000 \SystemRoot\system32\drivers\rdprefmp.sys
+0x000000013e655170 Msfs.SYS             0xfffff880011e5000             0xb000 \SystemRoot\System32\Drivers\Msfs.SYS
+0x000000013e6766c0 vmmemctl.sys         0xfffff880039e1000             0xa000 \SystemRoot\system32\DRIVERS\vmmemctl.sys
+0x000000013e680ce0 USBD.SYS             0xfffff88004d6b000             0x2000 \SystemRoot\system32\drivers\USBD.SYS
+0x000000013e6ae170 Npfs.SYS             0xfffff8800106d000            0x11000 \SystemRoot\System32\Drivers\Npfs.SYS
+0x000000013e6c4170 tdx.sys              0xfffff88003ef5000            0x22000 \SystemRoot\system32\DRIVERS\tdx.sys
+0x000000013e6dc170 TDI.SYS              0xfffff88003f17000             0xd000 \SystemRoot\system32\DRIVERS\TDI.SYS
+0x000000013e72b160 afd.sys              0xfffff88003f24000            0x89000 \SystemRoot\system32\drivers\afd.sys
+0x000000013e73a860 vm3dmp.sys           0xfffff88003d72000            0x41000 \SystemRoot\system32\DRIVERS\vm3dmp.sys
+0x000000013e73ae90 vm3dmp_loader.sys    0xfffff88003d68000             0xa000 \SystemRoot\system32\DRIVERS\vm3dmp_loader.sys
+0x000000013e7e6210 netbios.sys          0xfffff88003e2f000             0xf000 \SystemRoot\system32\DRIVERS\netbios.sys
+0x000000013e7e8df0 nsiproxy.sys         0xfffff88003edd000             0xc000 \SystemRoot\system32\drivers\nsiproxy.sys
+0x000000013e7ed3d0 rdbss.sys            0xfffff88003e8a000            0x53000 \SystemRoot\system32\DRIVERS\rdbss.sys
+0x000000013e7fcdd0 mrxsmb20.sys         0xfffff88004c4e000            0x24000 \SystemRoot\system32\DRIVERS\mrxsmb20.sys
+0x000000013e8381c0 TSDDD.dll            0xfffff96000500000             0xa000 \SystemRoot\System32\TSDDD.dll
+0x000000013e863a40 srv.sys              0xfffff880050ee000            0x97000 \SystemRoot\System32\DRIVERS\srv.sys
+0x000000013e8cc160 VIDEOPRT.SYS         0xfffff880011a7000            0x25000 \SystemRoot\System32\drivers\VIDEOPRT.SYS
+0x000000013e8dd170 vga.sys              0xfffff88001473000             0xe000 \SystemRoot\System32\drivers\vga.sys
+0x000000013e92cf20 E1G6032E.sys         0xfffff880040aa000            0x24000 \SystemRoot\system32\DRIVERS\E1G6032E.sys
+0x000000013e992160 watchdog.sys         0xfffff880011cc000            0x10000 \SystemRoot\System32\drivers\watchdog.sys
+0x000000013e9a3170 RDPCDD.sys           0xfffff88001245000             0x9000 \SystemRoot\System32\DRIVERS\RDPCDD.sys
+0x000000013e9f0160 rdpencdd.sys         0xfffff880013f7000             0x9000 \SystemRoot\system32\drivers\rdpencdd.sys
+0x000000013ebb3b80 BthEnum.sys          0xfffff88004631000            0x10000 \SystemRoot\system32\drivers\BthEnum.sys
+0x000000013ebce170 rspndr.sys           0xfffff88004d36000            0x18000 \SystemRoot\system32\DRIVERS\rspndr.sys
+0x000000013ebf0010 i8042prt.sys         0xfffff88003d17000            0x1e000 \SystemRoot\system32\DRIVERS\i8042prt.sys
+0x000000013ebf9dc0 peauth.sys           0xfffff880046fe000            0xaa000 \SystemRoot\system32\drivers\peauth.sys
+0x000000013ebff960 CmBatt.sys           0xfffff880040e0000             0x5000 \SystemRoot\system32\DRIVERS\CmBatt.sys
+0x000000013ee916e0 Null.SYS             0xfffff8800146a000             0x9000 \SystemRoot\System32\Drivers\Null.SYS
+0x000000013eed0a70 netbt.sys            0xfffff88003fad000            0x45000 \SystemRoot\System32\DRIVERS\netbt.sys
+0x000000013efe32f0 pacer.sys            0xfffff88003e09000            0x26000 \SystemRoot\system32\DRIVERS\pacer.sys
+0x000000013efe4d10 wfplwf.sys           0xfffff88003e00000             0x9000 \SystemRoot\system32\DRIVERS\wfplwf.sys
+0x000000013efe77c0 serial.sys           0xfffff88003e3e000            0x1d000 \SystemRoot\system32\DRIVERS\serial.sys
+0x000000013f71d340 ad_driver.sys        0xfffff880051f5000             0x9000 \??\C:\Users\Warren\AppData\Local\Temp\ad_driver.sys
+0x000000013fe43070 volmgr.sys           0xfffff88000f46000            0x15000 \SystemRoot\system32\drivers\volmgr.sys
+0x000000013fe43150 BATTC.SYS            0xfffff88000f3a000             0xc000 \SystemRoot\system32\DRIVERS\BATTC.SYS
+0x000000013fe43230 compbatt.sys         0xfffff88000f31000             0x9000 \SystemRoot\system32\DRIVERS\compbatt.sys
+0x000000013fe43320 partmgr.sys          0xfffff88000f1c000            0x15000 \SystemRoot\System32\drivers\partmgr.sys
+0x000000013fe43410 vdrvroot.sys         0xfffff88000f0f000             0xd000 \SystemRoot\system32\drivers\vdrvroot.sys
+0x000000013fe43500 pci.sys              0xfffff88000edc000            0x33000 \SystemRoot\system32\drivers\pci.sys
+0x000000013fe435e0 msisadrv.sys         0xfffff88000ed2000             0xa000 \SystemRoot\system32\drivers\msisadrv.sys
+0x000000013fe436d0 WMILIB.SYS           0xfffff88000ec9000             0x9000 \SystemRoot\system32\drivers\WMILIB.SYS
+0x000000013fe437b0 ACPI.sys             0xfffff88000e72000            0x57000 \SystemRoot\system32\drivers\ACPI.sys
+0x000000013fe438a0 WDFLDR.SYS           0xfffff88000cc2000            0x10000 \SystemRoot\system32\drivers\WDFLDR.SYS
+0x000000013fe43980 Wdf01000.sys         0xfffff88000c00000            0xc2000 \SystemRoot\system32\drivers\Wdf01000.sys
+0x000000013fe43a80 CI.dll               0xfffff88000d6c000            0x73000 \SystemRoot\system32\CI.dll
+0x000000013fe43b60 CLFS.SYS             0xfffff88000d0d000            0x5f000 \SystemRoot\system32\CLFS.SYS
+0x000000013fe43c50 PSHED.dll            0xfffff88000cf9000            0x14000 \SystemRoot\system32\PSHED.dll
+0x000000013fe43d30 mcupdate.dll         0xfffff88000cec000             0xd000 \SystemRoot\system32\mcupdate_AuthenticAMD.dll
+0x000000013fe496c0 kdcom.dll            0xfffff80000bb7000             0xa000 \SystemRoot\system32\kdcom.dll
+0x000000013fe497a0 hal.dll              0xfffff80002a00000            0x48000 \SystemRoot\system32\hal.dll
+0x000000013fe49890 ntoskrnl.exe         0xfffff80002a48000           0x5dc000 \SystemRoot\system32\ntoskrnl.exe
+0x000000013fe4a010 volmgrx.sys          0xfffff88000f5b000            0x5c000 \SystemRoot\System32\drivers\volmgrx.sys
+0x000000013fe4a150 Ntfs.sys             0xfffff88001250000           0x1a7000 \SystemRoot\System32\Drivers\Ntfs.sys
+0x000000013fe4a260 fileinfo.sys         0xfffff88001193000            0x14000 \SystemRoot\system32\drivers\fileinfo.sys
+0x000000013fe4a350 fltmgr.sys           0xfffff88001147000            0x4c000 \SystemRoot\system32\drivers\fltmgr.sys
+0x000000013fe4a440 amdxata.sys          0xfffff8800113c000             0xb000 \SystemRoot\system32\drivers\amdxata.sys
+0x000000013fe4a530 msahci.sys           0xfffff88001131000             0xb000 \SystemRoot\system32\drivers\msahci.sys
+0x000000013fe4a610 storport.sys         0xfffff880010cd000            0x64000 \SystemRoot\system32\DRIVERS\storport.sys
+0x000000013fe4a700 lsi_sas.sys          0xfffff880010b0000            0x1d000 \SystemRoot\system32\DRIVERS\lsi_sas.sys
+0x000000013fe4a7e0 \SystemRo...port.SYS 0x0000000000000000          0x1086000 
+0x000000013fe4a7f0 ataport.SYS          0xfffff88001086000            0x2a000 \SystemRoot\system32\drivers\ataport.SYS
+0x000000013fe4a8e0 atapi.sys            0xfffff88000cd2000             0x9000 \SystemRoot\system32\drivers\atapi.sys
+0x000000013fe4a9c0 winhv.sys            0xfffff88000e56000            0x14000 \SystemRoot\system32\drivers\winhv.sys
+0x000000013fe4aaa0 vmbus.sys            0xfffff88000e1a000            0x3c000 \SystemRoot\system32\drivers\vmbus.sys
+0x000000013fe4ab80 mountmgr.sys         0xfffff88000e00000            0x1a000 \SystemRoot\System32\drivers\mountmgr.sys
+0x000000013fe4ac70 vsock.sys            0xfffff88000fe8000            0x17000 \SystemRoot\system32\DRIVERS\vsock.sys
+0x000000013fe4ad50 vmci.sys             0xfffff88000fcf000            0x19000 \SystemRoot\system32\DRIVERS\vmci.sys
+0x000000013fe4ae30 PCIIDEX.SYS          0xfffff88000fbf000            0x10000 \SystemRoot\system32\drivers\PCIIDEX.SYS
+0x000000013fe4af20 intelide.sys         0xfffff88000fb7000             0x8000 \SystemRoot\system32\drivers\intelide.sys
+0x000000013fe4b010 msrpc.sys            0xfffff88001000000            0x5e000 \SystemRoot\System32\Drivers\msrpc.sys
+0x000000013fe4b130 fvevol.sys           0xfffff880015a9000            0x3a000 \SystemRoot\System32\DRIVERS\fvevol.sys
+0x000000013fe4b210 hwpolicy.sys         0xfffff880017ef000             0x9000 \SystemRoot\System32\drivers\hwpolicy.sys
+0x000000013fe4b300 mup.sys              0xfffff88001597000            0x12000 \SystemRoot\System32\Drivers\mup.sys
+0x000000013fe4b3e0 rdyboost.sys         0xfffff8800155d000            0x3a000 \SystemRoot\System32\drivers\rdyboost.sys
+0x000000013fe4b4c0 \SystemRo...pldr.sys 0x0000000000000000          0x17e7000 
+0x000000013fe4b4d0 spldr.sys            0xfffff880017e7000             0x8000 \SystemRoot\System32\Drivers\spldr.sys
+0x000000013fe4b5b0 volsnap.sys          0xfffff88001511000            0x4c000 \SystemRoot\system32\drivers\volsnap.sys
+0x000000013fe4b6a0 vmstorfl.sys         0xfffff880017d7000            0x10000 \SystemRoot\system32\drivers\vmstorfl.sys
+0x000000013fe4b780 \SystemRo...clnt.sys 0x0000000000000000          0x178e000 
+0x000000013fe4b790 fwpkclnt.sys         0xfffff8800178e000            0x49000 \SystemRoot\System32\drivers\fwpkclnt.sys
+0x000000013fe4b880 tcpip.sys            0xfffff88001803000           0x1fc000 \SystemRoot\System32\drivers\tcpip.sys
+0x000000013fe4b9a0 ksecpkg.sys          0xfffff88001763000            0x2b000 \SystemRoot\System32\Drivers\ksecpkg.sys
+0x000000013fe4ba90 NETIO.SYS            0xfffff88001702000            0x61000 \SystemRoot\system32\drivers\NETIO.SYS
+0x000000013fe4bb80 ndis.sys             0xfffff8800160f000            0xf3000 \SystemRoot\system32\drivers\ndis.sys
+0x000000013fe4bc80 Fs_Rec.sys           0xfffff88001507000             0xa000 \SystemRoot\System32\Drivers\Fs_Rec.sys
+0x000000013fe4bd60 pcw.sys              0xfffff880014f6000            0x11000 \SystemRoot\System32\drivers\pcw.sys
+0x000000013fe4be40 cng.sys              0xfffff88001481000            0x75000 \SystemRoot\System32\Drivers\cng.sys
+0x000000013fe4bf30 ksecdd.sys           0xfffff88001200000            0x1b000 \SystemRoot\System32\Drivers\ksecdd.sys
+0x000000013fe4c010 disk.sys             0xfffff880015e3000            0x15000 \SystemRoot\system32\drivers\disk.sys
+0x000000013fe4cf20 CLASSPNP.SYS         0xfffff88001400000            0x30000 \SystemRoot\system32\drivers\CLASSPNP.SYS

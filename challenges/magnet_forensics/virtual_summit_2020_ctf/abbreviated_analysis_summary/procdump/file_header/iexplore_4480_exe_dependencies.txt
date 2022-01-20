@@ -1,0 +1,103 @@
+[-] Import listing for file : C:\xavier\xavier_framework\export\memory_analysis\2022_01_17_20_08_42\procdump\iexplore_4480_exe
+Import from module msvcrt.dll :
+	 Function wcschr
+	 Function rand_s
+	 Function ??_U@YAPAXI@Z
+	 Function _except_handler4_common
+	 Function _controlfp
+	 Function ?terminate@@YAXXZ
+	 Function _wcmdln
+	 Function _initterm
+	 Function __setusermatherr
+	 Function __p__fmode
+	 Function _cexit
+	 Function _exit
+	 Function exit
+	 Function __set_app_type
+	 Function __wgetmainargs
+	 Function _amsg_exit
+	 Function __p__commode
+	 Function _XcptFilter
+	 Function wcsncmp
+	 Function iswspace
+	 Function _vsnwprintf
+	 Function ??_V@YAXPAX@Z
+	 Function iswalpha
+	 Function memset
+Import from module KERNEL32.dll :
+	 Function VirtualQuery
+	 Function SetProcessDEPPolicy
+	 Function GetLastError
+	 Function FreeLibrary
+	 Function GetVersionExA
+	 Function GetSystemInfo
+	 Function LoadLibraryExA
+	 Function VirtualProtect
+	 Function GetNativeSystemInfo
+	 Function RaiseException
+	 Function VirtualAlloc
+	 Function UnhandledExceptionFilter
+	 Function GetCommandLineW
+	 Function SetErrorMode
+	 Function CreateProcessW
+	 Function LoadLibraryExW
+	 Function SetDllDirectoryW
+	 Function GetCurrentProcess
+	 Function GetModuleHandleW
+	 Function InitializeCriticalSection
+	 Function Wow64DisableWow64FsRedirection
+	 Function Wow64RevertWow64FsRedirection
+	 Function TerminateProcess
+	 Function GetProcAddress
+	 Function LocalAlloc
+	 Function IsWow64Process
+	 Function HeapSetInformation
+	 Function DeleteCriticalSection
+	 Function CloseHandle
+	 Function LocalFree
+	 Function ExpandEnvironmentStringsW
+	 Function Sleep
+	 Function GetStartupInfoW
+	 Function SetUnhandledExceptionFilter
+	 Function GetModuleHandleA
+	 Function QueryPerformanceCounter
+	 Function GetCurrentProcessId
+	 Function GetCurrentThreadId
+	 Function GetSystemTimeAsFileTime
+	 Function GetTickCount
+Import from module api-ms-win-downlevel-advapi32-l1-1-0.dll :
+	 Function EventRegister
+	 Function EventWrite
+	 Function RegQueryValueExW
+	 Function EventUnregister
+	 Function RegGetValueW
+	 Function RegOpenKeyExW
+	 Function RegCloseKey
+Import from module iertutil.dll :
+	 Ordinal_9 
+	 Ordinal_139 
+	 Ordinal_32 
+	 Ordinal_650 
+	 Ordinal_701 
+Import from module api-ms-win-downlevel-shlwapi-l1-1-0.dll :
+	 Function StrStrIW
+Import from module USER32.dll :
+	 Function WaitForInputIdle (Delay Import)
+	 Function IsWindowEnabled (Delay Import)
+	 Function GetWindowThreadProcessId (Delay Import)
+	 Function SendMessageTimeoutW (Delay Import)
+	 Function FindWindowExW (Delay Import)
+	 Function IsWindowVisible (Delay Import)
+	 Function AllowSetForegroundWindow (Delay Import)
+Import from module api-ms-win-downlevel-shell32-l1-1-0.dll :
+	 Function SetCurrentProcessExplicitAppUserModelID (Delay Import)
+	 Function CommandLineToArgvW (Delay Import)
+Import from module IEFRAME.dll :
+	 Ordinal_251  (Delay Import)
+	 Ordinal_212  (Delay Import)
+	 Ordinal_255  (Delay Import)
+	 Ordinal_256  (Delay Import)
+	 Ordinal_258  (Delay Import)
+Import from module SHELL32.dll :
+	 Function SHGetSpecialFolderPathW (Delay Import)
+[-] Import listing done

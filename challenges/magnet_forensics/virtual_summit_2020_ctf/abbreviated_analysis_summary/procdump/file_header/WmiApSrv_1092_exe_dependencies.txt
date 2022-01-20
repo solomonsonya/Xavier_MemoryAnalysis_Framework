@@ -1,0 +1,193 @@
+[-] Import listing for file : C:\xavier\xavier_framework\export\memory_analysis\2022_01_17_20_08_42\procdump\WmiApSrv_1092_exe
+Import from module ADVAPI32.dll :
+	 Function RegOpenKeyExW
+	 Function RegEnumKeyExW
+	 Function RegDeleteKeyW
+	 Function RegCloseKey
+	 Function RegDeleteValueW
+	 Function RegCreateKeyExW
+	 Function RegSetValueExW
+	 Function CloseServiceHandle
+	 Function OpenSCManagerW
+	 Function OpenServiceW
+	 Function QueryServiceConfigW
+	 Function QueryServiceStatus
+	 Function ConvertStringSecurityDescriptorToSecurityDescriptorW
+	 Function MakeAbsoluteSD
+	 Function InitializeSecurityDescriptor
+	 Function SetServiceStatus
+	 Function RegisterServiceCtrlHandlerW
+	 Function StartServiceCtrlDispatcherW
+	 Function CreateServiceW
+	 Function ChangeServiceConfig2W
+	 Function ControlService
+	 Function DeleteService
+	 Function RegEnumValueW
+	 Function RegOpenKeyW
+	 Function RegQueryValueExW
+	 Function RegOpenCurrentUser
+	 Function RegEnumKeyW
+	 Function RegQueryInfoKeyW
+Import from module KERNEL32.dll :
+	 Function GetCurrentThreadId
+	 Function CreateMutexW
+	 Function CreateEventW
+	 Function Sleep
+	 Function GetModuleFileNameW
+	 Function GetModuleHandleW
+	 Function WaitForMultipleObjects
+	 Function UnmapViewOfFile
+	 Function lstrcmpW
+	 Function GetExitCodeProcess
+	 Function FlushViewOfFile
+	 Function CreateFileMappingW
+	 Function MapViewOfFile
+	 Function DeleteCriticalSection
+	 Function RaiseException
+	 Function MultiByteToWideChar
+	 Function FormatMessageW
+	 Function GetVersionExA
+	 Function OutputDebugStringA
+	 Function ReleaseMutex
+	 Function LocalAlloc
+	 Function CompareStringW
+	 Function GetCommandLineW
+	 Function HeapSetInformation
+	 Function EnterCriticalSection
+	 Function SetEvent
+	 Function ResetEvent
+	 Function LocalFree
+	 Function InitializeCriticalSection
+	 Function GetLastError
+	 Function GetCurrentProcess
+	 Function SwitchToThread
+	 Function ReleaseSemaphore
+	 Function WaitForSingleObject
+	 Function GetVersionExW
+	 Function GetLocaleInfoW
+	 Function lstrlenA
+	 Function DeleteFileW
+	 Function CreateFileW
+	 Function WideCharToMultiByte
+	 Function WriteFile
+	 Function CreateDirectoryW
+	 Function MoveFileExW
+	 Function OpenEventW
+	 Function GetProcAddress
+	 Function SetLastError
+	 Function GetSystemDirectoryW
+	 Function OpenProcess
+	 Function FreeLibrary
+	 Function GetSystemDefaultLangID
+	 Function ExpandEnvironmentStringsW
+	 Function LoadLibraryW
+	 Function UnhandledExceptionFilter
+	 Function TerminateProcess
+	 Function lstrlenW
+	 Function LeaveCriticalSection
+	 Function TryEnterCriticalSection
+	 Function CreateSemaphoreW
+	 Function CloseHandle
+	 Function GetStartupInfoW
+	 Function SetUnhandledExceptionFilter
+	 Function QueryPerformanceCounter
+	 Function GetTickCount
+	 Function GetCurrentProcessId
+	 Function GetSystemTimeAsFileTime
+Import from module USER32.dll :
+	 Function CharNextW
+	 Function LoadStringW
+Import from module msvcrt.dll :
+	 Function _unlock
+	 Function ??1type_info@@UEAA@XZ
+	 Function __set_app_type
+	 Function _fmode
+	 Function _vsnwprintf
+	 Function wcsrchr
+	 Function memmove_s
+	 Function strlen
+	 Function ??0exception@@QEAA@XZ
+	 Function ??0exception@@QEAA@AEBQEBD@Z
+	 Function memcpy_s
+	 Function realloc
+	 Function _wtol
+	 Function _wcsicmp
+	 Function __dllonexit
+	 Function wcschr
+	 Function __CxxFrameHandler3
+	 Function _commode
+	 Function __setusermatherr
+	 Function _amsg_exit
+	 Function _initterm
+	 Function _acmdln
+	 Function exit
+	 Function _cexit
+	 Function _ismbblead
+	 Function _exit
+	 Function _XcptFilter
+	 Function __C_specific_handler
+	 Function __getmainargs
+	 Function _callnewh
+	 Function _lock
+	 Function _onexit
+	 Function ?terminate@@YAXXZ
+	 Function wcscspn
+	 Function memcpy
+	 Function iswspace
+	 Function atol
+	 Function wcscoll
+	 Function memmove
+	 Function wcsspn
+	 Function iswdigit
+	 Function wcspbrk
+	 Function wcsstr
+	 Function _wcsupr
+	 Function malloc
+	 Function memset
+	 Function free
+	 Function ??0exception@@QEAA@AEBQEBDH@Z
+	 Function ?what@exception@@UEBAPEBDXZ
+	 Function ??1exception@@UEAA@XZ
+	 Function ??0exception@@QEAA@AEBV0@@Z
+	 Function _CxxThrowException
+	 Function _wcslwr
+	 Function _wcsrev
+	 Function _wtoi
+Import from module ntdll.dll :
+	 Function RtlLookupFunctionEntry
+	 Function NtQuerySecurityObject
+	 Function RtlGetOwnerSecurityDescriptor
+	 Function RtlEqualSid
+	 Function RtlGetDaclSecurityDescriptor
+	 Function RtlGetAce
+	 Function RtlCaptureContext
+	 Function NtQueryObject
+	 Function RtlVirtualUnwind
+Import from module OLEAUT32.dll :
+	 Ordinal_24 
+	 Ordinal_20 
+	 Ordinal_23 
+	 Ordinal_6 
+	 Ordinal_2 
+	 Ordinal_7 
+	 Ordinal_12 
+	 Ordinal_9 
+	 Ordinal_16 
+	 Ordinal_19 
+	 Ordinal_4 
+Import from module ole32.dll :
+	 Function CoCreateInstance
+	 Function CoInitializeEx
+	 Function CoUninitialize
+	 Function CoFreeUnusedLibraries
+	 Function CoInitializeSecurity
+	 Function CoSetProxyBlanket
+Import from module wbemcomn.dll :
+	 Function ?Throttle@@YAJKKKKK@Z
+	 Function ??0CStaticCritSec@@QEAA@XZ
+	 Function ??1CStaticCritSec@@QEAA@XZ
+	 Function ?anyFailure@CStaticCritSec@@SAHXZ
+Import from module loadperf.dll :
+	 Function LoadPerfCounterTextStringsW
+	 Function UnloadPerfCounterTextStringsW
+[-] Import listing done

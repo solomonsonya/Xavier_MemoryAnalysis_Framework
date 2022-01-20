@@ -1,1 +1,0 @@
-2019-12-05	02:38:10	UTC+0000	2019-12-05	02:38:10	UTC+0000	2019-12-05	02:38:10	UTC+0000	2019-12-05	02:38:10	UTC+0000	amd64_microsoft-windows-smartcardksp.resources_31bf3856ad364e35_6.1.7600.16385_en-us_63097ee7553ecff7_basecsp.dll.mui_04bea7ac	$FILE_NAME	mui_04bea7ac

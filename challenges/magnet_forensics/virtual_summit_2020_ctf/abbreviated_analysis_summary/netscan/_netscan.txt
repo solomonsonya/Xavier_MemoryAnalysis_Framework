@@ -1,0 +1,105 @@
+#########################################################################################################################################################################################################################################
+# Investigation Details
+# ======================
+# Investigator Name: Solomon Sonya
+# Investigation Description: Magnet Virtual Summit 2020 CTF - Memory
+# Investigation Date: 2022-01-17-2008:58
+#
+# Analysis Framework
+# ======================
+# Analysis Framework Name: Xavier Framework
+# Analysis Framework Version: 2.114
+#
+# Memory Analysis Binary
+# ======================
+# File Name: vol_2.6.exe	 File Size: 15.79 MBs	 Creation Date: 2022-01-16-1019:29	 Last Accessed: 2022-01-17-1948:58	 Last Modified: 2021-02-28-2253:29	 
+# MD5: 2fc05486a3fe93cef213cc37748bf556	 SHA-256: 672a00461ffb8d59536c86192450b66d552e67809fc8584d1792b42b22c5f4e1	 
+#
+# Analysis Image Details
+# ======================
+# Memory Image Path: C:\xavier\xavier_framework\import\memory_image\memdump.mem
+# File Name: memdump.mem	 File Size: 5.37 GBs	 Creation Date: 2022-01-17-2008:08	 Last Accessed: 2022-01-17-2008:13	 Last Modified: 2021-10-14-2125:48	 
+# MD5: 224f93209cbea29e862890f30dfa762d	 SHA-256: 18e9007993c45f813dd5bd23b6bf6ad703d3e6ac70effd9c47a310a8443c7b8a	 
+#
+# Plugin Details
+# ======================
+# Plugin Name: netscan
+# Plugin Description: Scan a Vista (or later) image for connections and sockets
+#
+# Execution Details
+# ======================
+# Execution Command: "C:\xavier\xavier_framework\import\memory_analysis\vol_2.6.exe" -f "C:\xavier\xavier_framework\import\memory_image\memdump.mem" netscan --profile=Win7SP1x64
+#########################################################################################################################################################################################################################################
+
+
+Volatility Foundation Volatility Framework 2.6
+Offset(P)          Proto    Local Address                  Foreign Address      State            Pid      Owner          Created
+0x13d518710        UDPv4    0.0.0.0:5355                   *:*                                   1160     svchost.exe    2020-04-20 23:23:00 UTC+0000
+0x13d518710        UDPv6    :::5355                        *:*                                   1160     svchost.exe    2020-04-20 23:23:00 UTC+0000
+0x13d640800        UDPv4    0.0.0.0:0                      *:*                                   2032     svchost.exe    2020-04-20 22:44:40 UTC+0000
+0x13d640800        UDPv6    :::0                           *:*                                   2032     svchost.exe    2020-04-20 22:44:40 UTC+0000
+0x13d640ec0        UDPv4    0.0.0.0:0                      *:*                                   2032     svchost.exe    2020-04-20 22:44:40 UTC+0000
+0x13d636ee0        TCPv4    0.0.0.0:49156                  0.0.0.0:0            LISTENING        2032     svchost.exe    
+0x13d63eac0        TCPv4    0.0.0.0:49156                  0.0.0.0:0            LISTENING        2032     svchost.exe    
+0x13d63eac0        TCPv6    :::49156                       :::0                 LISTENING        2032     svchost.exe    
+0x13d73d730        TCPv4    0.0.0.0:3389                   0.0.0.0:0            LISTENING        1160     svchost.exe    
+0x13d73d730        TCPv6    :::3389                        :::0                 LISTENING        1160     svchost.exe    
+0x13d7919f0        TCPv4    192.168.10.146:139             0.0.0.0:0            LISTENING        4        System         
+0x13d7c3140        TCPv4    0.0.0.0:3389                   0.0.0.0:0            LISTENING        1160     svchost.exe    
+0x13d48f540        TCPv4    192.168.10.146:54279           151.101.116.106:443  ESTABLISHED      -1                      
+0x13d882470        UDPv4    0.0.0.0:0                      *:*                                   1160     svchost.exe    2020-04-20 23:23:00 UTC+0000
+0x13d882470        UDPv6    :::0                           *:*                                   1160     svchost.exe    2020-04-20 23:23:00 UTC+0000
+0x13d986ba0        UDPv4    0.0.0.0:500                    *:*                                   112      svchost.exe    2020-04-20 22:44:39 UTC+0000
+0x13d986ba0        UDPv6    :::500                         *:*                                   112      svchost.exe    2020-04-20 22:44:39 UTC+0000
+0x13d994ec0        UDPv4    0.0.0.0:4500                   *:*                                   112      svchost.exe    2020-04-20 22:44:39 UTC+0000
+0x13d99fa40        UDPv4    0.0.0.0:4500                   *:*                                   112      svchost.exe    2020-04-20 22:44:39 UTC+0000
+0x13d99fa40        UDPv6    :::4500                        *:*                                   112      svchost.exe    2020-04-20 22:44:39 UTC+0000
+0x13d9aaec0        UDPv4    0.0.0.0:0                      *:*                                   112      svchost.exe    2020-04-20 22:44:39 UTC+0000
+0x13d9aaec0        UDPv6    :::0                           *:*                                   112      svchost.exe    2020-04-20 22:44:39 UTC+0000
+0x13d9b3110        UDPv4    0.0.0.0:0                      *:*                                   112      svchost.exe    2020-04-20 22:44:39 UTC+0000
+0x13d9d5560        UDPv6    fe80::71df:b787:f7f1:88ae:1900 *:*                                   2944     svchost.exe    2020-04-20 23:22:57 UTC+0000
+0x13d8aeac0        TCPv4    0.0.0.0:49154                  0.0.0.0:0            LISTENING        112      svchost.exe    
+0x13d8aeac0        TCPv6    :::49154                       :::0                 LISTENING        112      svchost.exe    
+0x13da58d20        TCPv4    0.0.0.0:49154                  0.0.0.0:0            LISTENING        112      svchost.exe    
+0x13da873a0        TCPv4    0.0.0.0:135                    0.0.0.0:0            LISTENING        772      svchost.exe    
+0x13da96630        TCPv4    0.0.0.0:135                    0.0.0.0:0            LISTENING        772      svchost.exe    
+0x13da96630        TCPv6    :::135                         :::0                 LISTENING        772      svchost.exe    
+0x13daa2010        TCPv4    0.0.0.0:49152                  0.0.0.0:0            LISTENING        408      wininit.exe    
+0x13dab2ee0        TCPv4    0.0.0.0:49158                  0.0.0.0:0            LISTENING        536      lsass.exe      
+0x13db16720        TCPv4    0.0.0.0:49153                  0.0.0.0:0            LISTENING        860      svchost.exe    
+0x13db19ee0        TCPv4    0.0.0.0:49153                  0.0.0.0:0            LISTENING        860      svchost.exe    
+0x13db19ee0        TCPv6    :::49153                       :::0                 LISTENING        860      svchost.exe    
+0x13d80b500        TCPv4    192.168.10.146:49174           172.253.122.188:5228 FIN_WAIT2        -1                      
+0x13e40d110        UDPv4    192.168.10.146:137             *:*                                   4        System         2020-04-20 23:23:00 UTC+0000
+0x13e64a010        UDPv4    127.0.0.1:1900                 *:*                                   2944     svchost.exe    2020-04-20 23:22:58 UTC+0000
+0x13e6e1560        UDPv4    192.168.10.146:57481           *:*                                   2944     svchost.exe    2020-04-20 23:22:58 UTC+0000
+0x13e6fca00        UDPv4    0.0.0.0:5355                   *:*                                   1160     svchost.exe    2020-04-20 23:23:00 UTC+0000
+0x13e71cec0        UDPv6    fe80::71df:b787:f7f1:88ae:57479 *:*                                   2944     svchost.exe    2020-04-20 23:22:58 UTC+0000
+0x13e742bc0        UDPv6    fe80::71df:b787:f7f1:88ae:546  *:*                                   860      svchost.exe    2020-04-20 23:22:58 UTC+0000
+0x13e76e590        UDPv4    0.0.0.0:5353                   *:*                                   3384     chrome.exe     2020-04-20 23:23:05 UTC+0000
+0x13e782760        UDPv4    127.0.0.1:57482                *:*                                   2944     svchost.exe    2020-04-20 23:22:58 UTC+0000
+0x13e3c5010        TCPv4    0.0.0.0:49158                  0.0.0.0:0            LISTENING        536      lsass.exe      
+0x13e3c5010        TCPv6    :::49158                       :::0                 LISTENING        536      lsass.exe      
+0x13e8e2c60        TCPv4    0.0.0.0:49155                  0.0.0.0:0            LISTENING        472      services.exe   
+0x13e8e2c60        TCPv6    :::49155                       :::0                 LISTENING        472      services.exe   
+0x13e932c30        TCPv4    0.0.0.0:49155                  0.0.0.0:0            LISTENING        472      services.exe   
+0x13ecdc010        UDPv4    0.0.0.0:49725                  *:*                                   3604     chrome.exe     2020-04-20 23:24:22 UTC+0000
+0x13ed09010        UDPv4    0.0.0.0:57162                  *:*                                   3604     chrome.exe     2020-04-20 23:24:22 UTC+0000
+0x13ed58ad0        UDPv6    ::1:1900                       *:*                                   2944     svchost.exe    2020-04-20 23:22:58 UTC+0000
+0x13ee46590        UDPv4    192.168.10.146:1900            *:*                                   2944     svchost.exe    2020-04-20 23:22:58 UTC+0000
+0x13eedbec0        UDPv4    0.0.0.0:500                    *:*                                   112      svchost.exe    2020-04-20 22:44:39 UTC+0000
+0x13f2ceb10        UDPv4    0.0.0.0:5353                   *:*                                   3384     chrome.exe     2020-04-20 23:23:05 UTC+0000
+0x13f2ceb10        UDPv6    :::5353                        *:*                                   3384     chrome.exe     2020-04-20 23:23:05 UTC+0000
+0x13efe9da0        TCPv4    0.0.0.0:49152                  0.0.0.0:0            LISTENING        408      wininit.exe    
+0x13efe9da0        TCPv6    :::49152                       :::0                 LISTENING        408      wininit.exe    
+0x13ec87cd0        TCPv4    192.168.10.146:54282           172.253.63.188:443   ESTABLISHED      -1                      
+0x13ece73b0        TCPv4    192.168.10.146:54281           13.35.82.31:443      ESTABLISHED      -1                      
+0x13ece76f0        TCPv4    192.168.10.146:54277           172.253.63.188:5228  FIN_WAIT2        -1                      
+0x13ecf8010        TCPv4    192.168.10.146:54280           13.35.82.102:443     ESTABLISHED      -1                      
+0x13f2e5010        TCPv4    192.168.10.146:54284           13.107.21.200:443    CLOSED           -1                      
+0x13f304280        TCPv4    192.168.10.146:54283           13.107.21.200:443    CLOSED           -1                      
+0x13f645cb0        UDPv4    0.0.0.0:57900                  *:*                                   3604     chrome.exe     2020-04-20 23:23:03 UTC+0000
+0x13fa55dc0        UDPv6    ::1:57480                      *:*                                   2944     svchost.exe    2020-04-20 23:22:58 UTC+0000
+0x13fe91c70        UDPv4    192.168.10.146:138             *:*                                   4        System         2020-04-20 23:23:00 UTC+0000
+0x13fc27ad0        TCPv4    0.0.0.0:445                    0.0.0.0:0            LISTENING        4        System         
+0x13fc27ad0        TCPv6    :::445                         :::0                 LISTENING        4        System         

@@ -1,0 +1,172 @@
+#########################################################################################################################################################################################################################################
+# Investigation Details
+# ======================
+# Investigator Name: Solomon Sonya
+# Investigation Description: Magnet Virtual Summit 2020 CTF - Memory
+# Investigation Date: 2022-01-17-2008:58
+#
+# Analysis Framework
+# ======================
+# Analysis Framework Name: Xavier Framework
+# Analysis Framework Version: 2.114
+#
+# Memory Analysis Binary
+# ======================
+# File Name: vol_2.6.exe	 File Size: 15.79 MBs	 Creation Date: 2022-01-16-1019:29	 Last Accessed: 2022-01-17-1948:58	 Last Modified: 2021-02-28-2253:29	 
+# MD5: 2fc05486a3fe93cef213cc37748bf556	 SHA-256: 672a00461ffb8d59536c86192450b66d552e67809fc8584d1792b42b22c5f4e1	 
+#
+# Analysis Image Details
+# ======================
+# Memory Image Path: C:\xavier\xavier_framework\import\memory_image\memdump.mem
+# File Name: memdump.mem	 File Size: 5.37 GBs	 Creation Date: 2022-01-17-2008:08	 Last Accessed: 2022-01-17-2008:13	 Last Modified: 2021-10-14-2125:48	 
+# 
+#
+# Plugin Details
+# ======================
+# Plugin Name: impscan
+# Plugin Description: Scan for calls to imported functions
+#
+# Execution Details
+# ======================
+# Execution Command: "C:\xavier\xavier_framework\import\memory_analysis\vol_2.6.exe" -f "C:\xavier\xavier_framework\import\memory_image\memdump.mem" --profile=Win7SP1x64 impscan -v -p 2108
+#########################################################################################################################################################################################################################################
+
+
+Volatility Foundation Volatility Framework 2.6
+IAT                Call               Module               Function
+------------------ ------------------ -------------------- --------
+0x00000000ff1b0000 0x000007feff13d5d0 ADVAPI32.dll         InitializeSecurityDescriptor
+0x00000000ff1b0008 0x000007feff13d83c ADVAPI32.dll         AllocateAndInitializeSid
+0x00000000ff1b0010 0x000007feff13da60 ADVAPI32.dll         FreeSid
+0x00000000ff1b0018 0x000007feff1359c0 ADVAPI32.dll         SetEntriesInAclW
+0x00000000ff1b0020 0x000007feff131d00 ADVAPI32.dll         SetSecurityDescriptorOwner
+0x00000000ff1b0028 0x000007feff131d1c ADVAPI32.dll         SetSecurityDescriptorGroup
+0x00000000ff1b0030 0x000007feff13d664 ADVAPI32.dll         SetSecurityDescriptorDacl
+0x00000000ff1b0038 0x000007feff12e330 ADVAPI32.dll         RegDisablePredefinedCache
+0x00000000ff1b0040 0x000007feff12fc90 ADVAPI32.dll         ReportEventW
+0x00000000ff1b0048 0x000007feff13d644 ADVAPI32.dll         GetLengthSid
+0x00000000ff1b0050 0x000007feff133b7c ADVAPI32.dll         CopySid
+0x00000000ff1b0058 0x000007feff13d5b0 ADVAPI32.dll         InitializeAcl
+0x00000000ff1b0060 0x000007feff12d624 ADVAPI32.dll         AddAce
+0x00000000ff1b0068 0x000007feff12d6c0 ADVAPI32.dll         GetSecurityDescriptorLength
+0x00000000ff1b0070 0x000007feff12d838 ADVAPI32.dll         MakeSelfRelativeSD
+0x00000000ff1b0078 0x000007feff134490 ADVAPI32.dll         RegSetValueExW
+0x00000000ff1b0080 0x000007feff13d5f0 ADVAPI32.dll         RegCreateKeyExW
+0x00000000ff1b0088 0x000007feff144240 ADVAPI32.dll         RegCloseKey
+0x00000000ff1b0090 0x000007feff144210 ADVAPI32.dll         RegOpenKeyExW
+0x00000000ff1b0098 0x000007feff128bc0 ADVAPI32.dll         RegDeleteKeyExW
+0x00000000ff1b00a0 0x000007feff135a20 ADVAPI32.dll         RegisterEventSourceW
+0x00000000ff1b00a8 0x000007feff139f90 ADVAPI32.dll         DeregisterEventSource
+0x00000000ff1b00b0 0x000007feff12fa2c ADVAPI32.dll         SetThreadToken
+0x00000000ff1b00b8 0x000007feff130480 ADVAPI32.dll         RevertToSelf
+0x00000000ff1b00c0 0x000007feff12f338 ADVAPI32.dll         ImpersonateLoggedOnUser
+0x00000000ff1b00c8 0x000007feff13e168 ADVAPI32.dll         OpenThreadToken
+0x00000000ff1b00d0 0x000007feff12de18 ADVAPI32.dll         GetAclInformation
+0x00000000ff1b00d8 0x000007feff13d8c0 ADVAPI32.dll         OpenProcessToken
+0x00000000ff1b00e0 0x000007feff134750 ADVAPI32.dll         ConvertStringSecurityDescriptorToSecurityDescriptorW
+0x00000000ff1b00e8 0x000007feff12d9a8 ADVAPI32.dll         MakeAbsoluteSD
+0x00000000ff1b00f0 0x000007feff133ed0 ADVAPI32.dll         AccessCheck
+0x00000000ff1b00f8 0x000007feff12aca0 ADVAPI32.dll         MapGenericMask
+0x00000000ff1b0100 0x000007feff13e6f0 ADVAPI32.dll         RegQueryValueExW
+0x00000000ff1b0108 0x000007feff13d8a0 ADVAPI32.dll         GetTokenInformation
+0x00000000ff1b0190 0x0000000076f3d190 kernel32.dll         EnterCriticalSection
+0x00000000ff1b0198 0x0000000076f2c0b0 kernel32.dll         LeaveCriticalSection
+0x00000000ff1b01f0 0x0000000076f37a30 kernel32.dll         HeapAlloc
+0x00000000ff1b0288 0x0000000076f3d370 kernel32.dll         DeleteCriticalSection
+0x00000000ff1b02a8 0x0000000076cfd430 USER32.dll           UnregisterClassW
+0x00000000ff1b02b0 0x0000000076f66938 ntdll.dll            NtdllDefWindowProc_W
+0x00000000ff1b02b8 0x0000000076d0146c USER32.dll           LoadIconW
+0x00000000ff1b02c0 0x0000000076d01444 USER32.dll           LoadCursorW
+0x00000000ff1b02c8 0x0000000076d00860 USER32.dll           RegisterClassW
+0x00000000ff1b02d0 0x0000000076d007b8 USER32.dll           CreateWindowExW
+0x00000000ff1b02d8 0x0000000076d018e0 USER32.dll           ShowWindow
+0x00000000ff1b02e0 0x0000000076d02750 USER32.dll           UpdateWindow
+0x00000000ff1b02e8 0x0000000076d02580 USER32.dll           GetSystemMenu
+0x00000000ff1b02f0 0x0000000076cf8590 USER32.dll           DeleteMenu
+0x00000000ff1b02f8 0x0000000076cfcb30 USER32.dll           DestroyWindow
+0x00000000ff1b0300 0x0000000076d09e54 USER32.dll           GetMessageW
+0x00000000ff1b0308 0x0000000076d096e0 USER32.dll           TranslateMessage
+0x00000000ff1b0310 0x0000000076d09910 USER32.dll           DispatchMessageW
+0x00000000ff1b0318 0x0000000076d06280 USER32.dll           MsgWaitForMultipleObjects
+0x00000000ff1b0320 0x0000000076d08fd4 USER32.dll           PeekMessageW
+0x00000000ff1b0328 0x0000000076d06244 USER32.dll           MsgWaitForMultipleObjectsEx
+0x00000000ff1b0330 0x0000000076d076d4 USER32.dll           PostMessageW
+0x00000000ff1b0340 0x000007fefd76bfd4 msvcrt.dll           _amsg_exit
+0x00000000ff1b0348 0x000007fefd728e28 msvcrt.dll           _initterm
+0x00000000ff1b0350 0x000007fefd7b10b0 msvcrt.dll           _acmdln
+0x00000000ff1b0358 0x000007fefd729bb0 msvcrt.dll           exit
+0x00000000ff1b0360 0x000007fefd7354fc msvcrt.dll           _cexit
+0x00000000ff1b0368 0x000007fefd727764 msvcrt.dll           _ismbblead
+0x00000000ff1b0370 0x000007fefd76bfa8 msvcrt.dll           _exit
+0x00000000ff1b0378 0x000007fefd78da94 msvcrt.dll           __setusermatherr
+0x00000000ff1b0380 0x0000000076f672fc ntdll.dll            __C_specific_handler
+0x00000000ff1b0388 0x000007fefd72b1f0 msvcrt.dll           __getmainargs
+0x00000000ff1b0390 0x000007fefd762954 msvcrt.dll           _purecall
+0x00000000ff1b0398 0x000007fefd7230e0 msvcrt.dll           _vsnwprintf
+0x00000000ff1b03a0 0x000007fefd724954 msvcrt.dll           _itow
+0x00000000ff1b03a8 0x000007fefd7291ec msvcrt.dll           wcstok
+0x00000000ff1b03b0 0x000007fefd7b1280 msvcrt.dll           _commode
+0x00000000ff1b03b8 0x000007fefd7b127c msvcrt.dll           _fmode
+0x00000000ff1b03c0 0x000007fefd72b0c8 msvcrt.dll           __set_app_type
+0x00000000ff1b03c8 0x000007fefd752cb8 msvcrt.dll           ??1type_info@@UEAA@XZ
+0x00000000ff1b03d0 0x000007fefd721500 msvcrt.dll           _unlock
+0x00000000ff1b03d8 0x000007fefd728ea0 msvcrt.dll           __dllonexit
+0x00000000ff1b03e0 0x000007fefd721520 msvcrt.dll           _lock
+0x00000000ff1b03e8 0x000007fefd73001c msvcrt.dll           _onexit
+0x00000000ff1b03f0 0x000007fefd74a830 msvcrt.dll           ?terminate@@YAXXZ
+0x00000000ff1b03f8 0x000007fefd721250 msvcrt.dll           memcmp
+0x00000000ff1b0400 0x000007fefd74a8c0 msvcrt.dll           _CxxThrowException
+0x00000000ff1b0408 0x000007fefd74ab88 msvcrt.dll           __CxxFrameHandler3
+0x00000000ff1b0410 0x000007fefd721000 msvcrt.dll           memset
+0x00000000ff1b0418 0x000007fefd7210e0 msvcrt.dll           memmove
+0x00000000ff1b0420 0x000007fefd760b58 msvcrt.dll           _XcptFilter
+0x00000000ff1b0430 0x0000000076f79be0 ntdll.dll            ZwQuerySystemInformation
+0x00000000ff1b0438 0x0000000076fc6cc0 ntdll.dll            EtwGetTraceLoggerHandle
+0x00000000ff1b0440 0x0000000076fc6c80 ntdll.dll            EtwGetTraceEnableLevel
+0x00000000ff1b0448 0x0000000076fc6c40 ntdll.dll            EtwGetTraceEnableFlags
+0x00000000ff1b0450 0x0000000076f1dcd0 ntdll.dll            EtwRegisterTraceGuidsW
+0x00000000ff1b0458 0x0000000076f537a0 ntdll.dll            EtwUnregisterTraceGuids
+0x00000000ff1b0460 0x0000000076f4cc60 ntdll.dll            RtlVirtualUnwind
+0x00000000ff1b0468 0x0000000076f47180 ntdll.dll            RtlLookupFunctionEntry
+0x00000000ff1b0470 0x0000000076f7b6c0 ntdll.dll            RtlCaptureContext
+0x00000000ff1b0478 0x0000000076f1b9f0 ntdll.dll            EtwTraceMessage
+0x00000000ff1b0488 0x000007fef7ffd6f4 wbemcomn.dll         ?BreakOnDbgAndRenterLoop@@YAKXZ
+0x00000000ff1b0490 0x000007fef7fcdc80 wbemcomn.dll         ?GetMemLogObject@@YAPEAVCMemoryLog@@XZ
+0x00000000ff1b0498 0x000007fef7fcdc90 wbemcomn.dll         ?Write@CMemoryLog@@QEAAXJ@Z
+0x00000000ff1b04a0 0x000007fef7ff22e0 wbemcomn.dll         ?_ThrowMemoryException_@@YAXXZ
+0x00000000ff1b04a8 0x000007fef7fc9788 wbemcomn.dll         ?SetPreferredLanguages@CMUILocale@@SAJKPEBGPEAK@Z
+0x00000000ff1b04b0 0x000007fef7fc1d3c wbemcomn.dll         ?_Free@CMUILocale@@SAHPEAX@Z
+0x00000000ff1b04b8 0x000007fef80007e0 wbemcomn.dll         ?GetPreferredLanguages@CMUILocale@@SAJKPEAPEAGPEAK@Z
+0x00000000ff1b04c8 0x000007fef7e80f28 FastProx.dll         ?New@CWbemCallSecurity@@SAPEAV1@XZ
+0x00000000ff1b04d8 0x000007fef6922ab0 NCObjAPI.DLL         WmiCreateObjectWithFormat
+0x00000000ff1b04e0 0x000007fef69247a0 NCObjAPI.DLL         WmiDestroyObject
+0x00000000ff1b04e8 0x000007fef69248e4 NCObjAPI.DLL         WmiEventSourceDisconnect
+0x00000000ff1b04f0 0x000007fef69211d8 NCObjAPI.DLL         WmiSetAndCommitObject
+0x00000000ff1b04f8 0x000007fef6923b80 NCObjAPI.DLL         WmiEventSourceConnect
+0x00000000ff1b0508 0x000007fefe103280 OLEAUT32.dll         2
+0x00000000ff1b0510 0x000007fefe101210 OLEAUT32.dll         6
+0x00000000ff1b0518 0x000007fefe101240 OLEAUT32.dll         8
+0x00000000ff1b0520 0x000007fefe101180 OLEAUT32.dll         9
+0x00000000ff1b0528 0x000007fefe108e70 OLEAUT32.dll         17
+0x00000000ff1b0530 0x000007fefe108e90 OLEAUT32.dll         20
+0x00000000ff1b0538 0x000007fefe107d40 OLEAUT32.dll         19
+0x00000000ff1b0540 0x000007fefe107280 OLEAUT32.dll         25
+0x00000000ff1b0548 0x000007fefe101040 OLEAUT32.dll         4
+0x00000000ff1b0550 0x000007fefe106230 OLEAUT32.dll         12
+0x00000000ff1b0560 0x000007fefd42be40 ole32.dll            CoGetClassObject
+0x00000000ff1b0568 0x000007fefd3ecfa0 ole32.dll            CoCreateGuid
+0x00000000ff1b0570 0x000007fefd531a20 ole32.dll            CoMarshalInterThreadInterfaceInStream
+0x00000000ff1b0578 0x000007fefd5374a0 ole32.dll            CoGetInterfaceAndReleaseStream
+0x00000000ff1b0580 0x000007fefd3ff1d8 ole32.dll            CoUninitialize
+0x00000000ff1b0588 0x000007fefd400870 ole32.dll            CoInitializeEx
+0x00000000ff1b0590 0x000007fefd3f74a8 ole32.dll            CoInitializeSecurity
+0x00000000ff1b0598 0x000007fefd404650 ole32.dll            CoCreateInstance
+0x00000000ff1b05a0 0x000007fefd3e4aa0 ole32.dll            CoRegisterClassObject
+0x00000000ff1b05a8 0x000007fefd3ead58 ole32.dll            CoFreeUnusedLibrariesEx
+0x00000000ff1b05b0 0x000007fefd400fa0 ole32.dll            StringFromGUID2
+0x00000000ff1b05b8 0x000007fefd3e5c40 ole32.dll            CoGetCallContext
+0x00000000ff1b05c0 0x000007fefd3e5dc0 ole32.dll            CoSwitchCallContext
+0x00000000ff1b05c8 0x000007fefd3e5fcc ole32.dll            CoImpersonateClient
+0x00000000ff1b05d0 0x000007fefd3e6010 ole32.dll            CoRevertToSelf
+0x00000000ff1b05d8 0x000007fefd3efb40 ole32.dll            CLSIDFromString
+0x00000000ff1b05e0 0x000007fefd3e87e0 ole32.dll            CoRevokeClassObject

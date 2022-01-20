@@ -1,0 +1,62 @@
+#########################################################################################################################################################################################################################################
+# Investigation Details
+# ======================
+# Investigator Name: Solomon Sonya
+# Investigation Description: Magnet Virtual Summit 2020 CTF - Memory
+# Investigation Date: 2022-01-17-2008:58
+#
+# Analysis Framework
+# ======================
+# Analysis Framework Name: Xavier Framework
+# Analysis Framework Version: 2.114
+#
+# Memory Analysis Binary
+# ======================
+# File Name: vol_2.6.exe	 File Size: 15.79 MBs	 Creation Date: 2022-01-16-1019:29	 Last Accessed: 2022-01-17-1948:58	 Last Modified: 2021-02-28-2253:29	 
+# MD5: 2fc05486a3fe93cef213cc37748bf556	 SHA-256: 672a00461ffb8d59536c86192450b66d552e67809fc8584d1792b42b22c5f4e1	 
+#
+# Analysis Image Details
+# ======================
+# Memory Image Path: C:\xavier\xavier_framework\import\memory_image\memdump.mem
+# File Name: memdump.mem	 File Size: 5.37 GBs	 Creation Date: 2022-01-17-2008:08	 Last Accessed: 2022-01-17-2008:13	 Last Modified: 2021-10-14-2125:48	 
+# MD5: 224f93209cbea29e862890f30dfa762d	 SHA-256: 18e9007993c45f813dd5bd23b6bf6ad703d3e6ac70effd9c47a310a8443c7b8a	 
+#
+# Plugin Details
+# ======================
+# Plugin Name: hivescan
+# Plugin Description: Pool scanner for registry hives
+#
+# Execution Details
+# ======================
+# Execution Command: "C:\xavier\xavier_framework\import\memory_analysis\vol_2.6.exe" -f "C:\xavier\xavier_framework\import\memory_image\memdump.mem" hivescan --profile=Win7SP1x64
+#########################################################################################################################################################################################################################################
+
+
+Volatility Foundation Volatility Framework 2.6
+Offset(P)         
+------------------
+0x0000000022bd9010
+0x00000000244dc010
+0x0000000087717010
+0x0000000087fc5410
+0x0000000091a74010
+0x0000000091ba8010
+0x0000000093053010
+0x000000009743e010
+0x0000000097538410
+0x0000000097ea7010
+0x000000009fbdf010
+0x00000000a47c2010
+0x00000000a501b010
+0x00000000a7840010
+0x00000000a979a010
+0x00000000a97a5010
+0x00000000a97da010
+0x00000000aed06010
+0x00000000b45f0010
+0x00000000b9d26010
+0x0000000103822010
+0x0000000110a75010
+0x000000011c11d410
+0x000000011db94010
+0x0000000134b30010

@@ -1,0 +1,192 @@
+[-] Import listing for file : C:\xavier\xavier_framework\export\memory_analysis\2022_01_17_20_08_42\procdump\WmiPrvSE_3440_exe
+Import from module ADVAPI32.dll :
+	 Function InitializeSecurityDescriptor
+	 Function AllocateAndInitializeSid
+	 Function FreeSid
+	 Function SetEntriesInAclW
+	 Function SetSecurityDescriptorOwner
+	 Function SetSecurityDescriptorGroup
+	 Function SetSecurityDescriptorDacl
+	 Function RegDisablePredefinedCache
+	 Function ReportEventW
+	 Function GetLengthSid
+	 Function CopySid
+	 Function InitializeAcl
+	 Function AddAce
+	 Function GetSecurityDescriptorLength
+	 Function MakeSelfRelativeSD
+	 Function RegSetValueExW
+	 Function RegCreateKeyExW
+	 Function RegCloseKey
+	 Function RegOpenKeyExW
+	 Function RegDeleteKeyExW
+	 Function RegisterEventSourceW
+	 Function DeregisterEventSource
+	 Function SetThreadToken
+	 Function RevertToSelf
+	 Function ImpersonateLoggedOnUser
+	 Function OpenThreadToken
+	 Function GetAclInformation
+	 Function OpenProcessToken
+	 Function ConvertStringSecurityDescriptorToSecurityDescriptorW
+	 Function MakeAbsoluteSD
+	 Function AccessCheck
+	 Function MapGenericMask
+	 Function RegQueryValueExW
+	 Function GetTokenInformation
+Import from module KERNEL32.dll :
+	 Function CompareStringW
+	 Function HeapSetInformation
+	 Function GetCurrentProcessId
+	 Function TerminateProcess
+	 Function SetEvent
+	 Function CreateThread
+	 Function WaitForMultipleObjects
+	 Function Sleep
+	 Function GetCurrentThreadId
+	 Function lstrlenW
+	 Function GetModuleFileNameW
+	 Function OpenFileMappingW
+	 Function WaitForSingleObject
+	 Function MapViewOfFile
+	 Function UnmapViewOfFile
+	 Function EnterCriticalSection
+	 Function LeaveCriticalSection
+	 Function LCMapStringW
+	 Function TlsAlloc
+	 Function TlsFree
+	 Function GetCommandLineW
+	 Function SwitchToThread
+	 Function CreateEventW
+	 Function GetTickCount
+	 Function GetCurrentThread
+	 Function GetStringTypeExW
+	 Function HeapFree
+	 Function HeapAlloc
+	 Function HeapDestroy
+	 Function HeapCreate
+	 Function GetProcessHeap
+	 Function UnhandledExceptionFilter
+	 Function GetSystemTimeAsFileTime
+	 Function QueryPerformanceCounter
+	 Function GetModuleHandleW
+	 Function SetUnhandledExceptionFilter
+	 Function GetStartupInfoW
+	 Function GetCurrentProcess
+	 Function ChangeTimerQueueTimer
+	 Function CloseHandle
+	 Function DuplicateHandle
+	 Function GetProcAddress
+	 Function FreeLibrary
+	 Function GetModuleHandleExW
+	 Function GetLastError
+	 Function LocalFree
+	 Function DeleteCriticalSection
+	 Function InitializeCriticalSectionAndSpinCount
+	 Function CreateFileMappingW
+Import from module USER32.dll :
+	 Function UnregisterClassW
+	 Function DefWindowProcW
+	 Function LoadIconW
+	 Function LoadCursorW
+	 Function RegisterClassW
+	 Function CreateWindowExW
+	 Function ShowWindow
+	 Function UpdateWindow
+	 Function GetSystemMenu
+	 Function DeleteMenu
+	 Function DestroyWindow
+	 Function GetMessageW
+	 Function TranslateMessage
+	 Function DispatchMessageW
+	 Function MsgWaitForMultipleObjects
+	 Function PeekMessageW
+	 Function MsgWaitForMultipleObjectsEx
+	 Function PostMessageW
+Import from module msvcrt.dll :
+	 Function _amsg_exit
+	 Function _initterm
+	 Function _acmdln
+	 Function exit
+	 Function _cexit
+	 Function _ismbblead
+	 Function _exit
+	 Function __setusermatherr
+	 Function __C_specific_handler
+	 Function __getmainargs
+	 Function _purecall
+	 Function _vsnwprintf
+	 Function _itow
+	 Function wcstok
+	 Function _commode
+	 Function _fmode
+	 Function __set_app_type
+	 Function ??1type_info@@UEAA@XZ
+	 Function _unlock
+	 Function __dllonexit
+	 Function _lock
+	 Function _onexit
+	 Function ?terminate@@YAXXZ
+	 Function memcmp
+	 Function _CxxThrowException
+	 Function __CxxFrameHandler3
+	 Function memset
+	 Function memcpy
+	 Function _XcptFilter
+Import from module ntdll.dll :
+	 Function NtQuerySystemInformation
+	 Function EtwGetTraceLoggerHandle
+	 Function EtwGetTraceEnableLevel
+	 Function EtwGetTraceEnableFlags
+	 Function EtwRegisterTraceGuidsW
+	 Function EtwUnregisterTraceGuids
+	 Function RtlVirtualUnwind
+	 Function RtlLookupFunctionEntry
+	 Function RtlCaptureContext
+	 Function EtwTraceMessage
+Import from module wbemcomn.dll :
+	 Function ?BreakOnDbgAndRenterLoop@@YAKXZ
+	 Function ?GetMemLogObject@@YAPEAVCMemoryLog@@XZ
+	 Function ?Write@CMemoryLog@@QEAAXJ@Z
+	 Function ?_ThrowMemoryException_@@YAXXZ
+	 Function ?SetPreferredLanguages@CMUILocale@@SAJKPEBGPEAK@Z
+	 Function ?_Free@CMUILocale@@SAHPEAX@Z
+	 Function ?GetPreferredLanguages@CMUILocale@@SAJKPEAPEAGPEAK@Z
+Import from module FastProx.dll :
+	 Function ?New@CWbemCallSecurity@@SAPEAV1@XZ
+Import from module NCObjAPI.DLL :
+	 Function WmiCreateObjectWithFormat
+	 Function WmiDestroyObject
+	 Function WmiEventSourceDisconnect
+	 Function WmiSetAndCommitObject
+	 Function WmiEventSourceConnect
+Import from module OLEAUT32.dll :
+	 Ordinal_2 
+	 Ordinal_6 
+	 Ordinal_8 
+	 Ordinal_9 
+	 Ordinal_17 
+	 Ordinal_20 
+	 Ordinal_19 
+	 Ordinal_25 
+	 Ordinal_4 
+	 Ordinal_12 
+Import from module ole32.dll :
+	 Function CoGetClassObject
+	 Function CoCreateGuid
+	 Function CoMarshalInterThreadInterfaceInStream
+	 Function CoGetInterfaceAndReleaseStream
+	 Function CoUninitialize
+	 Function CoInitializeEx
+	 Function CoInitializeSecurity
+	 Function CoCreateInstance
+	 Function CoRegisterClassObject
+	 Function CoFreeUnusedLibrariesEx
+	 Function StringFromGUID2
+	 Function CoGetCallContext
+	 Function CoSwitchCallContext
+	 Function CoImpersonateClient
+	 Function CoRevertToSelf
+	 Function CLSIDFromString
+	 Function CoRevokeClassObject
+[-] Import listing done

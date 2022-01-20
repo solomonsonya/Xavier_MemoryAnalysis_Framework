@@ -1,0 +1,399 @@
+[-] Import listing for file : C:\xavier\xavier_framework\export\memory_analysis\2022_01_17_20_08_42\procdump\WerFault_2164_exe
+Import from module ADVAPI32.dll :
+	 Function TraceMessage
+	 Function GetTraceEnableFlags
+	 Function GetTraceLoggerHandle
+	 Function UnregisterTraceGuids
+	 Function GetTraceEnableLevel
+	 Function RegisterTraceGuidsW
+	 Function MD5Init
+	 Function MD5Update
+	 Function MD5Final
+	 Function RegSetKeyValueW
+	 Function EventWrite
+	 Function EventUnregister
+	 Function EventRegister
+	 Function ConvertSidToStringSidW
+	 Function GetSidSubAuthorityCount
+	 Function GetSidSubAuthority
+	 Function EqualSid
+	 Function CloseThreadWaitChainSession
+	 Function GetThreadWaitChain
+	 Function OpenThreadWaitChainSession
+	 Function RegisterWaitChainCOMCallback
+	 Function SetFileSecurityW
+	 Function SetSecurityDescriptorDacl
+	 Function InitializeSecurityDescriptor
+	 Function SetEntriesInAclW
+	 Function OpenThreadToken
+	 Function GetSecurityDescriptorDacl
+	 Function GetFileSecurityW
+	 Function FreeSid
+	 Function CheckTokenMembership
+	 Function AllocateAndInitializeSid
+	 Function CopySid
+	 Function GetLengthSid
+	 Function IsValidSid
+	 Function GetTokenInformation
+	 Function StopTraceW
+	 Function EnableTrace
+	 Function StartTraceW
+	 Function QueryTraceW
+	 Function DeregisterEventSource
+	 Function ReportEventW
+	 Function RegisterEventSourceW
+	 Function ConvertStringSecurityDescriptorToSecurityDescriptorW
+	 Function RegOpenKeyW
+	 Function CloseServiceHandle
+	 Function QueryServiceConfigW
+	 Function OpenServiceW
+	 Function OpenSCManagerW
+	 Function CreateProcessAsUserW
+	 Function RegDeleteKeyW
+	 Function OpenProcessToken
+Import from module KERNEL32.dll :
+	 Function RegEnumValueW
+	 Function WaitForSingleObject
+	 Function ReleaseMutex
+	 Function GetModuleFileNameW
+	 Function CreateProcessW
+	 Function RegEnumKeyExW
+	 Function CreateFileW
+	 Function ReadFile
+	 Function CreateDirectoryW
+	 Function GetLocalTime
+	 Function SetPriorityClass
+	 Function GetFileAttributesExW
+	 Function WriteFile
+	 Function FileTimeToSystemTime
+	 Function RegQueryValueExW
+	 Function RegGetValueW
+	 Function FindFirstFileW
+	 Function FindNextFileW
+	 Function FindClose
+	 Function GetSystemInfo
+	 Function GetProductInfo
+	 Function GetSystemDefaultLangID
+	 Function LocalFree
+	 Function SetFileAttributesW
+	 Function MoveFileExW
+	 Function GetDiskFreeSpaceExW
+	 Function OpenProcess
+	 Function CreateFileMappingW
+	 Function MapViewOfFile
+	 Function UnmapViewOfFile
+	 Function GetSystemDirectoryW
+	 Function GetUserDefaultUILanguage
+	 Function DeviceIoControl
+	 Function GetFileAttributesW
+	 Function ReadProcessMemory
+	 Function GetApplicationRestartSettings
+	 Function GetProcessTimes
+	 Function GetSystemTime
+	 Function SystemTimeToFileTime
+	 Function LoadLibraryW
+	 Function FreeLibraryAndExitThread
+	 Function GetModuleHandleExW
+	 Function CreateThread
+	 Function GetExitCodeThread
+	 Function HeapAlloc
+	 Function GetProcessHeap
+	 Function HeapFree
+	 Function OpenFileMappingW
+	 Function DuplicateHandle
+	 Function LoadLibraryExW
+	 Function QueryFullProcessImageNameW
+	 Function CreateToolhelp32Snapshot
+	 Function Process32FirstW
+	 Function Process32NextW
+	 Function GetNativeSystemInfo
+	 Function GetThreadUILanguage
+	 Function IsWow64Process
+	 Function SearchPathW
+	 Function GetFileSize
+	 Function MultiByteToWideChar
+	 Function FormatMessageW
+	 Function lstrlenW
+	 Function GetWindowsDirectoryW
+	 Function GetSystemWow64DirectoryW
+	 Function ExpandEnvironmentStringsW
+	 Function GetTempFileNameW
+	 Function GetLongPathNameW
+	 Function GetTempPathW
+	 Function WaitForMultipleObjects
+	 Function RemoveDirectoryW
+	 Function GetFileSizeEx
+	 Function VirtualQuery
+	 Function RegDeleteValueW
+	 Function SetEnvironmentVariableW
+	 Function CompareStringW
+	 Function GetPriorityClass
+	 Function SetEvent
+	 Function GetStringTypeExW
+	 Function CreateEventW
+	 Function ResetEvent
+	 Function K32GetModuleFileNameExW
+	 Function Thread32First
+	 Function OpenThread
+	 Function Thread32Next
+	 Function GetProcessIoCounters
+	 Function GetThreadTimes
+	 Function GetThreadId
+	 Function InitializeCriticalSection
+	 Function DeleteCriticalSection
+	 Function SetThreadpoolWait
+	 Function CloseThreadpoolWait
+	 Function WaitForThreadpoolWaitCallbacks
+	 Function LeaveCriticalSection
+	 Function EnterCriticalSection
+	 Function CreateThreadpoolWait
+	 Function GetThreadContext
+	 Function RtlCompareMemory
+	 Function GetProcessId
+	 Function LCMapStringW
+	 Function VirtualFree
+	 Function VirtualAlloc
+	 Function OutputDebugStringA
+	 Function GetLogicalDriveStringsW
+	 Function QueryDosDeviceW
+	 Function GetDriveTypeW
+	 Function FindFirstFileNameW
+	 Function FindNextFileNameW
+	 Function Module32FirstW
+	 Function Module32NextW
+	 Function K32EnumProcessModules
+	 Function GlobalMemoryStatus
+	 Function OpenEventW
+	 Function FindFirstFileExW
+	 Function CompareFileTime
+	 Function OpenMutexW
+	 Function DeleteFileW
+	 Function WTSGetActiveConsoleSessionId
+	 Function SetThreadPriority
+	 Function GetCurrentThread
+	 Function GetThreadPriority
+	 Function SetLastError
+	 Function GetVersionExW
+	 Function CloseHandle
+	 Function GetCommandLineW
+	 Function UnhandledExceptionFilter
+	 Function GetCurrentProcess
+	 Function TerminateProcess
+	 Function GetSystemTimeAsFileTime
+	 Function GetCurrentProcessId
+	 Function GetCurrentThreadId
+	 Function GetTickCount
+	 Function QueryPerformanceCounter
+	 Function GetModuleHandleW
+	 Function SetUnhandledExceptionFilter
+	 Function Sleep
+	 Function HeapSetInformation
+	 Function SetErrorMode
+	 Function GetLastError
+	 Function GetProcAddress
+	 Function InitializeCriticalSectionAndSpinCount
+	 Function RegOpenKeyExW
+	 Function RegCreateKeyExW
+	 Function RegCloseKey
+	 Function RegSetValueExW
+	 Function RegQueryInfoKeyW
+	 Function CheckRemoteDebuggerPresent
+	 Function CreateMutexW
+	 Function LoadLibraryExA
+	 Function DelayLoadFailureHook
+	 Function FreeLibrary
+Import from module USER32.dll :
+	 Function IsWindow
+	 Function GetProcessWindowStation
+	 Function GetThreadDesktop
+	 Function GetUserObjectInformationW
+	 Function LoadStringW
+	 Function TranslateMessage
+	 Function DispatchMessageW
+	 Function GetClassNameW
+	 Function IsHungAppWindow
+	 Function GetWindowThreadProcessId
+	 Function IsWindowEnabled
+	 Function GetWindow
+	 Function RegisterClassExW
+	 Function GetWindowLongW
+	 Function SetWindowPos
+	 Function ShowWindow
+	 Function EnumWindows
+	 Function GetWindowRect
+	 Function IsIconic
+	 Function MonitorFromWindow
+	 Function GetMonitorInfoW
+	 Function LogicalToPhysicalPoint
+	 Function GetWindowLongPtrW
+	 Function GetSystemMetrics
+	 Function MonitorFromPoint
+	 Function SetWindowLongPtrW
+	 Function EndDialog
+	 Function PostMessageW
+	 Function LoadIconW
+	 Function RegisterErrorReportingDialog
+	 Function DefWindowProcW
+	 Function CheckWindowThreadDesktop
+	 Function RegisterWindowMessageW
+	 Function SendMessageW
+	 Function CreateWindowExW
+	 Function GetMessageW
+	 Function ChangeWindowMessageFilter
+Import from module msvcrt.dll :
+	 Function _vscwprintf
+	 Function iswspace
+	 Function wcspbrk
+	 Function wcsstr
+	 Function _wcstoui64
+	 Function _purecall
+	 Function _vsnprintf
+	 Function wcsncmp
+	 Function tolower
+	 Function isspace
+	 Function towlower
+	 Function ??1type_info@@UEAA@XZ
+	 Function memmove
+	 Function _wtoi
+	 Function _wcsnicmp
+	 Function memcpy
+	 Function __CxxFrameHandler3
+	 Function memset
+	 Function _onexit
+	 Function _lock
+	 Function __dllonexit
+	 Function _unlock
+	 Function ?terminate@@YAXXZ
+	 Function __set_app_type
+	 Function _fmode
+	 Function _commode
+	 Function _wtoi64
+	 Function __setusermatherr
+	 Function _amsg_exit
+	 Function _initterm
+	 Function exit
+	 Function _cexit
+	 Function _exit
+	 Function _XcptFilter
+	 Function __C_specific_handler
+	 Function __wgetmainargs
+	 Function _vsnwprintf
+	 Function wcschr
+	 Function _wcsicmp
+	 Function ??2@YAPEAX_K@Z
+	 Function ??3@YAXPEAX@Z
+	 Function wcsrchr
+	 Function _CxxThrowException
+Import from module ntdll.dll :
+	 Function WinSqmAddToStream
+	 Function RtlAllocateHeap
+	 Function RtlFreeHeap
+	 Function RtlAdjustPrivilege
+	 Function NtSetSystemInformation
+	 Function NtQueryObject
+	 Function RtlImageNtHeaderEx
+	 Function NtQueryEvent
+	 Function WinSqmSetDWORD
+	 Function NtQueryInformationThread
+	 Function RtlCreateProcessReflection
+	 Function NtQueryInformationProcess
+	 Function EtwEventWriteNoRegistration
+	 Function RtlNtStatusToDosError
+	 Function NtOpenEvent
+	 Function NtWaitForSingleObject
+	 Function WinSqmSetString
+	 Function RtlUpcaseUnicodeChar
+	 Function WinSqmIncrementDWORD
+	 Function NtSystemDebugControl
+	 Function NtResumeProcess
+	 Function NtSuspendProcess
+	 Function NtQuerySystemInformation
+	 Function WinSqmEndSession
+	 Function ShipAssert
+	 Function WinSqmStartSession
+	 Function DbgPrint
+	 Function EtwTraceMessage
+	 Function NtQueryInformationToken
+	 Function NtClose
+	 Function RtlAllocateAndInitializeSid
+	 Function RtlFreeSid
+	 Function NtAlpcSendWaitReceivePort
+	 Function RtlCaptureContext
+	 Function RtlLookupFunctionEntry
+	 Function RtlVirtualUnwind
+	 Function NtAlpcConnectPort
+	 Function RtlInitUnicodeString
+Import from module ole32.dll :
+	 Function CoTaskMemFree
+	 Function ProgIDFromCLSID
+	 Function CLSIDFromString
+	 Function CoGetObject
+	 Function CoSetProxyBlanket
+	 Function CoGetCallState
+	 Function CoGetActivationState
+	 Function CoCreateGuid
+	 Function CoUninitialize
+	 Function CoCreateInstance
+	 Function CoInitialize
+	 Function StringFromGUID2
+Import from module OLEAUT32.dll :
+	 Ordinal_6 
+	 Ordinal_4 
+Import from module SHLWAPI.dll :
+	 Ordinal_437 
+Import from module IMM32.dll :
+	 Function ImmDisableIME
+Import from module wer.dll :
+	 Function WerpSetEventName
+	 Function WerReportSetParameter
+	 Function WerpSetDynamicParameter
+	 Function WerpAddAppCompatData
+	 Function WerpAddRegisteredDataToReport
+	 Function WerReportAddDump
+	 Function WerpGetFileByIndex
+	 Function WerpGetNumFiles
+	 Function WerpFreeString
+	 Function WerpCreateIntegratorReportId
+	 Function WerpReportCancel
+	 Function WerpIsTransportAvailable
+	 Function WerpSetReportFlags
+	 Function WerpGetReportFlags
+	 Function WerReportCloseHandle
+	 Function WerReportSetUIOption
+	 Function WerReportAddFile
+	 Function WerpSetCallBack
+	 Function WerpGetReportConsent
+	 Function WerpSetIntegratorReportId
+	 Function WerReportCreate
+	 Function WerpAddFile
+	 Function WerpPromtUser
+	 Function WerpAddSecondaryParameter
+	 Function WerReportSubmit
+Import from module COMCTL32.dll :
+	 Ordinal_345 
+	 Ordinal_410 
+	 Ordinal_412 
+	 Ordinal_413 
+Import from module faultrep.dll :
+	 Function WerpInitiateCrashReporting
+Import from module dbgeng.dll :
+	 Function DebugCreate (Delay Import)
+Import from module dbghelp.dll :
+	 Function MiniDumpWriteDump (Delay Import)
+Import from module SETUPAPI.dll :
+	 Function SetupDiGetDeviceRegistryPropertyW (Delay Import)
+	 Function SetupDiEnumDeviceInfo (Delay Import)
+	 Function SetupDiGetClassDevsW (Delay Import)
+	 Function SetupDiDestroyDeviceInfoList (Delay Import)
+Import from module SHELL32.dll :
+	 Function SHGetFolderPathW (Delay Import)
+	 Function SHCreateDirectoryExW (Delay Import)
+	 Function CommandLineToArgvW (Delay Import)
+	 Function Shell_NotifyIconW (Delay Import)
+Import from module VERSION.dll :
+	 Function VerQueryValueW (Delay Import)
+	 Function GetFileVersionInfoSizeW (Delay Import)
+	 Function GetFileVersionInfoW (Delay Import)
+Import from module WTSAPI32.dll :
+	 Function WTSQueryUserToken (Delay Import)
+[-] Import listing done

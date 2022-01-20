@@ -1,0 +1,323 @@
+[-] Import listing for file : C:\xavier\xavier_framework\export\memory_analysis\2022_01_17_20_08_42\procdump\dwm_2852_exe
+Import from module GDI32.dll :
+	 Function GetDeviceCaps
+	 Function D3DKMTSetProcessSchedulingPriorityClass
+	 Function GetDIBits
+	 Function CreateDIBSection
+	 Function CreateCompatibleBitmap
+	 Function BitBlt
+	 Function DeleteDC
+	 Function GetRgnBox
+	 Function SelectObject
+	 Function SelectClipRgn
+	 Function CreateCompatibleDC
+	 Function CombineRgn
+	 Function OffsetRgn
+	 Function GdiAlphaBlend
+	 Function CreateRectRgn
+	 Function GetStockObject
+	 Function GetRandomRgn
+	 Function DeleteObject
+Import from module USER32.dll :
+	 Function GetMonitorInfoW
+	 Function GetWindowThreadProcessId
+	 Function GetWindowRect
+	 Function OffsetRect
+	 Function SetClassLongPtrW
+	 Function GetClassNameW
+	 Function MonitorFromWindow
+	 Function AdjustWindowRectEx
+	 Function GetWindow
+	 Function CloseDesktop
+	 Function GetPropW
+	 Function EnumDisplayDevicesW
+	 Function EnumDisplaySettingsW
+	 Function GetSystemMetrics
+	 Function RegisterErrorReportingDialog
+	 Function RegisterGhostWindow
+	 Function HungWindowFromGhostWindow
+	 Function InternalGetWindowIcon
+	 Function GhostWindowFromHungWindow
+	 Function RegisterFrostWindow
+	 Function OpenThreadDesktop
+	 Function SetForegroundWindow
+	 Function SystemParametersInfoW
+	 Function GetUserObjectInformationW
+	 Function GetThreadDesktop
+	 Function UnregisterSessionPort
+	 Function RegisterSessionPort
+	 Function CheckDesktopByThreadId
+	 Function DwmStopRedirection
+	 Function DwmStartRedirection
+	 Function IsHungAppWindow
+	 Function MessageBeep
+	 Function IsWindowEnabled
+	 Function EnumWindows
+	 Function FlashWindowEx
+	 Function GetWindowLongW
+	 Function SendMessageTimeoutW
+	 Function IsWindow
+	 Function GetCaretBlinkTime
+	 Function EndTask
+	 Function OpenDesktopW
+	 Function IsDialogMessageW
+	 Function GetAncestor
+	 Function SetThreadDesktop
+	 Function EndPaint
+	 Function ClientToScreen
+	 Function InternalGetWindowText
+	 Function GetUpdateRgn
+	 Function SetTimer
+	 Function IsIconic
+	 Function FillRect
+	 Function KillTimer
+	 Function IsZoomed
+	 Function GetTitleBarInfo
+	 Function GetWindowInfo
+	 Function LogicalToPhysicalPoint
+	 Function GetWindowLongPtrW
+	 Function GetClientRect
+	 Function BeginPaint
+	 Function ChangeWindowMessageFilterEx
+	 Function InvalidateRect
+	 Function GetWindowTextW
+	 Function GetDCEx
+	 Function ShowWindow
+	 Function GetSysColorBrush
+	 Function CreateDialogParamW
+	 Function PostThreadMessageW
+	 Function IsWindowVisible
+	 Function SetWindowLongPtrW
+	 Function SendMessageW
+	 Function UpdateWindow
+	 Function SetWindowTextW
+	 Function GetGuiResources
+	 Function SetWindowPos
+	 Function LoadStringW
+	 Function LoadIconW
+	 Function RegisterWindowMessageW
+	 Function DispatchMessageW
+	 Function TranslateMessage
+	 Function PeekMessageW
+	 Function RegisterPowerSettingNotification
+	 Function ReleaseDC
+	 Function GetDC
+	 Function PostQuitMessage
+	 Function DestroyWindow
+	 Function UnregisterPowerSettingNotification
+	 Function DefWindowProcW
+	 Function CreateWindowExW
+	 Function RegisterClassExW
+	 Function PostMessageW
+	 Function MsgWaitForMultipleObjectsEx
+	 Function DestroyIcon
+Import from module msvcrt.dll :
+	 Function __C_specific_handler
+	 Function _unlock
+	 Function __dllonexit
+	 Function _lock
+	 Function _onexit
+	 Function memcpy
+	 Function memset
+	 Function _wcsnicmp
+	 Function _wcsupr_s
+	 Function wcschr
+	 Function wcsncpy_s
+	 Function wcsrchr
+	 Function ??_U@YAPEAX_K@Z
+	 Function ??_V@YAXPEAX@Z
+	 Function rand
+	 Function srand
+	 Function _wcsicmp
+	 Function ?terminate@@YAXXZ
+	 Function __set_app_type
+	 Function _fmode
+	 Function _commode
+	 Function __setusermatherr
+	 Function _amsg_exit
+	 Function _initterm
+	 Function _acmdln
+	 Function exit
+	 Function _cexit
+	 Function _ismbblead
+	 Function _purecall
+	 Function _vsnwprintf
+	 Function memmove
+	 Function __getmainargs
+	 Function _XcptFilter
+	 Function _exit
+	 Function sqrt
+Import from module ntdll.dll :
+	 Function RtlCaptureContext
+	 Function RtlLookupFunctionEntry
+	 Function RtlVirtualUnwind
+	 Function DbgPrompt
+	 Function NtQuerySystemInformation
+	 Function DbgPrintEx
+	 Function RtlCaptureStackBackTrace
+	 Function WinSqmAddToStreamEx
+	 Function NtReplyPort
+	 Function NtCreateWaitablePort
+	 Function WinSqmIsOptedIn
+	 Function NtAcceptConnectPort
+	 Function NtCompleteConnectPort
+	 Function NtReplyWaitReceivePort
+	 Function NtRequestPort
+	 Function NtConnectPort
+	 Function NtRequestWaitReplyPort
+	 Function WinSqmIncrementDWORD
+	 Function RtlFreeSid
+	 Function NtQueryInformationProcess
+	 Function NtWaitForSingleObject
+	 Function RtlNtStatusToDosError
+	 Function NtClose
+	 Function NtOpenEvent
+	 Function NtAlpcSendWaitReceivePort
+	 Function EtwEventWriteNoRegistration
+	 Function NtAlpcConnectPort
+	 Function RtlAllocateAndInitializeSid
+	 Function RtlUpcaseUnicodeChar
+	 Function RtlInitUnicodeString
+	 Function RtlInsertElementGenericTable
+	 Function RtlIsGenericTableEmpty
+	 Function RtlLookupElementGenericTable
+	 Function RtlInitializeGenericTable
+	 Function EtwEventEnabled
+	 Function EtwEventRegister
+	 Function EtwEventUnregister
+	 Function RtlEnumerateGenericTableWithoutSplaying
+	 Function RtlDeleteElementGenericTable
+	 Function WinSqmAddToStream
+	 Function EtwEventWrite
+Import from module UxTheme.dll :
+	 Function CloseThemeData
+	 Function OpenThemeData
+Import from module IMM32.dll :
+	 Function ImmDisableIME
+Import from module dwmredir.dll :
+	 Function DwmRedirectionManagerWaitForMultipleObjects
+	 Function DwmRedirectionManagerLockMemoryAllocations
+	 Function DwmRedirectionManagerEnableMMCSS
+	 Function DwmRedirectionManagerPlayingVideo
+	 Function DwmInitializeTransport
+	 Function DwmShutdownTransport
+	 Function DwmRedirectionManagerShutdown
+	 Function DwmRedirectionManagerShouldRemainOnHibernate
+	 Function DwmRedirectionManagerDispatchMessage
+	 Function DwmRedirectionManagerFailMessage
+	 Function DwmVersionCheck
+Import from module dwmcore.dll :
+	 Function MilChannel_CommitChannel
+	 Function MilComposition_WaitForNextMessage
+	 Function MilResource_SendCommand
+	 Function MilConnection_DestroyChannel
+	 Function MilConnection_ClearSfmEventOnPartition
+	 Function MilConnection_HandleSfmEventOnPartition
+	 Function MilConnection_CreateChannel
+	 Function MilChannel_GetMarshalType
+	 Function MilComposition_PeekNextMessage
+	 Function MilCompositionEngine_UpdateSchedulerSettings
+Import from module KERNEL32.dll :
+	 Function GetStartupInfoW
+	 Function LocalFree
+	 Function LocalAlloc
+	 Function ResumeThread
+	 Function DuplicateHandle
+	 Function lstrcmpiW
+	 Function WaitForMultipleObjectsEx
+	 Function IsWow64Process
+	 Function RegSetValueExW
+	 Function RegCreateKeyExW
+	 Function RegGetValueW
+	 Function SetThreadPriority
+	 Function CreateThread
+	 Function OpenProcess
+	 Function ReleaseMutex
+	 Function QueryPerformanceCounter
+	 Function SetEvent
+	 Function OpenEventW
+	 Function SignalObjectAndWait
+	 Function UnhandledExceptionFilter
+	 Function TerminateProcess
+	 Function TerminateThread
+	 Function GetCurrentThread
+	 Function GetProcessHeap
+	 Function HeapFree
+	 Function HeapAlloc
+	 Function HeapReAlloc
+	 Function IsDebuggerPresent
+	 Function GetModuleHandleW
+	 Function DelayLoadFailureHook
+	 Function LoadLibraryExA
+	 Function FreeLibrary
+	 Function Sleep
+	 Function GetUserDefaultLangID
+	 Function FormatMessageW
+	 Function GetExitCodeThread
+	 Function WaitForSingleObject
+	 Function RegisterWaitForSingleObject
+	 Function GetThreadId
+	 Function GetTickCount
+	 Function ProcessIdToSessionId
+	 Function CreateEventW
+	 Function GetCurrentProcessId
+	 Function SetProcessWorkingSetSize
+	 Function GetSystemInfo
+	 Function GetCurrentProcess
+	 Function GetProcAddress
+	 Function LoadLibraryW
+	 Function SetErrorMode
+	 Function QueryFullProcessImageNameW
+	 Function ExitProcess
+	 Function GetSystemTimeAsFileTime
+	 Function CreateMutexW
+	 Function GetCurrentThreadId
+	 Function SetProcessShutdownParameters
+	 Function SetUnhandledExceptionFilter
+	 Function HeapSetInformation
+	 Function WerSetFlags
+	 Function SetLastError
+	 Function CloseHandle
+	 Function GetLastError
+	 Function GetTickCount64
+	 Function DeleteCriticalSection
+	 Function InitializeCriticalSection
+	 Function QueueUserWorkItem
+	 Function LeaveCriticalSection
+	 Function EnterCriticalSection
+Import from module ADVAPI32.dll :
+	 Function RegOpenKeyExW (Delay Import)
+	 Function RegQueryValueExW (Delay Import)
+	 Function RegCloseKey (Delay Import)
+	 Function WmiQuerySingleInstanceW (Delay Import)
+	 Function WmiOpenBlock (Delay Import)
+	 Function WmiCloseBlock (Delay Import)
+	 Function RegisterEventSourceW (Delay Import)
+	 Function ReportEventW (Delay Import)
+	 Function DeregisterEventSource (Delay Import)
+Import from module SHELL32.dll :
+	 Function Shell_NotifyIconW (Delay Import)
+Import from module ole32.dll :
+	 Function CoInitialize (Delay Import)
+	 Function CoCreateInstance (Delay Import)
+	 Function CoUninitialize (Delay Import)
+Import from module OLEAUT32.dll :
+	 Ordinal_2  (Delay Import)
+	 Ordinal_6  (Delay Import)
+Import from module COMCTL32.dll :
+	 Ordinal_345  (Delay Import)
+Import from module SHLWAPI.dll :
+	 Ordinal_559  (Delay Import)
+	 Function PathFindFileNameW (Delay Import)
+Import from module dwmapi.dll :
+	 Function DwmUpdateThumbnailProperties (Delay Import)
+	 Ordinal_124  (Delay Import)
+	 Function DwmIsCompositionEnabled (Delay Import)
+	 Function DwmQueryThumbnailSourceSize (Delay Import)
+	 Ordinal_118  (Delay Import)
+	 Ordinal_119  (Delay Import)
+Import from module WINSTA.dll :
+	 Function WinStationQueryInformationW (Delay Import)
+	 Function WinStationFreePropertyValue (Delay Import)
+	 Function WinStationGetConnectionProperty (Delay Import)
+[-] Import listing done

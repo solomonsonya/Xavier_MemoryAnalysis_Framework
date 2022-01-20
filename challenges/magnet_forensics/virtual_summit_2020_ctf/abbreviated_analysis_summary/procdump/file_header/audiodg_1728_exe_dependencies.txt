@@ -1,0 +1,191 @@
+[-] Import listing for file : C:\xavier\xavier_framework\export\memory_analysis\2022_01_17_20_08_42\procdump\audiodg_1728_exe
+Import from module msvcrt.dll :
+	 Function _XcptFilter
+	 Function __wgetmainargs
+	 Function _resetstkoflw
+	 Function _exit
+	 Function exit
+	 Function _wcmdln
+	 Function _initterm
+	 Function _amsg_exit
+	 Function __setusermatherr
+	 Function _commode
+	 Function _fmode
+	 Function __set_app_type
+	 Function ?terminate@@YAXXZ
+	 Function _unlock
+	 Function __dllonexit
+	 Function _lock
+	 Function free
+	 Function malloc
+	 Function __CxxFrameHandler3
+	 Function memcpy
+	 Function ??3@YAXPEAX@Z
+	 Function _purecall
+	 Function ??2@YAPEAX_K@Z
+	 Function _vsnwprintf
+	 Function memmove_s
+	 Function memcpy_s
+	 Function ??1type_info@@UEAA@XZ
+	 Function _onexit
+	 Function realloc
+	 Function _errno
+	 Function _wcsicmp
+	 Function _cexit
+	 Function __C_specific_handler
+	 Function memset
+	 Function _wcstoui64
+	 Function ??_U@YAPEAX_K@Z
+	 Function ??_V@YAXPEAX@Z
+	 Function _CxxThrowException
+	 Function memcmp
+Import from module ntdll.dll :
+	 Function RtlAllocateHeap
+	 Function NtAlpcAcceptConnectPort
+	 Function RtlInitializeSid
+	 Function RtlInitUnicodeStringEx
+	 Function RtlLengthSid
+	 Function RtlCreateSecurityDescriptor
+	 Function AlpcInitializeMessageAttribute
+	 Function NtClose
+	 Function RtlRandomEx
+	 Function RtlAddAccessAllowedAce
+	 Function NtAlpcCreatePort
+	 Function AlpcGetMessageAttribute
+	 Function RtlSetDaclSecurityDescriptor
+	 Function RtlFreeHeap
+	 Function RtlCreateAcl
+	 Function RtlSetLastWin32ErrorAndNtStatusFromNtStatus
+	 Function RtlLengthRequiredSid
+	 Function RtlSubAuthoritySid
+	 Function EtwLogTraceEvent
+	 Function RtlCaptureContext
+	 Function RtlLookupFunctionEntry
+	 Function RtlVirtualUnwind
+	 Function ShipAssert
+	 Function WinSqmIncrementDWORD
+	 Function EtwUnregisterTraceGuids
+	 Function EtwRegisterTraceGuidsW
+	 Function ShipAssertMsgW
+	 Function NtQueryInformationProcess
+	 Function EtwGetTraceEnableFlags
+	 Function EtwGetTraceEnableLevel
+	 Function EtwGetTraceLoggerHandle
+	 Function EtwTraceMessage
+	 Function EtwEventWrite
+	 Function EtwEventRegister
+	 Function NtAlpcSendWaitReceivePort
+Import from module API-MS-Win-Core-Debug-L1-1-0.dll :
+	 Function OutputDebugStringA
+Import from module API-MS-Win-Core-ErrorHandling-L1-1-0.dll :
+	 Function SetUnhandledExceptionFilter
+	 Function RaiseException
+	 Function GetLastError
+	 Function UnhandledExceptionFilter
+Import from module API-MS-Win-Core-Handle-L1-1-0.dll :
+	 Function GetHandleInformation
+	 Function CloseHandle
+Import from module API-MS-Win-Core-Heap-L1-1-0.dll :
+	 Function HeapAlloc
+	 Function HeapFree
+	 Function HeapReAlloc
+	 Function HeapSize
+	 Function GetProcessHeap
+	 Function HeapSetInformation
+	 Function HeapDestroy
+Import from module API-MS-Win-Core-LibraryLoader-L1-1-0.dll :
+	 Function GetModuleHandleW
+	 Function GetProcAddress
+	 Function LoadLibraryExA
+	 Function FreeLibrary
+Import from module API-MS-Win-Core-Misc-L1-1-0.dll :
+	 Function LocalFree
+	 Function Sleep
+Import from module API-MS-Win-Core-ProcessEnvironment-L1-1-0.dll :
+	 Function GetCommandLineW
+Import from module API-MS-Win-Core-ProcessThreads-L1-1-0.dll :
+	 Function OpenProcessToken
+	 Function GetStartupInfoW
+	 Function GetCurrentProcessId
+	 Function TerminateProcess
+	 Function GetCurrentThreadId
+	 Function GetCurrentProcess
+Import from module API-MS-Win-Core-Profile-L1-1-0.dll :
+	 Function QueryPerformanceCounter
+	 Function QueryPerformanceFrequency
+Import from module API-MS-Win-Core-Synch-L1-1-0.dll :
+	 Function WaitForSingleObject
+	 Function CreateEventW
+	 Function OpenProcess
+	 Function DeleteCriticalSection
+	 Function InitializeCriticalSection
+	 Function SetEvent
+Import from module API-MS-Win-Core-SysInfo-L1-1-0.dll :
+	 Function GetVersionExA
+	 Function GetTickCount
+	 Function GetSystemTimeAsFileTime
+Import from module API-MS-Win-Security-Base-L1-1-0.dll :
+	 Function GetTokenInformation
+	 Function InitializeSecurityDescriptor
+	 Function SetSecurityDescriptorOwner
+	 Function SetSecurityDescriptorDacl
+	 Function SetSecurityDescriptorGroup
+Import from module RPCRT4.dll :
+	 Function RpcServerRegisterIfEx
+	 Function RpcImpersonateClient
+	 Function RpcServerUseProtseqEpW
+	 Function I_RpcBindingInqTransportType
+	 Function RpcServerUnregisterIfEx
+	 Function I_RpcBindingInqLocalClientPID
+	 Function NdrServerCallAll
+	 Function RpcRevertToSelf
+	 Function NdrServerCall2
+Import from module MMDevAPI.DLL :
+	 Ordinal_8 
+	 Ordinal_2 
+	 Ordinal_9 
+Import from module KERNEL32.dll :
+	 Function SizeofResource
+	 Function DuplicateHandle
+	 Function LeaveCriticalSection
+	 Function LockResource
+	 Function DelayLoadFailureHook
+	 Function WerRegisterMemoryBlock
+	 Function WaitForMultipleObjects
+	 Function LoadResource
+	 Function FindResourceA
+	 Function MapViewOfFile
+	 Function FindResourceExA
+	 Function CreateThread
+	 Function RegQueryValueExW
+	 Function EnterCriticalSection
+	 Function RegCloseKey
+	 Function RegEnumKeyExW
+	 Function RegOpenKeyExW
+	 Function UnmapViewOfFile
+Import from module USER32.dll :
+	 Function UnregisterClassA
+Import from module API-MS-WIN-Service-Management-L1-1-0.dll :
+	 Function CloseServiceHandle (Delay Import)
+	 Function OpenServiceW (Delay Import)
+	 Function OpenSCManagerW (Delay Import)
+Import from module API-MS-WIN-Service-Management-L2-1-0.dll :
+	 Function QueryServiceStatusEx (Delay Import)
+Import from module ADVAPI32.dll :
+	 Function SetEntriesInAclW (Delay Import)
+Import from module ole32.dll :
+	 Function CoInitializeSecurity (Delay Import)
+	 Function CoCreateInstance (Delay Import)
+	 Function CoResumeClassObjects (Delay Import)
+	 Function CoRegisterClassObject (Delay Import)
+	 Function CoRevokeClassObject (Delay Import)
+	 Function CoInitializeEx (Delay Import)
+	 Function CoUninitialize (Delay Import)
+	 Function CoImpersonateClient (Delay Import)
+	 Function CoRevertToSelf (Delay Import)
+	 Function CoTaskMemAlloc (Delay Import)
+	 Function CoTaskMemFree (Delay Import)
+	 Function StringFromCLSID (Delay Import)
+	 Function CLSIDFromString (Delay Import)
+	 Function PropVariantClear (Delay Import)
+[-] Import listing done

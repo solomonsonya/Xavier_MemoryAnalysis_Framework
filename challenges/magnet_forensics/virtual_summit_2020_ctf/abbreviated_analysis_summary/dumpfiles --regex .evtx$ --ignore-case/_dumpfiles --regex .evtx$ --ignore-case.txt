@@ -1,0 +1,131 @@
+#########################################################################################################################################################################################################################################
+# Investigation Details
+# ======================
+# Investigator Name: Solomon Sonya
+# Investigation Description: Magnet Virtual Summit 2020 CTF - Memory
+# Investigation Date: 2022-01-17-2008:58
+#
+# Analysis Framework
+# ======================
+# Analysis Framework Name: Xavier Framework
+# Analysis Framework Version: 2.114
+#
+# Memory Analysis Binary
+# ======================
+# File Name: vol_2.6.exe	 File Size: 15.79 MBs	 Creation Date: 2022-01-16-1019:29	 Last Accessed: 2022-01-17-1948:58	 Last Modified: 2021-02-28-2253:29	 
+# MD5: 2fc05486a3fe93cef213cc37748bf556	 SHA-256: 672a00461ffb8d59536c86192450b66d552e67809fc8584d1792b42b22c5f4e1	 
+#
+# Analysis Image Details
+# ======================
+# Memory Image Path: C:\xavier\xavier_framework\import\memory_image\memdump.mem
+# File Name: memdump.mem	 File Size: 5.37 GBs	 Creation Date: 2022-01-17-2008:08	 Last Accessed: 2022-01-17-2008:13	 Last Modified: 2021-10-14-2125:48	 
+# MD5: 224f93209cbea29e862890f30dfa762d	 SHA-256: 18e9007993c45f813dd5bd23b6bf6ad703d3e6ac70effd9c47a310a8443c7b8a	 
+#
+# Plugin Details
+# ======================
+# Plugin Name: dumpfiles --regex .evtx$ --ignore-case
+# Plugin Description: Dump Windows Event Logs 
+#
+# Execution Details
+# ======================
+# Execution Command: "C:\xavier\xavier_framework\import\memory_analysis\vol_2.6.exe" -f "C:\xavier\xavier_framework\import\memory_image\memdump.mem" dumpfiles --regex .evtx$ --ignore-case --profile=Win7SP1x64 --dump-dir "C:\xavier\xavier_framework\export\memory_analysis\2022_01_17_20_08_42\dumpfiles --regex .evtx$ --ignore-case
+#########################################################################################################################################################################################################################################
+
+
+Volatility Foundation Volatility Framework 2.6
+DataSectionObject 0xfffffa80336892e0   860    \Device\HarddiskVolume1\Windows\System32\winevt\Logs\Microsoft-Windows-Dhcpv6-Client%4Admin.evtx
+SharedCacheMap 0xfffffa80336892e0   860    \Device\HarddiskVolume1\Windows\System32\winevt\Logs\Microsoft-Windows-Dhcpv6-Client%4Admin.evtx
+DataSectionObject 0xfffffa80332f5f20   860    \Device\HarddiskVolume1\Windows\System32\winevt\Logs\System.evtx
+SharedCacheMap 0xfffffa80332f5f20   860    \Device\HarddiskVolume1\Windows\System32\winevt\Logs\System.evtx
+DataSectionObject 0xfffffa803333c3b0   860    \Device\HarddiskVolume1\Windows\System32\winevt\Logs\Application.evtx
+SharedCacheMap 0xfffffa803333c3b0   860    \Device\HarddiskVolume1\Windows\System32\winevt\Logs\Application.evtx
+DataSectionObject 0xfffffa8033362d50   860    \Device\HarddiskVolume1\Windows\System32\winevt\Logs\Security.evtx
+SharedCacheMap 0xfffffa8033362d50   860    \Device\HarddiskVolume1\Windows\System32\winevt\Logs\Security.evtx
+DataSectionObject 0xfffffa80333882d0   860    \Device\HarddiskVolume1\Windows\System32\winevt\Logs\Internet Explorer.evtx
+SharedCacheMap 0xfffffa80333882d0   860    \Device\HarddiskVolume1\Windows\System32\winevt\Logs\Internet Explorer.evtx
+DataSectionObject 0xfffffa803258bdb0   860    \Device\HarddiskVolume1\Windows\System32\winevt\Logs\Windows PowerShell.evtx
+SharedCacheMap 0xfffffa803258bdb0   860    \Device\HarddiskVolume1\Windows\System32\winevt\Logs\Windows PowerShell.evtx
+DataSectionObject 0xfffffa8033387dd0   860    \Device\HarddiskVolume1\Windows\System32\winevt\Logs\OAlerts.evtx
+SharedCacheMap 0xfffffa8033387dd0   860    \Device\HarddiskVolume1\Windows\System32\winevt\Logs\OAlerts.evtx
+DataSectionObject 0xfffffa8033387f20   860    \Device\HarddiskVolume1\Windows\System32\winevt\Logs\Media Center.evtx
+SharedCacheMap 0xfffffa8033387f20   860    \Device\HarddiskVolume1\Windows\System32\winevt\Logs\Media Center.evtx
+DataSectionObject 0xfffffa8033388e00   860    \Device\HarddiskVolume1\Windows\System32\winevt\Logs\Key Management Service.evtx
+SharedCacheMap 0xfffffa8033388e00   860    \Device\HarddiskVolume1\Windows\System32\winevt\Logs\Key Management Service.evtx
+DataSectionObject 0xfffffa8031008600   860    \Device\HarddiskVolume1\Windows\System32\winevt\Logs\Microsoft-Windows-Application-Experience%4Program-Inventory.evtx
+SharedCacheMap 0xfffffa8031008600   860    \Device\HarddiskVolume1\Windows\System32\winevt\Logs\Microsoft-Windows-Application-Experience%4Program-Inventory.evtx
+DataSectionObject 0xfffffa80333873e0   860    \Device\HarddiskVolume1\Windows\System32\winevt\Logs\HardwareEvents.evtx
+SharedCacheMap 0xfffffa80333873e0   860    \Device\HarddiskVolume1\Windows\System32\winevt\Logs\HardwareEvents.evtx
+DataSectionObject 0xfffffa80333853d0   860    \Device\HarddiskVolume1\Windows\System32\winevt\Logs\Microsoft-Windows-Kernel-WHEA%4Operational.evtx
+SharedCacheMap 0xfffffa80333853d0   860    \Device\HarddiskVolume1\Windows\System32\winevt\Logs\Microsoft-Windows-Kernel-WHEA%4Operational.evtx
+DataSectionObject 0xfffffa80326a3dc0   860    \Device\HarddiskVolume1\Windows\System32\winevt\Logs\Microsoft-Windows-Kernel-WHEA%4Errors.evtx
+SharedCacheMap 0xfffffa80326a3dc0   860    \Device\HarddiskVolume1\Windows\System32\winevt\Logs\Microsoft-Windows-Kernel-WHEA%4Errors.evtx
+DataSectionObject 0xfffffa8031415be0   860    \Device\HarddiskVolume1\Windows\System32\winevt\Logs\Microsoft-Windows-Resource-Exhaustion-Detector%4Operational.evtx
+SharedCacheMap 0xfffffa8031415be0   860    \Device\HarddiskVolume1\Windows\System32\winevt\Logs\Microsoft-Windows-Resource-Exhaustion-Detector%4Operational.evtx
+DataSectionObject 0xfffffa8033237070   860    \Device\HarddiskVolume1\Windows\System32\winevt\Logs\Microsoft-Windows-Kernel-Power%4Thermal-Operational.evtx
+SharedCacheMap 0xfffffa8033237070   860    \Device\HarddiskVolume1\Windows\System32\winevt\Logs\Microsoft-Windows-Kernel-Power%4Thermal-Operational.evtx
+DataSectionObject 0xfffffa80333ad510   860    \Device\HarddiskVolume1\Windows\System32\winevt\Logs\Setup.evtx
+SharedCacheMap 0xfffffa80333ad510   860    \Device\HarddiskVolume1\Windows\System32\winevt\Logs\Setup.evtx
+DataSectionObject 0xfffffa8032820630   860    \Device\HarddiskVolume1\Windows\System32\winevt\Logs\Microsoft-Windows-Diagnostics-Performance%4Operational.evtx
+SharedCacheMap 0xfffffa8032820630   860    \Device\HarddiskVolume1\Windows\System32\winevt\Logs\Microsoft-Windows-Diagnostics-Performance%4Operational.evtx
+DataSectionObject 0xfffffa803186b9a0   860    \Device\HarddiskVolume1\Windows\System32\winevt\Logs\Microsoft-Windows-Diagnosis-DPS%4Operational.evtx
+SharedCacheMap 0xfffffa803186b9a0   860    \Device\HarddiskVolume1\Windows\System32\winevt\Logs\Microsoft-Windows-Diagnosis-DPS%4Operational.evtx
+DataSectionObject 0xfffffa8031ef9ba0   860    \Device\HarddiskVolume1\Windows\System32\winevt\Logs\Microsoft-Windows-TerminalServices-LocalSessionManager%4Operational.evtx
+SharedCacheMap 0xfffffa8031ef9ba0   860    \Device\HarddiskVolume1\Windows\System32\winevt\Logs\Microsoft-Windows-TerminalServices-LocalSessionManager%4Operational.evtx
+DataSectionObject 0xfffffa8033552270   860    \Device\HarddiskVolume1\Windows\System32\winevt\Logs\Microsoft-Windows-Kernel-StoreMgr%4Operational.evtx
+SharedCacheMap 0xfffffa8033552270   860    \Device\HarddiskVolume1\Windows\System32\winevt\Logs\Microsoft-Windows-Kernel-StoreMgr%4Operational.evtx
+DataSectionObject 0xfffffa803354b320   860    \Device\HarddiskVolume1\Windows\System32\winevt\Logs\Microsoft-Windows-User Profile Service%4Operational.evtx
+SharedCacheMap 0xfffffa803354b320   860    \Device\HarddiskVolume1\Windows\System32\winevt\Logs\Microsoft-Windows-User Profile Service%4Operational.evtx
+DataSectionObject 0xfffffa8033554e70   860    \Device\HarddiskVolume1\Windows\System32\winevt\Logs\Microsoft-Windows-OfflineFiles%4Operational.evtx
+SharedCacheMap 0xfffffa8033554e70   860    \Device\HarddiskVolume1\Windows\System32\winevt\Logs\Microsoft-Windows-OfflineFiles%4Operational.evtx
+DataSectionObject 0xfffffa803356ff20   860    \Device\HarddiskVolume1\Windows\System32\winevt\Logs\Microsoft-Windows-BranchCacheSMB%4Operational.evtx
+SharedCacheMap 0xfffffa803356ff20   860    \Device\HarddiskVolume1\Windows\System32\winevt\Logs\Microsoft-Windows-BranchCacheSMB%4Operational.evtx
+DataSectionObject 0xfffffa8033695ca0   860    \Device\HarddiskVolume1\Windows\System32\winevt\Logs\Microsoft-Windows-GroupPolicy%4Operational.evtx
+SharedCacheMap 0xfffffa8033695ca0   860    \Device\HarddiskVolume1\Windows\System32\winevt\Logs\Microsoft-Windows-GroupPolicy%4Operational.evtx
+DataSectionObject 0xfffffa8031f01370   860    \Device\HarddiskVolume1\Windows\System32\winevt\Logs\Microsoft-Windows-TerminalServices-LocalSessionManager%4Admin.evtx
+SharedCacheMap 0xfffffa8031f01370   860    \Device\HarddiskVolume1\Windows\System32\winevt\Logs\Microsoft-Windows-TerminalServices-LocalSessionManager%4Admin.evtx
+DataSectionObject 0xfffffa8033322300   860    \Device\HarddiskVolume1\Windows\System32\winevt\Logs\Microsoft-Windows-WindowsUpdateClient%4Operational.evtx
+SharedCacheMap 0xfffffa8033322300   860    \Device\HarddiskVolume1\Windows\System32\winevt\Logs\Microsoft-Windows-WindowsUpdateClient%4Operational.evtx
+DataSectionObject 0xfffffa8031008860   860    \Device\HarddiskVolume1\Windows\System32\winevt\Logs\Microsoft-Windows-Application-Experience%4Problem-Steps-Recorder.evtx
+SharedCacheMap 0xfffffa8031008860   860    \Device\HarddiskVolume1\Windows\System32\winevt\Logs\Microsoft-Windows-Application-Experience%4Problem-Steps-Recorder.evtx
+DataSectionObject 0xfffffa8033590dd0   860    \Device\HarddiskVolume1\Windows\System32\winevt\Logs\Microsoft-Windows-Dhcp-Client%4Admin.evtx
+SharedCacheMap 0xfffffa8033590dd0   860    \Device\HarddiskVolume1\Windows\System32\winevt\Logs\Microsoft-Windows-Dhcp-Client%4Admin.evtx
+DataSectionObject 0xfffffa8033673450   860    \Device\HarddiskVolume1\Windows\System32\winevt\Logs\Microsoft-Windows-Application-Experience%4Program-Telemetry.evtx
+SharedCacheMap 0xfffffa8033673450   860    \Device\HarddiskVolume1\Windows\System32\winevt\Logs\Microsoft-Windows-Application-Experience%4Program-Telemetry.evtx
+DataSectionObject 0xfffffa803358fde0   860    \Device\HarddiskVolume1\Windows\System32\winevt\Logs\Microsoft-Windows-Application-Experience%4Program-Compatibility-Assistant.evtx
+SharedCacheMap 0xfffffa803358fde0   860    \Device\HarddiskVolume1\Windows\System32\winevt\Logs\Microsoft-Windows-Application-Experience%4Program-Compatibility-Assistant.evtx
+DataSectionObject 0xfffffa80336874b0   860    \Device\HarddiskVolume1\Windows\System32\winevt\Logs\Microsoft-Windows-Application-Experience%4Program-Compatibility-Troubleshooter.evtx
+SharedCacheMap 0xfffffa80336874b0   860    \Device\HarddiskVolume1\Windows\System32\winevt\Logs\Microsoft-Windows-Application-Experience%4Program-Compatibility-Troubleshooter.evtx
+DataSectionObject 0xfffffa8033785300   860    \Device\HarddiskVolume1\Windows\System32\winevt\Logs\Microsoft-Windows-Windows Firewall With Advanced Security%4Firewall.evtx
+SharedCacheMap 0xfffffa8033785300   860    \Device\HarddiskVolume1\Windows\System32\winevt\Logs\Microsoft-Windows-Windows Firewall With Advanced Security%4Firewall.evtx
+DataSectionObject 0xfffffa8033736070   860    \Device\HarddiskVolume1\Windows\System32\winevt\Logs\Microsoft-Windows-NCSI%4Operational.evtx
+SharedCacheMap 0xfffffa8033736070   860    \Device\HarddiskVolume1\Windows\System32\winevt\Logs\Microsoft-Windows-NCSI%4Operational.evtx
+DataSectionObject 0xfffffa80323a4070   860    \Device\HarddiskVolume1\Windows\System32\winevt\Logs\Microsoft-Windows-NetworkProfile%4Operational.evtx
+SharedCacheMap 0xfffffa80323a4070   860    \Device\HarddiskVolume1\Windows\System32\winevt\Logs\Microsoft-Windows-NetworkProfile%4Operational.evtx
+DataSectionObject 0xfffffa8032d95070   860    \Device\HarddiskVolume1\Windows\System32\winevt\Logs\Microsoft-Windows-TerminalServices-RemoteConnectionManager%4Admin.evtx
+SharedCacheMap 0xfffffa8032d95070   860    \Device\HarddiskVolume1\Windows\System32\winevt\Logs\Microsoft-Windows-TerminalServices-RemoteConnectionManager%4Admin.evtx
+DataSectionObject 0xfffffa8032ff4070   860    \Device\HarddiskVolume1\Windows\System32\winevt\Logs\Microsoft-Windows-TerminalServices-RemoteConnectionManager%4Operational.evtx
+SharedCacheMap 0xfffffa8032ff4070   860    \Device\HarddiskVolume1\Windows\System32\winevt\Logs\Microsoft-Windows-TerminalServices-RemoteConnectionManager%4Operational.evtx
+DataSectionObject 0xfffffa80326c4a30   860    \Device\HarddiskVolume1\Windows\System32\winevt\Logs\Microsoft-Windows-Windows Firewall With Advanced Security%4ConnectionSecurity.evtx
+SharedCacheMap 0xfffffa80326c4a30   860    \Device\HarddiskVolume1\Windows\System32\winevt\Logs\Microsoft-Windows-Windows Firewall With Advanced Security%4ConnectionSecurity.evtx
+DataSectionObject 0xfffffa80316dc070   860    \Device\HarddiskVolume1\Windows\System32\winevt\Logs\Microsoft-Windows-Winlogon%4Operational.evtx
+SharedCacheMap 0xfffffa80316dc070   860    \Device\HarddiskVolume1\Windows\System32\winevt\Logs\Microsoft-Windows-Winlogon%4Operational.evtx
+DataSectionObject 0xfffffa80332f3430   860    \Device\HarddiskVolume1\Windows\System32\winevt\Logs\Microsoft-Windows-LanguagePackSetup%4Operational.evtx
+SharedCacheMap 0xfffffa80332f3430   860    \Device\HarddiskVolume1\Windows\System32\winevt\Logs\Microsoft-Windows-LanguagePackSetup%4Operational.evtx
+DataSectionObject 0xfffffa8032c27880   860    \Device\HarddiskVolume1\Windows\System32\winevt\Logs\Microsoft-Windows-ReadyBoost%4Operational.evtx
+SharedCacheMap 0xfffffa8032c27880   860    \Device\HarddiskVolume1\Windows\System32\winevt\Logs\Microsoft-Windows-ReadyBoost%4Operational.evtx
+DataSectionObject 0xfffffa80310e3f20   860    \Device\HarddiskVolume1\Windows\System32\winevt\Logs\Microsoft-Windows-Windows Defender%4WHC.evtx
+SharedCacheMap 0xfffffa80310e3f20   860    \Device\HarddiskVolume1\Windows\System32\winevt\Logs\Microsoft-Windows-Windows Defender%4WHC.evtx
+DataSectionObject 0xfffffa80310b39c0   860    \Device\HarddiskVolume1\Windows\System32\winevt\Logs\Microsoft-Windows-Bits-Client%4Operational.evtx
+SharedCacheMap 0xfffffa80310b39c0   860    \Device\HarddiskVolume1\Windows\System32\winevt\Logs\Microsoft-Windows-Bits-Client%4Operational.evtx
+DataSectionObject 0xfffffa80310e3be0   860    \Device\HarddiskVolume1\Windows\System32\winevt\Logs\Microsoft-Windows-Windows Defender%4Operational.evtx
+SharedCacheMap 0xfffffa80310e3be0   860    \Device\HarddiskVolume1\Windows\System32\winevt\Logs\Microsoft-Windows-Windows Defender%4Operational.evtx
+DataSectionObject 0xfffffa803212a8a0   860    \Device\HarddiskVolume1\Windows\System32\winevt\Logs\Microsoft-Windows-WindowsBackup%4ActionCenter.evtx
+SharedCacheMap 0xfffffa803212a8a0   860    \Device\HarddiskVolume1\Windows\System32\winevt\Logs\Microsoft-Windows-WindowsBackup%4ActionCenter.evtx
+DataSectionObject 0xfffffa8032544380   860    \Device\HarddiskVolume1\Windows\System32\winevt\Logs\Microsoft-Windows-NetworkAccessProtection%4Operational.evtx
+SharedCacheMap 0xfffffa8032544380   860    \Device\HarddiskVolume1\Windows\System32\winevt\Logs\Microsoft-Windows-NetworkAccessProtection%4Operational.evtx
+DataSectionObject 0xfffffa80316d8490   860    \Device\HarddiskVolume1\Windows\System32\winevt\Logs\Microsoft-Windows-Known Folders API Service.evtx
+SharedCacheMap 0xfffffa80316d8490   860    \Device\HarddiskVolume1\Windows\System32\winevt\Logs\Microsoft-Windows-Known Folders API Service.evtx
+DataSectionObject 0xfffffa8031255cd0   860    \Device\HarddiskVolume1\Windows\System32\winevt\Logs\Microsoft-Windows-NetworkAccessProtection%4WHC.evtx
+SharedCacheMap 0xfffffa8031255cd0   860    \Device\HarddiskVolume1\Windows\System32\winevt\Logs\Microsoft-Windows-NetworkAccessProtection%4WHC.evtx
+DataSectionObject 0xfffffa8031ac1130   860    \Device\HarddiskVolume1\Windows\System32\winevt\Logs\Microsoft-Windows-Diagnosis-Scheduled%4Operational.evtx
+SharedCacheMap 0xfffffa8031ac1130   860    \Device\HarddiskVolume1\Windows\System32\winevt\Logs\Microsoft-Windows-Diagnosis-Scheduled%4Operational.evtx

@@ -1,0 +1,251 @@
+#########################################################################################################################################################################################################################################
+# Investigation Details
+# ======================
+# Investigator Name: Solomon Sonya
+# Investigation Description: Magnet Virtual Summit 2020 CTF - Memory
+# Investigation Date: 2022-01-17-2008:58
+#
+# Analysis Framework
+# ======================
+# Analysis Framework Name: Xavier Framework
+# Analysis Framework Version: 2.114
+#
+# Memory Analysis Binary
+# ======================
+# File Name: vol_2.6.exe	 File Size: 15.79 MBs	 Creation Date: 2022-01-16-1019:29	 Last Accessed: 2022-01-17-1948:58	 Last Modified: 2021-02-28-2253:29	 
+# MD5: 2fc05486a3fe93cef213cc37748bf556	 SHA-256: 672a00461ffb8d59536c86192450b66d552e67809fc8584d1792b42b22c5f4e1	 
+#
+# Analysis Image Details
+# ======================
+# Memory Image Path: C:\xavier\xavier_framework\import\memory_image\memdump.mem
+# File Name: memdump.mem	 File Size: 5.37 GBs	 Creation Date: 2022-01-17-2008:08	 Last Accessed: 2022-01-17-2008:13	 Last Modified: 2021-10-14-2125:48	 
+# 
+#
+# Plugin Details
+# ======================
+# Plugin Name: impscan
+# Plugin Description: Scan for calls to imported functions
+#
+# Execution Details
+# ======================
+# Execution Command: "C:\xavier\xavier_framework\import\memory_analysis\vol_2.6.exe" -f "C:\xavier\xavier_framework\import\memory_image\memdump.mem" --profile=Win7SP1x64 impscan -v -p 2928
+#########################################################################################################################################################################################################################################
+
+
+Volatility Foundation Volatility Framework 2.6
+IAT                Call               Module               Function
+------------------ ------------------ -------------------- --------
+0x000000013f489000 0x000007feff13d83c ADVAPI32.dll         AllocateAndInitializeSid
+0x000000013f489008 0x000007feff13da60 ADVAPI32.dll         FreeSid
+0x000000013f489010 0x000007feff13d5d0 ADVAPI32.dll         InitializeSecurityDescriptor
+0x000000013f489018 0x000007feff13d664 ADVAPI32.dll         SetSecurityDescriptorDacl
+0x000000013f489020 0x000007feff131d00 ADVAPI32.dll         SetSecurityDescriptorOwner
+0x000000013f489028 0x000007feff1359c0 ADVAPI32.dll         SetEntriesInAclW
+0x000000013f489030 0x000007feff139f90 ADVAPI32.dll         DeregisterEventSource
+0x000000013f489038 0x000007feff135a20 ADVAPI32.dll         RegisterEventSourceW
+0x000000013f489040 0x000007feff12fc90 ADVAPI32.dll         ReportEventW
+0x000000013f489048 0x000007feff144240 ADVAPI32.dll         RegCloseKey
+0x000000013f489050 0x000007feff1344c0 ADVAPI32.dll         RegCreateKeyW
+0x000000013f489058 0x000007feff134490 ADVAPI32.dll         RegSetValueExW
+0x000000013f489060 0x000007feff13a820 ADVAPI32.dll         CloseServiceHandle
+0x000000013f489068 0x000007feff1449a0 ADVAPI32.dll         CreateServiceW
+0x000000013f489070 0x000007feff144a2c ADVAPI32.dll         DeleteService
+0x000000013f489078 0x000007feff12e500 ADVAPI32.dll         OpenSCManagerW
+0x000000013f489080 0x000007feff12e514 ADVAPI32.dll         OpenServiceW
+0x000000013f489088 0x000007feff128ba0 ADVAPI32.dll         RegisterServiceCtrlHandlerExW
+0x000000013f489090 0x000007feff128be0 ADVAPI32.dll         SetServiceStatus
+0x000000013f489098 0x000007feff126bac ADVAPI32.dll         StartServiceCtrlDispatcherW
+0x000000013f489178 0x0000000076f5f9b0 ntdll.dll            RtlInitializeSListHead
+0x000000013f489180 0x0000000076f63420 ntdll.dll            VerSetConditionMask
+0x000000013f4891d0 0x0000000076d00e00 USER32.dll           GetDesktopWindow
+0x000000013f4891d8 0x0000000076cf6fa0 USER32.dll           RegisterDeviceNotificationW
+0x000000013f4891e0 0x0000000076cf7370 USER32.dll           UnregisterDeviceNotification
+0x000000013f4891e8 0x0000000076d61360 USER32.dll           MessageBoxW
+0x000000013f4891f0 0x0000000076d096a8 USER32.dll           GetWindowLongPtrW
+0x000000013f4891f8 0x0000000076d094e0 USER32.dll           GetSystemMetrics
+0x000000013f489200 0x0000000076cfcb30 USER32.dll           DestroyWindow
+0x000000013f489208 0x0000000076d007b8 USER32.dll           CreateWindowExW
+0x000000013f489210 0x0000000076d096e0 USER32.dll           TranslateMessage
+0x000000013f489218 0x0000000076d09910 USER32.dll           DispatchMessageW
+0x000000013f489220 0x0000000076d08fd4 USER32.dll           PeekMessageW
+0x000000013f489228 0x0000000076f66938 ntdll.dll            NtdllDefWindowProc_W
+0x000000013f489230 0x0000000076d00860 USER32.dll           RegisterClassW
+0x000000013f489238 0x0000000076cfd430 USER32.dll           UnregisterClassW
+0x000000013f489240 0x0000000076d076ac USER32.dll           SetWindowLongPtrW
+0x000000013f489250 0x000007fefb464620 VCRUNTIME140.dll     _CxxThrowException
+0x000000013f489258 0x000007fefb464410 VCRUNTIME140.dll     __std_exception_destroy
+0x000000013f489260 0x000007fefb464380 VCRUNTIME140.dll     __std_exception_copy
+0x000000013f489268 0x000007fefb46bf20 VCRUNTIME140.dll     __CxxFrameHandler3
+0x000000013f489270 0x000007fefb46c680 VCRUNTIME140.dll     __C_specific_handler
+0x000000013f489278 0x000007fefb464d20 VCRUNTIME140.dll     _purecall
+0x000000013f489280 0x000007fefb46ceb0 VCRUNTIME140.dll     memset
+0x000000013f489290 0x000007fefb791614 VERSION.dll          GetFileVersionInfoW
+0x000000013f489298 0x000007fefb7915e0 VERSION.dll          VerQueryValueW
+0x000000013f4892a0 0x000007fefb7915fc VERSION.dll          GetFileVersionInfoSizeW
+0x000000013f4892b0 0x000007fefb5aa560 ucrtbase.DLL         _callnewh
+0x000000013f4892b8 0x000007fefb586ef0 ucrtbase.DLL         _set_new_mode
+0x000000013f4892c0 0x000007fefb584220 ucrtbase.DLL         malloc
+0x000000013f4892c8 0x000007fefb5842b0 ucrtbase.DLL         free
+0x000000013f4892d8 0x000007fefb586d60 ucrtbase.DLL         _configthreadlocale
+0x000000013f4892e0 0x000007fefb579a60 ucrtbase.DLL         setlocale
+0x000000013f4892f0 0x000007fefb602900 ucrtbase.DLL         __setusermatherr
+0x000000013f489300 0x000007fefb575450 ucrtbase.DLL         _initialize_onexit_table
+0x000000013f489308 0x000007fefb5d8000 ucrtbase.DLL         _seh_filter_exe
+0x000000013f489310 0x000007fefb5872e0 ucrtbase.DLL         _set_app_type
+0x000000013f489318 0x000007fefb571d40 ucrtbase.DLL         _configure_wide_argv
+0x000000013f489320 0x000007fefb5720d0 ucrtbase.DLL         _initialize_wide_environment
+0x000000013f489328 0x000007fefb6100e0 ucrtbase.DLL         _get_initial_wide_environment
+0x000000013f489330 0x000007fefb575160 ucrtbase.DLL         _initterm
+0x000000013f489338 0x000007fefb575520 ucrtbase.DLL         _initterm_e
+0x000000013f489340 0x000007fefb5dbdd0 ucrtbase.DLL         _exit
+0x000000013f489348 0x000007fefb5d99f0 ucrtbase.DLL         __p___argc
+0x000000013f489350 0x000007fefb5d9a10 ucrtbase.DLL         __p___wargv
+0x000000013f489358 0x000007fefb5dbdb0 ucrtbase.DLL         _cexit
+0x000000013f489360 0x000007fefb5dbd90 ucrtbase.DLL         _c_exit
+0x000000013f489368 0x000007fefb5dbdf0 ucrtbase.DLL         _register_thread_local_exe_atexit_callback
+0x000000013f489370 0x000007fefb5dbe40 ucrtbase.DLL         exit
+0x000000013f489378 0x000007fefb57a250 ucrtbase.DLL         _register_onexit_function
+0x000000013f489380 0x000007fefb586970 ucrtbase.DLL         _crt_atexit
+0x000000013f489388 0x000007fefb5d90e0 ucrtbase.DLL         terminate
+0x000000013f489398 0x000007fefb5872d0 ucrtbase.DLL         __p__commode
+0x000000013f4893a0 0x000007fefb5ecdb0 ucrtbase.DLL         __stdio_common_vfwprintf
+0x000000013f4893a8 0x000007fefb585d00 ucrtbase.DLL         __acrt_iob_func
+0x000000013f4893b0 0x000007fefb586ea0 ucrtbase.DLL         _set_fmode
+0x000000013f4893c0 0x000007fefb589eb0 ucrtbase.DLL         _wcsicmp
+0x000000013f4893c8 0x000007fefb587e40 ucrtbase.DLL         strcmp
+0x000000013f4893d8 0x000007fef828d580 glib-2.0.dll         g_main_loop_quit
+0x000000013f4893e0 0x000007fef82b8a50 glib-2.0.dll         g_thread_pool_set_max_idle_time
+0x000000013f4893e8 0x000007fef82b8690 glib-2.0.dll         g_thread_pool_set_max_unused_threads
+0x000000013f4893f0 0x000007fef82b7db0 glib-2.0.dll         g_thread_pool_push
+0x000000013f4893f8 0x000007fef82b8340 glib-2.0.dll         g_thread_pool_free
+0x000000013f489400 0x000007fef82b7c20 glib-2.0.dll         g_thread_pool_new
+0x000000013f489408 0x000007fef82df690 glib-2.0.dll         g_rw_lock_writer_unlock
+0x000000013f489410 0x000007fef8252f30 glib-2.0.dll         g_thread_create
+0x000000013f489418 0x000007fef829d5c0 glib-2.0.dll         g_queue_delete_link
+0x000000013f489420 0x000007fef829d790 glib-2.0.dll         g_queue_remove
+0x000000013f489428 0x000007fef829d250 glib-2.0.dll         g_queue_pop_tail
+0x000000013f489430 0x000007fef829cc80 glib-2.0.dll         g_queue_push_head
+0x000000013f489438 0x000007fef829cba0 glib-2.0.dll         g_queue_find_custom
+0x000000013f489440 0x000007fef829c6e0 glib-2.0.dll         g_queue_free
+0x000000013f489448 0x000007fef828d630 glib-2.0.dll         g_main_loop_is_running
+0x000000013f489450 0x000007fef8288960 glib-2.0.dll         g_queue_new
+0x000000013f489458 0x000007fef8284780 glib-2.0.dll         g_key_file_get_integer
+0x000000013f489460 0x000007fef8253dd0 glib-2.0.dll         g_mutex_new
+0x000000013f489468 0x000007fef8253e00 glib-2.0.dll         g_mutex_free
+0x000000013f489470 0x000007fef8284270 glib-2.0.dll         g_key_file_get_boolean
+0x000000013f489478 0x000007fef828d690 glib-2.0.dll         g_main_loop_get_context
+0x000000013f489480 0x000007fef828e870 glib-2.0.dll         g_idle_add_full
+0x000000013f489488 0x000007fef828b870 glib-2.0.dll         g_source_unref
+0x000000013f489490 0x000007fef828a410 glib-2.0.dll         g_source_attach
+0x000000013f489498 0x000007fef828ae10 glib-2.0.dll         g_source_set_callback
+0x000000013f4894a0 0x000007fef828e970 glib-2.0.dll         g_idle_add
+0x000000013f4894a8 0x000007fef8294d10 glib-2.0.dll         g_log
+0x000000013f4894b0 0x000007fef8294800 glib-2.0.dll         g_logv
+0x000000013f4894b8 0x000007fef82afb50 glib-2.0.dll         g_str_has_prefix
+0x000000013f4894c0 0x000007fef8275820 glib-2.0.dll         g_clear_error
+0x000000013f4894c8 0x000007fef82939b0 glib-2.0.dll         g_variant_type_free
+0x000000013f4894d0 0x000007fef8295660 glib-2.0.dll         g_print
+0x000000013f4894d8 0x000007fef8295800 glib-2.0.dll         g_printerr
+0x000000013f4894e0 0x000007fef8297230 glib-2.0.dll         g_option_context_new
+0x000000013f4894e8 0x000007fef829ad40 glib-2.0.dll         g_option_context_set_summary
+0x000000013f4894f0 0x000007fef82972b0 glib-2.0.dll         g_option_context_free
+0x000000013f4894f8 0x000007fef8297810 glib-2.0.dll         g_option_context_add_main_entries
+0x000000013f489500 0x000007fef8299ad0 glib-2.0.dll         g_option_context_parse
+0x000000013f489508 0x000007fef82977c0 glib-2.0.dll         g_option_context_get_main_group
+0x000000013f489510 0x000007fef829aa60 glib-2.0.dll         g_option_group_set_error_hook
+0x000000013f489518 0x000007fef82e0470 glib-2.0.dll         g_win32_error_message
+0x000000013f489520 0x000007fef8289590 glib-2.0.dll         g_main_context_unref
+0x000000013f489528 0x000007fef8289b40 glib-2.0.dll         g_main_context_default
+0x000000013f489530 0x000007fef828d230 glib-2.0.dll         g_main_loop_new
+0x000000013f489538 0x000007fef828d3e0 glib-2.0.dll         g_main_loop_run
+0x000000013f489540 0x000007fef828d360 glib-2.0.dll         g_main_loop_unref
+0x000000013f489548 0x000007fef828bbb0 glib-2.0.dll         g_source_remove
+0x000000013f489550 0x000007fef828e2f0 glib-2.0.dll         g_timeout_add
+0x000000013f489558 0x000007fef8281060 glib-2.0.dll         g_key_file_new
+0x000000013f489560 0x000007fef8281bb0 glib-2.0.dll         g_key_file_free
+0x000000013f489568 0x000007fef82acef0 glib-2.0.dll         g_strdup_printf
+0x000000013f489570 0x000007fef8253f70 glib-2.0.dll         g_array_new
+0x000000013f489578 0x000007fef82df660 glib-2.0.dll         g_rw_lock_writer_lock
+0x000000013f489580 0x000007fef82b7460 glib-2.0.dll         g_thread_join
+0x000000013f489588 0x000007fef82553d0 glib-2.0.dll         g_ptr_array_remove
+0x000000013f489590 0x000007fef82acbf0 glib-2.0.dll         g_strdup
+0x000000013f489598 0x000007fef82afaa0 glib-2.0.dll         g_str_has_suffix
+0x000000013f4895a0 0x000007fef8294d30 glib-2.0.dll         g_return_if_fail_warning
+0x000000013f4895a8 0x000007fef8293900 glib-2.0.dll         g_malloc0
+0x000000013f4895b0 0x000007fef82938b0 glib-2.0.dll         g_malloc
+0x000000013f4895b8 0x000007fef8275b40 glib-2.0.dll         g_file_test_utf8
+0x000000013f4895c0 0x000007fef82740f0 glib-2.0.dll         g_dir_read_name_utf8
+0x000000013f4895c8 0x000007fef8273fb0 glib-2.0.dll         g_dir_open_utf8
+0x000000013f4895d0 0x000007fef82742b0 glib-2.0.dll         g_dir_close
+0x000000013f4895d8 0x000007fef8255620 glib-2.0.dll         g_ptr_array_sort
+0x000000013f4895e0 0x000007fef82554d0 glib-2.0.dll         g_ptr_array_add
+0x000000013f4895e8 0x000007fef8255010 glib-2.0.dll         g_ptr_array_remove_index
+0x000000013f4895f0 0x000007fef8254d90 glib-2.0.dll         g_ptr_array_free
+0x000000013f4895f8 0x000007fef8254b60 glib-2.0.dll         g_ptr_array_new
+0x000000013f489600 0x000007fef8254350 glib-2.0.dll         g_array_append_vals
+0x000000013f489608 0x000007fef8254240 glib-2.0.dll         g_array_free
+0x000000013f489618 0x000007fef81d19d0 gmodule-2.0.dll      g_module_close
+0x000000013f489620 0x000007fef81d1b80 gmodule-2.0.dll      g_module_symbol
+0x000000013f489628 0x000007fef81d13c0 gmodule-2.0.dll      g_module_open_utf8
+0x000000013f489630 0x000007fef81d1b40 gmodule-2.0.dll      g_module_make_resident
+0x000000013f489638 0x000007fef81d1b70 gmodule-2.0.dll      g_module_error
+0x000000013f489648 0x000007fef819b980 gobject-2.0.dll      g_signal_emit_by_name
+0x000000013f489650 0x000007fef81a3920 gobject-2.0.dll      g_type_init
+0x000000013f489658 0x000007fef8197820 gobject-2.0.dll      g_signal_lookup
+0x000000013f489660 0x000007fef8199d40 gobject-2.0.dll      g_signal_connect_data
+0x000000013f489668 0x000007fef818c200 gobject-2.0.dll      g_object_new
+0x000000013f489670 0x000007fef818d660 gobject-2.0.dll      g_object_set
+0x000000013f489678 0x000007fef818eb70 gobject-2.0.dll      g_object_unref
+0x000000013f489680 0x000007fef8197540 gobject-2.0.dll      g_signal_parse_name
+0x000000013f489688 0x000007fef81a1aa0 gobject-2.0.dll      g_type_class_peek_parent
+0x000000013f489690 0x000007fef81a1060 gobject-2.0.dll      g_type_register_static
+0x000000013f489698 0x000007fef81a3100 gobject-2.0.dll      g_type_check_instance_cast
+0x000000013f4896a0 0x000007fef81a3270 gobject-2.0.dll      g_type_check_class_cast
+0x000000013f4896a8 0x000007fef81892d0 gobject-2.0.dll      g_cclosure_marshal_VOID__POINTER
+0x000000013f4896b0 0x000007fef818a6f0 gobject-2.0.dll      g_object_class_install_property
+0x000000013f4896b8 0x000007fef818b7d0 gobject-2.0.dll      g_object_notify
+0x000000013f4896c0 0x000007fef8195b90 gobject-2.0.dll      g_param_spec_pointer
+0x000000013f4896c8 0x000007fef81aaf20 gobject-2.0.dll      g_value_set_boolean
+0x000000013f4896d0 0x000007fef81aaf90 gobject-2.0.dll      g_value_get_boolean
+0x000000013f4896d8 0x000007fef81ab0c0 gobject-2.0.dll      g_value_set_uint
+0x000000013f4896e0 0x000007fef81ab130 gobject-2.0.dll      g_value_get_uint
+0x000000013f4896e8 0x000007fef81ab900 gobject-2.0.dll      g_value_set_pointer
+0x000000013f4896f0 0x000007fef81ab970 gobject-2.0.dll      g_value_get_pointer
+0x000000013f4896f8 0x000007fef81a65b0 gobject-2.0.dll      g_value_peek_pointer
+0x000000013f489700 0x000007fef8197cf0 gobject-2.0.dll      g_signal_new
+0x000000013f489710 0x000007fef8383df0 intl.dll             libintl_gettext
+0x000000013f489720 0x000007fefd3ff1d8 ole32.dll            CoUninitialize
+0x000000013f489730 0x000007fef80aa3d0 vmtools.dll          RpcChannel_Destroy
+0x000000013f489738 0x000007fef80daf90 vmtools.dll          Unicode_InitW
+0x000000013f489740 0x000007fef80bf640 vmtools.dll          CodeSet_Utf8ToUtf16le
+0x000000013f489748 0x000007fef80c41d0 vmtools.dll          Hostinfo_GetOSType
+0x000000013f489750 0x000007fef80ca2a0 vmtools.dll          Str_Aswprintf
+0x000000013f489758 0x000007fef80ca3f0 vmtools.dll          Str_SafeVaswprintf
+0x000000013f489760 0x000007fef80a9430 vmtools.dll          VMTools_ConfigLogging
+0x000000013f489768 0x000007fef80a78a0 vmtools.dll          VMTools_BindTextDomain
+0x000000013f489770 0x000007fef80aa8a0 vmtools.dll          RpcChannel_SendOne
+0x000000013f489778 0x000007fef80ca2d0 vmtools.dll          Str_SafeAsprintf
+0x000000013f489780 0x000007fef8116770 vmtools.dll          VmCheck_IsVirtualWorld
+0x000000013f489788 0x000007fef80a7aa0 vmtools.dll          VMTools_GetString
+0x000000013f489790 0x000007fef81109a0 vmtools.dll          VMTools_LoadConfig
+0x000000013f489798 0x000007fef80cf570 vmtools.dll          vm_free
+0x000000013f4897a0 0x000007fef80a9900 vmtools.dll          VMTools_SuspendLogIO
+0x000000013f4897a8 0x000007fef80a9850 vmtools.dll          VMTools_ResumeLogIO
+0x000000013f4897b0 0x000007fef80aad60 vmtools.dll          RpcChannel_Start
+0x000000013f4897b8 0x000007fef80a91c0 vmtools.dll          VMTools_AttachConsole
+0x000000013f4897c0 0x000007fef80aa6c0 vmtools.dll          RpcChannel_Send
+0x000000013f4897c8 0x000007fef8110ec0 vmtools.dll          VMTools_NewHandleSource
+0x000000013f4897d0 0x000007fef80aa650 vmtools.dll          RpcChannel_RegisterCallback
+0x000000013f4897d8 0x000007fef8108490 vmtools.dll          GuestApp_GetInstallPath
+0x000000013f4897e0 0x000007fef81083a0 vmtools.dll          GuestApp_GetConfPath
+0x000000013f4897e8 0x000007fef80bdc40 vmtools.dll          StrUtil_GetNextToken
+0x000000013f4897f0 0x000007fef80aab30 vmtools.dll          RpcChannel_Setup
+0x000000013f4897f8 0x000007fef80aaad0 vmtools.dll          RpcChannel_SetRetVals
+0x000000013f489800 0x000007fef80aa610 vmtools.dll          RpcChannel_New
+0x000000013f489808 0x000007fef80ca670 vmtools.dll          Str_Vasprintf
+0x000000013f489810 0x000007fef80ca420 vmtools.dll          Str_Snwprintf
+0x000000013f489818 0x000007fef8110800 vmtools.dll          VMTools_ConfigGetInteger
+0x000000013f489820 0x000007fef80ca7d0 vmtools.dll          Str_Wcscpy
+0x000000013f489828 0x000007fef80aae50 vmtools.dll          RpcChannel_Stop
+0x000000013f489830 0x000007fef80ca6c0 vmtools.dll          Str_Vaswprintf
+0x000000013f489838 0x000007fef80a7f00 vmtools.dll          Panic

@@ -1,0 +1,170 @@
+#########################################################################################################################################################################################################################################
+# Investigation Details
+# ======================
+# Investigator Name: Solomon Sonya
+# Investigation Description: Magnet Virtual Summit 2020 CTF - Memory
+# Investigation Date: 2022-01-17-2008:58
+#
+# Analysis Framework
+# ======================
+# Analysis Framework Name: Xavier Framework
+# Analysis Framework Version: 2.114
+#
+# Memory Analysis Binary
+# ======================
+# File Name: vol_2.6.exe	 File Size: 15.79 MBs	 Creation Date: 2022-01-16-1019:29	 Last Accessed: 2022-01-17-1948:58	 Last Modified: 2021-02-28-2253:29	 
+# MD5: 2fc05486a3fe93cef213cc37748bf556	 SHA-256: 672a00461ffb8d59536c86192450b66d552e67809fc8584d1792b42b22c5f4e1	 
+#
+# Analysis Image Details
+# ======================
+# Memory Image Path: C:\xavier\xavier_framework\import\memory_image\memdump.mem
+# File Name: memdump.mem	 File Size: 5.37 GBs	 Creation Date: 2022-01-17-2008:08	 Last Accessed: 2022-01-17-2008:13	 Last Modified: 2021-10-14-2125:48	 
+# MD5: 224f93209cbea29e862890f30dfa762d	 SHA-256: 18e9007993c45f813dd5bd23b6bf6ad703d3e6ac70effd9c47a310a8443c7b8a	 
+#
+# Plugin Details
+# ======================
+# Plugin Name: procdump
+# Plugin Description: Dump a process to an executable file sample
+#
+# Execution Details
+# ======================
+# Execution Command: "C:\xavier\xavier_framework\import\memory_analysis\vol_2.6.exe" -f "C:\xavier\xavier_framework\import\memory_image\memdump.mem" procdump --profile=Win7SP1x64 --dump-dir "C:\xavier\xavier_framework\export\memory_analysis\2022_01_17_20_08_42\procdump
+#########################################################################################################################################################################################################################################
+
+
+Volatility Foundation Volatility Framework 2.6
+Process(V)         ImageBase          Name                 Result
+------------------ ------------------ -------------------- ------
+0xfffffa8030e57b00 ------------------ System               Error: PEB at 0x0 is unavailable (possibly due to paging)
+0xfffffa8032005aa0 0x0000000048010000 smss.exe             OK: executable.280.exe
+0xfffffa8032f05b00 0x00000000499b0000 csrss.exe            OK: executable.364.exe
+0xfffffa803254d580 0x00000000ff7f0000 wininit.exe          OK: executable.408.exe
+0xfffffa8032a29350 0x00000000499b0000 csrss.exe            OK: executable.440.exe
+0xfffffa803317e8e0 0x00000000ff940000 services.exe         OK: executable.472.exe
+0xfffffa8033197060 0x00000000ffef0000 winlogon.exe         OK: executable.508.exe
+0xfffffa80331a7b00 0x00000000ffc40000 lsass.exe            OK: executable.536.exe
+0xfffffa80331adb00 0x00000000ffb00000 lsm.exe              OK: executable.544.exe
+0xfffffa8033227b00 0x00000000ff490000 svchost.exe          OK: executable.660.exe
+0xfffffa803325c060 0x000000013f930000 vmacthlp.exe         OK: executable.728.exe
+0xfffffa8033266060 0x00000000ff490000 svchost.exe          OK: executable.772.exe
+0xfffffa80332b0b00 0x00000000ff490000 svchost.exe          OK: executable.860.exe
+0xfffffa80332fa5f0 0x00000000ff490000 svchost.exe          OK: executable.936.exe
+0xfffffa80333379b0 0x00000000ff490000 svchost.exe          OK: executable.980.exe
+0xfffffa803333db00 0x00000000ff490000 svchost.exe          OK: executable.112.exe
+0xfffffa8033424860 0x00000000ff490000 svchost.exe          OK: executable.1160.exe
+0xfffffa803343eb00 0x00000000ff210000 spoolsv.exe          OK: executable.1304.exe
+0xfffffa80334d8b00 0x00000000ff490000 svchost.exe          OK: executable.1332.exe
+0xfffffa803357c5f0 0x00000000ff490000 svchost.exe          OK: executable.1444.exe
+0xfffffa80335e7720 0x000000013f780000 VGAuthService.       OK: executable.1520.exe
+0xfffffa803364a060 0x000000013f480000 vmtoolsd.exe         OK: executable.1576.exe
+0xfffffa80335edb00 0x00000000ff910000 wlms.exe             OK: executable.1636.exe
+0xfffffa8033735060 0x00000000ffd10000 sppsvc.exe           OK: executable.1952.exe
+0xfffffa803362c060 0x00000000ff490000 svchost.exe          OK: executable.2032.exe
+0xfffffa803376e060 0x00000000ff490000 svchost.exe          OK: executable.1080.exe
+0xfffffa803379eb00 0x00000000ff170000 WmiPrvSE.exe         OK: executable.2108.exe
+0xfffffa80338145f0 0x00000000ffe20000 dllhost.exe          OK: executable.2216.exe
+0xfffffa803386db00 0x000000013fdb0000 msdtc.exe            OK: executable.2324.exe
+0xfffffa803365b060 0x00000000ff490000 svchost.exe          OK: executable.2944.exe
+0xfffffa80310b3b00 0x00000000ff490000 svchost.exe          OK: executable.360.exe
+0xfffffa8031090060 0x00000000ff110000 SearchIndexer.       OK: executable.2580.exe
+0xfffffa80316f9060 0x00000000ffb20000 taskhost.exe         OK: executable.1396.exe
+0xfffffa8031ea9940 0x00000000ff980000 dwm.exe              OK: executable.2852.exe
+0xfffffa80317ff060 0x00000000ffa20000 explorer.exe         OK: executable.2672.exe
+0xfffffa803140c5f0 0x00000000ffec0000 WerFault.exe         OK: executable.2164.exe
+0xfffffa8031e80b00 0x000000013f480000 vmtoolsd.exe         OK: executable.2928.exe
+0xfffffa80324e1940 0x00000000ff6a0000 audiodg.exe          OK: executable.1728.exe
+0xfffffa803165eb00 0x000000013fbf0000 slack.exe            OK: executable.2208.exe
+0xfffffa8031ed3710 0x000000013fbf0000 slack.exe            OK: executable.2728.exe
+0xfffffa8031471b00 0x000000013fbf0000 slack.exe            OK: executable.1172.exe
+0xfffffa8031688b00 0x000000013fbf0000 slack.exe            OK: executable.2812.exe
+0xfffffa80338cdb00 0x000000013fbf0000 slack.exe            OK: executable.2848.exe
+0xfffffa803177bb00 0x000000013f9f0000 WINWORD.EXE          OK: executable.3180.exe
+0xfffffa8031e2c2c0 0x000000013ff00000 chrome.exe           OK: executable.3384.exe
+0xfffffa8032429060 0x000000013ff00000 chrome.exe           OK: executable.3392.exe
+0xfffffa803258cb00 0x000000013f590000 wuauclt.exe          OK: executable.3464.exe
+0xfffffa80324ca5c0 0x000000013ff00000 chrome.exe           OK: executable.3492.exe
+0xfffffa8033234a80 0x000000013ff00000 chrome.exe           OK: executable.3596.exe
+0xfffffa803259db00 0x000000013ff00000 chrome.exe           OK: executable.3604.exe
+0xfffffa803271bb00 0x000000013ff00000 chrome.exe           OK: executable.3748.exe
+0xfffffa803271db00 0x000000013ff00000 chrome.exe           OK: executable.3756.exe
+0xfffffa80333d6060 0x00000000ff170000 WmiPrvSE.exe         OK: executable.3440.exe
+0xfffffa8033806b00 0x000000013ff00000 chrome.exe           OK: executable.4196.exe
+0xfffffa80337d8b00 0x000000013ff00000 chrome.exe           OK: executable.4236.exe
+0xfffffa80310b1780 0x000000013ff00000 chrome.exe           OK: executable.4404.exe
+0xfffffa80327dcb00 0x000000013ff00000 chrome.exe           OK: executable.4600.exe
+0xfffffa8032c66060 0x000000013faf0000 iexplore.exe         OK: executable.2984.exe
+0xfffffa8031d34a40 0x00000000013d0000 iexplore.exe         OK: executable.4480.exe
+0xfffffa8031ac2b00 0x0000000000400000 FTK Imager.exe       OK: executable.4332.exe
+0xfffffa80326c94e0 0x00000000ffb20000 WmiApSrv.exe         OK: executable.1092.exe
+0xfffffa8033474b00 0x00000000ffbf0000 SearchProtocol       OK: executable.4056.exe
+0xfffffa80321b8690 0x00000000ff0a0000 SearchFilterHo       OK: executable.1996.exe
+0xfffffa8031af5060 ------------------ chrome.exe           Error: Cannot acquire process AS
+0xfffffa8032150b00 ------------------ chrome.exe           Error: Cannot acquire process AS
+
+
+
+#################################################################################################################
+# FILE DETAILS
+#################################################################################################################
+File Name: svchost_1080_exe	  File Size: 27.14 KBs	  Creation Date: 2022-01-17-2025:59	  Last Accessed: 2022-01-17-2025:59	  Last Modified: 2022-01-17-2025:59	  MD5: b82271c9d16b9a01500ef7a2d161d9f3	  SHA-256: ea1bf43234719b18a0a236d0324882b7ea7ff8112172b9150d6bcc4670c52b71
+File Name: WmiApSrv_1092_exe	  File Size: 203.26 KBs	  Creation Date: 2022-01-17-2114:23	  Last Accessed: 2022-01-17-2114:23	  Last Modified: 2022-01-17-2114:23	  MD5: a12e3fc7d957398315d07b3dc0f8fa58	  SHA-256: 66ecc0badc3778cc0abb200fe0fc63756cafbf2b8753e045deeccd148f09ee6b
+File Name: svchost_112_exe	  File Size: 27.14 KBs	  Creation Date: 2022-01-17-2025:57	  Last Accessed: 2022-01-17-2025:57	  Last Modified: 2022-01-17-2025:57	  MD5: 383bbef51255ea2ebe6b2a5abee689fa	  SHA-256: bec60b14712def98911f6e05a3da072e90f63368eaeb8d2f2ec10f76a9439dab
+File Name: svchost_1160_exe	  File Size: 27.14 KBs	  Creation Date: 2022-01-17-2025:57	  Last Accessed: 2022-01-17-2025:57	  Last Modified: 2022-01-17-2025:57	  MD5: fd9f31b3ada4811cec67e67dc2088aff	  SHA-256: df94b17c090513b6cecd9ba448d2f6c5b3a688f3dbc4b953d1c8915da3b6206a
+File Name: slack_1172_exe	  File Size: 104.75 MBs	  Creation Date: 2022-01-17-2055:37	  Last Accessed: 2022-01-17-2102:29	  Last Modified: 2022-01-17-2102:29	  MD5: bc02054120c2589854199630d3262e1e	  SHA-256: cd577bb6236e60c9a94981a6c2f8ab88c0e6eb9b89fa09c03575b9060c9420e6
+File Name: spoolsv_1304_exe	  File Size: 559.1 KBs	  Creation Date: 2022-01-17-2025:57	  Last Accessed: 2022-01-17-2025:57	  Last Modified: 2022-01-17-2025:57	  MD5: b719809973a69c86a340dd9321df9187	  SHA-256: 7b27d7ee92661702e9a324c048e8feb2e6562bdba3ea93fe523de6270948c09b
+File Name: svchost_1332_exe	  File Size: 27.14 KBs	  Creation Date: 2022-01-17-2025:57	  Last Accessed: 2022-01-17-2025:57	  Last Modified: 2022-01-17-2025:57	  MD5: b9441e87641099bfd9c367a29c760c37	  SHA-256: ac8b7f3c322c12fb29ea4b7dcf723107272a6ed8dbc2b82f24be4a397316eb08
+File Name: taskhost_1396_exe	  File Size: 68.61 KBs	  Creation Date: 2022-01-17-2026:00	  Last Accessed: 2022-01-17-2026:00	  Last Modified: 2022-01-17-2026:00	  MD5: 8a0392a3013b2989653e1b8cdfcc835d	  SHA-256: f0805f0b3069cfce58a0efb030eff198d17f7931f119ede5ff88afcb7fcb4c46
+File Name: svchost_1444_exe	  File Size: 27.14 KBs	  Creation Date: 2022-01-17-2025:57	  Last Accessed: 2022-01-17-2025:57	  Last Modified: 2022-01-17-2025:57	  MD5: bbab4bff56768dd0d98fbfee6200df57	  SHA-256: 46a8fb5999177d8d0d9e10ce13606a9e181de735feb752caef87d7c63411365
+File Name: VGAuthService._1520_exe	  File Size: 141.82 KBs	  Creation Date: 2022-01-17-2025:57	  Last Accessed: 2022-01-17-2025:57	  Last Modified: 2022-01-17-2025:57	  MD5: 1c374c806e69e73727b54cb9290c0068	  SHA-256: f778e377addd4fe805cb450230fc1cde9f3c8d1ba1a5c9bce136263a4fa5ca13
+File Name: vmtoolsd_1576_exe	  File Size: 75.78 KBs	  Creation Date: 2022-01-17-2025:57	  Last Accessed: 2022-01-17-2025:57	  Last Modified: 2022-01-17-2025:57	  MD5: 82b241abff17fae1c77ff8a6037d0f30	  SHA-256: 81f3e334144c5c27bbf1c3acf98e07c63cc3738dcb9be5af4d1180dbcf707f70
+File Name: wlms_1636_exe	  File Size: 19.46 KBs	  Creation Date: 2022-01-17-2025:57	  Last Accessed: 2022-01-17-2025:57	  Last Modified: 2022-01-17-2025:57	  MD5: a5b9800458d888a252602d1cc0be7faf	  SHA-256: b65b432d2c7352548b1af6308791f9a83977880bc73f3b3cd64a88148ea2df50
+File Name: audiodg_1728_exe	  File Size: 125.95 KBs	  Creation Date: 2022-01-17-2026:01	  Last Accessed: 2022-01-17-2026:01	  Last Modified: 2022-01-17-2026:01	  MD5: 9d744deb0726f9637d44603615621994	  SHA-256: 579209f7535834f59a889a24416ae40a2f17fb8d0a65883d1fefcd652660d139
+File Name: sppsvc_1952_exe	  File Size: 3.52 MBs	  Creation Date: 2022-01-17-2025:58	  Last Accessed: 2022-01-17-2025:59	  Last Modified: 2022-01-17-2025:59	  MD5: fb84263539ddd862b555bc172efe7c5e	  SHA-256: cb61995146ec2c08e8f5453e3b4bbcd22b2e836d396d75eb7fac3e173c144dc3
+File Name: SearchFilterHo_1996_exe	  File Size: 113.66 KBs	  Creation Date: 2022-01-17-2114:23	  Last Accessed: 2022-01-17-2114:23	  Last Modified: 2022-01-17-2114:23	  MD5: d11437e790fc49d5530e6ce5f9b973ed	  SHA-256: dbbc9c01927bd65502d40d514c897d37fed89090ba60f86901dbc13ed8c895ae
+File Name: svchost_2032_exe	  File Size: 27.14 KBs	  Creation Date: 2022-01-17-2025:59	  Last Accessed: 2022-01-17-2025:59	  Last Modified: 2022-01-17-2025:59	  MD5: 2071ccf8220fbbc5455b4599aca3be5e	  SHA-256: f16d753c9b3b534b4428b694bd77cafdc77cfb81e95e5b90ac318986845cdbb0
+File Name: WmiPrvSE_2108_exe	  File Size: 372.74 KBs	  Creation Date: 2022-01-17-2025:59	  Last Accessed: 2022-01-17-2025:59	  Last Modified: 2022-01-17-2025:59	  MD5: d732544d65e9a6146eb76fe7fd53c802	  SHA-256: 6d97a0a97fd93421c43255520585b9d691f777af94e7410bcab02fb463a2bb50
+File Name: WerFault_2164_exe	  File Size: 415.23 KBs	  Creation Date: 2022-01-17-2026:01	  Last Accessed: 2022-01-17-2026:01	  Last Modified: 2022-01-17-2026:01	  MD5: 3c63106bfa133155a9e58d742287006c	  SHA-256: 9ebf477ec2f1c807452ef29eb15405a27f6219282d4776d79dc3d7e4b31653d3
+File Name: slack_2208_exe	  File Size: 104.75 MBs	  Creation Date: 2022-01-17-2026:01	  Last Accessed: 2022-01-17-2039:15	  Last Modified: 2022-01-17-2039:15	  MD5: 970db905c7be0c4e12ecbc06db84959f	  SHA-256: 6420bfb616bd6c6da135729b9bf3270b8c5f1ab290ad705bd5b4c1cac8ea2060
+File Name: dllhost_2216_exe	  File Size: 9.73 KBs	  Creation Date: 2022-01-17-2025:59	  Last Accessed: 2022-01-17-2025:59	  Last Modified: 2022-01-17-2025:59	  MD5: f4fa60cb3d10b01be8fee024d52c1d16	  SHA-256: 795053e6861ead927a5e9dac147e9cac76ad96dd47b86204a539d65c8e61e589
+File Name: msdtc_2324_exe	  File Size: 141.82 KBs	  Creation Date: 2022-01-17-2025:59	  Last Accessed: 2022-01-17-2025:59	  Last Modified: 2022-01-17-2025:59	  MD5: de986258288cd409adcec556bf467c3c	  SHA-256: 46c6e384a31a0fe2756c7d76ba6cb7b5f2faed617dbaf180a3fc7c62d5e13c9a
+File Name: SearchIndexer._2580_exe	  File Size: 591.87 KBs	  Creation Date: 2022-01-17-2026:00	  Last Accessed: 2022-01-17-2026:00	  Last Modified: 2022-01-17-2026:00	  MD5: 667e7cc6c7ddee78eab1e466e51e42a7	  SHA-256: 9a17a02c91bf5988f136bec05c53bb4635ea4ad232f7c9650368ecd8c11d6f20
+File Name: explorer_2672_exe	  File Size: 3.23 MBs	  Creation Date: 2022-01-17-2026:00	  Last Accessed: 2022-01-17-2026:01	  Last Modified: 2022-01-17-2026:01	  MD5: 82b4b216e2a99494b1669af70c8a70b2	  SHA-256: ce7bde51c283b92f7a376c5bf9894ee7b4bb4101fbc769c794a87aaa2c9f17eb
+File Name: slack_2728_exe	  File Size: 104.75 MBs	  Creation Date: 2022-01-17-2039:15	  Last Accessed: 2022-01-17-2055:37	  Last Modified: 2022-01-17-2055:37	  MD5: 21fe806457f23fa495e837b2f92b7126	  SHA-256: ec58dce2c8b4871d0282f77fe076fcd142fa253f0bce9df8ec25326767cd1290
+File Name: smss_280_exe	  File Size: 112.64 KBs	  Creation Date: 2022-01-17-2025:55	  Last Accessed: 2022-01-17-2025:55	  Last Modified: 2022-01-17-2025:55	  MD5: 62f9c725c04a35989429a62eea5ec8bb	  SHA-256: ea6e16add4c70750ed221e033c44ee57e6a61d81e90806454aab80a3ce91bf61
+File Name: slack_2812_exe	  File Size: 104.75 MBs	  Creation Date: 2022-01-17-2102:29	  Last Accessed: 2022-01-17-2108:19	  Last Modified: 2022-01-17-2108:19	  MD5: ec90ca4b0dd3f3ee7dc7c32c15d0c5ee	  SHA-256: eed1d5d006c2497c281f80e614c7fa1d5d6b684af23e3a539690c2e47abecdf0
+File Name: slack_2848_exe	  File Size: 104.75 MBs	  Creation Date: 2022-01-17-2108:19	  Last Accessed: 2022-01-17-2114:19	  Last Modified: 2022-01-17-2114:19	  MD5: 164a404cdfd904af7dec83958719ece8	  SHA-256: 8d7997f43ad03812af888b73ecb3b9377952ed30d1efe09a9aabdd0f3c96acf5
+File Name: dwm_2852_exe	  File Size: 120.32 KBs	  Creation Date: 2022-01-17-2026:00	  Last Accessed: 2022-01-17-2026:00	  Last Modified: 2022-01-17-2026:00	  MD5: 29cc9a9e2fafbcee637e8f68c08af07e	  SHA-256: b3db161a533c02a432cf19eadfff66b86178ccbb19cc5768d304c5b2d85b6229
+File Name: vmtoolsd_2928_exe	  File Size: 75.78 KBs	  Creation Date: 2022-01-17-2026:01	  Last Accessed: 2022-01-17-2026:01	  Last Modified: 2022-01-17-2026:01	  MD5: b408db4a08a5b9f229a8c4bafe90500c	  SHA-256: de5ba459a17ec8d93d00e6d6f55b48782f8d8b3a73de91b4abf1d0704dbe2ba4
+File Name: svchost_2944_exe	  File Size: 27.14 KBs	  Creation Date: 2022-01-17-2025:59	  Last Accessed: 2022-01-17-2025:59	  Last Modified: 2022-01-17-2025:59	  MD5: 4fca9074a3c6238742f9544e4d6901ed	  SHA-256: a6fb6487fd48947548d6c95cf06858b2318bdf9f71c17d6e576a351771959ed8
+File Name: iexplore_2984_exe	  File Size: 799.23 KBs	  Creation Date: 2022-01-17-2114:20	  Last Accessed: 2022-01-17-2114:20	  Last Modified: 2022-01-17-2114:20	  MD5: cfa7d8094b4034ec05108579464a53a7	  SHA-256: f800c4f600dff085fb65139f512e70fd75d9d78bb715ce8b21b48b3c9a53b5b2
+File Name: WINWORD.EXE_3180_exe	  File Size: 1.92 MBs	  Creation Date: 2022-01-17-2114:19	  Last Accessed: 2022-01-17-2114:19	  Last Modified: 2022-01-17-2114:19	  MD5: c563cf81938b143cdaffaed2e513b1f2	  SHA-256: 4365ef647382c349df7fc6c50f9191626f9371956b19f5eb53479697661de7b
+File Name: chrome_3384_exe	  File Size: 1.7 MBs	  Creation Date: 2022-01-17-2114:19	  Last Accessed: 2022-01-17-2114:19	  Last Modified: 2022-01-17-2114:19	  MD5: 739b79cf48c938088c7fc8c2f35f67b9	  SHA-256: ccac64caa9c133dce15f63c8a5d47e273d485ce44288f369a14fa171447c6c84
+File Name: chrome_3392_exe	  File Size: 1.7 MBs	  Creation Date: 2022-01-17-2114:19	  Last Accessed: 2022-01-17-2114:19	  Last Modified: 2022-01-17-2114:19	  MD5: eb12dd10c7e4aec8bbb2735979f7b10d	  SHA-256: 557491b5171e2256d65d21e8143f04b9e06abb8432e0e4668d20e1125f19cf0f
+File Name: WmiPrvSE_3440_exe	  File Size: 372.74 KBs	  Creation Date: 2022-01-17-2114:20	  Last Accessed: 2022-01-17-2114:20	  Last Modified: 2022-01-17-2114:20	  MD5: e1669446ae74f7d9bd775fdd760ebbc2	  SHA-256: e7a6cd9eb1e3371824aaea43fadf72a927878beb469d4eb0a2088c277a4d671d
+File Name: wuauclt_3464_exe	  File Size: 140.29 KBs	  Creation Date: 2022-01-17-2114:19	  Last Accessed: 2022-01-17-2114:19	  Last Modified: 2022-01-17-2114:19	  MD5: 47301e81b4a906ef8076234247aea8ce	  SHA-256: f60baaf226073a5c0977d52c72c7916a560fc2ce3cf7a63fb9cd31e0f9218edd
+File Name: chrome_3492_exe	  File Size: 1.7 MBs	  Creation Date: 2022-01-17-2114:19	  Last Accessed: 2022-01-17-2114:19	  Last Modified: 2022-01-17-2114:19	  MD5: 0fe40e49b83391b1f067e7da66602172	  SHA-256: 87f4d8ddacce8a8e2b6f30673c3262cc8448ce04c02c25de29da9673bed609d1
+File Name: chrome_3596_exe	  File Size: 1.7 MBs	  Creation Date: 2022-01-17-2114:19	  Last Accessed: 2022-01-17-2114:19	  Last Modified: 2022-01-17-2114:19	  MD5: c9804bfca595a033c298d1212cd5c28c	  SHA-256: 22c853a0a3825257506d80035519fd2fb8e1db4765f32d69cfa9868ef657982b
+File Name: svchost_360_exe	  File Size: 27.14 KBs	  Creation Date: 2022-01-17-2025:59	  Last Accessed: 2022-01-17-2026:00	  Last Modified: 2022-01-17-2026:00	  MD5: 63149a1c74b35c339be1d0bfc7511443	  SHA-256: 6239ea9f3c07d954e23021bc21e8c8283e70ad100cea64fd8e9524acc12345dc
+File Name: chrome_3604_exe	  File Size: 1.7 MBs	  Creation Date: 2022-01-17-2114:19	  Last Accessed: 2022-01-17-2114:19	  Last Modified: 2022-01-17-2114:19	  MD5: e33347ae69e647325774d8447bb4c746	  SHA-256: 119cc86805f53fabddf0db31998fcc967d90ca07b9fea48b0a0b6551f963904b
+File Name: csrss_364_exe	  File Size: 7.68 KBs	  Creation Date: 2022-01-17-2025:55	  Last Accessed: 2022-01-17-2025:55	  Last Modified: 2022-01-17-2025:55	  MD5: e2bc0b888442a30d366a9d112d0c725c	  SHA-256: 4d3846c59db6f478d79036d66a7e7ad750299a9204127fa7aa36b7b269e47aeb
+File Name: chrome_3748_exe	  File Size: 1.7 MBs	  Creation Date: 2022-01-17-2114:19	  Last Accessed: 2022-01-17-2114:19	  Last Modified: 2022-01-17-2114:19	  MD5: 34a729a5018ce6abbaa325434af46d2b	  SHA-256: 18d201cd08101ab03d8f52baadf01c0f29fefb0aa77cdf5d506bf9d50f95f1cf
+File Name: chrome_3756_exe	  File Size: 1.7 MBs	  Creation Date: 2022-01-17-2114:19	  Last Accessed: 2022-01-17-2114:20	  Last Modified: 2022-01-17-2114:20	  MD5: 3144eeaa45681a8c95df95fd722cb43e	  SHA-256: a61b168db97b63feafc5c6b1ba545c80c81ec699785900769f7bf001dbad7419
+File Name: SearchProtocol_4056_exe	  File Size: 249.86 KBs	  Creation Date: 2022-01-17-2114:23	  Last Accessed: 2022-01-17-2114:23	  Last Modified: 2022-01-17-2114:23	  MD5: 3ae05f92030655b3906965c546f49070	  SHA-256: 18b35a893ff83bb2277e540e0e9ce7f4a71e30d4b13f87542ace7c659fc9dc6b
+File Name: wininit_408_exe	  File Size: 129.02 KBs	  Creation Date: 2022-01-17-2025:55	  Last Accessed: 2022-01-17-2025:55	  Last Modified: 2022-01-17-2025:55	  MD5: 83b8a915acc834255353f2e36bfa1cac	  SHA-256: 5413fe9b63ea043a401b08ac9dc9cc332a6b721ceab3cd6a2f856fba625b0f0e
+File Name: chrome_4196_exe	  File Size: 1.7 MBs	  Creation Date: 2022-01-17-2114:20	  Last Accessed: 2022-01-17-2114:20	  Last Modified: 2022-01-17-2114:20	  MD5: 26970c43db64b11f7b365366bec3b56c	  SHA-256: ec8b25d1f00f20e9d2beb0248e7bded9b2b4be843a3f0594cd5ab84c29d6d27
+File Name: chrome_4236_exe	  File Size: 1.7 MBs	  Creation Date: 2022-01-17-2114:20	  Last Accessed: 2022-01-17-2114:20	  Last Modified: 2022-01-17-2114:20	  MD5: 050863ab7e1c5c393e708b27676ca754	  SHA-256: 218ddb56cf7be6d02193c67431dca2e51c2c1d8d79d5a0b872edc7c3acd30c1d
+File Name: FTK Imager_4332_exe	  File Size: 11.01 MBs	  Creation Date: 2022-01-17-2114:20	  Last Accessed: 2022-01-17-2114:23	  Last Modified: 2022-01-17-2114:23	  MD5: 052aca6a9674401d6e0315413dc1d5c4	  SHA-256: a9a32773e314b3d059dc3fac3bc9c24768d471e55d28e80ae90ce7faf1ad0814
+File Name: csrss_440_exe	  File Size: 7.68 KBs	  Creation Date: 2022-01-17-2025:55	  Last Accessed: 2022-01-17-2025:55	  Last Modified: 2022-01-17-2025:55	  MD5: 3193d84fd6452813c3e4c838d8ad0022	  SHA-256: c14d52f63044fb237233a74725810af221bc5b920c8178905d087a7af0a83b60
+File Name: chrome_4404_exe	  File Size: 1.7 MBs	  Creation Date: 2022-01-17-2114:20	  Last Accessed: 2022-01-17-2114:20	  Last Modified: 2022-01-17-2114:20	  MD5: 48a3849887243267637e721f99849017	  SHA-256: 53e414e71b0d5f211722eb7b4cf7b861eb1142f30f93d1b3e02da89df9cc5566
+File Name: iexplore_4480_exe	  File Size: 799.74 KBs	  Creation Date: 2022-01-17-2114:20	  Last Accessed: 2022-01-17-2114:20	  Last Modified: 2022-01-17-2114:20	  MD5: bbcd7a9055b9e93b976e8b5e9ce2792e	  SHA-256: 888b41916c2ec2736f940dbbf94df159f6620d0a2e7a443406adc15c76403ad4
+File Name: chrome_4600_exe	  File Size: 1.7 MBs	  Creation Date: 2022-01-17-2114:20	  Last Accessed: 2022-01-17-2114:20	  Last Modified: 2022-01-17-2114:20	  MD5: 1533dab6b74db56b32335972a1681790	  SHA-256: 99ba334f7d8f9730b5cd3eab0b31a5d17a8e99a9c40b85a357fbe692ee9854da
+File Name: services_472_exe	  File Size: 328.7 KBs	  Creation Date: 2022-01-17-2025:55	  Last Accessed: 2022-01-17-2025:55	  Last Modified: 2022-01-17-2025:55	  MD5: 049423a67dfd0a3b67d7e469f95faa91	  SHA-256: 5aff1135ad0f37b7aff25474e4972549b26318f51ad171c92f65d5d7fee8c874
+File Name: winlogon_508_exe	  File Size: 455.17 KBs	  Creation Date: 2022-01-17-2025:55	  Last Accessed: 2022-01-17-2025:55	  Last Modified: 2022-01-17-2025:55	  MD5: 651db4f410d4ffd9bca9ae7e06abb6a3	  SHA-256: bbd6ee074b7cbe6b1c8cd8f49cf5e9885001c7627eb953c7fd678d7c4626fcd8
+File Name: lsass_536_exe	  File Size: 30.72 KBs	  Creation Date: 2022-01-17-2025:55	  Last Accessed: 2022-01-17-2025:55	  Last Modified: 2022-01-17-2025:55	  MD5: 5e57ec8854326a7979fbf62a8a950d9a	  SHA-256: 695f694c27da5e6d700e0f69128d13b022bfc837b54e5dd0db21d235ce776a77
+File Name: lsm_544_exe	  File Size: 343.04 KBs	  Creation Date: 2022-01-17-2025:55	  Last Accessed: 2022-01-17-2025:56	  Last Modified: 2022-01-17-2025:56	  MD5: 7db7a38c96dbf9fe3b0c9bf532372652	  SHA-256: d3d71fcf0cc1a84b1b3f6ba39010ae87d624f152051dd195bda1b2deefb40734
+File Name: svchost_660_exe	  File Size: 27.14 KBs	  Creation Date: 2022-01-17-2025:56	  Last Accessed: 2022-01-17-2025:56	  Last Modified: 2022-01-17-2025:56	  MD5: f831463502553a827000b9d5c76004a9	  SHA-256: 2083e97b51c26805d7f5022cda92454f56cb4f84f77c294a02269824e2091bfe
+File Name: vmacthlp_728_exe	  File Size: 560.64 KBs	  Creation Date: 2022-01-17-2025:56	  Last Accessed: 2022-01-17-2025:56	  Last Modified: 2022-01-17-2025:56	  MD5: 636352583123aa17e0ceffa20a36d680	  SHA-256: 5a0bac979b28cd6b74e89c6d72dde0dba91e4a07bf3e0ac17fee722ac7eaad2d
+File Name: svchost_772_exe	  File Size: 27.14 KBs	  Creation Date: 2022-01-17-2025:56	  Last Accessed: 2022-01-17-2025:56	  Last Modified: 2022-01-17-2025:56	  MD5: 08aba39905ce8c7d5ffed657bfa68590	  SHA-256: 807c7fb598a7c8fdd20e66cbc741e80a34c12f3ddb1aa32a1bc6d730031a7eee
+File Name: svchost_860_exe	  File Size: 27.14 KBs	  Creation Date: 2022-01-17-2025:56	  Last Accessed: 2022-01-17-2025:56	  Last Modified: 2022-01-17-2025:56	  MD5: 7f2b29f763635d3b78fce36193761dac	  SHA-256: de8ca99bd4a0ffd77842441f8d11502755bbf0400cd01e0f464cead1b9fc71
+File Name: svchost_936_exe	  File Size: 27.14 KBs	  Creation Date: 2022-01-17-2025:56	  Last Accessed: 2022-01-17-2025:57	  Last Modified: 2022-01-17-2025:57	  MD5: 3cfb309df9c42e0e5e67b5149b60a436	  SHA-256: 5fccf843bfa596fcc3c77f76a16ca6880b46435fa9d14750cd628de68c0e1c74
+File Name: svchost_980_exe	  File Size: 27.14 KBs	  Creation Date: 2022-01-17-2025:57	  Last Accessed: 2022-01-17-2025:57	  Last Modified: 2022-01-17-2025:57	  MD5: ae52ccdaaf10c20176012ab8c45274db	  SHA-256: 29accd582681134c4e3dfd9a866e79a47e9cc2b17f21cf83feb6e117f067b0ea

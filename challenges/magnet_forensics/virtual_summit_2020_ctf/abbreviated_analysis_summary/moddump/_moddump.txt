@@ -1,0 +1,368 @@
+#########################################################################################################################################################################################################################################
+# Investigation Details
+# ======================
+# Investigator Name: Solomon Sonya
+# Investigation Description: Magnet Virtual Summit 2020 CTF - Memory
+# Investigation Date: 2022-01-17-2008:58
+#
+# Analysis Framework
+# ======================
+# Analysis Framework Name: Xavier Framework
+# Analysis Framework Version: 2.114
+#
+# Memory Analysis Binary
+# ======================
+# File Name: vol_2.6.exe	 File Size: 15.79 MBs	 Creation Date: 2022-01-16-1019:29	 Last Accessed: 2022-01-17-1948:58	 Last Modified: 2021-02-28-2253:29	 
+# MD5: 2fc05486a3fe93cef213cc37748bf556	 SHA-256: 672a00461ffb8d59536c86192450b66d552e67809fc8584d1792b42b22c5f4e1	 
+#
+# Analysis Image Details
+# ======================
+# Memory Image Path: C:\xavier\xavier_framework\import\memory_image\memdump.mem
+# File Name: memdump.mem	 File Size: 5.37 GBs	 Creation Date: 2022-01-17-2008:08	 Last Accessed: 2022-01-17-2008:13	 Last Modified: 2021-10-14-2125:48	 
+# MD5: 224f93209cbea29e862890f30dfa762d	 SHA-256: 18e9007993c45f813dd5bd23b6bf6ad703d3e6ac70effd9c47a310a8443c7b8a	 
+#
+# Plugin Details
+# ======================
+# Plugin Name: moddump
+# Plugin Description: Dump a kernel driver to an executable file sample
+#
+# Execution Details
+# ======================
+# Execution Command: "C:\xavier\xavier_framework\import\memory_analysis\vol_2.6.exe" -f "C:\xavier\xavier_framework\import\memory_image\memdump.mem" moddump --profile=Win7SP1x64 --dump-dir "C:\xavier\xavier_framework\export\memory_analysis\2022_01_17_20_08_42\moddump
+#########################################################################################################################################################################################################################################
+
+
+Volatility Foundation Volatility Framework 2.6
+Module Base        Module Name          Result
+------------------ -------------------- ------
+0xfffff80002a48000 ntoskrnl.exe         OK: driver.fffff80002a48000.sys
+0xfffff88003c3e000 csc.sys              OK: driver.fffff88003c3e000.sys
+0xfffff88003800000 bthport.sys          OK: driver.fffff88003800000.sys
+0xfffff88005071000 rdpdr.sys            OK: driver.fffff88005071000.sys
+0xfffff80000bb7000 kdcom.dll            OK: driver.fffff80000bb7000.sys
+0xfffff88003cc1000 dfsc.sys             OK: driver.fffff88003cc1000.sys
+0xfffff880046fe000 peauth.sys           OK: driver.fffff880046fe000.sys
+0xfffff88001803000 tcpip.sys            OK: driver.fffff88001803000.sys
+0xfffff88004ce4000 Dxapi.sys            OK: driver.fffff88004ce4000.sys
+0xfffff88001245000 RDPCDD.sys           OK: driver.fffff88001245000.sys
+0xfffff88001507000 Fs_Rec.sys           OK: driver.fffff88001507000.sys
+0xfffff88000fe8000 vsock.sys            OK: driver.fffff88000fe8000.sys
+0xfffff880051ea000 asyncmac.sys         OK: driver.fffff880051ea000.sys
+0xfffff88000ec9000 WMILIB.SYS           OK: driver.fffff88000ec9000.sys
+0xfffff88003e00000 wfplwf.sys           OK: driver.fffff88003e00000.sys
+0xfffff880040aa000 E1G6032E.sys         OK: driver.fffff880040aa000.sys
+0xfffff88000cec000 mcupdate.dll         OK: driver.fffff88000cec000.sys
+0xfffff88003d72000 vm3dmp.sys           OK: driver.fffff88003d72000.sys
+0xfffff880010cd000 storport.sys         OK: driver.fffff880010cd000.sys
+0xfffff880040e0000 CmBatt.sys           OK: driver.fffff880040e0000.sys
+0xfffff8800160f000 ndis.sys             OK: driver.fffff8800160f000.sys
+0xfffff880011f0000 discache.sys         OK: driver.fffff880011f0000.sys
+0xfffff88004cd1000 dump_dumpfve.sys     OK: driver.fffff88004cd1000.sys
+0xfffff96000600000 cdd.dll              OK: driver.fffff96000600000.sys
+0xfffff88001193000 fileinfo.sys         OK: driver.fffff88001193000.sys
+0xfffff88004c74000 drmk.sys             OK: driver.fffff88004c74000.sys
+0xfffff880042d5000 ks.sys               OK: driver.fffff880042d5000.sys
+0xfffff8800399c000 BTHUSB.sys           OK: driver.fffff8800399c000.sys
+0xfffff88004d36000 rspndr.sys           OK: driver.fffff88004d36000.sys
+0xfffff88003d17000 i8042prt.sys         OK: driver.fffff88003d17000.sys
+0xfffff88004c9c000 crashdmp.sys         OK: driver.fffff88004c9c000.sys
+0xfffff8800121b000 cdrom.sys            OK: driver.fffff8800121b000.sys
+0xfffff88000f3a000 BATTC.SYS            OK: driver.fffff88000f3a000.sys
+0xfffff88003d68000 vm3dmp_loader.sys    OK: driver.fffff88003d68000.sys
+0xfffff8800428d000 raspptp.sys          OK: driver.fffff8800428d000.sys
+0xfffff88000edc000 pci.sys              OK: driver.fffff88000edc000.sys
+0xfffff88003edd000 nsiproxy.sys         OK: driver.fffff88003edd000.sys
+0xfffff88003e3e000 serial.sys           OK: driver.fffff88003e3e000.sys
+0xfffff88000fbf000 PCIIDEX.SYS          OK: driver.fffff88000fbf000.sys
+0xfffff8800509f000 tdtcp.sys            OK: driver.fffff8800509f000.sys
+0xfffff880051f5000 ad_driver.sys        OK: driver.fffff880051f5000.sys
+0xfffff88001400000 CLASSPNP.SYS         OK: driver.fffff88001400000.sys
+0xfffff88004243000 ndiswan.sys          OK: driver.fffff88004243000.sys
+0xfffff880051b0000 RDPWD.SYS            OK: driver.fffff880051b0000.sys
+0xfffff88000cc2000 WDFLDR.SYS           OK: driver.fffff88000cc2000.sys
+0xfffff88004384000 NDProxy.SYS          OK: driver.fffff88004384000.sys
+0xfffff88003c00000 rasl2tp.sys          OK: driver.fffff88003c00000.sys
+0xfffff880011e5000 Msfs.SYS             OK: driver.fffff880011e5000.sys
+0xfffff88000f46000 volmgr.sys           OK: driver.fffff88000f46000.sys
+0xfffff88004daa000 vmusbmouse.sys       OK: driver.fffff88004daa000.sys
+0xfffff88001597000 mup.sys              OK: driver.fffff88001597000.sys
+0xfffff88001000000 msrpc.sys            OK: driver.fffff88001000000.sys
+0xfffff88003dd7000 CompositeBus.sys     OK: driver.fffff88003dd7000.sys
+0xfffff88003ee9000 mssmbios.sys         OK: driver.fffff88003ee9000.sys
+0xfffff88004200000 portcls.sys          OK: driver.fffff88004200000.sys
+0xfffff8800388c000 bowser.sys           OK: driver.fffff8800388c000.sys
+0xfffff8800106d000 Npfs.SYS             OK: driver.fffff8800106d000.sys
+0xfffff880040ce000 usbehci.sys          OK: driver.fffff880040ce000.sys
+0xfffff88000d6c000 CI.dll               OK: driver.fffff88000d6c000.sys
+0xfffff88003e2f000 netbios.sys          OK: driver.fffff88003e2f000.sys
+0xfffff88003cf1000 tunnel.sys           OK: driver.fffff88003cf1000.sys
+0xfffff88001763000 ksecpkg.sys          OK: driver.fffff88001763000.sys
+0xfffff88000cd2000 atapi.sys            OK: driver.fffff88000cd2000.sys
+0xfffff88003d4d000 mouclass.sys         OK: driver.fffff88003d4d000.sys
+0xfffff88004caa000 dump_storport.sys    OK: driver.fffff88004caa000.sys
+0xfffff88003db3000 HDAudBus.sys         OK: driver.fffff88003db3000.sys
+0xfffff88004d94000 HIDPARSE.SYS         OK: driver.fffff88004d94000.sys
+0xfffff88004272000 raspppoe.sys         OK: driver.fffff88004272000.sys
+0xfffff88003ef5000 tdx.sys              OK: driver.fffff88003ef5000.sys
+0xfffff88000f31000 compbatt.sys         OK: driver.fffff88000f31000.sys
+0xfffff88000e56000 winhv.sys            OK: driver.fffff88000e56000.sys
+0xfffff88000fb7000 intelide.sys         OK: driver.fffff88000fb7000.sys
+0xfffff88004318000 umbus.sys            OK: driver.fffff88004318000.sys
+0xfffff88001200000 ksecdd.sys           OK: driver.fffff88001200000.sys
+0xfffff88000cf9000 PSHED.dll            OK: driver.fffff88000cf9000.sys
+0xfffff88000f1c000 partmgr.sys          OK: driver.fffff88000f1c000.sys
+0xfffff880042d3000 swenum.sys           OK: driver.fffff880042d3000.sys
+0xfffff88004c00000 mrxsmb10.sys         OK: driver.fffff88004c00000.sys
+0xfffff8800105e000 vmrawdsk.sys         OK: driver.fffff8800105e000.sys
+0xfffff88004641000 bthpan.sys           OK: driver.fffff88004641000.sys
+0xfffff88004cf0000 monitor.sys          OK: driver.fffff88004cf0000.sys
+0xfffff880017f8000 Beep.SYS             OK: driver.fffff880017f8000.sys
+0xfffff88003e5b000 wanarp.sys           OK: driver.fffff88003e5b000.sys
+0xfffff8800155d000 rdyboost.sys         OK: driver.fffff8800155d000.sys
+0xfffff88003f24000 afd.sys              OK: driver.fffff88003f24000.sys
+0xfffff88004cfe000 luafv.sys            OK: driver.fffff88004cfe000.sys
+0xfffff88001147000 fltmgr.sys           OK: driver.fffff88001147000.sys
+0xfffff88004046000 usbuhci.sys          OK: driver.fffff88004046000.sys
+0xfffff880047a8000 rfcomm.sys           OK: driver.fffff880047a8000.sys
+0xfffff88003e09000 pacer.sys            OK: driver.fffff88003e09000.sys
+0xfffff8800146a000 Null.SYS             OK: driver.fffff8800146a000.sys
+0xfffff88000f0f000 vdrvroot.sys         OK: driver.fffff88000f0f000.sys
+0xfffff88004600000 srvnet.sys           OK: driver.fffff88004600000.sys
+0xfffff880041de000 amdppm.sys           OK: driver.fffff880041de000.sys
+0xfffff88000d0d000 CLFS.SYS             OK: driver.fffff88000d0d000.sys
+0xfffff880050ee000 srv.sys              OK: driver.fffff880050ee000.sys
+0xfffff88000fcf000 vmci.sys             OK: driver.fffff88000fcf000.sys
+0xfffff88004c4e000 mrxsmb20.sys         OK: driver.fffff88004c4e000.sys
+0xfffff880010b0000 lsi_sas.sys          OK: driver.fffff880010b0000.sys
+0xfffff88001511000 volsnap.sys          OK: driver.fffff88001511000.sys
+0xfffff88000e72000 ACPI.sys             OK: driver.fffff88000e72000.sys
+0xfffff8800432a000 usbhub.sys           OK: driver.fffff8800432a000.sys
+0xfffff88004053000 USBPORT.SYS          OK: driver.fffff88004053000.sys
+0xfffff88004d6d000 hidusb.sys           OK: driver.fffff88004d6d000.sys
+0xfffff880050aa000 tssecsrv.sys         OK: driver.fffff880050aa000.sys
+0xfffff88004cb4000 dump_LSI_SAS.sys     OK: driver.fffff88004cb4000.sys
+0xfffff880041f3000 ndistapi.sys         OK: driver.fffff880041f3000.sys
+0xfffff88003e76000 termdd.sys           OK: driver.fffff88003e76000.sys
+0xfffff96000090000 win32k.sys           OK: driver.fffff96000090000.sys
+0xfffff880017d7000 vmstorfl.sys         OK: driver.fffff880017d7000.sys
+0xfffff880011a7000 VIDEOPRT.SYS         OK: driver.fffff880011a7000.sys
+0xfffff88004d4e000 usbccgp.sys          OK: driver.fffff88004d4e000.sys
+0xfffff88001481000 cng.sys              OK: driver.fffff88001481000.sys
+0xfffff88004399000 HdAudio.sys          OK: driver.fffff88004399000.sys
+0xfffff880038a9000 mpsdrv.sys           OK: driver.fffff880038a9000.sys
+0xfffff88004000000 dxgmms1.sys          OK: driver.fffff88004000000.sys
+0xfffff88000f5b000 volmgrx.sys          OK: driver.fffff88000f5b000.sys
+0xfffff880040e9000 dxgkrnl.sys          OK: driver.fffff880040e9000.sys
+0xfffff8800113c000 amdxata.sys          OK: driver.fffff8800113c000.sys
+0xfffff880014f6000 pcw.sys              OK: driver.fffff880014f6000.sys
+0xfffff88004d9d000 mouhid.sys           OK: driver.fffff88004d9d000.sys
+0xfffff88005000000 spsys.sys            OK: driver.fffff88005000000.sys
+0xfffff88003d5c000 serenum.sys          OK: driver.fffff88003d5c000.sys
+0xfffff88004661000 tcpipreg.sys         OK: driver.fffff88004661000.sys
+0xfffff88004d21000 lltdio.sys           OK: driver.fffff88004d21000.sys
+0xfffff88001702000 NETIO.SYS            OK: driver.fffff88001702000.sys
+0xfffff880042ae000 rassstp.sys          OK: driver.fffff880042ae000.sys
+0xfffff880015e3000 disk.sys             OK: driver.fffff880015e3000.sys
+0xfffff88003d44000 vmmouse.sys          OK: driver.fffff88003d44000.sys
+0xfffff88001086000 ataport.SYS          OK: driver.fffff88001086000.sys
+0xfffff880017e7000 spldr.sys            OK: driver.fffff880017e7000.sys
+0xfffff880042c8000 rdpbus.sys           OK: driver.fffff880042c8000.sys
+0xfffff88000c00000 Wdf01000.sys         OK: driver.fffff88000c00000.sys
+0xfffff880015a9000 fvevol.sys           OK: driver.fffff880015a9000.sys
+0xfffff8800178e000 fwpkclnt.sys         OK: driver.fffff8800178e000.sys
+0xfffff88003e8a000 rdbss.sys            OK: driver.fffff88003e8a000.sys
+0xfffff88004d6b000 USBD.SYS             OK: driver.fffff88004d6b000.sys
+0xfffff880011cc000 watchdog.sys         OK: driver.fffff880011cc000.sys
+0xfffff88005185000 vmhgfs.sys           OK: driver.fffff88005185000.sys
+0xfffff88003fad000 netbt.sys            OK: driver.fffff88003fad000.sys
+0xfffff88004631000 BthEnum.sys          OK: driver.fffff88004631000.sys
+0xfffff88003ce0000 blbdrive.sys         OK: driver.fffff88003ce0000.sys
+0xfffff880017ef000 hwpolicy.sys         OK: driver.fffff880017ef000.sys
+0xfffff88001250000 Ntfs.sys             OK: driver.fffff88001250000.sys
+0xfffff88001131000 msahci.sys           OK: driver.fffff88001131000.sys
+0xfffff880039b4000 mrxsmb.sys           OK: driver.fffff880039b4000.sys
+0xfffff88003f17000 TDI.SYS              OK: driver.fffff88003f17000.sys
+0xfffff88001473000 vga.sys              OK: driver.fffff88001473000.sys
+0xfffff880038d4000 HTTP.sys             OK: driver.fffff880038d4000.sys
+0xfffff88003d35000 kbdclass.sys         OK: driver.fffff88003d35000.sys
+0xfffff88004c96000 ksthunk.sys          OK: driver.fffff88004c96000.sys
+0xfffff880013f7000 rdpencdd.sys         OK: driver.fffff880013f7000.sys
+0xfffff80002a00000 hal.dll              OK: driver.fffff80002a00000.sys
+0xfffff88000ed2000 msisadrv.sys         OK: driver.fffff88000ed2000.sys
+0xfffff88003ff2000 ws2ifsl.sys          OK: driver.fffff88003ff2000.sys
+0xfffff96000500000 TSDDD.dll            OK: driver.fffff96000500000.sys
+0xfffff88003de7000 AgileVpn.sys         OK: driver.fffff88003de7000.sys
+0xfffff88004673000 srv2.sys             OK: driver.fffff88004673000.sys
+0xfffff88000e1a000 vmbus.sys            OK: driver.fffff88000e1a000.sys
+0xfffff88004d7b000 HIDCLASS.SYS         OK: driver.fffff88004d7b000.sys
+0xfffff880039e1000 vmmemctl.sys         OK: driver.fffff880039e1000.sys
+0xfffff880011dc000 rdprefmp.sys         OK: driver.fffff880011dc000.sys
+0xfffff88000e00000 mountmgr.sys         OK: driver.fffff88000e00000.sys
+
+
+#################################################################################################################
+# File Details
+#################################################################################################################
+File Name: kdcom.dll_driver.fffff80000bb7000.sys	 File Size: 10.75 KBs	 Creation Date: 2022-01-17-2025:59	 Last Accessed: 2022-01-17-2025:59	 Last Modified: 2022-01-17-2025:59	 MD5: 143515709fd96d6a25c59a06465a2dd5	 SHA-256: ef84d64516e74dc258c151a9d6359720a70106f5613c19e52af526e04e44c733	 
+File Name: hal.dll_driver.fffff80002a00000.sys	 File Size: 255.49 KBs	 Creation Date: 2022-01-17-2026:13	 Last Accessed: 2022-01-17-2026:13	 Last Modified: 2022-01-17-2026:13	 MD5: fc1af224cf7f26d75fcc391ae94bbe1c	 SHA-256: 244a67873ecb6bdadffdc6b488038d07a6dab8d9cb45c2c3a831e4b7fef7216a	 
+File Name: ntoskrnl.exe_driver.fffff80002a48000.sys	 File Size: 5.55 MBs	 Creation Date: 2022-01-17-2025:58	 Last Accessed: 2022-01-17-2025:59	 Last Modified: 2022-01-17-2025:59	 MD5: df5cc0dc7cd880fa76858ec6c79b5c6b	 SHA-256: 30b76157e0a1e054642194aa6c72f511bbe484ded9eca4a0c0fcfae6ef71932	 
+File Name: Wdf01000.sys_driver.fffff88000c00000.sys	 File Size: 770.05 KBs	 Creation Date: 2022-01-17-2026:12	 Last Accessed: 2022-01-17-2026:12	 Last Modified: 2022-01-17-2026:12	 MD5: d2d920ecbd90fd73ccca8cdd2ca434a2	 SHA-256: 437e6383a96b42ffcc0bbeeed0df75777098147d937601f88836967b936771b5	 
+File Name: WDFLDR.SYS_driver.fffff88000cc2000.sys	 File Size: 38.91 KBs	 Creation Date: 2022-01-17-2026:03	 Last Accessed: 2022-01-17-2026:04	 Last Modified: 2022-01-17-2026:04	 MD5: 8ea740132eb4b633ec7b2e3e9f603c81	 SHA-256: 524877d9a85cbc5d1b3b9a6e157bb1b958bf8a5f5c131956a6e5471fd0ed463b	 
+File Name: atapi.sys_driver.fffff88000cd2000.sys	 File Size: 16.9 KBs	 Creation Date: 2022-01-17-2026:05	 Last Accessed: 2022-01-17-2026:05	 Last Modified: 2022-01-17-2026:05	 MD5: 35128b0312021c70ca19ffb9601d3ba8	 SHA-256: 9e5edd9f70266604fb641435e417a7f26e6186022a2f1bffd93cac69b6500982	 
+File Name: mcupdate.dll_driver.fffff88000cec000.sys	 File Size: 25.6 KBs	 Creation Date: 2022-01-17-2026:01	 Last Accessed: 2022-01-17-2026:01	 Last Modified: 2022-01-17-2026:01	 MD5: d99c6e60c8862ecb43a748635f6be1ed	 SHA-256: dcc0eddecec44594ce4fd4ec4f1592360d40b57a3836b9bab45af4b9ca57f480	 
+File Name: PSHED.dll_driver.fffff88000cf9000.sys	 File Size: 50.18 KBs	 Creation Date: 2022-01-17-2026:06	 Last Accessed: 2022-01-17-2026:06	 Last Modified: 2022-01-17-2026:06	 MD5: c8c1fcb5192ad24d1f90c3c448efb75f	 SHA-256: 1174d2886405524f9d42c1fc74ceced99a9d61155c38f6fb221ffba5de131fdb	 
+File Name: CLFS.SYS_driver.fffff88000d0d000.sys	 File Size: 364.03 KBs	 Creation Date: 2022-01-17-2026:07	 Last Accessed: 2022-01-17-2026:08	 Last Modified: 2022-01-17-2026:08	 MD5: 009ec7b5a12a9fcbccd55375d4a15584	 SHA-256: a65979bdbc7168c5512733feaa11934e0f97a89ce6e0de9ab290acac435c897a	 
+File Name: CI.dll_driver.fffff88000d6c000.sys	 File Size: 448.51 KBs	 Creation Date: 2022-01-17-2026:05	 Last Accessed: 2022-01-17-2026:05	 Last Modified: 2022-01-17-2026:05	 MD5: 892b4fb81c98eea1020b1bea23b2a852	 SHA-256: 23fbc8473fe60331d75b70c01a34fa3cca8da773c0665b1192d991b2363c1883	 
+File Name: mountmgr.sys_driver.fffff88000e00000.sys	 File Size: 87.55 KBs	 Creation Date: 2022-01-17-2026:14	 Last Accessed: 2022-01-17-2026:14	 Last Modified: 2022-01-17-2026:14	 MD5: 3772be7e677dead478c22ecb09626a33	 SHA-256: cc0fa949b6f76077e2dbb0bab3888cf026a400f9505dbc5893bcbac1aeff82e2	 
+File Name: vmbus.sys_driver.fffff88000e1a000.sys	 File Size: 192.51 KBs	 Creation Date: 2022-01-17-2026:14	 Last Accessed: 2022-01-17-2026:14	 Last Modified: 2022-01-17-2026:14	 MD5: 621249de72bd3d08516115fd7325eea5	 SHA-256: db325092ba6105a21ccad83089844a9fa7bc0ddbc594a79b1f83773370457627	 
+File Name: winhv.sys_driver.fffff88000e56000.sys	 File Size: 45.06 KBs	 Creation Date: 2022-01-17-2026:05	 Last Accessed: 2022-01-17-2026:06	 Last Modified: 2022-01-17-2026:06	 MD5: ecacda855feebe8da6be40ee18e5f8df	 SHA-256: bc562c085e19fcc45e2055bda2433441e06f7a01c6ed321e50b96ae20830b67a	 
+File Name: ACPI.sys_driver.fffff88000e72000.sys	 File Size: 327.17 KBs	 Creation Date: 2022-01-17-2026:08	 Last Accessed: 2022-01-17-2026:08	 Last Modified: 2022-01-17-2026:08	 MD5: da7dedbb98c2cd1ff4494b37b2ab8ce2	 SHA-256: 23447a167d17f3d49c14411af0356c1c7aff8f78a17d208de0e605dde6eb540d	 
+File Name: WMILIB.SYS_driver.fffff88000ec9000.sys	 File Size: 9.22 KBs	 Creation Date: 2022-01-17-2026:00	 Last Accessed: 2022-01-17-2026:01	 Last Modified: 2022-01-17-2026:01	 MD5: 0dc1f91a5ee197255883855fc04f7fb8	 SHA-256: 59523f653a62530e109e2fb2aee5ec7779948ab7d1d9042b22bad855356a8f1d	 
+File Name: msisadrv.sys_driver.fffff88000ed2000.sys	 File Size: 8.19 KBs	 Creation Date: 2022-01-17-2026:14	 Last Accessed: 2022-01-17-2026:14	 Last Modified: 2022-01-17-2026:14	 MD5: 4fe01a769e6925c3e52d85bee4fe637d	 SHA-256: 34fa477e2f9747b9eeaa7d1034fe2dc8be77ef57761f13d70130a2735a225e90	 
+File Name: pci.sys_driver.fffff88000edc000.sys	 File Size: 177.66 KBs	 Creation Date: 2022-01-17-2026:03	 Last Accessed: 2022-01-17-2026:03	 Last Modified: 2022-01-17-2026:03	 MD5: 6a2d8b67a1aa572b5fe518ae9ac7d85c	 SHA-256: 3ff0ff27e9a3630814f676c838b3eb52178cdf66ac4a402d0c2610fd7fa7b1b6	 
+File Name: vdrvroot.sys_driver.fffff88000f0f000.sys	 File Size: 29.18 KBs	 Creation Date: 2022-01-17-2026:07	 Last Accessed: 2022-01-17-2026:07	 Last Modified: 2022-01-17-2026:07	 MD5: 1d9dd0f745fe5067757ae2a47bd9dc04	 SHA-256: d53cb41d949cb0c9b800dab9d45010153938e9203938647c6cae237e949bcb1a	 
+File Name: partmgr.sys_driver.fffff88000f1c000.sys	 File Size: 68.1 KBs	 Creation Date: 2022-01-17-2026:06	 Last Accessed: 2022-01-17-2026:06	 Last Modified: 2022-01-17-2026:06	 MD5: a49ee619957c67185b86b9f34845585b	 SHA-256: 2d808be1c14b1a4d9b846dd3214dc2d6e221ca89d65ef65ff8535fc7799d00bd	 
+File Name: compbatt.sys_driver.fffff88000f31000.sys	 File Size: 14.34 KBs	 Creation Date: 2022-01-17-2026:05	 Last Accessed: 2022-01-17-2026:05	 Last Modified: 2022-01-17-2026:05	 MD5: 3c152dbb31f78fba1ba66e556f20fbd2	 SHA-256: 6f0bcc83e24f96492ebf5b384ae409e2453e2760b5a9c6961dfa20df72d3d8c3	 
+File Name: BATTC.SYS_driver.fffff88000f3a000.sys	 File Size: 20.99 KBs	 Creation Date: 2022-01-17-2026:02	 Last Accessed: 2022-01-17-2026:02	 Last Modified: 2022-01-17-2026:02	 MD5: 0c2d721498c3bdbb94d150cc8bf71ab6	 SHA-256: 9440a9bde819116ac6d305457d30508e596ba6c783c7de28c163c0564f686390	 
+File Name: volmgr.sys_driver.fffff88000f46000.sys	 File Size: 64.51 KBs	 Creation Date: 2022-01-17-2026:04	 Last Accessed: 2022-01-17-2026:04	 Last Modified: 2022-01-17-2026:04	 MD5: 7e35bb384332e381d61e28857ac4b7a1	 SHA-256: d0cbefb06f48862267a1d5572e9037a2bd5fbc65690e873d5cff686edd210aef	 
+File Name: volmgrx.sys_driver.fffff88000f5b000.sys	 File Size: 356.86 KBs	 Creation Date: 2022-01-17-2026:10	 Last Accessed: 2022-01-17-2026:10	 Last Modified: 2022-01-17-2026:10	 MD5: 08eb981f6053e5947616bf3a53428283	 SHA-256: cfed7f56b8c119506a0fd6f9ecf869ec878383ebc7892e4b525fdcb669d282c2	 
+File Name: intelide.sys_driver.fffff88000fb7000.sys	 File Size: 9.73 KBs	 Creation Date: 2022-01-17-2026:06	 Last Accessed: 2022-01-17-2026:06	 Last Modified: 2022-01-17-2026:06	 MD5: a741465c2ebbad7fcf6a3e4b57558ab2	 SHA-256: 212f2bdce601acaf0be815497e4532fffc2146c4fd7d4da4e6a34da23e29b686	 
+File Name: PCIIDEX.SYS_driver.fffff88000fbf000.sys	 File Size: 41.47 KBs	 Creation Date: 2022-01-17-2026:03	 Last Accessed: 2022-01-17-2026:03	 Last Modified: 2022-01-17-2026:03	 MD5: 1953a7c35865ca5ad37e2bdedb9d2273	 SHA-256: 921023a47187845f2c15e82ce5e4d47f822fce6944f6f4ce00b8ae4b478d677	 
+File Name: vmci.sys_driver.fffff88000fcf000.sys	 File Size: 81.92 KBs	 Creation Date: 2022-01-17-2026:08	 Last Accessed: 2022-01-17-2026:08	 Last Modified: 2022-01-17-2026:08	 MD5: 0332ded7e8bb7c6932daa54c7283e129	 SHA-256: c5fd7e37b0c24f20b9df90dd0f74db2f6adcc3253ac34093ca71bd61313b7d39	 
+File Name: vsock.sys_driver.fffff88000fe8000.sys	 File Size: 69.12 KBs	 Creation Date: 2022-01-17-2026:00	 Last Accessed: 2022-01-17-2026:00	 Last Modified: 2022-01-17-2026:00	 MD5: d10fd469aa492a83a91225fa54176712	 SHA-256: edcfaf4b9f55f8c19701f1cad13b6bebcb0e8d1297da6e80e597b28b323bc926	 
+File Name: msrpc.sys_driver.fffff88001000000.sys	 File Size: 359.94 KBs	 Creation Date: 2022-01-17-2026:04	 Last Accessed: 2022-01-17-2026:04	 Last Modified: 2022-01-17-2026:04	 MD5: df0b84b3adc569d8f518703f2293217a	 SHA-256: 5e2a4264f14d9b1323477220c44cd3d5d80aa47ac2bc61e5ec033acdeca5a323	 
+File Name: vmrawdsk.sys_driver.fffff8800105e000.sys	 File Size: 40.45 KBs	 Creation Date: 2022-01-17-2026:06	 Last Accessed: 2022-01-17-2026:06	 Last Modified: 2022-01-17-2026:06	 MD5: cdc9c46ad39f72feda73d1f37f81e7c8	 SHA-256: 88e5e7837cd39ebbb2d877132447a5519a7992305dae4308189e35993c05c15	 
+File Name: Npfs.SYS_driver.fffff8800106d000.sys	 File Size: 44.54 KBs	 Creation Date: 2022-01-17-2026:04	 Last Accessed: 2022-01-17-2026:05	 Last Modified: 2022-01-17-2026:05	 MD5: bdd4ac02bbbaa68d0ea7bbebfef18916	 SHA-256: d2e1eeded586885ad097f0418c3cb1aa1b2bc6b37b6388545d3f32842a97bd49	 
+File Name: ataport.SYS_driver.fffff88001086000.sys	 File Size: 148.48 KBs	 Creation Date: 2022-01-17-2026:11	 Last Accessed: 2022-01-17-2026:11	 Last Modified: 2022-01-17-2026:11	 MD5: c4277647752c21d0b82facbf4fa2ce6c	 SHA-256: a8f163e3f4352040c5069de9de586a6682864ca70c48b79102b6f045e1f1034c	 
+File Name: lsi_sas.sys_driver.fffff880010b0000.sys	 File Size: 99.33 KBs	 Creation Date: 2022-01-17-2026:08	 Last Accessed: 2022-01-17-2026:08	 Last Modified: 2022-01-17-2026:08	 MD5: aef8c7cf3f6329fa06bf4fc6fd71b20f	 SHA-256: b2c77f89fea2f2c2e12b847694211fdfb193306738364cd4d8c01047679df9a	 
+File Name: storport.sys_driver.fffff880010cd000.sys	 File Size: 183.81 KBs	 Creation Date: 2022-01-17-2026:01	 Last Accessed: 2022-01-17-2026:01	 Last Modified: 2022-01-17-2026:01	 MD5: 26f141c3c52b120f9a7477b694035d63	 SHA-256: d50d5be5ba95984eb767d0240aa0a2a7938b331419b247c4b33120691e1eb984	 
+File Name: msahci.sys_driver.fffff88001131000.sys	 File Size: 24.06 KBs	 Creation Date: 2022-01-17-2026:13	 Last Accessed: 2022-01-17-2026:13	 Last Modified: 2022-01-17-2026:13	 MD5: a58c7f0169fa93c96c9045b824c435a0	 SHA-256: de6ac5a853697bec85f911cdded99e2d9eab7158c9122ac8b3c0ba5b3c13f3a7	 
+File Name: amdxata.sys_driver.fffff8800113c000.sys	 File Size: 19.97 KBs	 Creation Date: 2022-01-17-2026:11	 Last Accessed: 2022-01-17-2026:11	 Last Modified: 2022-01-17-2026:11	 MD5: 8b031e5b4885ca5d06388019c683cbd6	 SHA-256: 634c0eed56791bbc9c62ec7b4e63a193acc890917be907666fe1e59ddffd66e7	 
+File Name: fltmgr.sys_driver.fffff88001147000.sys	 File Size: 282.62 KBs	 Creation Date: 2022-01-17-2026:07	 Last Accessed: 2022-01-17-2026:07	 Last Modified: 2022-01-17-2026:07	 MD5: 7aa0fe46153560d456d7ff0eb3f0b1c5	 SHA-256: b1a80c63d453a369cec201df6a04f816e44ba8a578b4aba353139e171bc63afb	 
+File Name: fileinfo.sys_driver.fffff88001193000.sys	 File Size: 62.98 KBs	 Creation Date: 2022-01-17-2026:02	 Last Accessed: 2022-01-17-2026:02	 Last Modified: 2022-01-17-2026:02	 MD5: f59749786a346b188f371ad0a3c5d96e	 SHA-256: 5ddbccc6e8ba357135242e84f5d665374b8788b358ae6378928213615e261730	 
+File Name: VIDEOPRT.SYS_driver.fffff880011a7000.sys	 File Size: 129.54 KBs	 Creation Date: 2022-01-17-2026:10	 Last Accessed: 2022-01-17-2026:10	 Last Modified: 2022-01-17-2026:10	 MD5: 1db903032e1eecf24b163b1f3928d97f	 SHA-256: f182e8131c5a4ccb20fb6342fe162b49dca140740a505f83e69dda1e523a821f	 
+File Name: watchdog.sys_driver.fffff880011cc000.sys	 File Size: 42.5 KBs	 Creation Date: 2022-01-17-2026:12	 Last Accessed: 2022-01-17-2026:12	 Last Modified: 2022-01-17-2026:12	 MD5: ce8ea2ca8d903d58b26d22b179fb81fb	 SHA-256: b95e8eef1cdc9ff4037de6ebdabb8755253749292f46cbe96e23a4c923aeb995	 
+File Name: rdprefmp.sys_driver.fffff880011dc000.sys	 File Size: 8.19 KBs	 Creation Date: 2022-01-17-2026:14	 Last Accessed: 2022-01-17-2026:14	 Last Modified: 2022-01-17-2026:14	 MD5: e2e626745eb0d6231324836da57588e7	 SHA-256: 73c9b88d2fc5f92f5ea5ea31ab852e1601725913f1604236498bf3abe6266100	 
+File Name: Msfs.SYS_driver.fffff880011e5000.sys	 File Size: 26.11 KBs	 Creation Date: 2022-01-17-2026:04	 Last Accessed: 2022-01-17-2026:04	 Last Modified: 2022-01-17-2026:04	 MD5: ce8158debedfb34e9fc8d45e58296d7f	 SHA-256: c132987bf1707a8277f5c777d0a8f4995fd66b7987ac4278905b1d6372e3890	 
+File Name: discache.sys_driver.fffff880011f0000.sys	 File Size: 40.45 KBs	 Creation Date: 2022-01-17-2026:01	 Last Accessed: 2022-01-17-2026:01	 Last Modified: 2022-01-17-2026:01	 MD5: 8e7c30dfb64d1d73a90c142a55a8cc8b	 SHA-256: 43240a5478237f962e32ff383769f169eb7665108f9c99056c6130cbd27d0a12	 
+File Name: ksecdd.sys_driver.fffff88001200000.sys	 File Size: 88.58 KBs	 Creation Date: 2022-01-17-2026:06	 Last Accessed: 2022-01-17-2026:06	 Last Modified: 2022-01-17-2026:06	 MD5: dd5b5bc3b15c538af1b5da4d04c47cd7	 SHA-256: 8891ce9a54fd9ca2fb3313d32f17fec90bb7af0a8ebe0a315e82ed3bb0cd20b7	 
+File Name: cdrom.sys_driver.fffff8800121b000.sys	 File Size: 147.46 KBs	 Creation Date: 2022-01-17-2026:02	 Last Accessed: 2022-01-17-2026:02	 Last Modified: 2022-01-17-2026:02	 MD5: 59430e9331c725bf344e798dfd9750c0	 SHA-256: 26b6c7d3e4fc8614475649d55671e4518228627c13dacbd9579ee4f0f23f615c	 
+File Name: RDPCDD.sys_driver.fffff88001245000.sys	 File Size: 7.68 KBs	 Creation Date: 2022-01-17-2026:00	 Last Accessed: 2022-01-17-2026:00	 Last Modified: 2022-01-17-2026:00	 MD5: 326818198edc1bca52fd81c3f31ac385	 SHA-256: 874b3fd73fbaf63fbc6277e012577df61d7e8e1798a68e46e0727a05a34db380	 
+File Name: Ntfs.sys_driver.fffff88001250000.sys	 File Size: 1.67 MBs	 Creation Date: 2022-01-17-2026:13	 Last Accessed: 2022-01-17-2026:13	 Last Modified: 2022-01-17-2026:13	 MD5: dc52946f102247d33594d3cde0162803	 SHA-256: a1f18a0a2d38be0a2a738592d3710cba8ba9346edde09375de1df68219189ed8	 
+File Name: rdpencdd.sys_driver.fffff880013f7000.sys	 File Size: 7.68 KBs	 Creation Date: 2022-01-17-2026:13	 Last Accessed: 2022-01-17-2026:13	 Last Modified: 2022-01-17-2026:13	 MD5: 810dfb3d331014bd43b4341e702706c1	 SHA-256: f561ff02511fb8e1d1006aa4959bcf15f0a6422039f7741e87802ecb52802014	 
+File Name: CLASSPNP.SYS_driver.fffff88001400000.sys	 File Size: 172.03 KBs	 Creation Date: 2022-01-17-2026:03	 Last Accessed: 2022-01-17-2026:03	 Last Modified: 2022-01-17-2026:03	 MD5: d613dd4a2dafac6f4e5429cd27172cf5	 SHA-256: ec8c9659773d7b6e0105f790466508cfd4f9ee162b32b674354de1b3a0c6fbaa	 
+File Name: Null.SYS_driver.fffff8800146a000.sys	 File Size: 6.14 KBs	 Creation Date: 2022-01-17-2026:07	 Last Accessed: 2022-01-17-2026:07	 Last Modified: 2022-01-17-2026:07	 MD5: 4c58523eaaaa8c04cbe944a455407436	 SHA-256: 2df74e7a00087b61d590eea5638038e21224b56126c3fc49e1dc099dfcc6a45e	 
+File Name: vga.sys_driver.fffff88001473000.sys	 File Size: 29.18 KBs	 Creation Date: 2022-01-17-2026:13	 Last Accessed: 2022-01-17-2026:13	 Last Modified: 2022-01-17-2026:13	 MD5: c011699c9332b64afbb13086c615452c	 SHA-256: af52d5b02e039cd672b97d52dd49d95c3834ad1aafedd1a2df87a0af76b20355	 
+File Name: cng.sys_driver.fffff88001481000.sys	 File Size: 456.7 KBs	 Creation Date: 2022-01-17-2026:10	 Last Accessed: 2022-01-17-2026:10	 Last Modified: 2022-01-17-2026:10	 MD5: 741ac295a5e97a924f9155c4f3ed981f	 SHA-256: 5558df90c632bbca6a71289067da52880a9cc86ddc4cd56e702a3fdafea4fd91	 
+File Name: pcw.sys_driver.fffff880014f6000.sys	 File Size: 43.52 KBs	 Creation Date: 2022-01-17-2026:11	 Last Accessed: 2022-01-17-2026:11	 Last Modified: 2022-01-17-2026:11	 MD5: 5445c1fc5869f70bcf8a1c965a221ecd	 SHA-256: b7ead1a4ce02b175afe1928fc113336bbcc673a938972d295aecfdce55a15c35	 
+File Name: Fs_Rec.sys_driver.fffff88001507000.sys	 File Size: 16.38 KBs	 Creation Date: 2022-01-17-2026:00	 Last Accessed: 2022-01-17-2026:00	 Last Modified: 2022-01-17-2026:00	 MD5: 37d686c7dbe0752b7394e41f384b790b	 SHA-256: 5aff2cd2edd57ad7f6f898473490383b879bcd05fae0df9d3977c52adfa051c1	 
+File Name: volsnap.sys_driver.fffff88001511000.sys	 File Size: 288.77 KBs	 Creation Date: 2022-01-17-2026:08	 Last Accessed: 2022-01-17-2026:08	 Last Modified: 2022-01-17-2026:08	 MD5: c63e04ef4c3dc16a15c1904d6c5f548a	 SHA-256: 96dfefccc9fc2443cd1573cf77c574e3bfc49bac2e3796fc25e37b656b3f1766	 
+File Name: rdyboost.sys_driver.fffff8800155d000.sys	 File Size: 206.85 KBs	 Creation Date: 2022-01-17-2026:06	 Last Accessed: 2022-01-17-2026:07	 Last Modified: 2022-01-17-2026:07	 MD5: a23487bd034011958fa3009bf4dd0043	 SHA-256: 7190bbdd13498d8413e3741802fb713ce4505b130cb4ed0745968dc2a5de9e6f	 
+File Name: mup.sys_driver.fffff88001597000.sys	 File Size: 53.25 KBs	 Creation Date: 2022-01-17-2026:04	 Last Accessed: 2022-01-17-2026:04	 Last Modified: 2022-01-17-2026:04	 MD5: e860ddaf066cd03bdc1d2452b32bf535	 SHA-256: 6417b076bb1403bc654200877d8e39cef626bdd6a61997d56c5f9f4766603bdd	 
+File Name: fvevol.sys_driver.fffff880015a9000.sys	 File Size: 214.53 KBs	 Creation Date: 2022-01-17-2026:12	 Last Accessed: 2022-01-17-2026:12	 Last Modified: 2022-01-17-2026:12	 MD5: 885ead64b062f6497128158f23ccbeaa	 SHA-256: 258f35026689cd0237a6889dccbaecb16ed6930152cf6c568e01ceb0cfdb8751	 
+File Name: disk.sys_driver.fffff880015e3000.sys	 File Size: 66.56 KBs	 Creation Date: 2022-01-17-2026:11	 Last Accessed: 2022-01-17-2026:11	 Last Modified: 2022-01-17-2026:11	 MD5: efd0e3df12815b4f696b169d505c22c3	 SHA-256: f9856304168f4ca4b815d5150a6c17166df82de23a2fa601a74b9cd5a2270a40	 
+File Name: ndis.sys_driver.fffff8800160f000.sys	 File Size: 943.62 KBs	 Creation Date: 2022-01-17-2026:01	 Last Accessed: 2022-01-17-2026:01	 Last Modified: 2022-01-17-2026:01	 MD5: 6180be7ae85a11a88d41ae243400f8b1	 SHA-256: 8c4f7c97c7b30841ab15cdacaf83035445260c818f3521f905587b29d74d40bd	 
+File Name: NETIO.SYS_driver.fffff88001702000.sys	 File Size: 370.69 KBs	 Creation Date: 2022-01-17-2026:11	 Last Accessed: 2022-01-17-2026:11	 Last Modified: 2022-01-17-2026:11	 MD5: b1f2d450ccbdce977905a590a2d4b68f	 SHA-256: 1b51813a588d69db393724415001a982f51f3448a0e7a585aef38ae3adc86242	 
+File Name: ksecpkg.sys_driver.fffff88001763000.sys	 File Size: 147.97 KBs	 Creation Date: 2022-01-17-2026:05	 Last Accessed: 2022-01-17-2026:05	 Last Modified: 2022-01-17-2026:05	 MD5: 4b8b900318eb78aeeabda5943b89d757	 SHA-256: b6d48155dc75b8cb8bc5d05bd8a54b9b87f8b05097eb2665303f7ba7a6da942a	 
+File Name: fwpkclnt.sys_driver.fffff8800178e000.sys	 File Size: 281.09 KBs	 Creation Date: 2022-01-17-2026:12	 Last Accessed: 2022-01-17-2026:12	 Last Modified: 2022-01-17-2026:12	 MD5: 6d3198c65c0759d830e818ffefb67983	 SHA-256: 9c7afeaf48c93d3f74a70cd57f19353491969aba4cc95175bfb7f27b8cdf6ceb	 
+File Name: vmstorfl.sys_driver.fffff880017d7000.sys	 File Size: 39.42 KBs	 Creation Date: 2022-01-17-2026:10	 Last Accessed: 2022-01-17-2026:10	 Last Modified: 2022-01-17-2026:10	 MD5: 9386f4742c7c4a7e664fe867d2241c53	 SHA-256: b8677f8d81ec44ef657752298a4daea9775197f319e927bd36510cb21ba7005f	 
+File Name: spldr.sys_driver.fffff880017e7000.sys	 File Size: 11.78 KBs	 Creation Date: 2022-01-17-2026:11	 Last Accessed: 2022-01-17-2026:12	 Last Modified: 2022-01-17-2026:12	 MD5: ff48ab1af0fdcdf649012eeec6b117a7	 SHA-256: 15a763a3c7941de5934572f7cd5eb6e232628e631421033d877dd9627fe2102	 
+File Name: hwpolicy.sys_driver.fffff880017ef000.sys	 File Size: 7.68 KBs	 Creation Date: 2022-01-17-2026:12	 Last Accessed: 2022-01-17-2026:13	 Last Modified: 2022-01-17-2026:13	 MD5: 1de2990f14c6ef20aa71932979d66ee4	 SHA-256: 2b10c840a86d86a3bdee38a5864a6dd342b081896967e976733a92bae40561c	 
+File Name: Beep.SYS_driver.fffff880017f8000.sys	 File Size: 6.66 KBs	 Creation Date: 2022-01-17-2026:06	 Last Accessed: 2022-01-17-2026:06	 Last Modified: 2022-01-17-2026:06	 MD5: 3822eac7580677cc924b9f871515139c	 SHA-256: 83d7fa01a9279938fed9baea9e8741d592b66a81b0eb1f856a0ab46636f4ec28	 
+File Name: tcpip.sys_driver.fffff88001803000.sys	 File Size: 1.89 MBs	 Creation Date: 2022-01-17-2026:00	 Last Accessed: 2022-01-17-2026:00	 Last Modified: 2022-01-17-2026:00	 MD5: c0658e9ceff5b7cf6a37c228386c7343	 SHA-256: 7e763993363a2c388fe21b592db87b616f64836414ee096d458a84094fa33c28	 
+File Name: bthport.sys_driver.fffff88003800000.sys	 File Size: 552.96 KBs	 Creation Date: 2022-01-17-2025:59	 Last Accessed: 2022-01-17-2025:59	 Last Modified: 2022-01-17-2025:59	 MD5: d203e5a261234b6294cf206f821bcb97	 SHA-256: 1302ed7f2cac732275cf5998bd01a1d3d691ca3246300009cfc487f23ab3f77	 
+File Name: bowser.sys_driver.fffff8800388c000.sys	 File Size: 90.11 KBs	 Creation Date: 2022-01-17-2026:04	 Last Accessed: 2022-01-17-2026:04	 Last Modified: 2022-01-17-2026:04	 MD5: e763b1d385644438b5fe2fa72ff35ae1	 SHA-256: d13de62a383ee6beeaf1a396249d5a8a842adaf633b1b2e5e5d92a8ffcc383ec	 
+File Name: mpsdrv.sys_driver.fffff880038a9000.sys	 File Size: 77.31 KBs	 Creation Date: 2022-01-17-2026:10	 Last Accessed: 2022-01-17-2026:10	 Last Modified: 2022-01-17-2026:10	 MD5: 77223fe377fdf414bc065c77bdc603e3	 SHA-256: 1b3d5b9dae166a08215df47f5a9508b675068bb9b8f23aa27a359e476bdb771a	 
+File Name: HTTP.sys_driver.fffff880038d4000.sys	 File Size: 753.66 KBs	 Creation Date: 2022-01-17-2026:13	 Last Accessed: 2022-01-17-2026:13	 Last Modified: 2022-01-17-2026:13	 MD5: 7827cfa21b28ae06e160166d89afe53e	 SHA-256: d92539cfaa4c4d6ab37948a6aed44bbde13e5d7921cb51f1bbe5f7b6241217b5	 
+File Name: BTHUSB.sys_driver.fffff8800399c000.sys	 File Size: 80.38 KBs	 Creation Date: 2022-01-17-2026:02	 Last Accessed: 2022-01-17-2026:02	 Last Modified: 2022-01-17-2026:02	 MD5: 470d9ac991d37770e7833eac59548a87	 SHA-256: 3e9a1faf92e358eccd1752e901fbece4da0f7c1f0f47f2ceae47b4ab2e39682a	 
+File Name: mrxsmb.sys_driver.fffff880039b4000.sys	 File Size: 161.28 KBs	 Creation Date: 2022-01-17-2026:13	 Last Accessed: 2022-01-17-2026:13	 Last Modified: 2022-01-17-2026:13	 MD5: 1032610f4240a7f81bc2d7402e09f7fa	 SHA-256: ffe94ec368717348554429ceb2f09c10dd02c81e21fb622ecc8fadaaca136379	 
+File Name: vmmemctl.sys_driver.fffff880039e1000.sys	 File Size: 17.92 KBs	 Creation Date: 2022-01-17-2026:14	 Last Accessed: 2022-01-17-2026:14	 Last Modified: 2022-01-17-2026:14	 MD5: 62e4124f9a93beecfe1a4f9bf982c782	 SHA-256: 2acfd9abf193531a78901fa7fbf7cb21fd2388dc22f5386f0133cac9077f3e85	 
+File Name: rasl2tp.sys_driver.fffff88003c00000.sys	 File Size: 129.54 KBs	 Creation Date: 2022-01-17-2026:04	 Last Accessed: 2022-01-17-2026:04	 Last Modified: 2022-01-17-2026:04	 MD5: 15e784afac333e681953b10250338f33	 SHA-256: 9eec6e6088769488b751c5ebb09911d9f2647a38ab00316ea0d7a225bc98a655	 
+File Name: csc.sys_driver.fffff88003c3e000.sys	 File Size: 514.56 KBs	 Creation Date: 2022-01-17-2025:59	 Last Accessed: 2022-01-17-2025:59	 Last Modified: 2022-01-17-2025:59	 MD5: 72cd6366bcd2737bdf639ffb7e53dbd0	 SHA-256: 1cc03ac754fb68427ced28e403fdcced8519007b7d1de55cd5560b7587d79aa9	 
+File Name: dfsc.sys_driver.fffff88003cc1000.sys	 File Size: 106.5 KBs	 Creation Date: 2022-01-17-2025:59	 Last Accessed: 2022-01-17-2025:59	 Last Modified: 2022-01-17-2025:59	 MD5: b561c2a833114598d63c324949fef871	 SHA-256: bb8e2960a9c807921836ac9365b3d51edc9362af76175c9e9eb338f0a31a2757	 
+File Name: blbdrive.sys_driver.fffff88003ce0000.sys	 File Size: 45.06 KBs	 Creation Date: 2022-01-17-2026:12	 Last Accessed: 2022-01-17-2026:12	 Last Modified: 2022-01-17-2026:12	 MD5: 267e66aba9080b15ee65341b9316aec8	 SHA-256: e54e5068b3bca418bf699d703703681014edb188d1931cc193c3992902267e54	 
+File Name: tunnel.sys_driver.fffff88003cf1000.sys	 File Size: 125.44 KBs	 Creation Date: 2022-01-17-2026:05	 Last Accessed: 2022-01-17-2026:05	 Last Modified: 2022-01-17-2026:05	 MD5: d49105b20caff5f22c7e156b9fb95611	 SHA-256: 3615e12449846a94d155e66cd9a28795dc7fc75f8f1897af426e371d55a6f362	 
+File Name: i8042prt.sys_driver.fffff88003d17000.sys	 File Size: 105.47 KBs	 Creation Date: 2022-01-17-2026:02	 Last Accessed: 2022-01-17-2026:02	 Last Modified: 2022-01-17-2026:02	 MD5: 7e042b44ba6f8a9ff4e80d2b226433df	 SHA-256: d01d4584d5037374cea2b0980c81750da6126dc3a52333fb571948675dcf1dcb	 
+File Name: kbdclass.sys_driver.fffff88003d35000.sys	 File Size: 43.52 KBs	 Creation Date: 2022-01-17-2026:13	 Last Accessed: 2022-01-17-2026:13	 Last Modified: 2022-01-17-2026:13	 MD5: b12ec4926fd1c4af88475e5a7f672ee9	 SHA-256: 4019010cfa8590615108602c3f070bfc333d390a1c02bd5c2f5dc5d62473f109	 
+File Name: vmmouse.sys_driver.fffff88003d44000.sys	 File Size: 9.22 KBs	 Creation Date: 2022-01-17-2026:11	 Last Accessed: 2022-01-17-2026:11	 Last Modified: 2022-01-17-2026:11	 MD5: cdba20fbe96137493a034e2d2eb07a45	 SHA-256: ee053ae2600e195690dec185ecbca1a79e3be6621c956dbca17f37aabf761c03	 
+File Name: mouclass.sys_driver.fffff88003d4d000.sys	 File Size: 41.98 KBs	 Creation Date: 2022-01-17-2026:05	 Last Accessed: 2022-01-17-2026:05	 Last Modified: 2022-01-17-2026:05	 MD5: c136bf68910f2cf849f65f6da777f809	 SHA-256: a25258bd4241e20f6892539d1be1ca23e430bb5e0fca04562387852cda5edb1f	 
+File Name: serenum.sys_driver.fffff88003d5c000.sys	 File Size: 23.55 KBs	 Creation Date: 2022-01-17-2026:11	 Last Accessed: 2022-01-17-2026:11	 Last Modified: 2022-01-17-2026:11	 MD5: 88cb34cf380a67ddd5db66792172022f	 SHA-256: 328579b419925b78652a1c2cfb9a977b4f87d75a69a4b58b9ad1eb72d7826252	 
+File Name: vm3dmp_loader.sys_driver.fffff88003d68000.sys	 File Size: 18.94 KBs	 Creation Date: 2022-01-17-2026:02	 Last Accessed: 2022-01-17-2026:03	 Last Modified: 2022-01-17-2026:03	 MD5: e2211766c8724881fd69fa6f8ee25c5d	 SHA-256: b4782ac244a26efcccfbac7a6a85f422623177824cc7e645592a8a5f4585e174	 
+File Name: vm3dmp.sys_driver.fffff88003d72000.sys	 File Size: 247.81 KBs	 Creation Date: 2022-01-17-2026:01	 Last Accessed: 2022-01-17-2026:01	 Last Modified: 2022-01-17-2026:01	 MD5: 4b1f61f2e6cfe4c81cc840d2fd898d5b	 SHA-256: 4230717f99fb144096b0acd2702ebd335b37f507aa82dd37a12487ad2cba1690	 
+File Name: HDAudBus.sys_driver.fffff88003db3000.sys	 File Size: 122.37 KBs	 Creation Date: 2022-01-17-2026:05	 Last Accessed: 2022-01-17-2026:05	 Last Modified: 2022-01-17-2026:05	 MD5: ceb6ea617c27ae1d1a396a582e0cee1c	 SHA-256: 4cd9ac14c9f18cb52b5ed8aa0e2219ebe5f082b65f2e46cf7b999bffb625953d	 
+File Name: CompositeBus.sys_driver.fffff88003dd7000.sys	 File Size: 38.91 KBs	 Creation Date: 2022-01-17-2026:04	 Last Accessed: 2022-01-17-2026:04	 Last Modified: 2022-01-17-2026:04	 MD5: 3164ea9f7c06791b01d6406c765212da	 SHA-256: 637c6cbd8b3de39d4c3c6e5a08d0a05ccf132dc7ee82e220ce919c367a0f77f7	 
+File Name: AgileVpn.sys_driver.fffff88003de7000.sys	 File Size: 60.42 KBs	 Creation Date: 2022-01-17-2026:14	 Last Accessed: 2022-01-17-2026:14	 Last Modified: 2022-01-17-2026:14	 MD5: e91c4208077f890c2addadfcf1a29ded	 SHA-256: cc8cf8563fb8cc6b8d7981e1e6271485a7c7861091a63642770a4bcb539bf602	 
+File Name: wfplwf.sys_driver.fffff88003e00000.sys	 File Size: 12.8 KBs	 Creation Date: 2022-01-17-2026:01	 Last Accessed: 2022-01-17-2026:01	 Last Modified: 2022-01-17-2026:01	 MD5: 430d1dfa3031e422e6d527dd65f78b16	 SHA-256: 7441ab4a0e2d63806eda03cf87aa41257f11796a380d055ab815e348fd20bf40	 
+File Name: pacer.sys_driver.fffff88003e09000.sys	 File Size: 131.58 KBs	 Creation Date: 2022-01-17-2026:07	 Last Accessed: 2022-01-17-2026:07	 Last Modified: 2022-01-17-2026:07	 MD5: f853a31b63ecf1aad113c403ae3b3764	 SHA-256: bf1dfd7841def12d1ff5ee0ef1831fd1a68743e16cbfdeb9eecded9537859bd4	 
+File Name: netbios.sys_driver.fffff88003e2f000.sys	 File Size: 44.54 KBs	 Creation Date: 2022-01-17-2026:05	 Last Accessed: 2022-01-17-2026:05	 Last Modified: 2022-01-17-2026:05	 MD5: c8e1ceaaa3a4b2c321e2831e8193a35e	 SHA-256: d02cf4bde6760ad23cf85235c845c8bb0c790f2fc770d230eef390a2ea90eaa6	 
+File Name: serial.sys_driver.fffff88003e3e000.sys	 File Size: 94.21 KBs	 Creation Date: 2022-01-17-2026:03	 Last Accessed: 2022-01-17-2026:03	 Last Modified: 2022-01-17-2026:03	 MD5: 610ceda5f99e5a00e0c67a138c8f1fa6	 SHA-256: bc1cdded924e67bb1c32871a4a80eec7fbb64e9e38647966ba5e2fe5d6b76b12	 
+File Name: wanarp.sys_driver.fffff88003e5b000.sys	 File Size: 88.58 KBs	 Creation Date: 2022-01-17-2026:06	 Last Accessed: 2022-01-17-2026:06	 Last Modified: 2022-01-17-2026:06	 MD5: 5638288e9c4cd3e611a0bc840fab2c31	 SHA-256: d9695dd17fa57c13e2311e8599d14527c94902ca1f20b6ba9ff9dafb4f1cef9a	 
+File Name: termdd.sys_driver.fffff88003e76000.sys	 File Size: 56.32 KBs	 Creation Date: 2022-01-17-2026:08	 Last Accessed: 2022-01-17-2026:09	 Last Modified: 2022-01-17-2026:09	 MD5: 2e62615313db20a7cd24f80d5ca3157b	 SHA-256: 6f83a133720276464e75a0baf3b65672face7a27d26ebbe23c7a7bf417bb4938	 
+File Name: rdbss.sys_driver.fffff88003e8a000.sys	 File Size: 317.44 KBs	 Creation Date: 2022-01-17-2026:12	 Last Accessed: 2022-01-17-2026:12	 Last Modified: 2022-01-17-2026:12	 MD5: a0412f141b1a9fd93e9dfe1180e5f21d	 SHA-256: b7b891c38f2db8e516c676af1fc2200ba7237a7cf4c3b064c5e9f8cc02e3e8df	 
+File Name: nsiproxy.sys_driver.fffff88003edd000.sys	 File Size: 26.11 KBs	 Creation Date: 2022-01-17-2026:03	 Last Accessed: 2022-01-17-2026:03	 Last Modified: 2022-01-17-2026:03	 MD5: 34142c337a01eeeda27b99de168fd7e5	 SHA-256: 8ecf1ac1be79eafe293ed1e50ba81af0d2b7bafa7d9aff2ee9575224e99ae934	 
+File Name: mssmbios.sys_driver.fffff88003ee9000.sys	 File Size: 25.09 KBs	 Creation Date: 2022-01-17-2026:04	 Last Accessed: 2022-01-17-2026:04	 Last Modified: 2022-01-17-2026:04	 MD5: 5eab9fdbb75097798c0876d106d12f69	 SHA-256: 2d7cf96c9af15d52f3c261af3c4bd91488f6d63cdac41be32d102ee24132da23	 
+File Name: tdx.sys_driver.fffff88003ef5000.sys	 File Size: 117.25 KBs	 Creation Date: 2022-01-17-2026:05	 Last Accessed: 2022-01-17-2026:05	 Last Modified: 2022-01-17-2026:05	 MD5: 5effb699b1852030dd21a9a4460304ca	 SHA-256: 759697432063dec002d22f7c89472c905cf1a0d25c8c608748c8613c8af8decb	 
+File Name: TDI.SYS_driver.fffff88003f17000.sys	 File Size: 26.62 KBs	 Creation Date: 2022-01-17-2026:13	 Last Accessed: 2022-01-17-2026:13	 Last Modified: 2022-01-17-2026:13	 MD5: b7ba3187c826603a8faa53978ec6f38f	 SHA-256: 380dbb4c6a7be1fd2f985e5e9ca6b6f359e017902387242b0412cafc20d52cc0	 
+File Name: afd.sys_driver.fffff88003f24000.sys	 File Size: 496.13 KBs	 Creation Date: 2022-01-17-2026:07	 Last Accessed: 2022-01-17-2026:07	 Last Modified: 2022-01-17-2026:07	 MD5: d5e0ee7079b948b32890748c8932214f	 SHA-256: 5bd28aa7f0bafbdeacb22268589d340b9a8756b9e38a083d32079543f9d42681	 
+File Name: netbt.sys_driver.fffff88003fad000.sys	 File Size: 262.66 KBs	 Creation Date: 2022-01-17-2026:12	 Last Accessed: 2022-01-17-2026:12	 Last Modified: 2022-01-17-2026:12	 MD5: 5740508c1748baa2d3355e264ef05f6e	 SHA-256: 29e0ae06b3757e355388edb8d5afd2ed92365d9439ef0e4a50996663f4ce1d05	 
+File Name: ws2ifsl.sys_driver.fffff88003ff2000.sys	 File Size: 21.5 KBs	 Creation Date: 2022-01-17-2026:14	 Last Accessed: 2022-01-17-2026:14	 Last Modified: 2022-01-17-2026:14	 MD5: 93861ffc253cbda6bdba2f57cb693824	 SHA-256: be823a9fe447b379d37b7ffc6096998a5eed75b2e3ec08609630e003c8111a	 
+File Name: dxgmms1.sys_driver.fffff88004000000.sys	 File Size: 258.56 KBs	 Creation Date: 2022-01-17-2026:10	 Last Accessed: 2022-01-17-2026:10	 Last Modified: 2022-01-17-2026:10	 MD5: 6e389f674d80bf7b856db2468a16e6cc	 SHA-256: c3de75ac1aed6c57a42a530afae7cce76d61c86b1db26fabdac5c563d9fe6ef9	 
+File Name: usbuhci.sys_driver.fffff88004046000.sys	 File Size: 30.72 KBs	 Creation Date: 2022-01-17-2026:07	 Last Accessed: 2022-01-17-2026:07	 Last Modified: 2022-01-17-2026:07	 MD5: 0d44c41c53afeac5a5127b2556a8357f	 SHA-256: 6c9f986bf0e85c911390e832386ec620ae61713d2981996ad441ba5ff00bf173	 
+File Name: USBPORT.SYS_driver.fffff88004053000.sys	 File Size: 327.17 KBs	 Creation Date: 2022-01-17-2026:08	 Last Accessed: 2022-01-17-2026:08	 Last Modified: 2022-01-17-2026:08	 MD5: f4936ccde4214cd6d5ec19e0a93e2843	 SHA-256: 8eab2960b5c9d2c0d0a39feb3b91b63f1fa6536ab8b4dd04afae9b4e89af228f	 
+File Name: E1G6032E.sys_driver.fffff880040aa000.sys	 File Size: 145.79 KBs	 Creation Date: 2022-01-17-2026:01	 Last Accessed: 2022-01-17-2026:01	 Last Modified: 2022-01-17-2026:01	 MD5: 09e889842c570ff83a9925982120d080	 SHA-256: d8997732ecc91ed280213c35746ffbe6d8f418cfa116fa0bce07a69ff28b614d	 
+File Name: usbehci.sys_driver.fffff880040ce000.sys	 File Size: 56.32 KBs	 Creation Date: 2022-01-17-2026:05	 Last Accessed: 2022-01-17-2026:05	 Last Modified: 2022-01-17-2026:05	 MD5: 5ac6ad82fe1d279c766c111a6c645760	 SHA-256: 1ef476dbde4bf744750d75e2b231c1f0839061a24c27ab9485e3acbcf252dda7	 
+File Name: CmBatt.sys_driver.fffff880040e0000.sys	 File Size: 17.66 KBs	 Creation Date: 2022-01-17-2026:01	 Last Accessed: 2022-01-17-2026:01	 Last Modified: 2022-01-17-2026:01	 MD5: 65552d94e317a4f9c21121fbaff4223f	 SHA-256: c87475cb94e68fd044c61ec392b9f5ce671e2f9febe2c60ef9a7494042bf846a	 
+File Name: dxgkrnl.sys_driver.fffff880040e9000.sys	 File Size: 979.97 KBs	 Creation Date: 2022-01-17-2026:10	 Last Accessed: 2022-01-17-2026:11	 Last Modified: 2022-01-17-2026:11	 MD5: c04eb69deddc22963ef63f93942008c4	 SHA-256: e31cb1c37cb6bafed2d6887f7620114bb02a4fefc9767149fa1e937c40065a45	 
+File Name: amdppm.sys_driver.fffff880041de000.sys	 File Size: 60.93 KBs	 Creation Date: 2022-01-17-2026:07	 Last Accessed: 2022-01-17-2026:07	 Last Modified: 2022-01-17-2026:07	 MD5: addd1eed11aaa54d530795e4c5192805	 SHA-256: e1a8b5d084a73dfeefc967459b0330949ee31cfc9b41115388d0ee2a36b7c237	 
+File Name: ndistapi.sys_driver.fffff880041f3000.sys	 File Size: 24.06 KBs	 Creation Date: 2022-01-17-2026:08	 Last Accessed: 2022-01-17-2026:08	 Last Modified: 2022-01-17-2026:08	 MD5: 51a73dc5c4e568d30b9096e60ac0eabd	 SHA-256: 804821ebc949ae86e0794410bdd5ad3f4f8814762d18307c0cd2bc22645113b8	 
+File Name: portcls.sys_driver.fffff88004200000.sys	 File Size: 230.4 KBs	 Creation Date: 2022-01-17-2026:04	 Last Accessed: 2022-01-17-2026:04	 Last Modified: 2022-01-17-2026:04	 MD5: 68bf1d236cee781a67d568d322755c93	 SHA-256: 3f3595b21bf8ac0ff43be0b12f0544f753a270209ad016db7672cdb44c8b436	 
+File Name: ndiswan.sys_driver.fffff88004243000.sys	 File Size: 164.35 KBs	 Creation Date: 2022-01-17-2026:03	 Last Accessed: 2022-01-17-2026:03	 Last Modified: 2022-01-17-2026:03	 MD5: ef97c9a911421145690b00331f59118f	 SHA-256: b357dd9fe10e71db73b9021e47030f6483ef7275acf5e38a7915031e0f00b7c9	 
+File Name: raspppoe.sys_driver.fffff88004272000.sys	 File Size: 92.67 KBs	 Creation Date: 2022-01-17-2026:05	 Last Accessed: 2022-01-17-2026:05	 Last Modified: 2022-01-17-2026:05	 MD5: 68a24da0005d356fc94b3ff81ab566af	 SHA-256: 5219592eac2469510a079f855e098974aaaffb2c43d27d49f7aefed0de0924bb	 
+File Name: raspptp.sys_driver.fffff8800428d000.sys	 File Size: 111.1 KBs	 Creation Date: 2022-01-17-2026:03	 Last Accessed: 2022-01-17-2026:03	 Last Modified: 2022-01-17-2026:03	 MD5: b528da59f454859e2d114788440f8ead	 SHA-256: d98168c1e640033a85eaeee0e281c50f50f75a06d8745813d1bbe2a5eaa24b48	 
+File Name: rassstp.sys_driver.fffff880042ae000.sys	 File Size: 83.97 KBs	 Creation Date: 2022-01-17-2026:11	 Last Accessed: 2022-01-17-2026:11	 Last Modified: 2022-01-17-2026:11	 MD5: bf50962a3a3e82bfbbb8797915788aac	 SHA-256: f094f55364447a1c12b8e128dfa2b862dece99a464d393b6812d19bdf6cfdace	 
+File Name: rdpbus.sys_driver.fffff880042c8000.sys	 File Size: 24.06 KBs	 Creation Date: 2022-01-17-2026:12	 Last Accessed: 2022-01-17-2026:12	 Last Modified: 2022-01-17-2026:12	 MD5: 871aaa1145cbfba7c88f33f4c5945e37	 SHA-256: b638a627f733da0654da7c059439ea177ea1397a355768faf272e7b8bd80981e	 
+File Name: swenum.sys_driver.fffff880042d3000.sys	 File Size: 5.25 KBs	 Creation Date: 2022-01-17-2026:06	 Last Accessed: 2022-01-17-2026:06	 Last Modified: 2022-01-17-2026:06	 MD5: 614a1f6be912df6ea52e6608ef281a65	 SHA-256: 2ddbcc6efd9a4b781f21b70d24184ede5e2ced711ffe122dedfb18c6cd26f5d7	 
+File Name: ks.sys_driver.fffff880042d5000.sys	 File Size: 243.71 KBs	 Creation Date: 2022-01-17-2026:02	 Last Accessed: 2022-01-17-2026:02	 Last Modified: 2022-01-17-2026:02	 MD5: cb04ffb5617595492f77e4ce9291257e	 SHA-256: 45cfd674a970b050a477a78ef31265b9aaa10df26cd3efd69aac25d9aa29e988	 
+File Name: umbus.sys_driver.fffff88004318000.sys	 File Size: 48.64 KBs	 Creation Date: 2022-01-17-2026:06	 Last Accessed: 2022-01-17-2026:06	 Last Modified: 2022-01-17-2026:06	 MD5: 03089b879fb98cb2149ad606085c001b	 SHA-256: 2ddc683024cd1f5ebb5b240375283f9b932e9293cab8404dc542b6262dbc59b7	 
+File Name: usbhub.sys_driver.fffff8800432a000.sys	 File Size: 344.06 KBs	 Creation Date: 2022-01-17-2026:08	 Last Accessed: 2022-01-17-2026:08	 Last Modified: 2022-01-17-2026:08	 MD5: dc4e19c5cf55a5d136a330b05134c17e	 SHA-256: d66aa52d2628acbf9e5f74c9f7ee27c88b65178ce57baedc89d010469985d098	 
+File Name: NDProxy.SYS_driver.fffff88004384000.sys	 File Size: 57.86 KBs	 Creation Date: 2022-01-17-2026:04	 Last Accessed: 2022-01-17-2026:04	 Last Modified: 2022-01-17-2026:04	 MD5: 2723a8dfcc25e5519dae91a79ed168ad	 SHA-256: de61a6b6d1e43a302aad7f2d300939a0fa4f4e56595f7f0ce4afd6d2c3a5b7cb	 
+File Name: HdAudio.sys_driver.fffff88004399000.sys	 File Size: 350.21 KBs	 Creation Date: 2022-01-17-2026:10	 Last Accessed: 2022-01-17-2026:10	 Last Modified: 2022-01-17-2026:10	 MD5: c77cb006435ac4023d2d9e70679f8b47	 SHA-256: 347c26284de58a2fa500a0d717f9643898c62d2d5e53801f3a4bc8ac24174a01	 
+File Name: srvnet.sys_driver.fffff88004600000.sys	 File Size: 169.98 KBs	 Creation Date: 2022-01-17-2026:07	 Last Accessed: 2022-01-17-2026:07	 Last Modified: 2022-01-17-2026:07	 MD5: be2c1ebb0ac0d99ee1b92f6d70017adb	 SHA-256: 2fbf4c152c84e5e93df5c6956e3725db7d9bf34f42a9ff29cdca9c7679d618ce	 
+File Name: BthEnum.sys_driver.fffff88004631000.sys	 File Size: 41.98 KBs	 Creation Date: 2022-01-17-2026:12	 Last Accessed: 2022-01-17-2026:12	 Last Modified: 2022-01-17-2026:12	 MD5: 92ae8ebe39ad90a95005f91fec3894e7	 SHA-256: 1de3bc310702e9952e053a5eca079f68534bcf7de936168005e83738957e6701	 
+File Name: bthpan.sys_driver.fffff88004641000.sys	 File Size: 119.3 KBs	 Creation Date: 2022-01-17-2026:06	 Last Accessed: 2022-01-17-2026:06	 Last Modified: 2022-01-17-2026:06	 MD5: 1f27839975e0a7480f68e76f13e6a2f4	 SHA-256: 9431dfd6e2ee729be257f9bf15f7e9b1175f32f54ba7669ff69cc81f1c1d77e9	 
+File Name: tcpipreg.sys_driver.fffff88004661000.sys	 File Size: 46.08 KBs	 Creation Date: 2022-01-17-2026:11	 Last Accessed: 2022-01-17-2026:11	 Last Modified: 2022-01-17-2026:11	 MD5: 635bad6f453dc6d0c405ba6e179685f6	 SHA-256: 334cd0178817bb209b2ac857eb45822dcf259794471e55416d14440f6ba04a64	 
+File Name: srv2.sys_driver.fffff88004673000.sys	 File Size: 406.02 KBs	 Creation Date: 2022-01-17-2026:14	 Last Accessed: 2022-01-17-2026:14	 Last Modified: 2022-01-17-2026:14	 MD5: cef840ab4045d55c76f9d2db291b0098	 SHA-256: 1c5979c4b8ee6cf1b31a361ced2103502d14ac5098bc5610b5065a89d05041b1	 
+File Name: peauth.sys_driver.fffff880046fe000.sys	 File Size: 663.55 KBs	 Creation Date: 2022-01-17-2025:59	 Last Accessed: 2022-01-17-2026:00	 Last Modified: 2022-01-17-2026:00	 MD5: 02982d9423b873297f9f0e49548e669c	 SHA-256: 41cd48ea8bcfef3e792d4e7775277e8e88f911c5094b3e6f648035acba90767e	 
+File Name: rfcomm.sys_driver.fffff880047a8000.sys	 File Size: 158.72 KBs	 Creation Date: 2022-01-17-2026:07	 Last Accessed: 2022-01-17-2026:07	 Last Modified: 2022-01-17-2026:07	 MD5: c15e817a96f30fc62836f58121abc6ad	 SHA-256: 2e9f4a77c7b9ae72593b97d32c2eff96ceeef3de87bbd477048649ff1fbfe5e2	 
+File Name: mrxsmb10.sys_driver.fffff88004c00000.sys	 File Size: 291.33 KBs	 Creation Date: 2022-01-17-2026:06	 Last Accessed: 2022-01-17-2026:06	 Last Modified: 2022-01-17-2026:06	 MD5: 378a3ea180b8e7c9743237b9e9994851	 SHA-256: c78ebf2d6c8f0eec079d89d08b1fb698ed00e2a5a714822a27f22fcf4c42b9e3	 
+File Name: mrxsmb20.sys_driver.fffff88004c4e000.sys	 File Size: 129.54 KBs	 Creation Date: 2022-01-17-2026:08	 Last Accessed: 2022-01-17-2026:08	 Last Modified: 2022-01-17-2026:08	 MD5: 0d4f2854043929faab39124b55117788	 SHA-256: 17b7c8703411a2a2dfefbe3117fa738bfcebf1ebdac545ecc41f05bd4118ca12	 
+File Name: drmk.sys_driver.fffff88004c74000.sys	 File Size: 116.74 KBs	 Creation Date: 2022-01-17-2026:02	 Last Accessed: 2022-01-17-2026:02	 Last Modified: 2022-01-17-2026:02	 MD5: ac054575391df1528d3c784d4828dc63	 SHA-256: e0bc822a1cf5a448eead5a3457ac42eceb00a024b75bbf5c39563815d6c0e1aa	 
+File Name: ksthunk.sys_driver.fffff88004c96000.sys	 File Size: 20.99 KBs	 Creation Date: 2022-01-17-2026:13	 Last Accessed: 2022-01-17-2026:13	 Last Modified: 2022-01-17-2026:13	 MD5: 25268b988c021023dce57d61135fb8ee	 SHA-256: 8c8fda84708207f95ff9798c64e95b4cb4dc6516b17a8b3314d5997714d34803	 
+File Name: crashdmp.sys_driver.fffff88004c9c000.sys	 File Size: 32.26 KBs	 Creation Date: 2022-01-17-2026:02	 Last Accessed: 2022-01-17-2026:02	 Last Modified: 2022-01-17-2026:02	 MD5: 5afdbbaae1ef577a552d0ddfe5ebecdd	 SHA-256: 5ed52f1adb6f6a2eb0e9e3d5f7dafbbe07dbe4bcfeefb3c487de5b4a9b694128	 
+File Name: dump_storport.sys_driver.fffff88004caa000.sys	 File Size: 20.48 KBs	 Creation Date: 2022-01-17-2026:05	 Last Accessed: 2022-01-17-2026:05	 Last Modified: 2022-01-17-2026:05	 MD5: 2b11c2cdd53b3845854767ed131cfd78	 SHA-256: 31e227cc0d27d7f757fadca16d62b4c6478fddba1c10e2e9c64df394f193562d	 
+File Name: dump_LSI_SAS.sys_driver.fffff88004cb4000.sys	 File Size: 99.33 KBs	 Creation Date: 2022-01-17-2026:08	 Last Accessed: 2022-01-17-2026:08	 Last Modified: 2022-01-17-2026:08	 MD5: c22c8eedb926e9a01465e0943413732a	 SHA-256: 57e34f2678a589f7b4cd6f81d34b8206955067db7072852063b92f6a649b436c	 
+File Name: dump_dumpfve.sys_driver.fffff88004cd1000.sys	 File Size: 47.1 KBs	 Creation Date: 2022-01-17-2026:01	 Last Accessed: 2022-01-17-2026:01	 Last Modified: 2022-01-17-2026:01	 MD5: 4f8968cf00ff72bd39588b9c1f8ae177	 SHA-256: 35b53276643c6a0e51dc14cda6d98ad3b4a20b85e9b2d008cbe5bb98449ba589	 
+File Name: Dxapi.sys_driver.fffff88004ce4000.sys	 File Size: 16.9 KBs	 Creation Date: 2022-01-17-2026:00	 Last Accessed: 2022-01-17-2026:00	 Last Modified: 2022-01-17-2026:00	 MD5: 732436c0abc0ad030e1a8b6aa3b1e27f	 SHA-256: 5622bc5e2207576db26c5b012c1b95421c5fa72160529a2933bf61bd01450427	 
+File Name: monitor.sys_driver.fffff88004cf0000.sys	 File Size: 30.21 KBs	 Creation Date: 2022-01-17-2026:06	 Last Accessed: 2022-01-17-2026:06	 Last Modified: 2022-01-17-2026:06	 MD5: 78fdf0330f53abab65d366542d401fed	 SHA-256: 62087781b0e4a87f197285876bee4894a85eaa32fb709d4a440110b3d2723296	 
+File Name: luafv.sys_driver.fffff88004cfe000.sys	 File Size: 113.15 KBs	 Creation Date: 2022-01-17-2026:07	 Last Accessed: 2022-01-17-2026:07	 Last Modified: 2022-01-17-2026:07	 MD5: 70988ae4999eb53514fe3b1a43e64ea7	 SHA-256: 6f5aaafe7536cf4d6864e772893908e32637ed478277ca47c61bb3e378aa15db	 
+File Name: lltdio.sys_driver.fffff88004d21000.sys	 File Size: 60.93 KBs	 Creation Date: 2022-01-17-2026:11	 Last Accessed: 2022-01-17-2026:11	 Last Modified: 2022-01-17-2026:11	 MD5: a734cd45254f2ec69a1dc049d7ec7b7d	 SHA-256: dbc70ffc0e2d8a99381534ebce4b790cb140109b328514bf98de2e598d38e17c	 
+File Name: rspndr.sys_driver.fffff88004d36000.sys	 File Size: 76.8 KBs	 Creation Date: 2022-01-17-2026:02	 Last Accessed: 2022-01-17-2026:02	 Last Modified: 2022-01-17-2026:02	 MD5: 89049255ebc9c9b8eb565418eec84996	 SHA-256: 78cd8337947b5b74a9799aa113b523e38d27d0063aa630e7e1e7a8e11f3f305e	 
+File Name: usbccgp.sys_driver.fffff88004d4e000.sys	 File Size: 99.84 KBs	 Creation Date: 2022-01-17-2026:10	 Last Accessed: 2022-01-17-2026:10	 Last Modified: 2022-01-17-2026:10	 MD5: d02a002ff11edc3181c05441eaa7c848	 SHA-256: 87cf66edc29caeef0ee433967dc9b5ca8c6b8d20104c8c90e34bfd93d73abfca	 
+File Name: USBD.SYS_driver.fffff88004d6b000.sys	 File Size: 7.81 KBs	 Creation Date: 2022-01-17-2026:12	 Last Accessed: 2022-01-17-2026:12	 Last Modified: 2022-01-17-2026:12	 MD5: 75871a929ccac761f7043d7715417a25	 SHA-256: 83dffd3bbc3ed1dd518a38b7cc461fd5a53c13f903321cbfb77724161176969e	 
+File Name: hidusb.sys_driver.fffff88004d6d000.sys	 File Size: 30.21 KBs	 Creation Date: 2022-01-17-2026:08	 Last Accessed: 2022-01-17-2026:08	 Last Modified: 2022-01-17-2026:08	 MD5: ba9e91d404174527420d68d4b31c23a1	 SHA-256: cfb880f5607aae670b023f5962c132eb62517b93b253428aae0e0d11ff848c96	 
+File Name: HIDCLASS.SYS_driver.fffff88004d7b000.sys	 File Size: 76.8 KBs	 Creation Date: 2022-01-17-2026:14	 Last Accessed: 2022-01-17-2026:14	 Last Modified: 2022-01-17-2026:14	 MD5: a0b0ebd85086820ee01196527e8eacfb	 SHA-256: 6475dc2efe63058f15ff97b6cea03f83c9b9360b20fdc3d1c5d737298646296a	 
+File Name: HIDPARSE.SYS_driver.fffff88004d94000.sys	 File Size: 32.9 KBs	 Creation Date: 2022-01-17-2026:05	 Last Accessed: 2022-01-17-2026:05	 Last Modified: 2022-01-17-2026:05	 MD5: 88cac05e82e1a6225457830720cab9fc	 SHA-256: 9991a4d2fdfb7fe546bf16c747f284ff4eafa88416ed3ad80352731da326baa4	 
+File Name: mouhid.sys_driver.fffff88004d9d000.sys	 File Size: 31.23 KBs	 Creation Date: 2022-01-17-2026:11	 Last Accessed: 2022-01-17-2026:11	 Last Modified: 2022-01-17-2026:11	 MD5: 4ad1e5b733552418238ff2724ed87b5e	 SHA-256: 6bf0afd6d1654d9e285b6fb30c5f77ec95e1bed943422ed645ef425b65f05e94	 
+File Name: vmusbmouse.sys_driver.fffff88004daa000.sys	 File Size: 10.24 KBs	 Creation Date: 2022-01-17-2026:04	 Last Accessed: 2022-01-17-2026:04	 Last Modified: 2022-01-17-2026:04	 MD5: b44a95fa6f99ba319218fcbb806cff9f	 SHA-256: 2a89b7d178c23b5b33456e38c67b208e99a7e7c1aff5821bfc39b910d8dcbed4	 
+File Name: spsys.sys_driver.fffff88005000000.sys	 File Size: 426.5 KBs	 Creation Date: 2022-01-17-2026:11	 Last Accessed: 2022-01-17-2026:11	 Last Modified: 2022-01-17-2026:11	 MD5: 7a9560e3399f829f6bba74b39696d4bf	 SHA-256: b9f6848c1ca0a532a16ceab41bad1e1c7abf491057d59a5995118af2296d5baf	 
+File Name: rdpdr.sys_driver.fffff88005071000.sys	 File Size: 165.89 KBs	 Creation Date: 2022-01-17-2025:59	 Last Accessed: 2022-01-17-2025:59	 Last Modified: 2022-01-17-2025:59	 MD5: e21f3843f7dfbb014792fcc5c0777bfe	 SHA-256: ee7964f1a614b08ced1c62848d5414af38d0e6afcb593ae9f9d64bd71bb0b267	 
+File Name: tdtcp.sys_driver.fffff8800509f000.sys	 File Size: 23.55 KBs	 Creation Date: 2022-01-17-2026:03	 Last Accessed: 2022-01-17-2026:03	 Last Modified: 2022-01-17-2026:03	 MD5: c6232df9e55d2bd29628d9e2e1f6f669	 SHA-256: f8af33bc8ff42e150ded22b34349bba8bb9039510f5457e1d367eeb9b4e9a542	 
+File Name: tssecsrv.sys_driver.fffff880050aa000.sys	 File Size: 40.45 KBs	 Creation Date: 2022-01-17-2026:08	 Last Accessed: 2022-01-17-2026:08	 Last Modified: 2022-01-17-2026:08	 MD5: bda2549bec8d5338b07e7204ed203799	 SHA-256: 6680708ef25795b41f7168615d43919c42399c23df41cff1f08f86971e342d83	 
+File Name: srv.sys_driver.fffff880050ee000.sys	 File Size: 464.38 KBs	 Creation Date: 2022-01-17-2026:08	 Last Accessed: 2022-01-17-2026:08	 Last Modified: 2022-01-17-2026:08	 MD5: 5df5d9b7fcfc83dda1e8ec3ee82e341a	 SHA-256: d09fe924afa8f92cbb4f13eea8436d9965dd4314ecfac96b977947ab80347b35	 
+File Name: vmhgfs.sys_driver.fffff88005185000.sys	 File Size: 151.55 KBs	 Creation Date: 2022-01-17-2026:12	 Last Accessed: 2022-01-17-2026:12	 Last Modified: 2022-01-17-2026:12	 MD5: 85837a847fafc1d84b68e42df69d5731	 SHA-256: ab6fe7ce0d7e5caba403fd5fab187641c2aecceda7e81fa64550748faed351d5	 
+File Name: RDPWD.SYS_driver.fffff880051b0000.sys	 File Size: 212.48 KBs	 Creation Date: 2022-01-17-2026:03	 Last Accessed: 2022-01-17-2026:03	 Last Modified: 2022-01-17-2026:03	 MD5: 1ad5de9906b02bd6e3d44c22321dc342	 SHA-256: 69f0596b30745c5777e47b0f24134f8fc65957717a615e7b1201f654604fe6	 
+File Name: asyncmac.sys_driver.fffff880051ea000.sys	 File Size: 23.04 KBs	 Creation Date: 2022-01-17-2026:00	 Last Accessed: 2022-01-17-2026:00	 Last Modified: 2022-01-17-2026:00	 MD5: 66faa3876c2f1327ce64b8ab68dbd180	 SHA-256: a3ae003276378d37102aedef083f09df2436a08d998821291e40e8151cd062d2	 
+File Name: ad_driver.sys_driver.fffff880051f5000.sys	 File Size: 19.46 KBs	 Creation Date: 2022-01-17-2026:03	 Last Accessed: 2022-01-17-2026:03	 Last Modified: 2022-01-17-2026:03	 MD5: 0b1b130a654a122065a1d419ae3eb690	 SHA-256: e7aad766e27f6e7db76d0578626c77ea7e3333d167f029264a904a801d216fd	 
+File Name: win32k.sys_driver.fffff96000090000.sys	 File Size: 3.22 MBs	 Creation Date: 2022-01-17-2026:09	 Last Accessed: 2022-01-17-2026:10	 Last Modified: 2022-01-17-2026:10	 MD5: c46feac9ea3c7bf40da78dd79864c2de	 SHA-256: b5475109945086513781beb6530bfb91203e62077dc7c3f389a8e8ed849868d5	 
+File Name: TSDDD.dll_driver.fffff96000500000.sys	 File Size: 17.41 KBs	 Creation Date: 2022-01-17-2026:14	 Last Accessed: 2022-01-17-2026:14	 Last Modified: 2022-01-17-2026:14	 MD5: 7a5e8d1f97f7596d6f36378ff9e1efcb	 SHA-256: 87e4bf915368f7b40605548fa25e01c26a112deaaeb150025c862ae30353f490	 
+File Name: cdd.dll_driver.fffff96000600000.sys	 File Size: 144.38 KBs	 Creation Date: 2022-01-17-2026:01	 Last Accessed: 2022-01-17-2026:02	 Last Modified: 2022-01-17-2026:02	 MD5: 410c2178c976ec0497dea7cac1b53173	 SHA-256: 95fd1a2d9fd901162fa42e3a3d9182c8e3851b96e6f9d796894dafc05872cccf	 

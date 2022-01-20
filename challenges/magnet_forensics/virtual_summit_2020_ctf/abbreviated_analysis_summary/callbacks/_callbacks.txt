@@ -1,0 +1,142 @@
+#########################################################################################################################################################################################################################################
+# Investigation Details
+# ======================
+# Investigator Name: Solomon Sonya
+# Investigation Description: Magnet Virtual Summit 2020 CTF - Memory
+# Investigation Date: 2022-01-17-2008:58
+#
+# Analysis Framework
+# ======================
+# Analysis Framework Name: Xavier Framework
+# Analysis Framework Version: 2.114
+#
+# Memory Analysis Binary
+# ======================
+# File Name: vol_2.6.exe	 File Size: 15.79 MBs	 Creation Date: 2022-01-16-1019:29	 Last Accessed: 2022-01-17-1948:58	 Last Modified: 2021-02-28-2253:29	 
+# MD5: 2fc05486a3fe93cef213cc37748bf556	 SHA-256: 672a00461ffb8d59536c86192450b66d552e67809fc8584d1792b42b22c5f4e1	 
+#
+# Analysis Image Details
+# ======================
+# Memory Image Path: C:\xavier\xavier_framework\import\memory_image\memdump.mem
+# File Name: memdump.mem	 File Size: 5.37 GBs	 Creation Date: 2022-01-17-2008:08	 Last Accessed: 2022-01-17-2008:13	 Last Modified: 2021-10-14-2125:48	 
+# MD5: 224f93209cbea29e862890f30dfa762d	 SHA-256: 18e9007993c45f813dd5bd23b6bf6ad703d3e6ac70effd9c47a310a8443c7b8a	 
+#
+# Plugin Details
+# ======================
+# Plugin Name: callbacks
+# Plugin Description: Print system-wide notification routines
+#
+# Execution Details
+# ======================
+# Execution Command: "C:\xavier\xavier_framework\import\memory_analysis\vol_2.6.exe" -f "C:\xavier\xavier_framework\import\memory_image\memdump.mem" callbacks --profile=Win7SP1x64
+#########################################################################################################################################################################################################################################
+
+
+Volatility Foundation Volatility Framework 2.6
+Type                                 Callback           Module               Details
+------------------------------------ ------------------ -------------------- -------
+IoRegisterFsRegistrationChange       0xfffff880011807f0 fltmgr.sys           -
+GenericKernelCallback                0xfffff880018825e0 tcpip.sys            -
+GenericKernelCallback                0xfffff8800148d890 cng.sys              -
+GenericKernelCallback                0xfffff880012121e0 ksecdd.sys           -
+EventCategoryDeviceInterfaceChange   0xfffff880041c89f4 dxgkrnl.sys          DXGKrnl
+EventCategoryTargetDeviceChange      0xfffff80002be0530 ntoskrnl.exe         mouclass
+EventCategoryDeviceInterfaceChange   0xfffff88001536370 volsnap.sys          volsnap
+EventCategoryTargetDeviceChange      0xfffff88001512850 volsnap.sys          volsnap
+EventCategoryDeviceInterfaceChange   0xfffff960001ea818 win32k.sys           Win32k
+EventCategoryDeviceInterfaceChange   0xfffff960001ea6d0 win32k.sys           Win32k
+EventCategoryDeviceInterfaceChange   0xfffff960001ea818 win32k.sys           Win32k
+EventCategoryTargetDeviceChange      0xfffff960001eaf54 win32k.sys           Win32k
+EventCategoryTargetDeviceChange      0xfffff960001eaf54 win32k.sys           Win32k
+EventCategoryTargetDeviceChange      0xfffff960001ea4b0 win32k.sys           Win32k
+EventCategoryTargetDeviceChange      0xfffff960001eaf54 win32k.sys           Win32k
+EventCategoryDeviceInterfaceChange   0xfffff960001ea818 win32k.sys           Win32k
+EventCategoryTargetDeviceChange      0xfffff960001eaf54 win32k.sys           Win32k
+EventCategoryHardwareProfileChange   0xfffff88003db6890 HDAudBus.sys         HDAudBus
+EventCategoryHardwareProfileChange   0xfffff88003d2e0e8 i8042prt.sys         i8042prt
+EventCategoryDeviceInterfaceChange   0xfffff88003dde8a4 CompositeBus.sys     CompositeBus
+EventCategoryTargetDeviceChange      0xfffff960001eaf54 win32k.sys           Win32k
+EventCategoryDeviceInterfaceChange   0xfffff88003dde8a4 CompositeBus.sys     CompositeBus
+EventCategoryTargetDeviceChange      0xfffff80002be0530 ntoskrnl.exe         mouclass
+EventCategoryTargetDeviceChange      0xfffff960001eaf54 win32k.sys           Win32k
+GenericKernelCallback                0xfffff9600020871c win32k.sys           -
+GenericKernelCallback                0xfffff88003d7ad50 vm3dmp.sys           -
+EventCategoryTargetDeviceChange      0xfffff88000e0d6b8 mountmgr.sys         mountmgr
+EventCategoryTargetDeviceChange      0xfffff88000e0d6b8 mountmgr.sys         mountmgr
+GenericKernelCallback                0xfffff80002d9a2a4 ntoskrnl.exe         -
+EventCategoryDeviceInterfaceChange   0xfffff88000f2a710 partmgr.sys          partmgr
+EventCategoryDeviceInterfaceChange   0xfffff88000f51330 volmgr.sys           volmgr
+EventCategoryDeviceInterfaceChange   0xfffff88000e0ef80 mountmgr.sys         mountmgr
+EventCategoryDeviceInterfaceChange   0xfffff88000f51330 volmgr.sys           volmgr
+EventCategoryTargetDeviceChange      0xfffff80002be0530 ntoskrnl.exe         ACPI
+EventCategoryTargetDeviceChange      0xfffff88000e0d6b8 mountmgr.sys         mountmgr
+GenericKernelCallback                0xfffff80002d52510 ntoskrnl.exe         -
+GenericKernelCallback                0xfffff88000d85c94 CI.dll               -
+GenericKernelCallback                0xfffff80002d26510 ntoskrnl.exe         -
+GenericKernelCallback                0xfffff80002aa2c78 ntoskrnl.exe         -
+EventCategoryDeviceInterfaceChange   0xfffff80002f19c40 ntoskrnl.exe         PnpManager
+EventCategoryDeviceInterfaceChange   0xfffff80002f19c40 ntoskrnl.exe         PnpManager
+EventCategoryDeviceInterfaceChange   0xfffff80002f19c40 ntoskrnl.exe         PnpManager
+EventCategoryDeviceInterfaceChange   0xfffff80002f19c40 ntoskrnl.exe         PnpManager
+EventCategoryDeviceInterfaceChange   0xfffff80002f19c40 ntoskrnl.exe         PnpManager
+EventCategoryDeviceInterfaceChange   0xfffff88000f32794 compbatt.sys         Compbatt
+EventCategoryTargetDeviceChange      0xfffff880041cfd18 dxgkrnl.sys          DXGKrnl
+EventCategoryTargetDeviceChange      0xfffff88000e0d6b8 mountmgr.sys         mountmgr
+EventCategoryDeviceInterfaceChange   0xfffff88001536370 volsnap.sys          volsnap
+EventCategoryTargetDeviceChange      0xfffff88001512850 volsnap.sys          volsnap
+EventCategoryTargetDeviceChange      0xfffff960001eaf54 win32k.sys           Win32k
+EventCategoryDeviceInterfaceChange   0xfffff88001536370 volsnap.sys          volsnap
+EventCategoryTargetDeviceChange      0xfffff88001512850 volsnap.sys          volsnap
+GenericKernelCallback                0xfffff88003d7ad50 vm3dmp.sys           -
+EventCategoryDeviceInterfaceChange   0xfffff88003dde8a4 CompositeBus.sys     CompositeBus
+EventCategoryTargetDeviceChange      0xfffff80002be0530 ntoskrnl.exe         mouclass
+EventCategoryTargetDeviceChange      0xfffff960001eaf54 win32k.sys           Win32k
+EventCategoryTargetDeviceChange      0xfffff80002be0530 ntoskrnl.exe         mouclass
+EventCategoryHardwareProfileChange   0xfffff88003d2e0e8 i8042prt.sys         i8042prt
+EventCategoryHardwareProfileChange   0xfffff88003db6890 HDAudBus.sys         HDAudBus
+EventCategoryTargetDeviceChange      0xfffff88000e0d6b8 mountmgr.sys         mountmgr
+EventCategoryDeviceInterfaceChange   0xfffff960001ea818 win32k.sys           Win32k
+EventCategoryDeviceInterfaceChange   0xfffff960001ea6d0 win32k.sys           Win32k
+EventCategoryTargetDeviceChange      0xfffff960001eaf54 win32k.sys           Win32k
+EventCategoryTargetDeviceChange      0xfffff960001eaf54 win32k.sys           Win32k
+EventCategoryTargetDeviceChange      0xfffff960001ea4b0 win32k.sys           Win32k
+EventCategoryDeviceInterfaceChange   0xfffff960001ea818 win32k.sys           Win32k
+EventCategoryDeviceInterfaceChange   0xfffff960001ea6d0 win32k.sys           Win32k
+EventCategoryTargetDeviceChange      0xfffff960001eaf54 win32k.sys           Win32k
+EventCategoryTargetDeviceChange      0xfffff960001eaf54 win32k.sys           Win32k
+EventCategoryTargetDeviceChange      0xfffff960001ea4b0 win32k.sys           Win32k
+EventCategoryDeviceInterfaceChange   0xfffff88003dde8a4 CompositeBus.sys     CompositeBus
+EventCategoryDeviceInterfaceChange   0xfffff960001ea818 win32k.sys           Win32k
+EventCategoryDeviceInterfaceChange   0xfffff960001ea6d0 win32k.sys           Win32k
+EventCategoryTargetDeviceChange      0xfffff960001eaf54 win32k.sys           Win32k
+EventCategoryTargetDeviceChange      0xfffff960001eaf54 win32k.sys           Win32k
+EventCategoryTargetDeviceChange      0xfffff960001ea4b0 win32k.sys           Win32k
+GenericKernelCallback                0xfffff88004719270 peauth.sys           -
+EventCategoryDeviceInterfaceChange   0xfffff88003dde8a4 CompositeBus.sys     CompositeBus
+EventCategoryTargetDeviceChange      0xfffff960001eaf54 win32k.sys           Win32k
+EventCategoryTargetDeviceChange      0xfffff80002be0530 ntoskrnl.exe         mouclass
+EventCategoryTargetDeviceChange      0xfffff960001eaf54 win32k.sys           Win32k
+EventCategoryDeviceInterfaceChange   0xfffff88003dde8a4 CompositeBus.sys     CompositeBus
+GenericKernelCallback                0xfffff88003d7ad50 vm3dmp.sys           -
+IoRegisterShutdownNotification       0xfffff880043517e0 usbhub.sys           \Driver\usbhub
+IoRegisterShutdownNotification       0xfffff880043517e0 usbhub.sys           \Driver\usbhub
+IoRegisterShutdownNotification       0xfffff880043517e0 usbhub.sys           \Driver\usbhub
+IoRegisterShutdownNotification       0xfffff88003c7a7f0 csc.sys              \Driver\CSC
+IoRegisterShutdownNotification       0xfffff88000e15070 mountmgr.sys         \Driver\mountmgr
+IoRegisterShutdownNotification       0xfffff880011beb00 VIDEOPRT.SYS         \Driver\RDPENCDD
+IoRegisterShutdownNotification       0xfffff880011beb00 VIDEOPRT.SYS         \Driver\RDPREFMP
+IoRegisterShutdownNotification       0xfffff8800518b720 vmhgfs.sys           \FileSystem\vmhgfs
+IoRegisterShutdownNotification       0xfffff80002e83180 ntoskrnl.exe         \FileSystem\RAW
+IoRegisterShutdownNotification       0xfffff880011beb00 VIDEOPRT.SYS         \Driver\RDPCDD
+IoRegisterShutdownNotification       0xfffff80002a697e8 ntoskrnl.exe         \Driver\WMIxWDM
+IoRegisterShutdownNotification       0xfffff880011beb00 VIDEOPRT.SYS         \Driver\VgaSave
+IoRegisterShutdownNotification       0xfffff88000f4ac40 volmgr.sys           \Driver\volmgr
+IoRegisterShutdownNotification       0xfffff88001212010 ksecdd.sys           \Driver\KSecDD
+PsRemoveLoadImageNotifyRoutine       0xfffff80002d52510 ntoskrnl.exe         -
+PsRemoveLoadImageNotifyRoutine       0xfffff80002d9a2a4 ntoskrnl.exe         -
+KeBugCheckCallbackListHead           0xfffff88001634850 ndis.sys             Ndis min
+KeBugCheckCallbackListHead           0xfffff88001634850 ndis.sys             Ndis min
+KeBugCheckCallbackListHead           0xfffff88001634850 ndis.sys             Ndis min
+KeBugCheckCallbackListHead           0xfffff88001634850 ndis.sys             Ndis min
+KeBugCheckCallbackListHead           0xfffff88001634850 ndis.sys             Ndis min
+KeBugCheckCallbackListHead           0xfffff80002a12fe0 hal.dll              ACPI x64

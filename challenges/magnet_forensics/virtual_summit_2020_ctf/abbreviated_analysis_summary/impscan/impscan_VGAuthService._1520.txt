@@ -1,0 +1,151 @@
+#########################################################################################################################################################################################################################################
+# Investigation Details
+# ======================
+# Investigator Name: Solomon Sonya
+# Investigation Description: Magnet Virtual Summit 2020 CTF - Memory
+# Investigation Date: 2022-01-17-2008:58
+#
+# Analysis Framework
+# ======================
+# Analysis Framework Name: Xavier Framework
+# Analysis Framework Version: 2.114
+#
+# Memory Analysis Binary
+# ======================
+# File Name: vol_2.6.exe	 File Size: 15.79 MBs	 Creation Date: 2022-01-16-1019:29	 Last Accessed: 2022-01-17-1948:58	 Last Modified: 2021-02-28-2253:29	 
+# MD5: 2fc05486a3fe93cef213cc37748bf556	 SHA-256: 672a00461ffb8d59536c86192450b66d552e67809fc8584d1792b42b22c5f4e1	 
+#
+# Analysis Image Details
+# ======================
+# Memory Image Path: C:\xavier\xavier_framework\import\memory_image\memdump.mem
+# File Name: memdump.mem	 File Size: 5.37 GBs	 Creation Date: 2022-01-17-2008:08	 Last Accessed: 2022-01-17-2008:13	 Last Modified: 2021-10-14-2125:48	 
+# 
+#
+# Plugin Details
+# ======================
+# Plugin Name: impscan
+# Plugin Description: Scan for calls to imported functions
+#
+# Execution Details
+# ======================
+# Execution Command: "C:\xavier\xavier_framework\import\memory_analysis\vol_2.6.exe" -f "C:\xavier\xavier_framework\import\memory_image\memdump.mem" --profile=Win7SP1x64 impscan -v -p 1520
+#########################################################################################################################################################################################################################################
+
+
+Volatility Foundation Volatility Framework 2.6
+IAT                Call               Module               Function
+------------------ ------------------ -------------------- --------
+0x000000013f794000 0x000007feff12b3e0 ADVAPI32.dll         SetNamedSecurityInfoW
+0x000000013f794008 0x000007feff12d770 ADVAPI32.dll         GetSecurityInfo
+0x000000013f794010 0x000007feff131e10 ADVAPI32.dll         GetNamedSecurityInfoW
+0x000000013f794018 0x000007feff13e6f0 ADVAPI32.dll         RegQueryValueExW
+0x000000013f794020 0x000007feff144210 ADVAPI32.dll         RegOpenKeyExW
+0x000000013f794028 0x000007feff144240 ADVAPI32.dll         RegCloseKey
+0x000000013f794030 0x000007feff121b50 ADVAPI32.dll         LookupPrivilegeValueA
+0x000000013f794038 0x000007feff130734 ADVAPI32.dll         LookupAccountNameW
+0x000000013f794040 0x000007feff13dad8 ADVAPI32.dll         LookupAccountSidW
+0x000000013f794048 0x000007feff13d664 ADVAPI32.dll         SetSecurityDescriptorDacl
+0x000000013f794050 0x000007feff133e7c ADVAPI32.dll         SetKernelObjectSecurity
+0x000000013f794058 0x000007feff12a1a0 ADVAPI32.dll         PrivilegeCheck
+0x000000013f794060 0x000007feff133bac ADVAPI32.dll         IsValidSid
+0x000000013f794068 0x000007feff13d5d0 ADVAPI32.dll         InitializeSecurityDescriptor
+0x000000013f794070 0x000007feff13d8a0 ADVAPI32.dll         GetTokenInformation
+0x000000013f794078 0x000007feff13d644 ADVAPI32.dll         GetLengthSid
+0x000000013f794080 0x000007feff12de18 ADVAPI32.dll         GetAclInformation
+0x000000013f794088 0x000007feff133e1c ADVAPI32.dll         GetAce
+0x000000013f794090 0x000007feff13da60 ADVAPI32.dll         FreeSid
+0x000000013f794098 0x000007feff13da68 ADVAPI32.dll         EqualSid
+0x000000013f7940a0 0x000007feff133b7c ADVAPI32.dll         CopySid
+0x000000013f7940a8 0x000007feff13d83c ADVAPI32.dll         AllocateAndInitializeSid
+0x000000013f7940b0 0x000007feff13dbf0 ADVAPI32.dll         AdjustTokenPrivileges
+0x000000013f7940b8 0x000007feff13d8c0 ADVAPI32.dll         OpenProcessToken
+0x000000013f7940c0 0x000007feff1685e0 ADVAPI32.dll         LsaNtStatusToWinError
+0x000000013f7940c8 0x000007feff12f9f8 ADVAPI32.dll         DuplicateTokenEx
+0x000000013f7940d0 0x000007feff1210b0 ADVAPI32.dll         AllocateLocallyUniqueId
+0x000000013f7940d8 0x000007feff130460 ADVAPI32.dll         CryptGenRandom
+0x000000013f7940e0 0x000007feff130538 ADVAPI32.dll         CryptReleaseContext
+0x000000013f7940e8 0x000007feff12ac7c ADVAPI32.dll         CryptAcquireContextA
+0x000000013f7940f0 0x000007feff171640 ADVAPI32.dll         SetEntriesInAclA
+0x000000013f7940f8 0x000007feff131d00 ADVAPI32.dll         SetSecurityDescriptorOwner
+0x000000013f794100 0x000007feff144c94 ADVAPI32.dll         SetSecurityDescriptorControl
+0x000000013f794108 0x000007feff12fc90 ADVAPI32.dll         ReportEventW
+0x000000013f794110 0x000007feff135a20 ADVAPI32.dll         RegisterEventSourceW
+0x000000013f794118 0x000007feff12e514 ADVAPI32.dll         OpenServiceW
+0x000000013f794120 0x000007feff12e500 ADVAPI32.dll         OpenSCManagerW
+0x000000013f794128 0x000007feff144a2c ADVAPI32.dll         DeleteService
+0x000000013f794130 0x000007feff1449a0 ADVAPI32.dll         CreateServiceW
+0x000000013f794138 0x000007feff13a820 ADVAPI32.dll         CloseServiceHandle
+0x000000013f794140 0x000007feff15a6d0 ADVAPI32.dll         ChangeServiceConfig2W
+0x000000013f794148 0x000007feff159f50 ADVAPI32.dll         StartServiceCtrlDispatcherA
+0x000000013f794150 0x000007feff128be0 ADVAPI32.dll         SetServiceStatus
+0x000000013f794158 0x000007feff159fec ADVAPI32.dll         RegisterServiceCtrlHandlerA
+0x000000013f794268 0x0000000076f5f9b0 ntdll.dll            RtlInitializeSListHead
+0x000000013f794298 0x0000000076f672fc ntdll.dll            __C_specific_handler
+0x000000013f7943f0 0x000007fefbc51010 netutils.dll         NetApiBufferFree
+0x000000013f794400 0x000007fefe3539f0 SHELL32.dll          SHGetFolderPathW
+0x000000013f794460 0x000007fefb46ceb0 VCRUNTIME140.dll     memset
+0x000000013f794480 0x000007fefb586ef0 ucrtbase.DLL         _set_new_mode
+0x000000013f794488 0x000007fefb5842b0 ucrtbase.DLL         free
+0x000000013f794498 0x000007fefb586d60 ucrtbase.DLL         _configthreadlocale
+0x000000013f7944a8 0x000007fefb602900 ucrtbase.DLL         __setusermatherr
+0x000000013f7944b0 0x000007fefb5dcda0 ucrtbase.DLL         _fdopen
+0x000000013f7944c0 0x000007fefb5dbdd0 ucrtbase.DLL         _exit
+0x000000013f7944c8 0x000007fefb575520 ucrtbase.DLL         _initterm_e
+0x000000013f7944d0 0x000007fefb575160 ucrtbase.DLL         _initterm
+0x000000013f7944d8 0x000007fefb6100b0 ucrtbase.DLL         _get_initial_narrow_environment
+0x000000013f7944e0 0x000007fefb572fb0 ucrtbase.DLL         _initialize_narrow_environment
+0x000000013f7944e8 0x000007fefb586040 ucrtbase.DLL         _configure_narrow_argv
+0x000000013f7944f0 0x000007fefb5872e0 ucrtbase.DLL         _set_app_type
+0x000000013f7944f8 0x000007fefb5d8000 ucrtbase.DLL         _seh_filter_exe
+0x000000013f794500 0x000007fefb5d99f0 ucrtbase.DLL         __p___argc
+0x000000013f794508 0x000007fefb5d9a00 ucrtbase.DLL         __p___argv
+0x000000013f794510 0x000007fefb5dbdb0 ucrtbase.DLL         _cexit
+0x000000013f794518 0x000007fefb5dbd90 ucrtbase.DLL         _c_exit
+0x000000013f794520 0x000007fefb5dbdf0 ucrtbase.DLL         _register_thread_local_exe_atexit_callback
+0x000000013f794528 0x000007fefb5dbe40 ucrtbase.DLL         exit
+0x000000013f794530 0x000007fefb5d8fc0 ucrtbase.DLL         strerror_s
+0x000000013f794538 0x000007fefb57a540 ucrtbase.DLL         _errno
+0x000000013f794540 0x000007fefb575450 ucrtbase.DLL         _initialize_onexit_table
+0x000000013f794548 0x000007fefb57a250 ucrtbase.DLL         _register_onexit_function
+0x000000013f794550 0x000007fefb586970 ucrtbase.DLL         _crt_atexit
+0x000000013f794558 0x000007fefb5d90e0 ucrtbase.DLL         terminate
+0x000000013f794568 0x000007fefb5dd640 ucrtbase.DLL         _fileno
+0x000000013f794570 0x000007fefb5d32d0 ucrtbase.DLL         _close
+0x000000013f794578 0x000007fefb5762a0 ucrtbase.DLL         __stdio_common_vsprintf
+0x000000013f794580 0x000007fefb5d4be0 ucrtbase.DLL         _wmktemp_s
+0x000000013f794588 0x000007fefb5d5fb0 ucrtbase.DLL         _open_osfhandle
+0x000000013f794590 0x000007fefb586ea0 ucrtbase.DLL         _set_fmode
+0x000000013f794598 0x000007fefb5872d0 ucrtbase.DLL         __p__commode
+0x000000013f7945a0 0x000007fefb5d3a90 ucrtbase.DLL         _dup2
+0x000000013f7945a8 0x000007fefb5ddcb0 ucrtbase.DLL         fputs
+0x000000013f7945b0 0x000007fefb5dce50 ucrtbase.DLL         fflush
+0x000000013f7945b8 0x000007fefb585d00 ucrtbase.DLL         __acrt_iob_func
+0x000000013f7945c0 0x000007fefb5ecc00 ucrtbase.DLL         __stdio_common_vfprintf
+0x000000013f7945c8 0x000007fefb5dc520 ucrtbase.DLL         fclose
+0x000000013f7945f0 0x000007fef88039b0 glib-2.0.dll         1569
+0x000000013f794640 0x000007fef8831e20 glib-2.0.dll         1429
+0x000000013f7946a8 0x000007fef881c780 glib-2.0.dll         1396
+0x000000013f794700 0x000007fef87c6d80 glib-2.0.dll         75
+0x000000013f794708 0x000007fef87c6d40 glib-2.0.dll         79
+0x000000013f794710 0x000007fef87c6d30 glib-2.0.dll         76
+0x000000013f794730 0x000007fef881e3a0 glib-2.0.dll         25
+0x000000013f794780 0x000007fef87e76c0 glib-2.0.dll         142
+0x000000013f794788 0x000007fef881f8c0 glib-2.0.dll         1208
+0x000000013f7947a0 0x000007fef88324b0 glib-2.0.dll         1430
+0x000000013f7948e8 0x000007fef8824ed0 glib-2.0.dll         41
+0x000000013f7948f0 0x000007fef8831830 glib-2.0.dll         1405
+0x000000013f794900 0x000007fef88494b0 glib-2.0.dll         1607
+0x000000013f794918 0x000007fef881cd20 glib-2.0.dll         1205
+0x000000013f794a98 0x0000000076f684fc ntdll.dll            _wcsicmp
+0x000000013f794aa0 0x0000000076f6bc80 ntdll.dll            strstr
+0x000000013f794aa8 0x0000000076f676e4 ntdll.dll            atoi
+0x000000013f794ab0 0x0000000076f69d10 ntdll.dll            memcmp
+0x000000013f794ab8 0x0000000076f66fc0 ntdll.dll            memmove
+0x000000013f794ac0 0x0000000076f69ce0 ntdll.dll            memchr
+0x000000013f794ac8 0x0000000076f6b4a0 ntdll.dll            strchr
+0x000000013f794ad0 0x0000000076f6bb98 ntdll.dll            strrchr
+0x000000013f794ad8 0x0000000076f6b8a0 ntdll.dll            strncmp
+0x000000013f794ae0 0x0000000076f66fc0 ntdll.dll            memmove
+0x000000013f794ae8 0x0000000076f7bee0 ntdll.dll            __chkstk
+0x000000013f794af0 0x0000000076f6bf88 ntdll.dll            strtoul
+0x000000013f794af8 0x0000000076f6b970 ntdll.dll            strncpy

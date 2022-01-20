@@ -1,1 +1,0 @@
-2019-12-10	10:31:00	UTC+0000	2019-12-10	10:31:00	UTC+0000	2019-12-10	10:31:00	UTC+0000	2019-12-10	10:31:00	UTC+0000	Windows\winsxs\amd64_microsoft-windows-w..pdate-adm.resources_31bf3856ad364e35_7.6.7600.320_en-us_8521eb3f6ab8462d	$FILE_NAME	320_en-us_8521eb3f6ab8462d

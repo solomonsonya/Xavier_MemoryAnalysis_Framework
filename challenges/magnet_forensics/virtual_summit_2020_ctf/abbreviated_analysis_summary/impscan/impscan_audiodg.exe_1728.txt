@@ -1,0 +1,168 @@
+#########################################################################################################################################################################################################################################
+# Investigation Details
+# ======================
+# Investigator Name: Solomon Sonya
+# Investigation Description: Magnet Virtual Summit 2020 CTF - Memory
+# Investigation Date: 2022-01-17-2008:58
+#
+# Analysis Framework
+# ======================
+# Analysis Framework Name: Xavier Framework
+# Analysis Framework Version: 2.114
+#
+# Memory Analysis Binary
+# ======================
+# File Name: vol_2.6.exe	 File Size: 15.79 MBs	 Creation Date: 2022-01-16-1019:29	 Last Accessed: 2022-01-17-1948:58	 Last Modified: 2021-02-28-2253:29	 
+# MD5: 2fc05486a3fe93cef213cc37748bf556	 SHA-256: 672a00461ffb8d59536c86192450b66d552e67809fc8584d1792b42b22c5f4e1	 
+#
+# Analysis Image Details
+# ======================
+# Memory Image Path: C:\xavier\xavier_framework\import\memory_image\memdump.mem
+# File Name: memdump.mem	 File Size: 5.37 GBs	 Creation Date: 2022-01-17-2008:08	 Last Accessed: 2022-01-17-2008:13	 Last Modified: 2021-10-14-2125:48	 
+# 
+#
+# Plugin Details
+# ======================
+# Plugin Name: impscan
+# Plugin Description: Scan for calls to imported functions
+#
+# Execution Details
+# ======================
+# Execution Command: "C:\xavier\xavier_framework\import\memory_analysis\vol_2.6.exe" -f "C:\xavier\xavier_framework\import\memory_image\memdump.mem" --profile=Win7SP1x64 impscan -v -p 1728
+#########################################################################################################################################################################################################################################
+
+
+Volatility Foundation Volatility Framework 2.6
+IAT                Call               Module               Function
+------------------ ------------------ -------------------- --------
+0x00000000ff6a1000 0x000007fefcd98320 KERNELBASE.dll       OutputDebugStringA
+0x00000000ff6a1050 0x0000000076f37a30 kernel32.dll         HeapAlloc
+0x00000000ff6a1058 0x0000000076f3a1c0 kernel32.dll         HeapFree
+0x00000000ff6a1060 0x0000000076f300b0 kernel32.dll         HeapReAlloc
+0x00000000ff6a1068 0x0000000076f4d4f0 kernel32.dll         HeapSize
+0x00000000ff6a1070 0x000007fefcd81890 KERNELBASE.dll       GetProcessHeap
+0x00000000ff6a1078 0x000007fefcd8dec0 KERNELBASE.dll       HeapSetInformation
+0x00000000ff6a1080 0x000007fefcd8b480 KERNELBASE.dll       HeapDestroy
+0x00000000ff6a1090 0x000007fefcd832f0 KERNELBASE.dll       GetModuleHandleW
+0x00000000ff6a1098 0x000007fefcd83370 KERNELBASE.dll       GetProcAddress
+0x00000000ff6a10a0 0x000007fefcd8d690 KERNELBASE.dll       LoadLibraryExA
+0x00000000ff6a10a8 0x000007fefcd8b350 KERNELBASE.dll       FreeLibrary
+0x00000000ff6a10b8 0x000007fefcd81560 KERNELBASE.dll       LocalFree
+0x00000000ff6a10c0 0x000007fefcd81140 KERNELBASE.dll       Sleep
+0x00000000ff6a10d0 0x000007fefcd8deb0 KERNELBASE.dll       GetCommandLineW
+0x00000000ff6a10e0 0x000007fefcd8b3a0 KERNELBASE.dll       OpenProcessToken
+0x00000000ff6a1118 0x0000000076f64bb0 ntdll.dll            RtlQueryPerformanceCounter
+0x00000000ff6a1120 0x0000000076f627f0 ntdll.dll            RtlQueryPerformanceFrequency
+0x00000000ff6a1148 0x0000000076f3d370 kernel32.dll         DeleteCriticalSection
+0x00000000ff6a1150 0x0000000076f3d560 ntdll.dll            RtlInitializeCriticalSection
+0x00000000ff6a1168 0x000007fefcd8d9b0 KERNELBASE.dll       GetVersionExA
+0x00000000ff6a1170 0x000007fefcd81120 KERNELBASE.dll       GetTickCount
+0x00000000ff6a1178 0x000007fefcd81770 KERNELBASE.dll       GetSystemTimeAsFileTime
+0x00000000ff6a1188 0x000007fefcd8b3d0 KERNELBASE.dll       GetTokenInformation
+0x00000000ff6a1190 0x000007fefcd9ab60 KERNELBASE.dll       InitializeSecurityDescriptor
+0x00000000ff6a1198 0x000007fefcd95e30 KERNELBASE.dll       SetSecurityDescriptorOwner
+0x00000000ff6a11a0 0x000007fefcd9ab90 KERNELBASE.dll       SetSecurityDescriptorDacl
+0x00000000ff6a11a8 0x000007fefcd95e60 KERNELBASE.dll       SetSecurityDescriptorGroup
+0x00000000ff6a11c8 0x0000000076f2c0b0 kernel32.dll         LeaveCriticalSection
+0x00000000ff6a1220 0x0000000076f3d190 kernel32.dll         EnterCriticalSection
+0x00000000ff6a1250 0x000007fefa8fe5dc MMDevAPI.DLL         8
+0x00000000ff6a1258 0x000007fefa9088a0 MMDevAPI.DLL         2
+0x00000000ff6a1260 0x000007fefa8f1828 MMDevAPI.DLL         9
+0x00000000ff6a1270 0x000007fefd632740 RPCRT4.dll           RpcServerRegisterIfEx
+0x00000000ff6a1278 0x000007fefd6088d0 RPCRT4.dll           RpcImpersonateClient
+0x00000000ff6a1280 0x000007fefd631b10 RPCRT4.dll           RpcServerUseProtseqEpW
+0x00000000ff6a1288 0x000007fefd614750 RPCRT4.dll           I_RpcBindingInqTransportType
+0x00000000ff6a1290 0x000007fefd6bb020 RPCRT4.dll           RpcServerUnregisterIfEx
+0x00000000ff6a1298 0x000007fefd613370 RPCRT4.dll           I_RpcBindingInqLocalClientPID
+0x00000000ff6a12a0 0x000007fefd608860 RPCRT4.dll           NdrServerCallAll
+0x00000000ff6a12a8 0x000007fefd608980 RPCRT4.dll           RpcRevertToSelf
+0x00000000ff6a12b0 0x000007fefd6107f0 RPCRT4.dll           NdrServerCall2
+0x00000000ff6a12c0 0x0000000076cf9dac USER32.dll           UnregisterClassA
+0x00000000ff6a12d0 0x000007fefd760b58 msvcrt.dll           _XcptFilter
+0x00000000ff6a12d8 0x000007fefd734148 msvcrt.dll           __wgetmainargs
+0x00000000ff6a12e0 0x000007fefd756fc0 msvcrt.dll           _resetstkoflw
+0x00000000ff6a12e8 0x000007fefd76bfa8 msvcrt.dll           _exit
+0x00000000ff6a12f0 0x000007fefd729bb0 msvcrt.dll           exit
+0x00000000ff6a1300 0x000007fefd728e28 msvcrt.dll           _initterm
+0x00000000ff6a1308 0x000007fefd76bfd4 msvcrt.dll           _amsg_exit
+0x00000000ff6a1310 0x000007fefd78da94 msvcrt.dll           __setusermatherr
+0x00000000ff6a1328 0x000007fefd72b0c8 msvcrt.dll           __set_app_type
+0x00000000ff6a1330 0x000007fefd74a830 msvcrt.dll           ?terminate@@YAXXZ
+0x00000000ff6a1338 0x000007fefd721500 msvcrt.dll           _unlock
+0x00000000ff6a1340 0x000007fefd728ea0 msvcrt.dll           __dllonexit
+0x00000000ff6a1348 0x000007fefd721520 msvcrt.dll           _lock
+0x00000000ff6a1350 0x000007fefd7210ac msvcrt.dll           free
+0x00000000ff6a1358 0x000007fefd72137c msvcrt.dll           malloc
+0x00000000ff6a1360 0x000007fefd74ab88 msvcrt.dll           __CxxFrameHandler3
+0x00000000ff6a1368 0x000007fefd7210e0 msvcrt.dll           memmove
+0x00000000ff6a1370 0x000007fefd722840 msvcrt.dll           _free_dbg
+0x00000000ff6a1378 0x000007fefd762954 msvcrt.dll           _purecall
+0x00000000ff6a1380 0x000007fefd722880 msvcrt.dll           ??2@YAPEAX_K@Z
+0x00000000ff6a1388 0x000007fefd7230e0 msvcrt.dll           _vsnwprintf
+0x00000000ff6a1390 0x000007fefd723ef0 msvcrt.dll           memmove_s
+0x00000000ff6a1398 0x000007fefd723de8 msvcrt.dll           memcpy_s
+0x00000000ff6a13a0 0x000007fefd752cb8 msvcrt.dll           ??1type_info@@UEAA@XZ
+0x00000000ff6a13a8 0x000007fefd73001c msvcrt.dll           _onexit
+0x00000000ff6a13b0 0x000007fefd724310 msvcrt.dll           realloc
+0x00000000ff6a13b8 0x000007fefd7227b8 msvcrt.dll           _errno
+0x00000000ff6a13c0 0x000007fefd7233b8 msvcrt.dll           _wcsicmp
+0x00000000ff6a13c8 0x000007fefd7354fc msvcrt.dll           _cexit
+0x00000000ff6a13d0 0x0000000076f672fc ntdll.dll            __C_specific_handler
+0x00000000ff6a13d8 0x000007fefd721000 msvcrt.dll           memset
+0x00000000ff6a13e0 0x000007fefd7296e8 msvcrt.dll           _wcstoui64
+0x00000000ff6a13e8 0x000007fefd724170 msvcrt.dll           ??_U@YAPEAX_KHPEBDH@Z
+0x00000000ff6a13f0 0x000007fefd72417c msvcrt.dll           ??_V@YAXPEAX@Z
+0x00000000ff6a13f8 0x000007fefd74a8c0 msvcrt.dll           _CxxThrowException
+0x00000000ff6a1400 0x000007fefd721250 msvcrt.dll           memcmp
+0x00000000ff6a1410 0x0000000076f37a30 kernel32.dll         HeapAlloc
+0x00000000ff6a1418 0x0000000076f79fa0 ntdll.dll            ZwAlpcAcceptConnectPort
+0x00000000ff6a1420 0x0000000076f5d450 ntdll.dll            RtlInitializeSid
+0x00000000ff6a1428 0x0000000076f2b370 ntdll.dll            RtlInitUnicodeStringEx
+0x00000000ff6a1430 0x0000000076f63b60 ntdll.dll            RtlLengthSid
+0x00000000ff6a1438 0x0000000076f63910 ntdll.dll            RtlCreateSecurityDescriptor
+0x00000000ff6a1440 0x0000000076f60950 ntdll.dll            AlpcInitializeMessageAttribute
+0x00000000ff6a1448 0x0000000076f79970 ntdll.dll            ZwClose
+0x00000000ff6a1450 0x0000000076f61880 ntdll.dll            RtlRandomEx
+0x00000000ff6a1458 0x0000000076f29030 ntdll.dll            RtlAddAccessAllowedAce
+0x00000000ff6a1460 0x0000000076f79fd0 ntdll.dll            ZwAlpcCreatePort
+0x00000000ff6a1468 0x0000000076f64c20 ntdll.dll            AlpcGetMessageAttribute
+0x00000000ff6a1470 0x0000000076f63b80 ntdll.dll            RtlSetDaclSecurityDescriptor
+0x00000000ff6a1478 0x0000000076f3a1c0 kernel32.dll         HeapFree
+0x00000000ff6a1480 0x0000000076f63ad0 ntdll.dll            RtlCreateAcl
+0x00000000ff6a1488 0x0000000076fdd840 ntdll.dll            RtlSetLastWin32ErrorAndNtStatusFromNtStatus
+0x00000000ff6a1490 0x0000000076f5d430 ntdll.dll            RtlLengthRequiredSid
+0x00000000ff6a1498 0x0000000076f63490 ntdll.dll            RtlSubAuthoritySid
+0x00000000ff6a14a0 0x0000000076fe09d0 ntdll.dll            EtwLogTraceEvent
+0x00000000ff6a14a8 0x0000000076f7b6c0 ntdll.dll            RtlCaptureContext
+0x00000000ff6a14b0 0x0000000076f47180 ntdll.dll            RtlLookupFunctionEntry
+0x00000000ff6a14b8 0x0000000076f4cc60 ntdll.dll            RtlVirtualUnwind
+0x00000000ff6a14c0 0x000000007700b9f0 ntdll.dll            ShipAssert
+0x00000000ff6a14c8 0x0000000076f5b470 ntdll.dll            WinSqmIncrementDWORD
+0x00000000ff6a14d0 0x0000000076f537a0 ntdll.dll            EtwUnregisterTraceGuids
+0x00000000ff6a14d8 0x0000000076f1dcd0 ntdll.dll            EtwRegisterTraceGuidsW
+0x00000000ff6a14e0 0x000000007700c440 ntdll.dll            ShipAssertMsgW
+0x00000000ff6a14e8 0x0000000076f79a10 ntdll.dll            ZwQueryInformationProcess
+0x00000000ff6a14f0 0x0000000076fc6c40 ntdll.dll            EtwGetTraceEnableFlags
+0x00000000ff6a14f8 0x0000000076fc6c80 ntdll.dll            EtwGetTraceEnableLevel
+0x00000000ff6a1500 0x0000000076fc6cc0 ntdll.dll            EtwGetTraceLoggerHandle
+0x00000000ff6a1508 0x0000000076f1b9f0 ntdll.dll            EtwTraceMessage
+0x00000000ff6a1510 0x0000000076f5b0f0 ntdll.dll            EtwEventWrite
+0x00000000ff6a1518 0x0000000076f26da0 ntdll.dll            EtwEventRegister
+0x00000000ff6a1520 0x0000000076f7a0d0 ntdll.dll            ZwAlpcSendWaitReceivePort
+0x00000000ff6be288 0x000007feff1359c0 ADVAPI32.dll         SetEntriesInAclW
+0x00000000ff6be298 0x000007fefd3c6518 sechost.dll          CloseServiceHandle
+0x00000000ff6be2a0 0x000007fefd3c6484 sechost.dll          OpenServiceW
+0x00000000ff6be2a8 0x000007fefd3c659c sechost.dll          OpenSCManagerW
+0x00000000ff6be2b8 0x000007fefd3c6784 sechost.dll          QueryServiceStatusEx
+0x00000000ff6be2c8 0x000007fefd3f74a8 ole32.dll            CoInitializeSecurity
+0x00000000ff6be2d0 0x000007fefd404650 ole32.dll            CoCreateInstance
+0x00000000ff6be2d8 0x000007fefd526ea0 ole32.dll            CoResumeClassObjects
+0x00000000ff6be2e0 0x000007fefd3e4aa0 ole32.dll            CoRegisterClassObject
+0x00000000ff6be2f0 0x000007fefd400870 ole32.dll            CoInitializeEx
+0x00000000ff6be300 0x000007fefd3e5fcc ole32.dll            CoImpersonateClient
+0x00000000ff6be308 0x000007fefd3e6010 ole32.dll            CoRevertToSelf
+0x00000000ff6be310 0x000007fefd405b80 ole32.dll            CoTaskMemAlloc
+0x00000000ff6be318 0x000007fefd405b30 ole32.dll            CoTaskMemFree
+0x00000000ff6be320 0x000007fefd3e9030 ole32.dll            StringFromCLSID
+0x00000000ff6be328 0x000007fefd3efb40 ole32.dll            CLSIDFromString
+0x00000000ff6be330 0x000007fefd40400c ole32.dll            PropVariantClear

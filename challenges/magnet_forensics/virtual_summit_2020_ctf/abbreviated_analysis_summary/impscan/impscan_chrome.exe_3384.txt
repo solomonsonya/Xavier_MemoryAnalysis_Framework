@@ -1,0 +1,312 @@
+#########################################################################################################################################################################################################################################
+# Investigation Details
+# ======================
+# Investigator Name: Solomon Sonya
+# Investigation Description: Magnet Virtual Summit 2020 CTF - Memory
+# Investigation Date: 2022-01-17-2008:58
+#
+# Analysis Framework
+# ======================
+# Analysis Framework Name: Xavier Framework
+# Analysis Framework Version: 2.114
+#
+# Memory Analysis Binary
+# ======================
+# File Name: vol_2.6.exe	 File Size: 15.79 MBs	 Creation Date: 2022-01-16-1019:29	 Last Accessed: 2022-01-17-1948:58	 Last Modified: 2021-02-28-2253:29	 
+# MD5: 2fc05486a3fe93cef213cc37748bf556	 SHA-256: 672a00461ffb8d59536c86192450b66d552e67809fc8584d1792b42b22c5f4e1	 
+#
+# Analysis Image Details
+# ======================
+# Memory Image Path: C:\xavier\xavier_framework\import\memory_image\memdump.mem
+# File Name: memdump.mem	 File Size: 5.37 GBs	 Creation Date: 2022-01-17-2008:08	 Last Accessed: 2022-01-17-2008:13	 Last Modified: 2021-10-14-2125:48	 
+# 
+#
+# Plugin Details
+# ======================
+# Plugin Name: impscan
+# Plugin Description: Scan for calls to imported functions
+#
+# Execution Details
+# ======================
+# Execution Command: "C:\xavier\xavier_framework\import\memory_analysis\vol_2.6.exe" -f "C:\xavier\xavier_framework\import\memory_image\memdump.mem" --profile=Win7SP1x64 impscan -v -p 3384
+#########################################################################################################################################################################################################################################
+
+
+Volatility Foundation Volatility Framework 2.6
+IAT                Call               Module               Function
+------------------ ------------------ -------------------- --------
+0x0000000140042d78 0x000007fedd7d3b68 chrome_elf.dll       GetInstallDetailsPayload
+0x0000000140042d80 0x000007fedd7d1005 chrome_elf.dll       SignalChromeElf
+0x0000000140042d88 0x000007fedd7d1000 chrome_elf.dll       SignalInitializeCrashReporting
+0x0000000140042d98 0x0000000076f2b920 ntdll.dll            RtlAcquireSRWLockExclusive
+0x0000000140042da0 0x0000000076df9940 kernel32.dll         AssignProcessToJobObject
+0x0000000140042da8 0x0000000076e116d0 kernel32.dll         CloseHandle
+0x0000000140042db0 0x0000000076e04bf0 kernel32.dll         CompareStringW
+0x0000000140042db8 0x0000000076df1b00 kernel32.dll         ConnectNamedPipe
+0x0000000140042dc0 0x0000000076dfa210 kernel32.dll         CreateDirectoryW
+0x0000000140042dc8 0x0000000076e04470 kernel32.dll         CreateEventW
+0x0000000140042dd0 0x0000000076dfebd0 kernel32.dll         CreateFileMappingW
+0x0000000140042dd8 0x0000000076e00a50 kernel32.dll         CreateFileW
+0x0000000140042de0 0x0000000076df4f70 kernel32.dll         CreateIoCompletionPort
+0x0000000140042de8 0x0000000076e4c020 kernel32.dll         CreateJobObjectW
+0x0000000140042df0 0x0000000076e005a0 kernel32.dll         CreateMutexW
+0x0000000140042df8 0x0000000076df1f70 kernel32.dll         CreateNamedPipeW
+0x0000000140042e00 0x0000000076e103c0 kernel32.dll         CreateProcessW
+0x0000000140042e08 0x0000000076e3c850 kernel32.dll         CreateRemoteThread
+0x0000000140042e10 0x0000000076df8e00 kernel32.dll         CreateSemaphoreW
+0x0000000140042e18 0x0000000076e05760 kernel32.dll         CreateThread
+0x0000000140042e20 0x0000000076e3c7f0 kernel32.dll         DebugBreak
+0x0000000140042e28 0x0000000076f3d370 kernel32.dll         DeleteCriticalSection
+0x0000000140042e30 0x0000000076dfa230 kernel32.dll         DeleteFileW
+0x0000000140042e38 0x000007fefcd922b0 KERNELBASE.dll       DeleteProcThreadAttributeList
+0x0000000140042e40 0x0000000076e3c7c0 kernel32.dll         DisconnectNamedPipe
+0x0000000140042e48 0x0000000076e04ef0 kernel32.dll         DuplicateHandle
+0x0000000140042e50 0x0000000076f61420 ntdll.dll            RtlEncodePointer
+0x0000000140042e58 0x0000000076f3d190 kernel32.dll         EnterCriticalSection
+0x0000000140042e60 0x0000000076e3c730 kernel32.dll         EnumSystemLocalesEx
+0x0000000140042e68 0x0000000076e3c720 kernel32.dll         EnumSystemLocalesW
+0x0000000140042e70 0x0000000076f4c150 ntdll.dll            RtlExitUserProcess
+0x0000000140042e78 0x0000000076e06390 kernel32.dll         ExpandEnvironmentStringsW
+0x0000000140042e80 0x0000000076dfa3c0 kernel32.dll         FileTimeToSystemTime
+0x0000000140042e88 0x0000000076e0aed0 kernel32.dll         FindClose
+0x0000000140042e90 0x0000000076e0b650 kernel32.dll         FindFirstFileExW
+0x0000000140042e98 0x0000000076e00af0 kernel32.dll         FindNextFileW
+0x0000000140042ea0 0x0000000076df60d0 kernel32.dll         FlushFileBuffers
+0x0000000140042ea8 0x0000000076e3c5f0 kernel32.dll         FlushViewOfFile
+0x0000000140042eb0 0x0000000076e3c590 kernel32.dll         FormatMessageA
+0x0000000140042eb8 0x0000000076e05f00 kernel32.dll         FreeEnvironmentStringsW
+0x0000000140042ec0 0x0000000076e05800 kernel32.dll         FreeLibrary
+0x0000000140042ec8 0x0000000076e06170 kernel32.dll         GetACP
+0x0000000140042ed0 0x0000000076e05ec0 kernel32.dll         GetCPInfo
+0x0000000140042ed8 0x0000000076e10680 kernel32.dll         GetCommandLineA
+0x0000000140042ee0 0x0000000076e0b5f0 kernel32.dll         GetCommandLineW
+0x0000000140042ee8 0x0000000076dfbd40 kernel32.dll         GetComputerNameExW
+0x0000000140042ef0 0x0000000076e30970 kernel32.dll         GetConsoleCP
+0x0000000140042ef8 0x0000000076e115b0 kernel32.dll         GetConsoleMode
+0x0000000140042f00 0x0000000076e0b6f0 kernel32.dll         GetCurrentDirectoryW
+0x0000000140042f08 0x0000000076e04ed0 kernel32.dll         GetCurrentProcess
+0x0000000140042f10 0x0000000076e04c30 kernel32.dll         GetCurrentProcessId
+0x0000000140042f18 0x0000000076f79360 ntdll.dll            RtlGetCurrentProcessorNumber
+0x0000000140042f20 0x0000000076e03100 kernel32.dll         GetCurrentThread
+0x0000000140042f28 0x0000000076e030c0 kernel32.dll         GetCurrentThreadId
+0x0000000140042f30 0x0000000076dfb020 kernel32.dll         GetDateFormatW
+0x0000000140042f38 0x0000000076e0af60 kernel32.dll         GetDriveTypeW
+0x0000000140042f40 0x0000000076e05ee0 kernel32.dll         GetEnvironmentStringsW
+0x0000000140042f48 0x0000000076e00490 kernel32.dll         GetExitCodeProcess
+0x0000000140042f50 0x0000000076e0af40 kernel32.dll         GetFileAttributesW
+0x0000000140042f58 0x0000000076dff3d0 kernel32.dll         GetFileInformationByHandle
+0x0000000140042f60 0x0000000076e01030 kernel32.dll         GetFileInformationByHandleEx
+0x0000000140042f68 0x0000000076df90a0 kernel32.dll         GetFileSizeEx
+0x0000000140042f70 0x0000000076e11550 kernel32.dll         GetFileType
+0x0000000140042f78 0x0000000076e068c0 kernel32.dll         GetFullPathNameW
+0x0000000140042f80 0x0000000076e11520 kernel32.dll         GetLastError
+0x0000000140042f88 0x0000000076dfae30 kernel32.dll         GetLocalTime
+0x0000000140042f90 0x0000000076e08620 kernel32.dll         GetLocaleInfoW
+0x0000000140042f98 0x0000000076e0b370 kernel32.dll         GetLongPathNameW
+0x0000000140042fa0 0x0000000076e068e0 kernel32.dll         GetModuleFileNameW
+0x0000000140042fa8 0x0000000076e057c0 kernel32.dll         GetModuleHandleA
+0x0000000140042fb0 0x0000000076dfac20 kernel32.dll         GetModuleHandleExW
+0x0000000140042fb8 0x0000000076e11e80 kernel32.dll         GetModuleHandleW
+0x0000000140042fc0 0x0000000076dfac80 kernel32.dll         GetNativeSystemInfo
+0x0000000140042fc8 0x0000000076e0a6f0 kernel32.dll         GetOEMCP
+0x0000000140042fd0 0x0000000076e11de0 kernel32.dll         GetProcAddress
+0x0000000140042fd8 0x0000000076e3cab0 kernel32.dll         GetProcessHandleCount
+0x0000000140042fe0 0x0000000076e3c3f0 kernel32.dll         GetProcessHeaps
+0x0000000140042fe8 0x0000000076df7860 kernel32.dll         GetProcessId
+0x0000000140042ff0 0x0000000076df3d00 kernel32.dll         GetProcessTimes
+0x0000000140042ff8 0x0000000076df3090 kernel32.dll         GetProductInfo
+0x0000000140043000 0x0000000076df9970 kernel32.dll         GetQueuedCompletionStatus
+0x0000000140043008 0x0000000076e07260 kernel32.dll         GetStartupInfoW
+0x0000000140043010 0x0000000076e0c8c0 kernel32.dll         GetStdHandle
+0x0000000140043018 0x0000000076e08250 kernel32.dll         GetStringTypeW
+0x0000000140043020 0x0000000076df2e90 kernel32.dll         GetSystemDefaultLCID
+0x0000000140043028 0x0000000076e06300 kernel32.dll         GetSystemDirectoryW
+0x0000000140043030 0x0000000076e06150 kernel32.dll         GetSystemInfo
+0x0000000140043038 0x0000000076e03120 kernel32.dll         GetSystemTimeAsFileTime
+0x0000000140043040 0x0000000076e52190 kernel32.dll         GetTempPathW
+0x0000000140043048 0x0000000076df2a30 kernel32.dll         GetThreadContext
+0x0000000140043050 0x0000000076e3c4d0 kernel32.dll         GetThreadId
+0x0000000140043058 0x0000000076dfbd20 kernel32.dll         GetThreadLocale
+0x0000000140043060 0x0000000076e08930 kernel32.dll         GetThreadPriority
+0x0000000140043068 0x0000000076e11270 kernel32.dll         GetTickCount
+0x0000000140043070 0x0000000076dfba20 kernel32.dll         GetTimeFormatW
+0x0000000140043078 0x0000000076df2eb0 kernel32.dll         GetTimeZoneInformation
+0x0000000140043080 0x0000000076e06980 kernel32.dll         GetUserDefaultLCID
+0x0000000140043088 0x0000000076e3c360 kernel32.dll         GetUserDefaultLangID
+0x0000000140043090 0x0000000076e3baf0 kernel32.dll         GetUserDefaultLocaleName
+0x0000000140043098 0x0000000076dff3b0 kernel32.dll         GetVersion
+0x00000001400430a0 0x0000000076dfcb00 kernel32.dll         GetVersionExW
+0x00000001400430a8 0x0000000076df7920 kernel32.dll         GetWindowsDirectoryW
+0x00000001400430b0 0x0000000076f37a30 kernel32.dll         HeapAlloc
+0x00000001400430b8 0x0000000076e062c0 kernel32.dll         HeapCreate
+0x00000001400430c0 0x0000000076e00670 kernel32.dll         HeapDestroy
+0x00000001400430c8 0x0000000076e117c0 kernel32.dll         HeapFree
+0x00000001400430d0 0x0000000076f300b0 kernel32.dll         HeapReAlloc
+0x00000001400430d8 0x0000000076e0b610 kernel32.dll         HeapSetInformation
+0x00000001400430e0 0x0000000076f4d4f0 kernel32.dll         HeapSize
+0x00000001400430e8 0x0000000076df5d60 kernel32.dll         InitOnceExecuteOnce
+0x00000001400430f0 0x0000000076f3d560 ntdll.dll            RtlInitializeCriticalSection
+0x00000001400430f8 0x0000000076e056c0 kernel32.dll         InitializeCriticalSectionAndSpinCount
+0x0000000140043100 0x000007fefcd94310 KERNELBASE.dll       InitializeProcThreadAttributeList
+0x0000000140043108 0x0000000076f5f9b0 ntdll.dll            RtlInitializeSListHead
+0x0000000140043110 0x0000000076df7900 kernel32.dll         IsDebuggerPresent
+0x0000000140043118 0x0000000076e3cf90 kernel32.dll         IsProcessorFeaturePresent
+0x0000000140043120 0x0000000076e08270 kernel32.dll         IsValidCodePage
+0x0000000140043128 0x0000000076e082a0 kernel32.dll         IsValidLocale
+0x0000000140043130 0x0000000076df8840 kernel32.dll         IsWow64Process
+0x0000000140043138 0x0000000076df3150 kernel32.dll         K32GetPerformanceInfo
+0x0000000140043140 0x0000000076df3a80 kernel32.dll         K32GetProcessMemoryInfo
+0x0000000140043148 0x0000000076e2fc20 kernel32.dll         K32QueryWorkingSetEx
+0x0000000140043150 0x0000000076e0f5f0 kernel32.dll         LCMapStringW
+0x0000000140043158 0x0000000076f2c0b0 kernel32.dll         LeaveCriticalSection
+0x0000000140043160 0x0000000076dfd5a0 kernel32.dll         LoadLibraryExA
+0x0000000140043168 0x0000000076e05820 kernel32.dll         LoadLibraryExW
+0x0000000140043170 0x0000000076e06160 kernel32.dll         LoadLibraryW
+0x0000000140043178 0x0000000076e03980 kernel32.dll         LocalFree
+0x0000000140043180 0x0000000076e3c200 kernel32.dll         LockFileEx
+0x0000000140043188 0x0000000076dfd580 kernel32.dll         MapViewOfFile
+0x0000000140043190 0x0000000076e7f6b0 kernel32.dll         MoveFileW
+0x0000000140043198 0x0000000076e04d30 kernel32.dll         MultiByteToWideChar
+0x00000001400431a0 0x0000000076e0bc40 kernel32.dll         OpenProcess
+0x00000001400431a8 0x0000000076df48c0 kernel32.dll         OutputDebugStringA
+0x00000001400431b0 0x0000000076dfac00 kernel32.dll         OutputDebugStringW
+0x00000001400431b8 0x0000000076df5d90 kernel32.dll         PeekNamedPipe
+0x00000001400431c0 0x0000000076df99a0 kernel32.dll         PostQueuedCompletionStatus
+0x00000001400431c8 0x0000000076dfcb40 kernel32.dll         ProcessIdToSessionId
+0x00000001400431d0 0x0000000076df3ee0 kernel32.dll         QueryDosDeviceW
+0x00000001400431d8 0x0000000076e056e0 kernel32.dll         QueryPerformanceCounter
+0x00000001400431e0 0x0000000076dfde20 kernel32.dll         QueryPerformanceFrequency
+0x00000001400431e8 0x0000000076e38560 kernel32.dll         QueryThreadCycleTime
+0x00000001400431f0 0x0000000076dfc100 kernel32.dll         RaiseException
+0x00000001400431f8 0x0000000076e5a740 kernel32.dll         ReadConsoleW
+0x0000000140043200 0x0000000076e006e0 kernel32.dll         ReadFile
+0x0000000140043208 0x0000000076e3c120 kernel32.dll         ReadProcessMemory
+0x0000000140043210 0x0000000076dfeb30 kernel32.dll         RegisterWaitForSingleObject
+0x0000000140043218 0x0000000076f2b8e0 ntdll.dll            RtlReleaseSRWLockExclusive
+0x0000000140043220 0x0000000076e08950 kernel32.dll         ReleaseSemaphore
+0x0000000140043228 0x0000000076e3c100 kernel32.dll         RemoveDirectoryW
+0x0000000140043230 0x0000000076e842c0 kernel32.dll         ReplaceFileW
+0x0000000140043238 0x0000000076dfcb90 kernel32.dll         ResetEvent
+0x0000000140043240 0x0000000076e00580 kernel32.dll         ResumeThread
+0x0000000140043248 0x0000000076e3ba50 kernel32.dll         RtlCaptureContext
+0x0000000140043250 0x0000000076e3ba40 kernel32.dll         RtlCaptureStackBackTrace
+0x0000000140043258 0x0000000076e3b970 kernel32.dll         RtlLookupFunctionEntry
+0x0000000140043260 0x0000000076e20900 kernel32.dll         RtlPcToFileHeader
+0x0000000140043268 0x0000000076e3ba00 kernel32.dll         RtlUnwind
+0x0000000140043270 0x0000000076e20910 kernel32.dll         RtlUnwindEx
+0x0000000140043278 0x0000000076e3b910 kernel32.dll         RtlVirtualUnwind
+0x0000000140043280 0x0000000076e08fe0 kernel32.dll         SearchPathW
+0x0000000140043288 0x0000000076e060e0 kernel32.dll         SetConsoleCtrlHandler
+0x0000000140043290 0x0000000076e0bc20 kernel32.dll         SetCurrentDirectoryW
+0x0000000140043298 0x0000000076e3c0d0 kernel32.dll         SetEndOfFile
+0x00000001400432a0 0x0000000076e060c0 kernel32.dll         SetEnvironmentVariableW
+0x00000001400432a8 0x0000000076e030e0 kernel32.dll         SetEvent
+0x00000001400432b0 0x0000000076e02980 kernel32.dll         SetFileAttributesW
+0x00000001400432b8 0x0000000076dfa3a0 kernel32.dll         SetFilePointerEx
+0x00000001400432c0 0x0000000076df54d0 kernel32.dll         SetHandleInformation
+0x00000001400432c8 0x0000000076e4bd70 kernel32.dll         SetInformationJobObject
+0x00000001400432d0 0x0000000076e11540 kernel32.dll         SetLastError
+0x00000001400432d8 0x0000000076e3c060 kernel32.dll         SetNamedPipeHandleState
+0x00000001400432e0 0x0000000076e0a720 kernel32.dll         SetProcessShutdownParameters
+0x00000001400432e8 0x0000000076e3c040 kernel32.dll         SetStdHandle
+0x00000001400432f0 0x0000000076df4df0 kernel32.dll         SetThreadAffinityMask
+0x00000001400432f8 0x0000000076e0cb00 kernel32.dll         SetThreadPriority
+0x0000000140043300 0x0000000076e08d60 kernel32.dll         SetUnhandledExceptionFilter
+0x0000000140043308 0x0000000076e62d60 kernel32.dll         SignalObjectAndWait
+0x0000000140043310 0x0000000076e112e0 kernel32.dll         Sleep
+0x0000000140043318 0x0000000076e3b540 kernel32.dll         SleepConditionVariableSRW
+0x0000000140043320 0x0000000076e11320 kernel32.dll         SleepEx
+0x0000000140043328 0x0000000076df2a50 kernel32.dll         SuspendThread
+0x0000000140043330 0x0000000076dfab60 kernel32.dll         SwitchToThread
+0x0000000140043338 0x0000000076e3c010 kernel32.dll         SystemTimeToTzSpecificLocalTime
+0x0000000140043340 0x0000000076df5c60 kernel32.dll         TerminateJobObject
+0x0000000140043348 0x0000000076e3c000 kernel32.dll         TerminateProcess
+0x0000000140043350 0x0000000076e062e0 kernel32.dll         TlsAlloc
+0x0000000140043358 0x0000000076e00770 kernel32.dll         TlsFree
+0x0000000140043360 0x0000000076e11340 kernel32.dll         TlsGetValue
+0x0000000140043368 0x0000000076e04eb0 kernel32.dll         TlsSetValue
+0x0000000140043370 0x0000000076e3bfc0 kernel32.dll         TransactNamedPipe
+0x0000000140043378 0x0000000076f65020 ntdll.dll            RtlTryAcquireSRWLockExclusive
+0x0000000140043380 0x0000000076e8b990 kernel32.dll         UnhandledExceptionFilter
+0x0000000140043388 0x0000000076e3bf70 kernel32.dll         UnlockFileEx
+0x0000000140043390 0x0000000076e11cd0 kernel32.dll         UnmapViewOfFile
+0x0000000140043398 0x0000000076df7ec0 kernel32.dll         UnregisterWait
+0x00000001400433a0 0x0000000076df3c10 kernel32.dll         UnregisterWaitEx
+0x00000001400433a8 0x000007fefcd94390 KERNELBASE.dll       UpdateProcThreadAttribute
+0x00000001400433b0 0x0000000076e3bf30 kernel32.dll         VirtualAllocEx
+0x00000001400433b8 0x0000000076e00440 kernel32.dll         VirtualFree
+0x00000001400433c0 0x0000000076e3bef0 kernel32.dll         VirtualFreeEx
+0x00000001400433c8 0x0000000076df29e0 kernel32.dll         VirtualProtect
+0x00000001400433d0 0x0000000076e3bed0 kernel32.dll         VirtualProtectEx
+0x00000001400433d8 0x0000000076e0aeb0 kernel32.dll         VirtualQuery
+0x00000001400433e0 0x0000000076e3bec0 kernel32.dll         VirtualQueryEx
+0x00000001400433e8 0x0000000076e11290 kernel32.dll         WaitForSingleObject
+0x00000001400433f0 0x0000000076e11740 kernel32.dll         WaitForSingleObjectEx
+0x00000001400433f8 0x0000000076e3beb0 kernel32.dll         WaitNamedPipeW
+0x0000000140043400 0x0000000076f62830 ntdll.dll            RtlWakeAllConditionVariable
+0x0000000140043408 0x0000000076e11d40 kernel32.dll         WideCharToMultiByte
+0x0000000140043410 0x0000000076e3b300 kernel32.dll         Wow64GetThreadContext
+0x0000000140043418 0x0000000076e02f20 kernel32.dll         WriteConsoleW
+0x0000000140043420 0x0000000076e11cf0 kernel32.dll         WriteFile
+0x0000000140043428 0x0000000076e3be30 kernel32.dll         WriteProcessMemory
+0x0000000140043430 0x0000000076e030a0 kernel32.dll         lstrlenW
+0x0000000140043440 0x000007fefb7915fc VERSION.dll          GetFileVersionInfoSizeW
+0x0000000140043448 0x000007fefb791614 VERSION.dll          GetFileVersionInfoW
+0x0000000140043450 0x000007fefb7915e0 VERSION.dll          VerQueryValueW
+0x00000001400514f0 0x000007fefe3539f0 SHELL32.dll          SHGetFolderPathW
+0x0000000140051518 0x000007feff134750 ADVAPI32.dll         ConvertStringSecurityDescriptorToSecurityDescriptorW
+0x0000000140051520 0x000007feff13f480 ADVAPI32.dll         ConvertStringSidToSidW
+0x0000000140051528 0x000007feff133b7c ADVAPI32.dll         CopySid
+0x0000000140051530 0x000007feff12e47c ADVAPI32.dll         CreateProcessAsUserW
+0x0000000140051538 0x000007feff15a500 ADVAPI32.dll         CreateRestrictedToken
+0x0000000140051540 0x000007feff130510 ADVAPI32.dll         CreateWellKnownSid
+0x0000000140051548 0x000007feff12fa40 ADVAPI32.dll         DuplicateToken
+0x0000000140051558 0x000007feff13da68 ADVAPI32.dll         EqualSid
+0x0000000140051588 0x000007feff133e50 ADVAPI32.dll         GetKernelObjectSecurity
+0x0000000140051590 0x000007feff13d644 ADVAPI32.dll         GetLengthSid
+0x00000001400515a0 0x000007feff133e3c ADVAPI32.dll         GetSecurityDescriptorSacl
+0x00000001400515a8 0x000007feff12d770 ADVAPI32.dll         GetSecurityInfo
+0x00000001400515b8 0x000007feff13d8a0 ADVAPI32.dll         GetTokenInformation
+0x00000001400515f0 0x000007feff13d8c0 ADVAPI32.dll         OpenProcessToken
+0x00000001400515f8 0x000007feff144240 ADVAPI32.dll         RegCloseKey
+0x0000000140051600 0x000007feff13d5f0 ADVAPI32.dll         RegCreateKeyExW
+0x0000000140051618 0x000007feff144210 ADVAPI32.dll         RegOpenKeyExW
+0x0000000140051620 0x000007feff13e6f0 ADVAPI32.dll         RegQueryValueExW
+0x0000000140051628 0x000007feff134490 ADVAPI32.dll         RegSetValueExW
+0x0000000140051638 0x000007feff1359c0 ADVAPI32.dll         SetEntriesInAclW
+0x0000000140051640 0x000007feff133e7c ADVAPI32.dll         SetKernelObjectSecurity
+0x0000000140051648 0x000007feff12af30 ADVAPI32.dll         SetSecurityInfo
+0x0000000140051650 0x000007feff12fa2c ADVAPI32.dll         SetThreadToken
+0x0000000140051658 0x000007feff12d3c0 ADVAPI32.dll         SetTokenInformation
+0x0000000140051660 0x000007feff121044 ADVAPI32.dll         SystemFunction036
+0x0000000140051688 0x0000000076cf4138 USER32.dll           CreateDesktopW
+0x0000000140051698 0x0000000076cf14d0 USER32.dll           CreateWindowStationW
+0x00000001400516c8 0x0000000076cff340 USER32.dll           GetProcessWindowStation
+0x00000001400516d0 0x0000000076d0a840 USER32.dll           GetThreadDesktop
+0x00000001400516d8 0x0000000076cff950 USER32.dll           GetUserObjectInformationW
+0x0000000140051710 0x0000000076d00cd0 USER32.dll           SetProcessDPIAware
+0x0000000140051718 0x0000000076cfd650 USER32.dll           SetProcessWindowStation
+0x0000000140055608 0x0000000076f79a00 ntdll.dll            ZwAllocateVirtualMemory
+0x0000000140055610 0x0000000076f79970 ntdll.dll            ZwClose
+0x0000000140055618 0x0000000076f79c40 ntdll.dll            ZwDuplicateObject
+0x0000000140055620 0x0000000076f79a60 ntdll.dll            ZwFreeVirtualMemory
+0x0000000140055628 0x0000000076f79b00 ntdll.dll            ZwMapViewOfSection
+0x0000000140055630 0x0000000076f79d80 ntdll.dll            ZwProtectVirtualMemory
+0x0000000140055638 0x0000000076f79a10 ntdll.dll            ZwQueryInformationProcess
+0x0000000140055640 0x0000000076f79980 ntdll.dll            ZwQueryObject
+0x0000000140055648 0x0000000076f79d90 ntdll.dll            ZwQuerySection
+0x0000000140055650 0x0000000076f79ab0 ntdll.dll            ZwQueryVirtualMemory
+0x0000000140055658 0x0000000076f79b20 ntdll.dll            ZwUnmapViewOfSection
+0x0000000140055660 0x0000000076f7b010 ntdll.dll            ZwSignalAndWaitForSingleObject
+0x0000000140055668 0x0000000076f798c0 ntdll.dll            ZwWaitForSingleObject
+0x0000000140055670 0x0000000076f37a30 kernel32.dll         HeapAlloc
+0x0000000140055678 0x0000000076f3eed0 ntdll.dll            RtlAnsiStringToUnicodeString
+0x0000000140055680 0x0000000076f424e0 ntdll.dll            RtlCompareUnicodeString
+0x0000000140055688 0x0000000076ff4d30 ntdll.dll            RtlCreateHeap
+0x0000000140055690 0x0000000076f5d480 ntdll.dll            RtlCreateUserThread
+0x0000000140055698 0x0000000076fe6770 ntdll.dll            RtlDestroyHeap
+0x00000001400556a0 0x0000000076f3a1c0 kernel32.dll         HeapFree
+0x00000001400556a8 0x0000000076f681ac ntdll.dll            _strnicmp
+0x00000001400556b0 0x0000000076f6b630 ntdll.dll            strlen
+0x00000001400556b8 0x0000000076f6c7dc ntdll.dll            wcslen
+0x00000001400556c0 0x0000000076f66fc0 ntdll.dll            memmove

@@ -1,0 +1,306 @@
+#########################################################################################################################################################################################################################################
+# Investigation Details
+# ======================
+# Investigator Name: Solomon Sonya
+# Investigation Description: Magnet Virtual Summit 2020 CTF - Memory
+# Investigation Date: 2022-01-17-2008:58
+#
+# Analysis Framework
+# ======================
+# Analysis Framework Name: Xavier Framework
+# Analysis Framework Version: 2.114
+#
+# Memory Analysis Binary
+# ======================
+# File Name: vol_2.6.exe	 File Size: 15.79 MBs	 Creation Date: 2022-01-16-1019:29	 Last Accessed: 2022-01-17-1948:58	 Last Modified: 2021-02-28-2253:29	 
+# MD5: 2fc05486a3fe93cef213cc37748bf556	 SHA-256: 672a00461ffb8d59536c86192450b66d552e67809fc8584d1792b42b22c5f4e1	 
+#
+# Analysis Image Details
+# ======================
+# Memory Image Path: C:\xavier\xavier_framework\import\memory_image\memdump.mem
+# File Name: memdump.mem	 File Size: 5.37 GBs	 Creation Date: 2022-01-17-2008:08	 Last Accessed: 2022-01-17-2008:13	 Last Modified: 2021-10-14-2125:48	 
+# MD5: 224f93209cbea29e862890f30dfa762d	 SHA-256: 18e9007993c45f813dd5bd23b6bf6ad703d3e6ac70effd9c47a310a8443c7b8a	 
+#
+# Plugin Details
+# ======================
+# Plugin Name: shellbags
+# Plugin Description: Prints ShellBags infoPrints ShellBags infoPrints ShellBags infoPrints ShellBags infoPrints ShellBags infoPrints ShellBags infoPrints ShellBags infoPrints ShellBags infoPrints ShellBags infoPrints ShellBags infoPrints ShellBags infoPrints ShellBags infoPrints ShellBags infoPrints ShellBags infoPrints ShellBags infoPrints ShellBags infoPrints ShellBags infoPrints ShellBags infoPrints ShellBags infoPrints ShellBags info
+#
+# Execution Details
+# ======================
+# Execution Command: "C:\xavier\xavier_framework\import\memory_analysis\vol_2.6.exe" -f "C:\xavier\xavier_framework\import\memory_image\memdump.mem" shellbags --profile=Win7SP1x64
+#########################################################################################################################################################################################################################################
+
+
+Volatility Foundation Volatility Framework 2.6
+Scanning for registries....
+Gathering shellbag items and building path tree...
+***************************************************************************
+Registry: \??\C:\Users\Warren\ntuser.dat 
+Key: Software\Microsoft\Windows\Shell\Bags\1\Desktop
+Last updated: 2020-04-20 01:02:33 UTC+0000
+Value                     File Name      Modified Date                  Create Date                    Access Date                    File Attr                 Unicode Name
+------------------------- -------------- ------------------------------ ------------------------------ ------------------------------ ------------------------- ------------
+ItemPos800x600x96(1)      GOOGLE~1.LNK   2020-04-20 00:57:06 UTC+0000   2020-02-14 15:39:36 UTC+0000   2020-02-14 15:39:36 UTC+0000   ARC                       Google Chrome.lnk 
+ItemPos800x600x96(1)      IGNITI~1.LNK   2020-02-18 07:12:38 UTC+0000   2020-02-18 07:12:38 UTC+0000   2020-02-18 07:12:38 UTC+0000   ARC                       Ignition Casino Poker.lnk 
+ItemPos800x600x96(1)      OFFICE~1.LNK   2020-02-14 19:44:52 UTC+0000   2020-02-14 19:44:52 UTC+0000   2020-02-14 19:44:52 UTC+0000   ARC                       Office Tab Center 2013.lnk 
+ItemPos800x600x96(1)      Slack.lnk      2020-03-20 00:09:08 UTC+0000   2020-03-20 00:09:08 UTC+0000   2020-03-20 00:09:08 UTC+0000   ARC                       Slack.lnk 
+***************************************************************************
+
+***************************************************************************
+Registry: \??\C:\Users\Warren\AppData\Local\Microsoft\Windows\UsrClass.dat 
+Key: Local Settings\Software\Microsoft\Windows\Shell\BagMRU
+Last updated: 2020-04-20 23:19:11 UTC+0000
+Value   Mru   Entry Type     GUID                                     GUID Description     Folder IDs
+------- ----- -------------- ---------------------------------------- -------------------- ----------
+1       0     Folder Entry   59031a47-3f72-44a7-89c5-5595fe6b30ee     Users                EXPLORER, USERS 
+0       2     Folder Entry   26ee0668-a00a-44d7-9371-beb064c98683     {Unknown CSIDL}      EXPLORER, MY_COMPUTER, RECYCLE_BIN, UKNOWN 
+3       1     Folder Entry   031e4825-7b94-4dc3-b131-e946b44c8dd5     Libraries            EXPLORER, LIBRARIES 
+2       3     Folder Entry   20d04fe0-3aea-1069-a2d8-08002b30309d     My Computer          EXPLORER, MY_COMPUTER 
+5       4     Folder Entry   645ff040-5081-101b-9f08-00aa002f954e     Recycle Bin          EXPLORER, MY_DOCUMENTS, MY_COMPUTER, NETWORK, RECYCLE_BIN, EXPLORER, UKNOWN, RECYCLE_BIN 
+4       5     Folder Entry   22877a6d-37a1-461a-91b0-dbda5aaebc99     {Unknown CSIDL}      EXPLORER, MY_GAMES 
+***************************************************************************
+
+***************************************************************************
+Registry: \??\C:\Users\Warren\AppData\Local\Microsoft\Windows\UsrClass.dat 
+Key: Local Settings\Software\Microsoft\Windows\Shell\BagMRU\1
+Last updated: 2020-04-20 00:48:36 UTC+0000
+Value   Mru   Entry Type     GUID                                     GUID Description     Folder IDs
+------- ----- -------------- ---------------------------------------- -------------------- ----------
+1       2     Folder         33e28130-4e1e-4676-835a-98395c3bc3bb     Pictures             EXPLORER 
+0       0     Folder         374de290-123f-4565-9164-39c4925e467b     Downloads            EXPLORER 
+2       1     Folder         fdd39ad0-238f-46af-adb4-6c85480369c7     Documents            EXPLORER 
+***************************************************************************
+
+***************************************************************************
+Registry: \??\C:\Users\Warren\AppData\Local\Microsoft\Windows\UsrClass.dat 
+Key: Local Settings\Software\Microsoft\Windows\Shell\BagMRU\2
+Last updated: 2020-02-14 20:21:00 UTC+0000
+Value   Mru   Entry Type     Path
+------- ----- -------------- ----
+0       0     Volume Name    C:\ 
+***************************************************************************
+
+***************************************************************************
+Registry: \??\C:\Users\Warren\AppData\Local\Microsoft\Windows\UsrClass.dat 
+Key: Local Settings\Software\Microsoft\Windows\Shell\BagMRU\3
+Last updated: 2020-03-20 00:24:18 UTC+0000
+Value   Mru   Entry Type     GUID                                     GUID Description     Folder IDs
+------- ----- -------------- ---------------------------------------- -------------------- ----------
+1       0     Folder         7b0db17d-9cd2-4a93-9733-46cc89022e7c     Documents Library    EXPLORER 
+0       1     Folder         7b0db17d-9cd2-4a93-9733-46cc89022e7c     Documents Library    EXPLORER 
+3       3     Folder         2112ab0a-c86a-4ffe-a368-0de96e47012e     Unknown GUID         EXPLORER 
+2       4     Folder         a990ae9f-a03b-4e80-94bc-9912d7504104     Unknown GUID         EXPLORER 
+4       2     Folder         491e922f-5643-4af4-a7eb-4e7a138d8174     Unknown GUID         EXPLORER 
+***************************************************************************
+
+***************************************************************************
+Registry: \??\C:\Users\Warren\AppData\Local\Microsoft\Windows\UsrClass.dat 
+Key: Local Settings\Software\Microsoft\Windows\Shell\BagMRU\0\0
+Last updated: 2020-03-20 00:23:53 UTC+0000
+Value   Mru   Entry Type     GUID                                     GUID Description     Folder IDs
+------- ----- -------------- ---------------------------------------- -------------------- ----------
+1       0     Control Panel  36eef7db-88ad-4e81-ad49-0e313f0c35f8     Windows Update       EXPLORER, MY_GAMES 
+0       1     Control Panel  bb06c0e4-d293-4f75-8a90-cb05b6477eee     System               EXPLORER, MY_GAMES 
+***************************************************************************
+
+***************************************************************************
+Registry: \??\C:\Users\Warren\AppData\Local\Microsoft\Windows\UsrClass.dat 
+Key: Local Settings\Software\Microsoft\Windows\Shell\BagMRU\0\1
+Last updated: 2020-02-14 19:05:17 UTC+0000
+Value   Mru   Entry Type     GUID                                     GUID Description     Folder IDs
+------- ----- -------------- ---------------------------------------- -------------------- ----------
+0       0     Control Panel  7b81be6a-ce2b-4676-a29e-eb907a5126c5     Programs and Features EXPLORER, MY_GAMES 
+***************************************************************************
+
+***************************************************************************
+Registry: \??\C:\Users\Warren\AppData\Local\Microsoft\Windows\UsrClass.dat 
+Key: Local Settings\Software\Microsoft\Windows\Shell\BagMRU\0\2
+Last updated: 2020-02-20 01:51:11 UTC+0000
+Value   Mru   Entry Type     GUID                                     GUID Description     Folder IDs
+------- ----- -------------- ---------------------------------------- -------------------- ----------
+0       0     Control Panel  fffffffe-005d-0000-3153-505330f125b7     Unknown GUID         EXPLORER 
+***************************************************************************
+
+***************************************************************************
+Registry: \??\C:\Users\Warren\AppData\Local\Microsoft\Windows\UsrClass.dat 
+Key: Local Settings\Software\Microsoft\Windows\Shell\BagMRU\1\0
+Last updated: 2020-04-20 01:02:33 UTC+0000
+Value   Mru   File Name      Modified Date                  Create Date                    Access Date                    File Attr                 Path
+------- ----- -------------- ------------------------------ ------------------------------ ------------------------------ ------------------------- ----
+1       3     DRIVE-~2.ZIP   2020-02-14 16:19:44 UTC+0000   2020-02-14 16:18:36 UTC+0000   2020-02-14 16:19:44 UTC+0000   ARC                       drive-download-20200214T161819Z-001.zip
+0       2     drive-download-20200214T155122Z-001.zip 1970-01-01 00:00:00 UTC+0000   1970-01-01 00:00:00 UTC+0000   1970-01-01 00:00:00 UTC+0000   ARC                       drive-download-20200214T155122Z-001.zip
+3       4     kernel32.zip   1970-01-01 00:00:00 UTC+0000   1970-01-01 00:00:00 UTC+0000   1970-01-01 00:00:00 UTC+0000   ARC                       kernel32.zip
+2       5     Data-20200218T211638Z-001.zip 1970-01-01 00:00:00 UTC+0000   1970-01-01 00:00:00 UTC+0000   1970-01-01 00:00:00 UTC+0000   ARC                       Data-20200218T211638Z-001.zip
+5       1     Imager_Lite_3.1.1.zip 1970-01-01 00:00:00 UTC+0000   1970-01-01 00:00:00 UTC+0000   1970-01-01 00:00:00 UTC+0000   ARC                       Imager_Lite_3.1.1.zip
+4       0     Imager_Lite_3.1.1 1970-01-01 00:00:00 UTC+0000   1970-01-01 00:00:00 UTC+0000   1970-01-01 00:00:00 UTC+0000   DIR                       Imager_Lite_3.1.1
+***************************************************************************
+
+***************************************************************************
+Registry: \??\C:\Users\Warren\AppData\Local\Microsoft\Windows\UsrClass.dat 
+Key: Local Settings\Software\Microsoft\Windows\Shell\BagMRU\1\2
+Last updated: 2020-03-20 00:24:18 UTC+0000
+Value   Mru   File Name      Modified Date                  Create Date                    Access Date                    File Attr                 Path
+------- ----- -------------- ------------------------------ ------------------------------ ------------------------------ ------------------------- ----
+1       0     LOANTR~1       2020-02-20 02:42:04 UTC+0000   2020-02-18 05:58:26 UTC+0000   2020-02-20 02:42:04 UTC+0000   DIR                       Loan Tracking
+0       3     BUSINE~1       2020-02-18 21:23:32 UTC+0000   2020-02-18 21:23:06 UTC+0000   2020-02-18 21:23:32 UTC+0000   DIR                       Business Tracking
+3       2     MALLIE~1       2020-03-19 23:31:58 UTC+0000   2020-02-20 02:05:48 UTC+0000   2020-03-19 23:31:58 UTC+0000   DIR                       Mallie Sae
+2       1     USERCR~1       2020-02-18 21:24:40 UTC+0000   2020-02-18 21:24:30 UTC+0000   2020-02-18 21:24:40 UTC+0000   DIR                       User Credit Tracking
+***************************************************************************
+
+***************************************************************************
+Registry: \??\C:\Users\Warren\AppData\Local\Microsoft\Windows\UsrClass.dat 
+Key: Local Settings\Software\Microsoft\Windows\Shell\BagMRU\2\0
+Last updated: 2020-02-14 19:32:14 UTC+0000
+Value   Mru   File Name      Modified Date                  Create Date                    Access Date                    File Attr                 Path
+------- ----- -------------- ------------------------------ ------------------------------ ------------------------------ ------------------------- ----
+0       0     Users          2020-02-14 02:10:26 UTC+0000   2009-07-14 03:20:10 UTC+0000   2020-02-14 02:10:26 UTC+0000   RO, DIR                   C:\Users
+***************************************************************************
+
+***************************************************************************
+Registry: \??\C:\Users\Warren\AppData\Local\Microsoft\Windows\UsrClass.dat 
+Key: Local Settings\Software\Microsoft\Windows\Shell\BagMRU\3\1
+Last updated: 2020-03-20 00:24:18 UTC+0000
+Value   Mru   Entry Type     GUID                                     GUID Description     Folder IDs
+------- ----- -------------- ---------------------------------------- -------------------- ----------
+1       7     Folder (unsupported) This property is not yet supported                             
+0       0     Folder (unsupported) This property is not yet supported                             
+3       6     Folder (unsupported) This property is not yet supported                             
+2       8     Folder (unsupported) This property is not yet supported                             
+5       5     Folder (unsupported) This property is not yet supported                             
+4       1     Folder (unsupported) This property is not yet supported                             
+7       3     Folder (unsupported) This property is not yet supported                             
+6       4     Folder (unsupported) This property is not yet supported                             
+8       2     Folder (unsupported) This property is not yet supported                             
+***************************************************************************
+
+***************************************************************************
+Registry: \??\C:\Users\Warren\AppData\Local\Microsoft\Windows\UsrClass.dat 
+Key: Local Settings\Software\Microsoft\Windows\Shell\BagMRU\0\0\1
+Last updated: 2020-02-14 19:56:38 UTC+0000
+Value   Mru   Entry Type     GUID                                     GUID Description     Folder IDs
+------- ----- -------------- ---------------------------------------- -------------------- ----------
+1       2     Folder (unsupported) This property is not yet supported                             
+0       3     Folder (unsupported) This property is not yet supported                             
+3       0     Folder (unsupported) This property is not yet supported                             
+2       1     Folder (unsupported) This property is not yet supported                             
+***************************************************************************
+
+***************************************************************************
+Registry: \??\C:\Users\Warren\AppData\Local\Microsoft\Windows\UsrClass.dat 
+Key: Local Settings\Software\Microsoft\Windows\Shell\BagMRU\0\1\0
+Last updated: 2020-04-20 20:12:54 UTC+0000
+Value   Mru   Entry Type     GUID                                     GUID Description     Folder IDs
+------- ----- -------------- ---------------------------------------- -------------------- ----------
+0       0     Folder (unsupported) This property is not yet supported                             
+***************************************************************************
+
+***************************************************************************
+Registry: \??\C:\Users\Warren\AppData\Local\Microsoft\Windows\UsrClass.dat 
+Key: Local Settings\Software\Microsoft\Windows\Shell\BagMRU\2\0\0
+Last updated: 2020-03-20 00:01:02 UTC+0000
+Value   Mru   File Name      Modified Date                  Create Date                    Access Date                    File Attr                 Path
+------- ----- -------------- ------------------------------ ------------------------------ ------------------------------ ------------------------- ----
+1       0     Public         2009-07-14 07:13:28 UTC+0000   2009-07-14 03:20:10 UTC+0000   2009-07-14 07:13:28 UTC+0000   RO, DIR                   C:\Users\Public
+0       1     Warren         2020-02-14 02:11:16 UTC+0000   2020-02-14 02:10:26 UTC+0000   2020-02-14 02:11:16 UTC+0000   DIR                       C:\Users\Warren
+***************************************************************************
+
+***************************************************************************
+Registry: \??\C:\Users\Warren\AppData\Local\Microsoft\Windows\UsrClass.dat 
+Key: Local Settings\Software\Microsoft\Windows\Shell\BagMRU\3\1\1
+Last updated: 2020-02-18 20:37:58 UTC+0000
+Value   Mru   Entry Type     GUID                                     GUID Description     Folder IDs
+------- ----- -------------- ---------------------------------------- -------------------- ----------
+0       0     Folder (unsupported) This property is not yet supported                             
+***************************************************************************
+
+***************************************************************************
+Registry: \??\C:\Users\Warren\AppData\Local\Microsoft\Windows\UsrClass.dat 
+Key: Local Settings\Software\Microsoft\Windows\Shell\BagMRU\3\1\2
+Last updated: 2020-02-18 19:30:09 UTC+0000
+Value   Mru   Entry Type     GUID                                     GUID Description     Folder IDs
+------- ----- -------------- ---------------------------------------- -------------------- ----------
+0       0     Folder (unsupported) This property is not yet supported                             
+***************************************************************************
+
+***************************************************************************
+Registry: \??\C:\Users\Warren\AppData\Local\Microsoft\Windows\UsrClass.dat 
+Key: Local Settings\Software\Microsoft\Windows\Shell\BagMRU\3\1\8
+Last updated: 2020-03-20 00:01:04 UTC+0000
+Value   Mru   Entry Type     GUID                                     GUID Description     Folder IDs
+------- ----- -------------- ---------------------------------------- -------------------- ----------
+0       0     Folder (unsupported) This property is not yet supported                             
+***************************************************************************
+
+***************************************************************************
+Registry: \??\C:\Users\Warren\AppData\Local\Microsoft\Windows\UsrClass.dat 
+Key: Local Settings\Software\Microsoft\Windows\Shell\BagMRU\2\0\0\0
+Last updated: 2020-02-14 19:32:14 UTC+0000
+Value   Mru   File Name      Modified Date                  Create Date                    Access Date                    File Attr                 Path
+------- ----- -------------- ------------------------------ ------------------------------ ------------------------------ ------------------------- ----
+0       0     AppData        2020-02-14 02:10:26 UTC+0000   2020-02-14 02:10:26 UTC+0000   2020-02-14 02:10:26 UTC+0000   HID, NI, DIR              C:\Users\Warren\AppData
+***************************************************************************
+
+***************************************************************************
+Registry: \??\C:\Users\Warren\AppData\Local\Microsoft\Windows\UsrClass.dat 
+Key: Local Settings\Software\Microsoft\Windows\Shell\BagMRU\2\0\0\1
+Last updated: 2020-02-18 21:24:36 UTC+0000
+Value   Mru   File Name      Modified Date                  Create Date                    Access Date                    File Attr                 Path
+------- ----- -------------- ------------------------------ ------------------------------ ------------------------------ ------------------------- ----
+0       0     DOCUME~1       2009-07-14 05:08:58 UTC+0000   2009-07-14 03:20:10 UTC+0000   2009-07-14 05:08:58 UTC+0000   RO, DIR                   C:\Users\Public\Documents
+***************************************************************************
+
+***************************************************************************
+Registry: \??\C:\Users\Warren\AppData\Local\Microsoft\Windows\UsrClass.dat 
+Key: Local Settings\Software\Microsoft\Windows\Shell\BagMRU\2\0\0\0\0
+Last updated: 2020-02-14 19:32:14 UTC+0000
+Value   Mru   File Name      Modified Date                  Create Date                    Access Date                    File Attr                 Path
+------- ----- -------------- ------------------------------ ------------------------------ ------------------------------ ------------------------- ----
+0       0     Roaming        2020-02-14 02:11:06 UTC+0000   2020-02-14 02:10:26 UTC+0000   2020-02-14 02:11:06 UTC+0000   NI, DIR                   C:\Users\Warren\AppData\Roaming
+***************************************************************************
+
+***************************************************************************
+Registry: \??\C:\Users\Warren\AppData\Local\Microsoft\Windows\UsrClass.dat 
+Key: Local Settings\Software\Microsoft\Windows\Shell\BagMRU\2\0\0\1\0
+Last updated: 2020-02-18 21:24:36 UTC+0000
+Value   Mru   File Name      Modified Date                  Create Date                    Access Date                    File Attr                 Path
+------- ----- -------------- ------------------------------ ------------------------------ ------------------------------ ------------------------- ----
+0       0     OFFICE~1       2020-02-14 19:44:48 UTC+0000   2020-02-14 19:44:48 UTC+0000   2020-02-14 19:44:48 UTC+0000   DIR                       C:\Users\Public\Documents\Office Tab
+***************************************************************************
+
+***************************************************************************
+Registry: \??\C:\Users\Warren\AppData\Local\Microsoft\Windows\UsrClass.dat 
+Key: Local Settings\Software\Microsoft\Windows\Shell\BagMRU\2\0\0\0\0\0
+Last updated: 2020-02-14 19:32:14 UTC+0000
+Value   Mru   File Name      Modified Date                  Create Date                    Access Date                    File Attr                 Path
+------- ----- -------------- ------------------------------ ------------------------------ ------------------------------ ------------------------- ----
+0       0     MICROS~1       2020-02-14 02:46:48 UTC+0000   2020-02-14 02:10:26 UTC+0000   2020-02-14 02:46:48 UTC+0000   SYS, NI, DIR              C:\Users\Warren\AppData\Roaming\Microsoft
+***************************************************************************
+
+***************************************************************************
+Registry: \??\C:\Users\Warren\AppData\Local\Microsoft\Windows\UsrClass.dat 
+Key: Local Settings\Software\Microsoft\Windows\Shell\BagMRU\2\0\0\1\0\0
+Last updated: 2020-03-20 00:01:04 UTC+0000
+Value   Mru   File Name      Modified Date                  Create Date                    Access Date                    File Attr                 Path
+------- ----- -------------- ------------------------------ ------------------------------ ------------------------------ ------------------------- ----
+0       0     Language       2020-02-14 19:44:48 UTC+0000   2020-02-14 19:44:48 UTC+0000   2020-02-14 19:44:48 UTC+0000   DIR                       C:\Users\Public\Documents\Office Tab\Language
+***************************************************************************
+
+***************************************************************************
+Registry: \??\C:\Users\Warren\AppData\Local\Microsoft\Windows\UsrClass.dat 
+Key: Local Settings\Software\Microsoft\Windows\Shell\BagMRU\2\0\0\0\0\0\0
+Last updated: 2020-02-14 19:32:14 UTC+0000
+Value   Mru   File Name      Modified Date                  Create Date                    Access Date                    File Attr                 Path
+------- ----- -------------- ------------------------------ ------------------------------ ------------------------------ ------------------------- ----
+0       0     Windows        2020-02-14 02:11:16 UTC+0000   2020-02-14 02:10:26 UTC+0000   2020-02-14 02:11:16 UTC+0000   NI, DIR                   C:\Users\Warren\AppData\Roaming\Microsoft\Windows
+***************************************************************************
+
+***************************************************************************
+Registry: \??\C:\Users\Warren\AppData\Local\Microsoft\Windows\UsrClass.dat 
+Key: Local Settings\Software\Microsoft\Windows\Shell\BagMRU\2\0\0\0\0\0\0\0
+Last updated: 2020-02-14 19:32:14 UTC+0000
+Value   Mru   File Name      Modified Date                  Create Date                    Access Date                    File Attr                 Path
+------- ----- -------------- ------------------------------ ------------------------------ ------------------------------ ------------------------- ----
+0       0     STARTM~1       2020-02-14 02:11:24 UTC+0000   2020-02-14 02:10:26 UTC+0000   2020-02-14 02:11:16 UTC+0000   RO, DIR                   C:\Users\Warren\AppData\Roaming\Microsoft\Windows\Start Menu
+***************************************************************************
+

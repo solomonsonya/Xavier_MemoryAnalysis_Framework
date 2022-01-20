@@ -1,0 +1,303 @@
+<!https://bl.ocks.org/d3noob/43a860bc0024792f8803bba8ca0d5ecd>
+<!DOCTYPE html>
+	<!-- Solomon Sonya @Carpenter1010 - Happy Hunting! -->	
+<meta charset="UTF-8"> 
+<style>
+
+.node circle {
+  fill: #fff;
+  stroke: steelblue;
+  stroke-width: 3px;
+}
+
+.node text {
+  font: 12px sans-serif;
+}
+
+.link {
+  fill: none;
+  stroke: #ccc;
+  stroke-width: 2px;
+}
+
+</style>
+<p> <b>Process Tree - memdump.mem</b><hr></p>
+<body>
+
+<!-- load the d3.js library -->	
+<script src="d3.v4.min.js"></script>
+<script>
+
+var treeData =
+  { "name": "WIN-9H6J4FBP8F7", "children": [		
+	{ "name": "[4] System" , "children": [
+		{ "name": "[280] smss.exe" },
+	]},
+	{ "name": "[364] csrss.exe" },
+	{ "name": "[408] wininit.exe" , "children": [
+		{ "name": "[472] services.exe" , "children": [
+			{ "name": "[112] svchost.exe" , "children": [
+				{ "name": "[3464] wuauclt.exe" },
+			]},
+			{ "name": "[360] svchost.exe" },
+			{ "name": "[660] svchost.exe" , "children": [
+				{ "name": "[2108] WmiPrvSE.exe" },
+				{ "name": "[3440] WmiPrvSE.exe" },
+			]},
+			{ "name": "[728] vmacthlp.exe" },
+			{ "name": "[772] svchost.exe" },
+			{ "name": "[860] svchost.exe" , "children": [
+				{ "name": "[1728] audiodg.exe" },
+			]},
+			{ "name": "[936] svchost.exe" , "children": [
+				{ "name": "[2852] dwm.exe" },
+			]},
+			{ "name": "[980] svchost.exe" },
+			{ "name": "[1080] svchost.exe" },
+			{ "name": "[1092] WmiApSrv.exe" },
+			{ "name": "[1160] svchost.exe" },
+			{ "name": "[1304] spoolsv.exe" },
+			{ "name": "[1332] svchost.exe" },
+			{ "name": "[1396] taskhost.exe" },
+			{ "name": "[1444] svchost.exe" },
+			{ "name": "[1520] VGAuthService." },
+			{ "name": "[1576] vmtoolsd.exe" },
+			{ "name": "[1636] wlms.exe" },
+			{ "name": "[1952] sppsvc.exe" },
+			{ "name": "[2032] svchost.exe" },
+			{ "name": "[2216] dllhost.exe" },
+			{ "name": "[2324] msdtc.exe" },
+			{ "name": "[2580] SearchIndexer." , "children": [
+				{ "name": "[1996] SearchFilterHo" },
+				{ "name": "[4056] SearchProtocol" },
+			]},
+			{ "name": "[2944] svchost.exe" },
+		]},
+		{ "name": "[536] lsass.exe" },
+		{ "name": "[544] lsm.exe" },
+	]},
+	{ "name": "[440] csrss.exe" },
+	{ "name": "[508] winlogon.exe" },
+	{ "name": "[2164] WerFault.exe" },
+	{ "name": "[2208] slack.exe" , "children": [
+		{ "name": "[1172] slack.exe" },
+		{ "name": "[2728] slack.exe" },
+		{ "name": "[2812] slack.exe" },
+		{ "name": "[2848] slack.exe" },
+	]},
+	{ "name": "[2672] explorer.exe" , "children": [
+		{ "name": "[2928] vmtoolsd.exe" },
+		{ "name": "[2984] iexplore.exe" , "children": [
+			{ "name": "[4480] iexplore.exe" },
+		]},
+		{ "name": "[3180] WINWORD.EXE" },
+		{ "name": "[3384] chrome.exe" , "children": [
+			{ "name": "[2188] chrome.exe" },
+			{ "name": "[3392] chrome.exe" },
+			{ "name": "[3492] chrome.exe" },
+			{ "name": "[3596] chrome.exe" },
+			{ "name": "[3604] chrome.exe" },
+			{ "name": "[3748] chrome.exe" },
+			{ "name": "[3756] chrome.exe" },
+			{ "name": "[4196] chrome.exe" },
+			{ "name": "[4236] chrome.exe" },
+			{ "name": "[4404] chrome.exe" },
+			{ "name": "[4484] chrome.exe" },
+			{ "name": "[4600] chrome.exe" },
+		]},
+		{ "name": "[4332] FTK Imager.exe" },
+	]},
+    ]
+  };
+
+// Set the dimensions and margins of the diagram
+var margin = {top: 20, right: 90, bottom: 30, left: 150},
+    width = 3000 - margin.left - margin.right,
+    height = 600 - margin.top - margin.bottom;
+
+// append the svg object to the body of the page
+// appends a 'group' element to 'svg'
+// moves the 'group' element to the top left margin
+var svg = d3.select("body").append("svg")
+    .attr("width", width + margin.right + margin.left)
+    .attr("height", height + margin.top + margin.bottom)
+  .append("g")
+    .attr("transform", "translate("
+          + margin.left + "," + margin.top + ")");
+
+var i = 0,
+    duration = 750,
+    root;
+
+// declares a tree layout and assigns the size
+var treemap = d3.tree().size([height, width]);
+
+// Assigns parent, children, height, depth
+root = d3.hierarchy(treeData, function(d) { return d.children; });
+root.x0 = height / 2;
+root.y0 = 0;
+
+// Collapse after the second level
+root.children.forEach(collapse);
+
+update(root);
+
+// Collapse the node and all it's children
+function collapse(d) {
+  if(d.children) {
+    d._children = d.children
+    d._children.forEach(collapse)
+    d.children = null
+  }
+}
+
+function update(source) {
+
+  // Assigns the x and y position for the nodes
+  var treeData = treemap(root);
+
+  // Compute the new tree layout.
+  var nodes = treeData.descendants(),
+      links = treeData.descendants().slice(1);
+
+  // Normalize for fixed-depth.
+  nodes.forEach(function(d){ d.y = d.depth * 300});
+
+  // ****************** Nodes section ***************************
+
+  // Update the nodes...
+  var node = svg.selectAll('g.node')
+      .data(nodes, function(d) {return d.id || (d.id = ++i); });
+
+  // Enter any new modes at the parent's previous position.
+  var nodeEnter = node.enter().append('g')
+      .attr('class', 'node')
+      .attr("transform", function(d) {
+        return "translate(" + source.y0 + "," + source.x0 + ")";
+    })
+    .on('click', click);
+
+  // Add Circle for the nodes
+  nodeEnter.append('circle')
+      .attr('class', 'node')
+      .attr('r', 1e-6)
+      .style("fill", function(d) {
+          return d._children ? "lightsteelblue" : "#fff";
+      });
+
+  // Add labels for the nodes
+  nodeEnter.append('text')
+      .attr("dy", ".35em")
+      .attr("x", function(d) {
+          return d.children || d._children ? -13 : 13;
+      })
+      .attr("text-anchor", function(d) {
+          return d.children || d._children ? "end" : "start";
+      })
+      .text(function(d) { return d.data.name; });
+
+  // UPDATE
+  var nodeUpdate = nodeEnter.merge(node);
+
+  // Transition to the proper position for the node
+  nodeUpdate.transition()
+    .duration(duration)
+    .attr("transform", function(d) { 
+        return "translate(" + d.y + "," + d.x + ")";
+     });
+
+  // Update the node attributes and style
+  nodeUpdate.select('circle.node')
+    .attr('r', 10)
+    .style("fill", function(d) {
+        return d._children ? "lightsteelblue" : "#fff";
+    })
+    .attr('cursor', 'pointer');
+
+
+  // Remove any exiting nodes
+  var nodeExit = node.exit().transition()
+      .duration(duration)
+      .attr("transform", function(d) {
+          return "translate(" + source.y + "," + source.x + ")";
+      })
+      .remove();
+
+  // On exit reduce the node circles size to 0
+  nodeExit.select('circle')
+    .attr('r', 1e-6);
+
+  // On exit reduce the opacity of text labels
+  nodeExit.select('text')
+    .style('fill-opacity', 1e-6);
+
+  // ****************** links section ***************************
+
+  // Update the links...
+  var link = svg.selectAll('path.link')
+      .data(links, function(d) { return d.id; });
+
+  // Enter any new links at the parent's previous position.
+  var linkEnter = link.enter().insert('path', "g")
+      .attr("class", "link")
+      .attr('d', function(d){
+        var o = {x: source.x0, y: source.y0}
+        return diagonal(o, o)
+      });
+
+  // UPDATE
+  var linkUpdate = linkEnter.merge(link);
+
+  // Transition back to the parent element position
+  linkUpdate.transition()
+      .duration(duration)
+      .attr('d', function(d){ return diagonal(d, d.parent) });
+
+  // Remove any exiting links
+  var linkExit = link.exit().transition()
+      .duration(duration)
+      .attr('d', function(d) {
+        var o = {x: source.x, y: source.y}
+        return diagonal(o, o)
+      })
+      .remove();
+
+  // Store the old positions for transition.
+  nodes.forEach(function(d){
+    d.x0 = d.x;
+    d.y0 = d.y;
+  });
+
+  // Creates a curved (diagonal) path from parent to the child nodes
+  function diagonal(s, d) {
+
+    path = `M ${s.y} ${s.x}
+            C ${(s.y + d.y) / 2} ${s.x},
+              ${(s.y + d.y) / 2} ${d.x},
+              ${d.y} ${d.x}`
+
+    return path
+  }
+
+  // Toggle children on click.
+  function click(d) {
+    if (d.children) {
+        d._children = d.children;
+        d.children = null;
+      } else {
+        d.children = d._children;
+        d._children = null;
+      }
+    update(d);
+  }
+}
+
+var svg = d3.select("#svgHere")
+    .append("svg")
+    .attr("width", someValue)//the width value goes here
+    .attr("height", someValue);//the height value goes here
+
+
+</script>
+<br><br><br><br><br><hr><p>Xavier Memory Analysis Framework vrs2.114 </a></u> by Solomon Sonya @Carpenter1010 - 2022-01-17-22:22.31</p>
+</body>

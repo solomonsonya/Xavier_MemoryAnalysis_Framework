@@ -1,0 +1,41 @@
+[-] Import listing for file : C:\xavier\xavier_framework\export\memory_analysis\2022_01_17_20_08_42\procdump\dllhost_2216_exe
+Import from module KERNEL32.dll :
+	 Function GetCurrentProcess
+	 Function TerminateProcess
+	 Function HeapSetInformation
+	 Function GetSystemTimeAsFileTime
+	 Function GetCurrentProcessId
+	 Function GetCurrentThreadId
+	 Function GetTickCount
+	 Function QueryPerformanceCounter
+	 Function GetModuleHandleW
+	 Function SetUnhandledExceptionFilter
+	 Function GetStartupInfoW
+	 Function Sleep
+	 Function UnhandledExceptionFilter
+Import from module msvcrt.dll :
+	 Function __setusermatherr
+	 Function _commode
+	 Function _fmode
+	 Function __set_app_type
+	 Function ?terminate@@YAXXZ
+	 Function _amsg_exit
+	 Function _wcsicmp
+	 Function __wgetmainargs
+	 Function __C_specific_handler
+	 Function _XcptFilter
+	 Function _exit
+	 Function _cexit
+	 Function exit
+	 Function _wcmdln
+	 Function _initterm
+Import from module ole32.dll :
+	 Function CoInitializeEx
+	 Function CoRegisterSurrogateEx
+	 Function CLSIDFromString
+	 Function CoUninitialize
+Import from module ntdll.dll :
+	 Function RtlCaptureContext
+	 Function RtlLookupFunctionEntry
+	 Function RtlVirtualUnwind
+[-] Import listing done

@@ -1,0 +1,325 @@
+[-] Import listing for file : C:\xavier\xavier_framework\export\memory_analysis\2022_01_17_20_08_42\procdump\chrome_3392_exe
+Import from module chrome_elf.dll :
+	 Function GetInstallDetailsPayload
+	 Function SignalChromeElf
+	 Function SignalInitializeCrashReporting
+Import from module KERNEL32.dll :
+	 Function AcquireSRWLockExclusive
+	 Function AssignProcessToJobObject
+	 Function CloseHandle
+	 Function CompareStringW
+	 Function ConnectNamedPipe
+	 Function CreateDirectoryW
+	 Function CreateEventW
+	 Function CreateFileMappingW
+	 Function CreateFileW
+	 Function CreateIoCompletionPort
+	 Function CreateJobObjectW
+	 Function CreateMutexW
+	 Function CreateNamedPipeW
+	 Function CreateProcessW
+	 Function CreateRemoteThread
+	 Function CreateSemaphoreW
+	 Function CreateThread
+	 Function DebugBreak
+	 Function DeleteCriticalSection
+	 Function DeleteFileW
+	 Function DeleteProcThreadAttributeList
+	 Function DisconnectNamedPipe
+	 Function DuplicateHandle
+	 Function EncodePointer
+	 Function EnterCriticalSection
+	 Function EnumSystemLocalesEx
+	 Function EnumSystemLocalesW
+	 Function ExitProcess
+	 Function ExpandEnvironmentStringsW
+	 Function FileTimeToSystemTime
+	 Function FindClose
+	 Function FindFirstFileExW
+	 Function FindNextFileW
+	 Function FlushFileBuffers
+	 Function FlushViewOfFile
+	 Function FormatMessageA
+	 Function FreeEnvironmentStringsW
+	 Function FreeLibrary
+	 Function GetACP
+	 Function GetCPInfo
+	 Function GetCommandLineA
+	 Function GetCommandLineW
+	 Function GetComputerNameExW
+	 Function GetConsoleCP
+	 Function GetConsoleMode
+	 Function GetCurrentDirectoryW
+	 Function GetCurrentProcess
+	 Function GetCurrentProcessId
+	 Function GetCurrentProcessorNumber
+	 Function GetCurrentThread
+	 Function GetCurrentThreadId
+	 Function GetDateFormatW
+	 Function GetDriveTypeW
+	 Function GetEnvironmentStringsW
+	 Function GetExitCodeProcess
+	 Function GetFileAttributesW
+	 Function GetFileInformationByHandle
+	 Function GetFileInformationByHandleEx
+	 Function GetFileSizeEx
+	 Function GetFileType
+	 Function GetFullPathNameW
+	 Function GetLastError
+	 Function GetLocalTime
+	 Function GetLocaleInfoW
+	 Function GetLongPathNameW
+	 Function GetModuleFileNameW
+	 Function GetModuleHandleA
+	 Function GetModuleHandleExW
+	 Function GetModuleHandleW
+	 Function GetNativeSystemInfo
+	 Function GetOEMCP
+	 Function GetProcAddress
+	 Function GetProcessHandleCount
+	 Function GetProcessHeaps
+	 Function GetProcessId
+	 Function GetProcessTimes
+	 Function GetProductInfo
+	 Function GetQueuedCompletionStatus
+	 Function GetStartupInfoW
+	 Function GetStdHandle
+	 Function GetStringTypeW
+	 Function GetSystemDefaultLCID
+	 Function GetSystemDirectoryW
+	 Function GetSystemInfo
+	 Function GetSystemTimeAsFileTime
+	 Function GetTempPathW
+	 Function GetThreadContext
+	 Function GetThreadId
+	 Function GetThreadLocale
+	 Function GetThreadPriority
+	 Function GetTickCount
+	 Function GetTimeFormatW
+	 Function GetTimeZoneInformation
+	 Function GetUserDefaultLCID
+	 Function GetUserDefaultLangID
+	 Function GetUserDefaultLocaleName
+	 Function GetVersion
+	 Function GetVersionExW
+	 Function GetWindowsDirectoryW
+	 Function HeapAlloc
+	 Function HeapCreate
+	 Function HeapDestroy
+	 Function HeapFree
+	 Function HeapReAlloc
+	 Function HeapSetInformation
+	 Function HeapSize
+	 Function InitOnceExecuteOnce
+	 Function InitializeCriticalSection
+	 Function InitializeCriticalSectionAndSpinCount
+	 Function InitializeProcThreadAttributeList
+	 Function InitializeSListHead
+	 Function IsDebuggerPresent
+	 Function IsProcessorFeaturePresent
+	 Function IsValidCodePage
+	 Function IsValidLocale
+	 Function IsWow64Process
+	 Function K32GetPerformanceInfo
+	 Function K32GetProcessMemoryInfo
+	 Function K32QueryWorkingSetEx
+	 Function LCMapStringW
+	 Function LeaveCriticalSection
+	 Function LoadLibraryExA
+	 Function LoadLibraryExW
+	 Function LoadLibraryW
+	 Function LocalFree
+	 Function LockFileEx
+	 Function MapViewOfFile
+	 Function MoveFileW
+	 Function MultiByteToWideChar
+	 Function OpenProcess
+	 Function OutputDebugStringA
+	 Function OutputDebugStringW
+	 Function PeekNamedPipe
+	 Function PostQueuedCompletionStatus
+	 Function ProcessIdToSessionId
+	 Function QueryDosDeviceW
+	 Function QueryPerformanceCounter
+	 Function QueryPerformanceFrequency
+	 Function QueryThreadCycleTime
+	 Function RaiseException
+	 Function ReadConsoleW
+	 Function ReadFile
+	 Function ReadProcessMemory
+	 Function RegisterWaitForSingleObject
+	 Function ReleaseSRWLockExclusive
+	 Function ReleaseSemaphore
+	 Function RemoveDirectoryW
+	 Function ReplaceFileW
+	 Function ResetEvent
+	 Function ResumeThread
+	 Function RtlCaptureContext
+	 Function RtlCaptureStackBackTrace
+	 Function RtlLookupFunctionEntry
+	 Function RtlPcToFileHeader
+	 Function RtlUnwind
+	 Function RtlUnwindEx
+	 Function RtlVirtualUnwind
+	 Function SearchPathW
+	 Function SetConsoleCtrlHandler
+	 Function SetCurrentDirectoryW
+	 Function SetEndOfFile
+	 Function SetEnvironmentVariableW
+	 Function SetEvent
+	 Function SetFileAttributesW
+	 Function SetFilePointerEx
+	 Function SetHandleInformation
+	 Function SetInformationJobObject
+	 Function SetLastError
+	 Function SetNamedPipeHandleState
+	 Function SetProcessShutdownParameters
+	 Function SetStdHandle
+	 Function SetThreadAffinityMask
+	 Function SetThreadPriority
+	 Function SetUnhandledExceptionFilter
+	 Function SignalObjectAndWait
+	 Function Sleep
+	 Function SleepConditionVariableSRW
+	 Function SleepEx
+	 Function SuspendThread
+	 Function SwitchToThread
+	 Function SystemTimeToTzSpecificLocalTime
+	 Function TerminateJobObject
+	 Function TerminateProcess
+	 Function TlsAlloc
+	 Function TlsFree
+	 Function TlsGetValue
+	 Function TlsSetValue
+	 Function TransactNamedPipe
+	 Function TryAcquireSRWLockExclusive
+	 Function UnhandledExceptionFilter
+	 Function UnlockFileEx
+	 Function UnmapViewOfFile
+	 Function UnregisterWait
+	 Function UnregisterWaitEx
+	 Function UpdateProcThreadAttribute
+	 Function VirtualAllocEx
+	 Function VirtualFree
+	 Function VirtualFreeEx
+	 Function VirtualProtect
+	 Function VirtualProtectEx
+	 Function VirtualQuery
+	 Function VirtualQueryEx
+	 Function WaitForSingleObject
+	 Function WaitForSingleObjectEx
+	 Function WaitNamedPipeW
+	 Function WakeAllConditionVariable
+	 Function WideCharToMultiByte
+	 Function Wow64GetThreadContext
+	 Function WriteConsoleW
+	 Function WriteFile
+	 Function WriteProcessMemory
+	 Function lstrlenW
+Import from module VERSION.dll :
+	 Function GetFileVersionInfoSizeW
+	 Function GetFileVersionInfoW
+	 Function VerQueryValueW
+Import from module SHELL32.dll :
+	 Function CommandLineToArgvW (Delay Import)
+	 Function SHGetFolderPathW (Delay Import)
+	 Function SHGetKnownFolderPath (Delay Import)
+Import from module ADVAPI32.dll :
+	 Function AccessCheck (Delay Import)
+	 Function ConvertSidToStringSidW (Delay Import)
+	 Function ConvertStringSecurityDescriptorToSecurityDescriptorW (Delay Import)
+	 Function ConvertStringSidToSidW (Delay Import)
+	 Function CopySid (Delay Import)
+	 Function CreateProcessAsUserW (Delay Import)
+	 Function CreateRestrictedToken (Delay Import)
+	 Function CreateWellKnownSid (Delay Import)
+	 Function DuplicateToken (Delay Import)
+	 Function DuplicateTokenEx (Delay Import)
+	 Function EqualSid (Delay Import)
+	 Function EventRegister (Delay Import)
+	 Function EventUnregister (Delay Import)
+	 Function EventWriteTransfer (Delay Import)
+	 Function FreeSid (Delay Import)
+	 Function GetAce (Delay Import)
+	 Function GetKernelObjectSecurity (Delay Import)
+	 Function GetLengthSid (Delay Import)
+	 Function GetNamedSecurityInfoW (Delay Import)
+	 Function GetSecurityDescriptorSacl (Delay Import)
+	 Function GetSecurityInfo (Delay Import)
+	 Function GetSidSubAuthority (Delay Import)
+	 Function GetTokenInformation (Delay Import)
+	 Function ImpersonateLoggedOnUser (Delay Import)
+	 Function ImpersonateNamedPipeClient (Delay Import)
+	 Function InitializeSid (Delay Import)
+	 Function IsValidSid (Delay Import)
+	 Function LookupPrivilegeValueW (Delay Import)
+	 Function MapGenericMask (Delay Import)
+	 Function OpenProcessToken (Delay Import)
+	 Function RegCloseKey (Delay Import)
+	 Function RegCreateKeyExW (Delay Import)
+	 Function RegDeleteValueW (Delay Import)
+	 Function RegDisablePredefinedCache (Delay Import)
+	 Function RegOpenKeyExW (Delay Import)
+	 Function RegQueryValueExW (Delay Import)
+	 Function RegSetValueExW (Delay Import)
+	 Function RevertToSelf (Delay Import)
+	 Function SetEntriesInAclW (Delay Import)
+	 Function SetKernelObjectSecurity (Delay Import)
+	 Function SetSecurityInfo (Delay Import)
+	 Function SetThreadToken (Delay Import)
+	 Function SetTokenInformation (Delay Import)
+	 Function SystemFunction036 (Delay Import)
+Import from module USER32.dll :
+	 Function AllowSetForegroundWindow (Delay Import)
+	 Function CloseDesktop (Delay Import)
+	 Function CloseWindowStation (Delay Import)
+	 Function CreateDesktopW (Delay Import)
+	 Function CreateWindowExW (Delay Import)
+	 Function CreateWindowStationW (Delay Import)
+	 Function DefWindowProcW (Delay Import)
+	 Function DestroyWindow (Delay Import)
+	 Function DispatchMessageW (Delay Import)
+	 Function FindWindowExW (Delay Import)
+	 Function GetMessageW (Delay Import)
+	 Function GetProcessWindowStation (Delay Import)
+	 Function GetThreadDesktop (Delay Import)
+	 Function GetUserObjectInformationW (Delay Import)
+	 Function GetWindowLongPtrW (Delay Import)
+	 Function GetWindowThreadProcessId (Delay Import)
+	 Function IsWindow (Delay Import)
+	 Function PostMessageW (Delay Import)
+	 Function RegisterClassW (Delay Import)
+	 Function SendMessageTimeoutW (Delay Import)
+	 Function SetProcessDPIAware (Delay Import)
+	 Function SetProcessWindowStation (Delay Import)
+	 Function SetWindowLongPtrW (Delay Import)
+	 Function TranslateMessage (Delay Import)
+	 Function UnregisterClassW (Delay Import)
+	 Function wsprintfW (Delay Import)
+Import from module ole32.dll :
+	 Function CoTaskMemFree (Delay Import)
+Import from module WINMM.dll :
+	 Function timeGetTime (Delay Import)
+Import from module SHLWAPI.dll :
+	 Function PathMatchSpecW (Delay Import)
+Import from module USERENV.dll :
+	 Function CreateEnvironmentBlock (Delay Import)
+	 Function DestroyEnvironmentBlock (Delay Import)
+Import from module dbghelp.dll :
+	 Function MiniDumpWriteDump (Delay Import)
+Import from module WINHTTP.dll :
+	 Function WinHttpAddRequestHeaders (Delay Import)
+	 Function WinHttpCloseHandle (Delay Import)
+	 Function WinHttpConnect (Delay Import)
+	 Function WinHttpCrackUrl (Delay Import)
+	 Function WinHttpOpen (Delay Import)
+	 Function WinHttpOpenRequest (Delay Import)
+	 Function WinHttpQueryHeaders (Delay Import)
+	 Function WinHttpReadData (Delay Import)
+	 Function WinHttpReceiveResponse (Delay Import)
+	 Function WinHttpSendRequest (Delay Import)
+	 Function WinHttpSetTimeouts (Delay Import)
+	 Function WinHttpWriteData (Delay Import)
+Import from module POWRPROF.dll :
+	 Function CallNtPowerInformation (Delay Import)
+[-] Import listing done

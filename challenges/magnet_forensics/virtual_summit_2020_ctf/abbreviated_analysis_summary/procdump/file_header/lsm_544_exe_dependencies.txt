@@ -1,0 +1,284 @@
+[-] Import listing for file : C:\xavier\xavier_framework\export\memory_analysis\2022_01_17_20_08_42\procdump\lsm_544_exe
+Import from module msvcrt.dll :
+	 Function _vsnwprintf
+	 Function memmove
+	 Function __getmainargs
+	 Function __C_specific_handler
+	 Function _XcptFilter
+	 Function _exit
+	 Function _cexit
+	 Function _wcsicmp
+	 Function ??3@YAXPEAX@Z
+	 Function _amsg_exit
+	 Function __setusermatherr
+	 Function _commode
+	 Function _fmode
+	 Function __set_app_type
+	 Function _unlock
+	 Function _resetstkoflw
+	 Function ??2@YAPEAX_K@Z
+	 Function _initterm
+	 Function _purecall
+	 Function __dllonexit
+	 Function _lock
+	 Function _onexit
+	 Function ?terminate@@YAXXZ
+	 Function memcpy
+	 Function memset
+	 Function qsort
+	 Function wcsrchr
+	 Function _vsnprintf
+	 Function exit
+	 Function memcmp
+Import from module ntdll.dll :
+	 Function RtlCaptureContext
+	 Function RtlLookupFunctionEntry
+	 Function RtlVirtualUnwind
+	 Function RtlAdjustPrivilege
+	 Function NtQueryInformationToken
+	 Function RtlLeaveCriticalSection
+	 Function RtlEnterCriticalSection
+	 Function NtQueryLicenseValue
+	 Function RtlNtStatusToDosError
+	 Function DbgPrint
+	 Function NtReplyPort
+	 Function NtCompleteConnectPort
+	 Function RtlFreeSid
+	 Function RtlSetDaclSecurityDescriptor
+	 Function RtlAddAccessAllowedAce
+	 Function RtlCreateAcl
+	 Function RtlCreateSecurityDescriptor
+	 Function RtlLengthSid
+	 Function RtlAllocateAndInitializeSid
+	 Function NtAcceptConnectPort
+	 Function NtOpenProcess
+	 Function NtCreateSection
+	 Function NtCreatePort
+	 Function RtlConnectToSm
+	 Function RtlSendMsgToSm
+	 Function NtDuplicateToken
+	 Function NtQuerySecurityObject
+	 Function NtOpenKey
+	 Function NtQuerySystemInformation
+	 Function RtlEqualSid
+	 Function NtOpenSymbolicLinkObject
+	 Function NtQueryDirectoryObject
+	 Function NtCreateDirectoryObject
+	 Function NtSetSecurityObject
+	 Function NtQueryValueKey
+	 Function RtlAcquireResourceExclusive
+	 Function RtlReleaseResource
+	 Function RtlAcquireResourceShared
+	 Function NtQueryInformationProcess
+	 Function NtDuplicateObject
+	 Function RtlGetAce
+	 Function RtlDeleteAce
+	 Function RtlCreateUserSecurityObject
+	 Function RtlSetGroupSecurityDescriptor
+	 Function RtlGetGroupSecurityDescriptor
+	 Function RtlMapGenericMask
+	 Function RtlQueryInformationAcl
+	 Function RtlGetDaclSecurityDescriptor
+	 Function RtlGetOwnerSecurityDescriptor
+	 Function RtlCopySecurityDescriptor
+	 Function NtTerminateProcess
+	 Function NtWaitForSingleObject
+	 Function RtlPrefixUnicodeString
+	 Function NtReplyWaitReceivePort
+	 Function RtlNumberGenericTableElements
+	 Function NtFreeVirtualMemory
+	 Function NtAllocateVirtualMemory
+	 Function NtSetSystemInformation
+	 Function NtClose
+	 Function NtCreateEvent
+	 Function NtQuerySystemTime
+	 Function RtlInsertElementGenericTable
+	 Function RtlLookupElementGenericTable
+	 Function RtlInitializeGenericTable
+	 Function RtlEnumerateGenericTable
+	 Function RtlDeleteElementGenericTable
+	 Function NtOpenEvent
+	 Function NtNotifyChangeSession
+	 Function NtOpenSession
+	 Function RtlInitUnicodeString
+	 Function NtDelayExecution
+	 Function RtlUnhandledExceptionFilter
+	 Function EtwUnregisterTraceGuids
+	 Function EtwRegisterTraceGuidsW
+	 Function EtwGetTraceEnableFlags
+	 Function EtwGetTraceEnableLevel
+	 Function EtwGetTraceLoggerHandle
+	 Function EtwTraceMessage
+	 Function RtlInitializeResource
+	 Function RtlDeleteResource
+	 Function EtwEventWrite
+	 Function EtwEventRegister
+	 Function EtwEventUnregister
+Import from module API-MS-Win-Core-ErrorHandling-L1-1-0.dll :
+	 Function SetUnhandledExceptionFilter
+	 Function UnhandledExceptionFilter
+	 Function GetLastError
+Import from module API-MS-Win-Core-Handle-L1-1-0.dll :
+	 Function DuplicateHandle
+	 Function CloseHandle
+Import from module API-MS-Win-Core-Heap-L1-1-0.dll :
+	 Function HeapSetInformation
+Import from module API-MS-Win-Core-LibraryLoader-L1-1-0.dll :
+	 Function LoadStringW
+	 Function GetModuleHandleW
+	 Function GetProcAddress
+	 Function FreeLibrary
+	 Function LoadLibraryExA
+Import from module API-MS-Win-Core-LocalRegistry-L1-1-0.dll :
+	 Function RegSetValueExW
+	 Function RegQueryValueExW
+	 Function RegOpenKeyExW
+	 Function RegCloseKey
+	 Function RegNotifyChangeKeyValue
+Import from module API-MS-Win-Core-Misc-L1-1-0.dll :
+	 Function Sleep
+	 Function LocalFree
+	 Function LocalAlloc
+Import from module API-MS-Win-Core-ProcessThreads-L1-1-0.dll :
+	 Function SetThreadToken
+	 Function GetCurrentThreadId
+	 Function OpenThreadToken
+	 Function GetCurrentProcess
+	 Function TerminateProcess
+	 Function GetCurrentThread
+	 Function GetProcessId
+	 Function ProcessIdToSessionId
+	 Function GetCurrentProcessId
+	 Function OpenProcessToken
+Import from module API-MS-Win-Core-Profile-L1-1-0.dll :
+	 Function QueryPerformanceCounter
+Import from module API-MS-Win-Core-Synch-L1-1-0.dll :
+	 Function ResetEvent
+	 Function WaitForMultipleObjectsEx
+	 Function CreateEventW
+	 Function WaitForSingleObject
+	 Function OpenProcess
+	 Function InitializeCriticalSection
+	 Function SetEvent
+	 Function OpenEventW
+	 Function DeleteCriticalSection
+Import from module API-MS-Win-Core-SysInfo-L1-1-0.dll :
+	 Function GetTickCount64
+	 Function GetTickCount
+	 Function GetSystemTimeAsFileTime
+Import from module API-MS-Win-Core-ThreadPool-L1-1-0.dll :
+	 Function UnregisterWaitEx
+Import from module API-MS-Win-Security-Base-L1-1-0.dll :
+	 Function MakeSelfRelativeSD
+	 Function CheckTokenMembership
+	 Function CreateWellKnownSid
+	 Function ImpersonateLoggedOnUser
+	 Function AddAce
+	 Function AccessCheckAndAuditAlarmW
+	 Function IsValidSecurityDescriptor
+	 Function InitializeAcl
+	 Function GetLengthSid
+	 Function MakeAbsoluteSD
+	 Function GetAclInformation
+	 Function GetAce
+	 Function DuplicateToken
+	 Function RevertToSelf
+	 Function AdjustTokenPrivileges
+	 Function GetTokenInformation
+	 Function InitializeSecurityDescriptor
+	 Function SetSecurityDescriptorOwner
+	 Function SetSecurityDescriptorGroup
+	 Function SetSecurityDescriptorDacl
+	 Function EqualSid
+	 Function CopySid
+	 Function IsValidSid
+	 Function GetSecurityDescriptorLength
+	 Function DuplicateTokenEx
+	 Function GetSecurityDescriptorDacl
+Import from module API-MS-WIN-Service-winsvc-L1-1-0.dll :
+	 Function I_ScSendTSMessage
+	 Function QueryServiceStatus
+Import from module API-MS-WIN-Service-Management-L1-1-0.dll :
+	 Function CloseServiceHandle
+	 Function OpenSCManagerW
+	 Function OpenServiceW
+Import from module API-MS-WIN-Service-Management-L2-1-0.dll :
+	 Function QueryServiceConfigW
+	 Function NotifyServiceStatusChangeW
+Import from module RPCRT4.dll :
+	 Function NdrServerCall2
+	 Function NdrServerCallAll
+	 Function NdrAsyncServerCall
+	 Function Ndr64AsyncServerCallAll
+	 Function I_RpcMapWin32Status
+	 Function UuidToStringW
+	 Function UuidCreate
+	 Function RpcServerTestCancel
+	 Function I_RpcBindingIsClientLocal
+	 Function RpcServerRegisterAuthInfoW
+	 Function RpcServerInqDefaultPrincNameW
+	 Function RpcServerSubscribeForNotification
+	 Function RpcServerUnsubscribeForNotification
+	 Function RpcAsyncCompleteCall
+	 Function I_RpcBindingInqLocalClientPID
+	 Function RpcRevertToSelf
+	 Function RpcImpersonateClient
+	 Function RpcServerInqCallAttributesW
+	 Function RpcStringFreeW
+	 Function RpcStringBindingParseW
+	 Function RpcBindingToStringBindingW
+	 Function RpcServerListen
+	 Function RpcMgmtWaitServerListen
+	 Function RpcServerUseProtseqEpW
+	 Function RpcServerRegisterIfEx
+Import from module SYSNTFY.dll :
+	 Function SysNotifyStartServer
+Import from module WMsgAPI.dll :
+	 Function WmsgSendMessage
+Import from module KERNEL32.dll :
+	 Function LocalSize
+	 Function DebugBreak
+	 Function OutputDebugStringA
+	 Function HeapAlloc
+	 Function HeapFree
+	 Function GetProcessHeap
+	 Function ExpandEnvironmentStringsW
+	 Function GetSystemDirectoryW
+	 Function RtlRaiseException
+	 Function RegCreateKeyExW
+	 Function RegOpenCurrentUser
+	 Function RegEnumKeyExW
+	 Function RtlCaptureStackBackTrace
+	 Function SetLastError
+	 Function GetVersionExW
+	 Function SleepEx
+	 Function CreateProcessW
+	 Function DelayLoadFailureHook
+	 Function LoadLibraryW
+	 Function RegisterWaitForSingleObject
+	 Function WaitForMultipleObjects
+	 Function GetComputerNameW
+	 Function QueueUserWorkItem
+	 Function IsDebuggerPresent
+	 Function VerifyVersionInfoW
+	 Function VerSetConditionMask
+Import from module pcwum.dll :
+	 Function PerfSetCounterSetInfo (Delay Import)
+	 Function PerfStartProvider (Delay Import)
+	 Function PerfSetCounterRefValue (Delay Import)
+	 Function PerfCreateInstance (Delay Import)
+	 Function PerfStopProvider (Delay Import)
+Import from module ADVAPI32.dll :
+	 Function AuditFree (Delay Import)
+	 Function RegDeleteKeyW (Delay Import)
+	 Function QueryTraceW (Delay Import)
+	 Function StartTraceW (Delay Import)
+	 Function EnableTrace (Delay Import)
+	 Function ControlTraceW (Delay Import)
+	 Function SetEntriesInAclW (Delay Import)
+	 Function LogonUserW (Delay Import)
+	 Function AuditQuerySystemPolicy (Delay Import)
+	 Function LsaGetUserName (Delay Import)
+	 Function LookupAccountSidW (Delay Import)
+	 Function LsaFreeMemory (Delay Import)
+[-] Import listing done

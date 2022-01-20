@@ -1,0 +1,109 @@
+[-] Import listing for file : C:\xavier\xavier_framework\export\memory_analysis\2022_01_17_20_08_42\procdump\lsass_536_exe
+Import from module msvcrt.dll :
+	 Function __setusermatherr
+	 Function _amsg_exit
+	 Function _initterm
+	 Function memcpy
+	 Function exit
+	 Function _commode
+	 Function _fmode
+	 Function ?terminate@@YAXXZ
+	 Function memset
+	 Function __set_app_type
+	 Function _cexit
+	 Function _exit
+	 Function _XcptFilter
+	 Function __C_specific_handler
+	 Function __getmainargs
+	 Function strcpy_s
+	 Function _vsnprintf_s
+Import from module ntdll.dll :
+	 Function RtlLookupFunctionEntry
+	 Function RtlVirtualUnwind
+	 Function NtListenPort
+	 Function NtAcceptConnectPort
+	 Function NtRequestWaitReplyPort
+	 Function NtConnectPort
+	 Function NtReplyWaitReceivePort
+	 Function NtCreatePort
+	 Function NtCompleteConnectPort
+	 Function NtSetSecurityObject
+	 Function RtlInitializeSid
+	 Function RtlAllocateHeap
+	 Function NtOpenEvent
+	 Function RtlFreeHeap
+	 Function RtlLengthRequiredSid
+	 Function RtlSubAuthoritySid
+	 Function RtlNtStatusToDosError
+	 Function RtlSetOwnerSecurityDescriptor
+	 Function RtlCreateSecurityDescriptor
+	 Function RtlLengthSid
+	 Function NtOpenFile
+	 Function RtlAllocateAndInitializeSid
+	 Function RtlMakeSelfRelativeSD
+	 Function NtSetInformationProcess
+	 Function RtlSetSaclSecurityDescriptor
+	 Function RtlAddAccessAllowedAce
+	 Function RtlUnhandledExceptionFilter
+	 Function NtSetInformationFile
+	 Function RtlInitUnicodeString
+	 Function RtlSetDaclSecurityDescriptor
+	 Function RtlCreateAcl
+	 Function NtDeviceIoControlFile
+	 Function RtlSetProcessIsCritical
+	 Function RtlAddMandatoryAce
+	 Function DbgPrintEx
+	 Function RtlCaptureContext
+Import from module RPCRT4.dll :
+	 Function I_RpcMapWin32Status
+	 Function RpcServerRegisterIf2
+	 Function NdrServerCallAll
+	 Function NdrServerCall2
+	 Function RpcServerListen
+	 Function RpcServerUseProtseqEpW
+Import from module SspiSrv.dll :
+	 Function SspiSrvInitialize
+	 Function SspiSrvClientCallback
+Import from module API-MS-Win-Core-ErrorHandling-L1-1-0.dll :
+	 Function UnhandledExceptionFilter
+	 Function SetLastError
+	 Function GetLastError
+	 Function SetUnhandledExceptionFilter
+	 Function SetErrorMode
+Import from module API-MS-Win-Core-Handle-L1-1-0.dll :
+	 Function CloseHandle
+Import from module API-MS-Win-Core-LibraryLoader-L1-1-0.dll :
+	 Function LoadLibraryExW
+	 Function GetProcAddress
+	 Function GetModuleHandleW
+Import from module API-MS-Win-Core-LocalRegistry-L1-1-0.dll :
+	 Function RegOpenKeyExW
+	 Function RegCloseKey
+	 Function RegQueryValueExW
+Import from module API-MS-Win-Core-Misc-L1-1-0.dll :
+	 Function LocalAlloc
+	 Function LocalFree
+	 Function Sleep
+Import from module API-MS-Win-Core-ProcessEnvironment-L1-1-0.dll :
+	 Function SetEnvironmentVariableW
+	 Function GetEnvironmentVariableW
+Import from module API-MS-Win-Core-ProcessThreads-L1-1-0.dll :
+	 Function OpenProcessToken
+	 Function GetCurrentProcess
+	 Function ExitThread
+	 Function CreateThread
+	 Function GetCurrentThreadId
+	 Function GetCurrentProcessId
+	 Function TerminateProcess
+Import from module API-MS-Win-Core-Profile-L1-1-0.dll :
+	 Function QueryPerformanceCounter
+Import from module API-MS-Win-Core-Synch-L1-1-0.dll :
+	 Function SetEvent
+	 Function CreateEventW
+	 Function OpenEventW
+Import from module API-MS-Win-Core-SysInfo-L1-1-0.dll :
+	 Function GetSystemTimeAsFileTime
+	 Function GetTickCount
+Import from module API-MS-Win-Security-Base-L1-1-0.dll :
+	 Function GetTokenInformation
+[-] Import listing done

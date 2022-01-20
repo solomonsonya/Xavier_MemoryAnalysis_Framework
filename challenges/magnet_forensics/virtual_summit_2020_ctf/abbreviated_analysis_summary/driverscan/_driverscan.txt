@@ -1,0 +1,168 @@
+#########################################################################################################################################################################################################################################
+# Investigation Details
+# ======================
+# Investigator Name: Solomon Sonya
+# Investigation Description: Magnet Virtual Summit 2020 CTF - Memory
+# Investigation Date: 2022-01-17-2008:58
+#
+# Analysis Framework
+# ======================
+# Analysis Framework Name: Xavier Framework
+# Analysis Framework Version: 2.114
+#
+# Memory Analysis Binary
+# ======================
+# File Name: vol_2.6.exe	 File Size: 15.79 MBs	 Creation Date: 2022-01-16-1019:29	 Last Accessed: 2022-01-17-1948:58	 Last Modified: 2021-02-28-2253:29	 
+# MD5: 2fc05486a3fe93cef213cc37748bf556	 SHA-256: 672a00461ffb8d59536c86192450b66d552e67809fc8584d1792b42b22c5f4e1	 
+#
+# Analysis Image Details
+# ======================
+# Memory Image Path: C:\xavier\xavier_framework\import\memory_image\memdump.mem
+# File Name: memdump.mem	 File Size: 5.37 GBs	 Creation Date: 2022-01-17-2008:08	 Last Accessed: 2022-01-17-2008:13	 Last Modified: 2021-10-14-2125:48	 
+# MD5: 224f93209cbea29e862890f30dfa762d	 SHA-256: 18e9007993c45f813dd5bd23b6bf6ad703d3e6ac70effd9c47a310a8443c7b8a	 
+#
+# Plugin Details
+# ======================
+# Plugin Name: driverscan
+# Plugin Description: Pool scanner for driver objects
+#
+# Execution Details
+# ======================
+# Execution Command: "C:\xavier\xavier_framework\import\memory_analysis\vol_2.6.exe" -f "C:\xavier\xavier_framework\import\memory_image\memdump.mem" driverscan --profile=Win7SP1x64
+#########################################################################################################################################################################################################################################
+
+
+Volatility Foundation Volatility Framework 2.6
+Offset(P)              #Ptr     #Hnd Start                            Size Service Key          Name         Driver Name
+------------------ -------- -------- ------------------ ------------------ -------------------- ------------ -----------
+0x000000013d22b960        2        0 0xfffff8800105e000             0xf000 vmrawdsk             vmrawdsk     \Driver\vmrawdsk
+0x000000013d277290       83        0 0xfffff88000edc000            0x33000 pci                  pci          \Driver\pci
+0x000000013d43c1b0        4        0 0xfffff880051ea000             0xb000 AsyncMac             AsyncMac     \Driver\AsyncMac
+0x000000013d6755a0       22        0 0xfffff88005071000            0x2e000 RDPDR                RDPDR        \Driver\RDPDR
+0x000000013d695440        3        0 0xfffff88004673000            0x68000 srv2                 srv2         \FileSystem\srv2
+0x000000013d6a1bd0        4        0 0xfffff88005185000            0x2b000 vmhgfs               vmhgfs       \FileSystem\vmhgfs
+0x000000013d74dad0        3        0 0xfffff880050aa000            0x10000 tssecsrv             tssecsrv     \Driver\tssecsrv
+0x000000013d7c0230        3        0 0xfffff880051b0000            0x3a000 RDPWD                RDPWD        \Driver\RDPWD
+0x000000013d83bbe0        4        0 0xfffff88004d9d000             0xd000 mouhid               mouhid       \Driver\mouhid
+0x000000013d83c060        3        0 0xfffff88004daa000             0x9000 vmusbmouse           vmusbmouse   \Driver\vmusbmouse
+0x000000013d8bdd70        4        0 0xfffff880038d4000            0xc8000 HTTP                 HTTP         \Driver\HTTP
+0x000000013d92cab0        6        0 0xfffff8800399c000            0x18000 BTHUSB               BTHUSB       \Driver\BTHUSB
+0x000000013d93e8a0        3        0 0xfffff8800388c000            0x1d000 bowser               bowser       \FileSystem\bowser
+0x000000013d941340        3        0 0xfffff880038a9000            0x18000 mpsdrv               mpsdrv       \Driver\mpsdrv
+0x000000013d9444f0        2        0 0xfffff88004c00000            0x4e000 mrxsmb10             mrxsmb10     \FileSystem\mrxsmb10
+0x000000013d959bf0        4        0 0xfffff880039b4000            0x2d000 mrxsmb               mrxsmb       \FileSystem\mrxsmb
+0x000000013d96d840        3        0 0xfffff8800509f000             0xb000 TDTCP                TDTCP        \Driver\TDTCP
+0x000000013d974c10        4        0 0xfffff88004046000             0xd000 usbuhci              usbuhci      \Driver\usbuhci
+0x000000013d977e70        3        0 0xfffff880039e1000             0xa000 VMMemCtl             VMMemCtl     \Driver\VMMemCtl
+0x000000013d982d30        3        0 0xfffff8800146a000             0x9000 Null                 Null         \Driver\Null
+0x000000013d9b0800        3        0 0xfffff880046fe000            0xaa000 PEAUTH               PEAUTH       \Driver\PEAUTH
+0x000000013d9bca10        4        0 0xfffff88004600000            0x31000 srvnet               srvnet       \FileSystem\srvnet
+0x000000013d9bcd60        4        0 0xfffff880047a8000            0x2c000 RFCOMM               RFCOMM       \Driver\RFCOMM
+0x000000013d9bd630        4        0 0xfffff88004631000            0x10000 BthEnum              BthEnum      \Driver\BthEnum
+0x000000013d9cce70        4        0 0xfffff88004641000            0x20000 BthPan               BthPan       \Driver\BthPan
+0x000000013d9e0de0        2        0 0xfffff88004661000            0x12000 tcpipreg             tcpipreg     \Driver\tcpipreg
+0x000000013da01670        2        0 0xfffff88004cfe000            0x23000 luafv                luafv        \FileSystem\luafv
+0x000000013db20ba0        3        0 0xfffff880051f5000             0x9000 ad_driver            ad_driver    \Driver\ad_driver
+0x000000013dbcf6a0        6        0 0xfffff88004d6d000             0xe000 HidUsb               HidUsb       \Driver\HidUsb
+0x000000013dc7dbc0        3        0 0xfffff88004cf0000             0xe000 monitor              monitor      \Driver\monitor
+0x000000013deef770        3        0 0xfffff88004399000            0x5c000 HdAudAddService      HdAud...vice \Driver\HdAudAddService
+0x000000013def0d90        3        0 0xfffff88004c96000             0x5200 ksthunk              ksthunk      \Driver\ksthunk
+0x000000013df137c0       14        0 0xfffff96000090000                0x0 \Driver\Win32k       Win32k       \Driver\Win32k
+0x000000013e404060        3        0 0xfffff88003cc1000            0x1f000 DfsC                 DfsC         \FileSystem\DfsC
+0x000000013e40d7a0        3        0 0xfffff88004384000            0x15000 NDProxy              NDProxy      \Driver\NDProxy
+0x000000013e4111f0        3        0 0xfffff88003c3e000            0x83000 CSC                  CSC          \Driver\CSC
+0x000000013e411930        2        0 0xfffff880011f0000             0xf000 discache             discache     \Driver\discache
+0x000000013e4191d0        3        0 0xfffff88003ff2000             0xb000 ws2ifsl              ws2ifsl      \Driver\ws2ifsl
+0x000000013e41cd20        3        0 0xfffff88003ce0000            0x11000 blbdrive             blbdrive     \Driver\blbdrive
+0x000000013e41f4e0        4        0 0xfffff88003cf1000            0x26000 tunnel               tunnel       \Driver\tunnel
+0x000000013e42c920        8        0 0xfffff88003d4d000             0xf000 mouclass             mouclass     \Driver\mouclass
+0x000000013e42f720        4        0 0xfffff88003d35000             0xf000 kbdclass             kbdclass     \Driver\kbdclass
+0x000000013e43b670        3        0 0xfffff88003d44000             0x9000 vmmouse              vmmouse      \Driver\vmmouse
+0x000000013e443c70        3        0 0xfffff88003d5c000             0xc000 Serenum              Serenum      \Driver\Serenum
+0x000000013e4578e0        3        0 0xfffff88004272000            0x1b000 RasPppoe             RasPppoe     \Driver\RasPppoe
+0x000000013e462570        4        0 0xfffff880042ae000            0x1a000 RasSstp              RasSstp      \Driver\RasSstp
+0x000000013e463540        3        0 0xfffff8800428d000            0x21000 PptpMiniport         PptpMiniport \Driver\PptpMiniport
+0x000000013e466bc0        3        0 0xfffff880042c8000             0xb000 rdpbus               rdpbus       \Driver\rdpbus
+0x000000013e46d8f0        4        0 0xfffff880042d3000             0x1480 swenum               swenum       \Driver\swenum
+0x000000013e470b90        7        0 0xfffff88004318000            0x12000 umbus                umbus        \Driver\umbus
+0x000000013e473d70        5        0 0xfffff880040e9000            0xf5000 DXGKrnl              DXGKrnl      \Driver\DXGKrnl
+0x000000013e4bc8c0        8        0 0xfffff8800432a000            0x5a000 usbhub               usbhub       \Driver\usbhub
+0x000000013e4f8470        5        0 0xfffff88003fad000            0x45000 NetBT                NetBT        \Driver\NetBT
+0x000000013e502ad0        4        0 0xfffff880040ce000            0x12000 usbehci              usbehci      \Driver\usbehci
+0x000000013e507e70        3        0 0xfffff880040e0000             0x4500 CmBatt               CmBatt       \Driver\CmBatt
+0x000000013e516e70        5        0 0xfffff88003dd7000            0x10000 CompositeBus         CompositeBus \Driver\CompositeBus
+0x000000013e51c940        4        0 0xfffff88003de7000            0x16000 RasAgileVpn          RasAgileVpn  \Driver\RasAgileVpn
+0x000000013e520af0        3        0 0xfffff88003c00000            0x24000 Rasl2tp              Rasl2tp      \Driver\Rasl2tp
+0x000000013e52aab0        6        0 0xfffff880041f3000             0xc000 NdisTapi             NdisTapi     \Driver\NdisTapi
+0x000000013e52b6c0        6        0 0xfffff88004243000            0x2f000 NdisWan              NdisWan      \Driver\NdisWan
+0x000000013e680760        3        0 0xfffff88004d21000            0x15000 lltdio               lltdio       \Driver\lltdio
+0x000000013e6a9060        3        0 0xfffff880050ee000            0x97000 srv                  srv          \FileSystem\srv
+0x000000013e6d9340        5        0 0xfffff88004d4e000            0x1d000 usbccgp              usbccgp      \Driver\usbccgp
+0x000000013e7326f0        3        0 0xfffff8800121b000            0x2a000 cdrom                cdrom        \Driver\cdrom
+0x000000013e733af0        3        0 0xfffff880011e5000             0xb000 Msfs                 Msfs         \FileSystem\Msfs
+0x000000013e735060        4        0 0xfffff88001245000             0x9000 RDPCDD               RDPCDD       \Driver\RDPCDD
+0x000000013e73a3f0        3        0 0xfffff88003d72000            0x41000 vm3dmp               vm3dmp       \Driver\vm3dmp
+0x000000013e73acf0       12        0 0xfffff88003d68000             0xa000 vm3dmp_loader        vm3dm...ader \Driver\vm3dmp_loader
+0x000000013e783060        3        0 0xfffff880013f7000             0x9000 RDPENCDD             RDPENCDD     \Driver\RDPENCDD
+0x000000013e783be0        3        0 0xfffff880011dc000             0x9000 RDPREFMP             RDPREFMP     \Driver\RDPREFMP
+0x000000013e7df060        3        0 0xfffff88001473000             0xe000 VgaSave              VgaSave      \Driver\VgaSave
+0x000000013e7df6f0        3        0 0xfffff880017f8000             0x7000 Beep                 Beep         \Driver\Beep
+0x000000013e7e7e70       21        0 0xfffff88003e76000            0x14000 TermDD               TermDD       \Driver\TermDD
+0x000000013e7e8b80        3        0 0xfffff88003e8a000            0x53000 rdbss                rdbss        \FileSystem\rdbss
+0x000000013e7ea060        9        0 0xfffff88003ef5000            0x22000 tdx                  tdx          \Driver\tdx
+0x000000013e7eb910        5        0 0xfffff88003db3000            0x24000 HDAudBus             HDAudBus     \Driver\HDAudBus
+0x000000013e7f7bf0        3        0 0xfffff88003ee9000             0xb000 mssmbios             mssmbios     \Driver\mssmbios
+0x000000013e7fa820        3        0 0xfffff88003edd000             0xc000 nsiproxy             nsiproxy     \Driver\nsiproxy
+0x000000013e7fc940        2        0 0xfffff88004c4e000            0x24000 mrxsmb20             mrxsmb20     \FileSystem\mrxsmb20
+0x000000013e83f110        6        0 0xfffff88000f1c000            0x15000 partmgr              partmgr      \Driver\partmgr
+0x000000013e92cd80        4        0 0xfffff880040aa000            0x23980 E1G60                E1G60        \Driver\E1G60
+0x000000013ebf0380        5        0 0xfffff88003d17000            0x1e000 i8042prt             i8042prt     \Driver\i8042prt
+0x000000013ebf0be0        3        0 0xfffff8800106d000            0x11000 Npfs                 Npfs         \FileSystem\Npfs
+0x000000013ee00740        2        0 0xfffff880017d7000            0x10000 storflt              storflt      \Driver\storflt
+0x000000013ee0be70        4        0 0xfffff8800155d000            0x3a000 rdyboost             rdyboost     \Driver\rdyboost
+0x000000013ee11980        3        0 0xfffff880015a9000            0x3a000 fvevol               fvevol       \Driver\fvevol
+0x000000013ee78a80        6        0 0xfffff88001511000            0x4c000 volsnap              volsnap      \Driver\volsnap
+0x000000013ee81a30        3        0 0xfffff880017e7000             0x8000 spldr                spldr        \Driver\spldr
+0x000000013ee81cb0        3        0 0xfffff88001597000            0x12000 Mup                  Mup          \FileSystem\Mup
+0x000000013ee87be0        3        0 0xfffff880015e3000            0x15000 Disk                 Disk         \Driver\Disk
+0x000000013ee87e20        2        0 0xfffff880017ef000             0x9000 hwpolicy             hwpolicy     \Driver\hwpolicy
+0x000000013ee8c530        4        0 0xfffff880041de000            0x15000 AmdPPM               AmdPPM       \Driver\AmdPPM
+0x000000013ef4b9d0        3        0 0xfffff88003f24000            0x89000 AFD                  AFD          \Driver\AFD
+0x000000013ef4c060        3        0 0xfffff88003e2f000             0xf000 NetBIOS              NetBIOS      \FileSystem\NetBIOS
+0x000000013ef88620        3        0 0xfffff88000ed2000             0xa000 msisadrv             msisadrv     \Driver\msisadrv
+0x000000013ef8c9d0        3        0 0xfffff88000f0f000             0xd000 vdrvroot             vdrvroot     \Driver\vdrvroot
+0x000000013ef90af0        4        0 0xfffff88000f31000             0x9000 Compbatt             Compbatt     \Driver\Compbatt
+0x000000013ef968f0       33        0 0xfffff88001131000             0xb000 msahci               msahci       \Driver\msahci
+0x000000013efe3960        2        0 0xfffff88003e00000             0x9000 WfpLwf               WfpLwf       \Driver\WfpLwf
+0x000000013efe4690        3        0 0xfffff88003e09000            0x26000 Psched               Psched       \Driver\Psched
+0x000000013efe5390        4        0 0xfffff88003e5b000            0x1b000 Wanarpv6             Wanarpv6     \Driver\Wanarpv6
+0x000000013efe7620        3        0 0xfffff88003e3e000            0x1d000 Serial               Serial       \Driver\Serial
+0x000000013efee730        3        0 0xfffff88004d36000            0x18000 rspndr               rspndr       \Driver\rspndr
+0x000000013f00d210        2        0 0xfffff88001763000            0x2b000 KSecPkg              KSecPkg      \Driver\KSecPkg
+0x000000013f017210        8        0 0xfffff88001803000           0x1fc000 Tcpip                Tcpip        \Driver\Tcpip
+0x000000013f08f550        8        0 0xfffff88001507000             0xa000 Fs_Rec               Fs_Rec       \FileSystem\Fs_Rec
+0x000000013f09e550        3        0 0xfffff880014f6000            0x11000 pcw                  pcw          \Driver\pcw
+0x000000013f0ab550        6        0 0xfffff88001250000           0x1a7000 Ntfs                 Ntfs         \FileSystem\Ntfs
+0x000000013f0c9550        3        0 0xfffff88001481000            0x75000 CNG                  CNG          \Driver\CNG
+0x000000013f0e2550        3        0 0xfffff88001200000            0x1b000 KSecDD               KSecDD       \Driver\KSecDD
+0x000000013f0fb550        3        0 0xfffff88000d0d000            0x5f000 CLFS                 CLFS         \Driver\CLFS
+0x000000013f114550        3        0 0xfffff88001193000            0x14000 FileInfo             FileInfo     \FileSystem\FileInfo
+0x000000013f131550       11        0 0xfffff88001147000            0x4c000 FltMgr               FltMgr       \FileSystem\FltMgr
+0x000000013f14e550        2        0 0xfffff8800113c000             0xb000 amdxata              amdxata      \Driver\amdxata
+0x000000013f25e1c0        7        0 0xfffff88000f46000            0x15000 volmgr               volmgr       \Driver\volmgr
+0x000000013f2607c0        4        0 0xfffff88000fcf000            0x19000 vmci                 vmci         \Driver\vmci
+0x000000013f2627c0        3        0 0xfffff88000fe8000            0x17000 vsock                vsock        \Driver\vsock
+0x000000013f2637c0        6        0 0xfffff88000e00000            0x1a000 mountmgr             mountmgr     \Driver\mountmgr
+0x000000013f2647c0        2        0 0xfffff88000e1a000            0x3c000 vmbus                vmbus        \Driver\vmbus
+0x000000013f2657c0       35        0 0xfffff88000cd2000             0x9000 atapi                atapi        \Driver\atapi
+0x000000013f2687c0        4        0 0xfffff880010b0000            0x1d000 LSI_SAS              LSI_SAS      \Driver\LSI_SAS
+0x000000013f3f9210       26        0 0xfffff8800160f000            0xf3000 NDIS                 NDIS         \Driver\NDIS
+0x000000013fe81bb0      137        0 0xfffff88000e72000            0x57000 ACPI                 ACPI         \Driver\ACPI
+0x000000013fe927c0        2        0 0xfffff88000f5b000            0x5c000 volmgrx              volmgrx      \Driver\volmgrx
+0x000000013fe937c0        5        0 0xfffff88000fb7000             0x8000 intelide             intelide     \Driver\intelide
+0x000000013fedd290        4        0 0xfffff80002a00000                0x0 \Driver\ACPI_HAL     ACPI_HAL     \Driver\ACPI_HAL
+0x000000013fefa290        4        0 0xfffff80002a48000                0x0 \Driver\WMIxWDM      WMIxWDM      \Driver\WMIxWDM
+0x000000013ff05740        1        0 0xfffff88000e56000                0x0 \Driver\00000056     00000056     \Driver\00000056
+0x000000013ff05930        5        0 0x0000000000000000                0x0                      RAW          \FileSystem\RAW
+0x000000013ff5fe70        3        0 0xfffff88000c00000            0xc2000 Wdf01000             Wdf01000     \Driver\Wdf01000
+0x000000013ffe0b70       84        0 0xfffff80002a48000                0x0 \Driver\PnpManager   PnpManager   \Driver\PnpManager

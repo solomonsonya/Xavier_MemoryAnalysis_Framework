@@ -1,1 +1,0 @@
-2019-12-05	02:36:11	UTC+0000	2019-12-05	02:36:11	UTC+0000	2019-12-05	02:36:11	UTC+0000	2019-12-05	02:36:11	UTC+0000	amd64_microsoft-windows-m..update-authenticamd_31bf3856ad364e35_6.1.7600.16385_none_599889656b4ace55_mcupdate_authenticamd.dll_0c1b7cf5	$FILE_NAME	dll_0c1b7cf5

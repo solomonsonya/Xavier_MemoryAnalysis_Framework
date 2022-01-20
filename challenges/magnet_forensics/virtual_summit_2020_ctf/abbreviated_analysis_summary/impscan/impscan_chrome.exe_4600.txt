@@ -1,0 +1,89 @@
+#########################################################################################################################################################################################################################################
+# Investigation Details
+# ======================
+# Investigator Name: Solomon Sonya
+# Investigation Description: Magnet Virtual Summit 2020 CTF - Memory
+# Investigation Date: 2022-01-17-2008:58
+#
+# Analysis Framework
+# ======================
+# Analysis Framework Name: Xavier Framework
+# Analysis Framework Version: 2.114
+#
+# Memory Analysis Binary
+# ======================
+# File Name: vol_2.6.exe	 File Size: 15.79 MBs	 Creation Date: 2022-01-16-1019:29	 Last Accessed: 2022-01-17-1948:58	 Last Modified: 2021-02-28-2253:29	 
+# MD5: 2fc05486a3fe93cef213cc37748bf556	 SHA-256: 672a00461ffb8d59536c86192450b66d552e67809fc8584d1792b42b22c5f4e1	 
+#
+# Analysis Image Details
+# ======================
+# Memory Image Path: C:\xavier\xavier_framework\import\memory_image\memdump.mem
+# File Name: memdump.mem	 File Size: 5.37 GBs	 Creation Date: 2022-01-17-2008:08	 Last Accessed: 2022-01-17-2008:13	 Last Modified: 2021-10-14-2125:48	 
+# 
+#
+# Plugin Details
+# ======================
+# Plugin Name: impscan
+# Plugin Description: Scan for calls to imported functions
+#
+# Execution Details
+# ======================
+# Execution Command: "C:\xavier\xavier_framework\import\memory_analysis\vol_2.6.exe" -f "C:\xavier\xavier_framework\import\memory_image\memdump.mem" --profile=Win7SP1x64 impscan -v -p 4600
+#########################################################################################################################################################################################################################################
+
+
+Volatility Foundation Volatility Framework 2.6
+IAT                Call               Module               Function
+------------------ ------------------ -------------------- --------
+0x0000000140042d78 0x000007fedd7d3b68 chrome_elf.dll       GetInstallDetailsPayload
+0x0000000140042d80 0x000007fedd7d1005 chrome_elf.dll       SignalChromeElf
+0x0000000140042d88 0x000007fedd7d1000 chrome_elf.dll       SignalInitializeCrashReporting
+0x0000000140042d98 0x0000000076f2b920 ntdll.dll            RtlAcquireSRWLockExclusive
+0x0000000140042e28 0x0000000076f3d370 kernel32.dll         DeleteCriticalSection
+0x0000000140042e38 0x000007fefcd922b0 KERNELBASE.dll       DeleteProcThreadAttributeList
+0x0000000140042e50 0x0000000076f61420 ntdll.dll            RtlEncodePointer
+0x0000000140042e58 0x0000000076f3d190 kernel32.dll         EnterCriticalSection
+0x0000000140042e70 0x0000000076f4c150 ntdll.dll            RtlExitUserProcess
+0x0000000140042f18 0x0000000076f79360 ntdll.dll            RtlGetCurrentProcessorNumber
+0x00000001400430b0 0x0000000076f37a30 kernel32.dll         HeapAlloc
+0x00000001400430d0 0x0000000076f300b0 kernel32.dll         HeapReAlloc
+0x00000001400430e0 0x0000000076f4d4f0 kernel32.dll         HeapSize
+0x0000000140043100 0x000007fefcd94310 KERNELBASE.dll       InitializeProcThreadAttributeList
+0x0000000140043108 0x0000000076f5f9b0 ntdll.dll            RtlInitializeSListHead
+0x0000000140043158 0x0000000076f2c0b0 kernel32.dll         LeaveCriticalSection
+0x0000000140043218 0x0000000076f2b8e0 ntdll.dll            RtlReleaseSRWLockExclusive
+0x0000000140043378 0x0000000076f65020 ntdll.dll            RtlTryAcquireSRWLockExclusive
+0x00000001400433a8 0x000007fefcd94390 KERNELBASE.dll       UpdateProcThreadAttribute
+0x0000000140043400 0x0000000076f62830 ntdll.dll            RtlWakeAllConditionVariable
+0x0000000140043440 0x000007fefb7915fc VERSION.dll          GetFileVersionInfoSizeW
+0x0000000140043448 0x000007fefb791614 VERSION.dll          GetFileVersionInfoW
+0x0000000140043450 0x000007fefb7915e0 VERSION.dll          VerQueryValueW
+0x0000000140051520 0x000007feff13f480 ADVAPI32.dll         ConvertStringSidToSidW
+0x0000000140051590 0x000007feff13d644 ADVAPI32.dll         GetLengthSid
+0x00000001400515f0 0x000007feff13d8c0 ADVAPI32.dll         OpenProcessToken
+0x00000001400515f8 0x000007feff144240 ADVAPI32.dll         RegCloseKey
+0x0000000140051610 0x000007feff12e330 ADVAPI32.dll         RegDisablePredefinedCache
+0x0000000140051618 0x000007feff144210 ADVAPI32.dll         RegOpenKeyExW
+0x0000000140051630 0x000007feff130480 ADVAPI32.dll         RevertToSelf
+0x0000000140051658 0x000007feff12d3c0 ADVAPI32.dll         SetTokenInformation
+0x0000000140055608 0x0000000076f79a00 ntdll.dll            ZwAllocateVirtualMemory
+0x0000000140055610 0x0000000076f79970 ntdll.dll            ZwClose
+0x0000000140055618 0x0000000076f79c40 ntdll.dll            ZwDuplicateObject
+0x0000000140055628 0x0000000076f79b00 ntdll.dll            ZwMapViewOfSection
+0x0000000140055630 0x0000000076f79d80 ntdll.dll            ZwProtectVirtualMemory
+0x0000000140055638 0x0000000076f79a10 ntdll.dll            ZwQueryInformationProcess
+0x0000000140055640 0x0000000076f79980 ntdll.dll            ZwQueryObject
+0x0000000140055648 0x0000000076f79d90 ntdll.dll            ZwQuerySection
+0x0000000140055650 0x0000000076f79ab0 ntdll.dll            ZwQueryVirtualMemory
+0x0000000140055658 0x0000000076f79b20 ntdll.dll            ZwUnmapViewOfSection
+0x0000000140055670 0x0000000076f37a30 kernel32.dll         HeapAlloc
+0x0000000140055678 0x0000000076f3eed0 ntdll.dll            RtlAnsiStringToUnicodeString
+0x0000000140055680 0x0000000076f424e0 ntdll.dll            RtlCompareUnicodeString
+0x0000000140055688 0x0000000076ff4d30 ntdll.dll            RtlCreateHeap
+0x0000000140055698 0x0000000076fe6770 ntdll.dll            RtlDestroyHeap
+0x00000001400556a0 0x0000000076f3a1c0 kernel32.dll         HeapFree
+0x00000001400556a8 0x0000000076f681ac ntdll.dll            _strnicmp
+0x00000001400556b0 0x0000000076f6b630 ntdll.dll            strlen
+0x00000001400556b8 0x0000000076f6c7dc ntdll.dll            wcslen
+0x00000001400556c0 0x0000000076f66fc0 ntdll.dll            memmove
+0x0000000140057f68 0x0000000076f79980 ntdll.dll            ZwQueryObject

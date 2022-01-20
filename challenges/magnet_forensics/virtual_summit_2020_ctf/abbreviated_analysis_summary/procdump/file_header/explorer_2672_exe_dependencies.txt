@@ -1,0 +1,903 @@
+[-] Import listing for file : C:\xavier\xavier_framework\export\memory_analysis\2022_01_17_20_08_42\procdump\explorer_2672_exe
+Import from module ADVAPI32.dll :
+	 Function RegCreateKeyW
+	 Function RegCloseKey
+	 Function RegOpenKeyExW
+	 Function RegGetValueW
+	 Function EventWrite
+	 Function EventEnabled
+	 Function GetTraceLoggerHandle
+	 Function GetTraceEnableLevel
+	 Function GetTraceEnableFlags
+	 Function RegisterTraceGuidsW
+	 Function UnregisterTraceGuids
+	 Function RegQueryValueExW
+	 Function GetLengthSid
+	 Function GetTokenInformation
+	 Function OpenProcessToken
+	 Function RegCreateKeyExW
+	 Function RegSetValueExW
+	 Function EventRegister
+	 Function RegDeleteKeyExW
+	 Function EventUnregister
+	 Function TraceMessage
+	 Function RegOpenKeyW
+	 Function RegDeleteValueW
+	 Function RegQueryInfoKeyW
+	 Function RegEnumValueW
+	 Function ConvertStringSidToSidW
+	 Function CreateWellKnownSid
+	 Function RegEnumKeyExW
+	 Function StartServiceW
+	 Function CloseServiceHandle
+	 Function OpenServiceW
+	 Function OpenSCManagerW
+	 Function QueryServiceStatus
+	 Function CheckTokenMembership
+	 Function ConvertStringSecurityDescriptorToSecurityDescriptorW
+	 Function ConvertSidToStringSidW
+	 Function LsaLookupSids
+	 Function GetSidSubAuthority
+	 Function OpenThreadToken
+	 Function LsaOpenPolicy
+	 Function GetSidSubAuthorityCount
+	 Function LsaClose
+	 Function IsValidSid
+	 Function LsaFreeMemory
+	 Function StartTraceW
+	 Function EnableTraceEx
+	 Function StopTraceW
+	 Function CryptAcquireContextW
+	 Function CryptCreateHash
+	 Function CryptHashData
+	 Function CryptGetHashParam
+	 Function CryptDestroyHash
+	 Function CryptReleaseContext
+Import from module KERNEL32.dll :
+	 Function DelayLoadFailureHook
+	 Function LoadLibraryExA
+	 Function ReadFile
+	 Function GetFileSize
+	 Function CreateFileW
+	 Function FlushInstructionCache
+	 Function RaiseException
+	 Function SetLastError
+	 Function OpenThread
+	 Function GetSystemTimeAsFileTime
+	 Function GetLocaleInfoW
+	 Function GetDateFormatW
+	 Function GetTimeFormatW
+	 Function GetLocalTime
+	 Function MultiByteToWideChar
+	 Function GetCurrentThreadId
+	 Function GetCurrentProcessId
+	 Function GetModuleHandleW
+	 Function OpenEventW
+	 Function CloseHandle
+	 Function CreateJobObjectW
+	 Function GetLastError
+	 Function SetInformationJobObject
+	 Function AssignProcessToJobObject
+	 Function RtlCaptureContext
+	 Function RtlLookupFunctionEntry
+	 Function RtlVirtualUnwind
+	 Function UnhandledExceptionFilter
+	 Function TerminateProcess
+	 Function QueryPerformanceCounter
+	 Function SetUnhandledExceptionFilter
+	 Function SetTermsrvAppInstallMode
+	 Function InterlockedPushEntrySList
+	 Function VirtualAlloc
+	 Function InterlockedPopEntrySList
+	 Function VirtualFree
+	 Function GetLongPathNameW
+	 Function ResumeThread
+	 Function GetPriorityClass
+	 Function SetPriorityClass
+	 Function CreateThread
+	 Function Sleep
+	 Function FindClose
+	 Function FindNextFileW
+	 Function lstrcmpiW
+	 Function CompareStringOrdinal
+	 Function FindFirstFileW
+	 Function GetFileAttributesW
+	 Function GlobalGetAtomNameW
+	 Function ExpandEnvironmentStringsW
+	 Function SystemTimeToFileTime
+	 Function GetSystemTime
+	 Function MulDiv
+	 Function GetTickCount64
+	 Function GetThreadPriority
+	 Function LeaveCriticalSection
+	 Function EnterCriticalSection
+	 Function SetEvent
+	 Function GetCurrentThread
+	 Function SetThreadPriority
+	 Function GetTickCount
+	 Function UnmapViewOfFile
+	 Function MapViewOfFile
+	 Function SearchPathW
+	 Function GetDynamicTimeZoneInformation
+	 Function GetTimeZoneInformation
+	 Function GetBinaryTypeW
+	 Function QueryPerformanceFrequency
+	 Function QueueUserWorkItem
+	 Function LoadLibraryExW
+	 Function GetProductInfo
+	 Function TerminateThread
+	 Function CreateIoCompletionPort
+	 Function GetQueuedCompletionStatus
+	 Function LoadLibraryA
+	 Function DeleteFileW
+	 Function GetProcessId
+	 Function GetModuleHandleA
+	 Function CompareStringW
+	 Function lstrcmpA
+	 Function CompareFileTime
+	 Function QueryFullProcessImageNameW
+	 Function CreateFileMappingW
+	 Function ResetEvent
+	 Function WideCharToMultiByte
+	 Function GlobalFree
+	 Function DuplicateHandle
+	 Function GetCurrentDirectoryW
+	 Function WaitForMultipleObjects
+	 Function GetComputerNameW
+	 Function GlobalLock
+	 Function GlobalUnlock
+	 Function GlobalAlloc
+	 Function lstrlenA
+	 Function DeactivateActCtx
+	 Function ActivateActCtx
+	 Function ReleaseActCtx
+	 Function CreateActCtxW
+	 Function LockResource
+	 Function LoadResource
+	 Function FindResourceExW
+	 Function GetUserDefaultLangID
+	 Function GetWindowsDirectoryW
+	 Function ExitProcess
+	 Function HeapDestroy
+	 Function RegisterApplicationRestart
+	 Function SetProcessShutdownParameters
+	 Function GetStartupInfoW
+	 Function ReleaseMutex
+	 Function CreateMutexW
+	 Function InitializeCriticalSection
+	 Function DeleteCriticalSection
+	 Function SetErrorMode
+	 Function CreateEventW
+	 Function GetSystemDirectoryW
+	 Function GetVersionExW
+	 Function FreeLibrary
+	 Function GetProcAddress
+	 Function LoadLibraryW
+	 Function GetUserDefaultUILanguage
+	 Function WaitForSingleObject
+	 Function HeapAlloc
+	 Function HeapFree
+	 Function GetProcessHeap
+	 Function GetCurrentProcess
+	 Function GetCommandLineW
+	 Function GetPrivateProfileStringW
+	 Function GetModuleFileNameW
+	 Function CreateProcessW
+	 Function lstrlenW
+	 Function OpenProcess
+	 Function LocalFree
+	 Function LocalAlloc
+	 Function QueryInformationJobObject
+Import from module GDI32.dll :
+	 Function SetDIBits
+	 Function ExtTextOutW
+	 Function GetLayout
+	 Function SetLayout
+	 Function LPtoDP
+	 Function GetRgnBox
+	 Function OffsetViewportOrgEx
+	 Function GetStockObject
+	 Function GdiFlush
+	 Function CombineRgn
+	 Function OffsetRgn
+	 Function GetTextMetricsW
+	 Function SetWindowOrgEx
+	 Function StretchBlt
+	 Function GetTextExtentPoint32W
+	 Function CreatePen
+	 Function Polyline
+	 Function GetRegionData
+	 Function ExtCreateRegion
+	 Function GetTextColor
+	 Function SelectClipRgn
+	 Function SetViewportOrgEx
+	 Function GetViewportOrgEx
+	 Function IntersectClipRect
+	 Function GetClipRgn
+	 Function CreateRectRgn
+	 Function GetBkColor
+	 Function PatBlt
+	 Function CreateBitmap
+	 Function SetBkMode
+	 Function SetTextColor
+	 Function SetBkColor
+	 Function OffsetWindowOrgEx
+	 Function CreateCompatibleBitmap
+	 Function GetTextExtentPointW
+	 Function GetClipBox
+	 Function GetObjectW
+	 Function GdiAlphaBlend
+	 Function BitBlt
+	 Function GetDeviceCaps
+	 Function CreateFontIndirectW
+	 Function CreateRectRgnIndirect
+	 Function CreateCompatibleDC
+	 Function CreateDIBSection
+	 Function SelectObject
+	 Function DeleteObject
+	 Function DeleteDC
+Import from module USER32.dll :
+	 Function MapWindowPoints
+	 Function SetTimer
+	 Function SetPropW
+	 Function CreateWindowExW
+	 Function DialogBoxParamW
+	 Function GetClassInfoW
+	 Function GetClassInfoExW
+	 Function GetMenuItemInfoW
+	 Function GetMenuItemCount
+	 Function GetClassNameW
+	 Function ActivateKeyboardLayout
+	 Function GetKeyboardLayout
+	 Function InsertMenuW
+	 Function GetMenuStringW
+	 Function SetMenuItemInfoW
+	 Function InsertMenuItemW
+	 Function IsChild
+	 Function IsWinEventHookInstalled
+	 Function IsProcessDPIAware
+	 Function IsRectEmpty
+	 Function UnionRect
+	 Function GetClassLongW
+	 Function SetClassLongW
+	 Function GetGUIThreadInfo
+	 Function GetDlgCtrlID
+	 Function GetNextDlgGroupItem
+	 Function GetNextDlgTabItem
+	 Function MoveWindow
+	 Function ChildWindowFromPointEx
+	 Function GetWindowDC
+	 Function CharUpperW
+	 Function UnregisterClassW
+	 Function FrameRect
+	 Function WindowFromDC
+	 Function SendMessageCallbackW
+	 Function UpdateLayeredWindow
+	 Function GetUserObjectInformationW
+	 Function GetProcessWindowStation
+	 Function GetThreadDesktop
+	 Function ShowWindowAsync
+	 Function BringWindowToTop
+	 Function GetClassLongPtrW
+	 Function GetIconInfo
+	 Function RegisterShellHookWindow
+	 Function DeregisterShellHookWindow
+	 Function FlashWindowEx
+	 Function SetThreadDesktop
+	 Function EndTask
+	 Function OpenInputDesktop
+	 Function CloseDesktop
+	 Function GetMenuState
+	 Function IsZoomed
+	 Function SetScrollInfo
+	 Function GetScrollInfo
+	 Function SetScrollPos
+	 Function InternalGetWindowText
+	 Function GetWindowInfo
+	 Function GetCaretBlinkTime
+	 Function SetLayeredWindowAttributes
+	 Function GetLayeredWindowAttributes
+	 Function GetUpdateRect
+	 Function SetWindowsHookExW
+	 Function UnhookWindowsHookEx
+	 Function CallNextHookEx
+	 Function KillTimer
+	 Function SetWindowPos
+	 Function GetWindowLongPtrW
+	 Function PostQuitMessage
+	 Function SetWindowLongPtrW
+	 Function DestroyWindow
+	 Function ShutdownBlockReasonCreate
+	 Function LoadStringW
+	 Function PostMessageW
+	 Function PeekMessageW
+	 Function ReleaseDC
+	 Function GetDC
+	 Function FindWindowW
+	 Function GetSystemMetrics
+	 Function SystemParametersInfoW
+	 Function DestroyMenu
+	 Function GetMenuDefaultItem
+	 Function CreatePopupMenu
+	 Function DispatchMessageW
+	 Function TranslateMessage
+	 Function GetMessageW
+	 Function CharPrevW
+	 Function CharNextW
+	 Function GetWindow
+	 Function PtInRect
+	 Function GetWindowRect
+	 Function RegisterClassW
+	 Function MonitorFromRect
+	 Function MonitorFromPoint
+	 Function GetMonitorInfoW
+	 Function ShowWindow
+	 Function CopyRect
+	 Function LockSetForegroundWindow
+	 Function TrackMouseEvent
+	 Function DefWindowProcW
+	 Function GetCursorPos
+	 Function SetFocus
+	 Function GetAncestor
+	 Function GhostWindowFromHungWindow
+	 Function SendMessageW
+	 Function EnumChildWindows
+	 Function ReleaseCapture
+	 Function GetDoubleClickTime
+	 Function RegisterWindowMessageW
+	 Function SetWindowTextW
+	 Function SetWindowPlacement
+	 Function SetRectEmpty
+	 Function EnumDisplayMonitors
+	 Function InflateRect
+	 Function EqualRect
+	 Function UpdateWindow
+	 Function SendNotifyMessageW
+	 Function ChangeWindowMessageFilterEx
+	 Function IntersectRect
+	 Function MonitorFromWindow
+	 Function IsWindowVisible
+	 Function GetForegroundWindow
+	 Function EnumWindows
+	 Function GetParent
+	 Function IsWindow
+	 Function TranslateAcceleratorW
+	 Function WaitMessage
+	 Function GetWindowTextW
+	 Function GetClientRect
+	 Function TrackPopupMenuEx
+	 Function SetActiveWindow
+	 Function GetKeyState
+	 Function SubtractRect
+	 Function RedrawWindow
+	 Function BeginDeferWindowPos
+	 Function DeferWindowPos
+	 Function EndDeferWindowPos
+	 Function InvalidateRect
+	 Function OffsetRect
+	 Function SendMessageTimeoutW
+	 Function SetWindowRgn
+	 Function UpdateLayeredWindowIndirect
+	 Function GetWindowRgnBox
+	 Function LoadImageW
+	 Function GetWindowPlacement
+	 Function SetForegroundWindow
+	 Function GetLastInputInfo
+	 Function RemovePropW
+	 Function GetLastActivePopup
+	 Function SwitchToThisWindow
+	 Function MessageBeep
+	 Function GetActiveWindow
+	 Function GetFocus
+	 Function SetCursor
+	 Function UnregisterHotKey
+	 Function RegisterHotKey
+	 Function SendDlgItemMessageW
+	 Function EndDialog
+	 Function GetDesktopWindow
+	 Function GetAsyncKeyState
+	 Function GetShellWindow
+	 Function ChildWindowFromPoint
+	 Function SetCursorPos
+	 Function GetMessagePos
+	 Function BeginPaint
+	 Function FillRect
+	 Function DrawEdge
+	 Function EndPaint
+	 Function GetSystemMenu
+	 Function EnableMenuItem
+	 Function ExitWindowsEx
+	 Function LoadIconW
+	 Function DestroyIcon
+	 Function IsIconic
+	 Function DeleteMenu
+	 Function CheckMenuItem
+	 Function ModifyMenuW
+	 Function WindowFromPoint
+	 Function ClientToScreen
+	 Function TrackPopupMenu
+	 Function IsHungAppWindow
+	 Function GetWindowThreadProcessId
+	 Function AppendMenuW
+	 Function CascadeWindows
+	 Function TileWindows
+	 Function LockWorkStation
+	 Function ScreenToClient
+	 Function RegisterClipboardFormatW
+	 Function NotifyWinEvent
+	 Function GetSysColor
+	 Function DrawFocusRect
+	 Function AdjustWindowRectEx
+	 Function CopyIcon
+	 Function MsgWaitForMultipleObjects
+	 Function SetWinEventHook
+	 Function RegisterClassExW
+	 Function GetDlgItem
+	 Function EnableWindow
+	 Function GetDlgItemInt
+	 Function SetDlgItemInt
+	 Function IsDlgButtonChecked
+	 Function IsWindowEnabled
+	 Function CheckDlgButton
+	 Function CallWindowProcW
+	 Function SetCapture
+	 Function DrawTextW
+	 Function AdjustWindowRect
+	 Function SetRect
+	 Function LoadCursorW
+	 Function CalculatePopupWindowPosition
+	 Function GetMessageExtraInfo
+	 Function GetCapture
+	 Function SetGestureConfig
+	 Function DrawIconEx
+	 Function RemoveMenu
+	 Function SetMenuDefaultItem
+	 Function LoadMenuW
+	 Function GetSubMenu
+	 Function AllowSetForegroundWindow
+	 Function GetSysColorBrush
+	 Function GetPropW
+	 Function GetWindowLongW
+	 Function HungWindowFromGhostWindow
+	 Function SetWindowCompositionAttribute
+	 Function MsgWaitForMultipleObjectsEx
+	 Function LoadAcceleratorsW
+Import from module msvcrt.dll :
+	 Function memcpy
+	 Function memmove
+	 Function memcmp
+	 Function _wtoi
+	 Function ceil
+	 Function sqrt
+	 Function cosf
+	 Function _vsnwprintf
+	 Function swprintf_s
+	 Function free
+	 Function wcsstr
+	 Function iswalpha
+	 Function wcschr
+	 Function realloc
+	 Function malloc
+	 Function __wgetmainargs
+	 Function _wcsicmp
+	 Function bsearch
+	 Function memset
+	 Function __C_specific_handler
+	 Function _XcptFilter
+	 Function _exit
+	 Function _cexit
+	 Function exit
+	 Function _wcmdln
+	 Function _initterm
+	 Function _amsg_exit
+	 Function ?terminate@@YAXXZ
+	 Function __setusermatherr
+	 Function _commode
+	 Function _fmode
+	 Function __set_app_type
+	 Function _unlock
+	 Function __dllonexit
+	 Function _lock
+	 Function _onexit
+	 Function sin
+Import from module ntdll.dll :
+	 Function WinSqmEventEnabled
+	 Function WinSqmAddToStream
+	 Function EtwEventWrite
+	 Function EtwEventEnabled
+	 Function RtlGetProductInfo
+	 Function NtOpenThreadToken
+	 Function NtClose
+	 Function NtOpenProcessToken
+	 Function NtQueryInformationToken
+	 Function NtSetSystemInformation
+	 Function WinSqmAddToStreamEx
+	 Function WinSqmSetDWORD
+	 Function WinSqmSetString
+	 Function WinSqmIsOptedIn
+	 Function NtSetInformationProcess
+	 Function NtQueryInformationProcess
+Import from module SHLWAPI.dll :
+	 Ordinal_164 
+	 Ordinal_175 
+	 Function StrStrIW
+	 Ordinal_172 
+	 Function SHStrDupW
+	 Ordinal_199 
+	 Ordinal_176 
+	 Ordinal_467 
+	 Function AssocQueryStringW
+	 Function PathQuoteSpacesW
+	 Ordinal_433 
+	 Function SHDeleteKeyW
+	 Ordinal_560 
+	 Ordinal_24 
+	 Function SHRegGetUSValueW
+	 Ordinal_548 
+	 Ordinal_630 
+	 Ordinal_212 
+	 Ordinal_184 
+	 Ordinal_559 
+	 Function PathIsNetworkPathW
+	 Ordinal_213 
+	 Function SHOpenRegStream2W
+	 Ordinal_631 
+	 Function SHRegGetBoolUSValueW
+	 Function StrChrIW
+	 Ordinal_413 
+	 Ordinal_478 
+	 Ordinal_460 
+	 Function PathFileExistsW
+	 Function PathGetDriveNumberW
+	 Ordinal_204 
+	 Ordinal_165 
+	 Ordinal_197 
+	 Ordinal_157 
+	 Ordinal_292 
+	 Function PathRemoveFileSpecW
+	 Function PathIsDirectoryW
+	 Ordinal_479 
+	 Ordinal_388 
+	 Ordinal_279 
+	 Function PathFindExtensionW
+	 Ordinal_163 
+	 Ordinal_193 
+	 Ordinal_629 
+	 Ordinal_240 
+	 Ordinal_278 
+	 Ordinal_16 
+	 Function PathAppendW
+	 Function SHDeleteValueW
+	 Function SHSetValueW
+	 Ordinal_618 
+	 Ordinal_635 
+	 Function PathGetArgsW
+	 Function StrCmpNIW
+	 Function PathRemoveBlanksW
+	 Function PathRemoveArgsW
+	 Function PathFindFileNameW
+	 Function SHGetValueW
+	 Function ChrCmpIW
+	 Ordinal_510 
+	 Function AssocQueryKeyW
+	 Function PathStripPathW
+	 Ordinal_509 
+	 Function PathIsRootW
+	 Ordinal_156 
+	 Function PathParseIconLocationW
+	 Function StrCmpIW
+	 Ordinal_437 
+	 Function StrCmpW
+	 Function PathIsPrefixW
+	 Ordinal_571 
+	 Ordinal_225 
+	 Ordinal_237 
+	 Ordinal_177 
+	 Ordinal_178 
+	 Ordinal_484 
+	 Function SHCreateStreamOnFileW
+	 Function SHQueryInfoKeyW
+	 Function StrCmpNW
+	 Function StrTrimW
+	 Ordinal_12 
+	 Ordinal_168 
+	 Ordinal_256 
+	 Function PathStripToRootW
+	 Function StrRetToBufW
+	 Function PathCommonPrefixW
+	 Ordinal_503 
+	 Ordinal_502 
+	 Ordinal_236 
+	 Function SHStrDupA
+	 Ordinal_154 
+	 Function PathRemoveExtensionW
+	 Ordinal_487 
+	 Function PathIsFileSpecW
+	 Ordinal_439 
+	 Function SHRegGetValueW
+	 Ordinal_215 
+	 Function AssocCreate
+	 Ordinal_632 
+	 Ordinal_476 
+	 Ordinal_217 
+	 Function StrRetToStrW
+	 Ordinal_174 
+	 Function SHSetThreadRef
+	 Function SHCreateThreadRef
+	 Ordinal_10 
+	 Function PathCombineW
+	 Ordinal_158 
+	 Ordinal_9 
+	 Ordinal_8 
+	 Function StrChrW
+	 Function StrToIntW
+	 Ordinal_270 
+	 Ordinal_219 
+Import from module SHELL32.dll :
+	 Ordinal_152 
+	 Ordinal_95 
+	 Ordinal_850 
+	 Ordinal_23 
+	 Function SHGetSpecialFolderLocation
+	 Function SHCreateItemWithParent
+	 Function SHBindToFolderIDListParent
+	 Function SHBindToFolderIDListParentEx
+	 Ordinal_28 
+	 Function SHChangeNotify
+	 Ordinal_747 
+	 Ordinal_727 
+	 Function SHGetFileInfoW
+	 Ordinal_102 
+	 Function SHCreateShellItemArrayFromIDLists
+	 Ordinal_22 
+	 Ordinal_134 
+	 Function DragQueryFileW
+	 Function SHGetKnownFolderPath
+	 Function SHCreateShellItemArrayFromShellItem
+	 Function SHCreateItemFromParsingName
+	 Ordinal_818 
+	 Ordinal_849 
+	 Ordinal_814 
+	 Ordinal_885 
+	 Ordinal_165 
+	 Function SHCreateDataObject
+	 Function SHGetLocalizedName
+	 Ordinal_787 
+	 Ordinal_790 
+	 Ordinal_193 
+	 Ordinal_100 
+	 Ordinal_85 
+	 Ordinal_18 
+	 Function SHParseDisplayName
+	 Ordinal_155 
+	 Ordinal_190 
+	 Function SHGetFolderLocation
+	 Ordinal_176 
+	 Function SHGetSpecialFolderPathW
+	 Function SHBindToObject
+	 Ordinal_89 
+	 Ordinal_245 
+	 Ordinal_200 
+	 Ordinal_723 
+	 Ordinal_68 
+	 Ordinal_680 
+	 Function SHGetKnownFolderIDList
+	 Function ShellExecuteExW
+	 Ordinal_899 
+	 Ordinal_188 
+	 Ordinal_660 
+	 Ordinal_201 
+	 Function SHGetNameFromIDList
+	 Ordinal_892 
+	 Function SHCreateShellItem
+	 Ordinal_67 
+	 Ordinal_17 
+	 Ordinal_2 
+	 Ordinal_711 
+	 Function SHChangeNotifyRegisterThread
+	 Ordinal_19 
+	 Ordinal_16 
+	 Ordinal_25 
+	 Ordinal_21 
+	 Ordinal_137 
+	 Ordinal_733 
+	 Ordinal_753 
+	 Ordinal_644 
+	 Ordinal_645 
+	 Ordinal_4 
+	 Function SHGetPathFromIDListW
+	 Ordinal_731 
+	 Ordinal_244 
+	 Function SHFileOperationW
+	 Function SHGetFolderPathEx
+	 Function SHUpdateRecycleBinIcon
+	 Ordinal_60 
+	 Ordinal_896 
+	 Ordinal_64 
+	 Ordinal_61 
+	 Function SHBindToParent
+	 Function SHGetFolderPathW
+	 Function SHGetPathFromIDListA
+	 Function ShellExecuteW
+	 Function SHEnableServiceObject
+	 Ordinal_54 
+	 Ordinal_88 
+	 Ordinal_886 
+	 Ordinal_91 
+	 Ordinal_132 
+	 Function SHGetIDListFromObject
+	 Function SHCreateItemFromIDList
+	 Ordinal_893 
+	 Function SHAddToRecentDocs
+	 Function Shell_NotifyIconW
+	 Function Shell_NotifyIconGetRect
+	 Function ExtractIconExW
+	 Function SHEvaluateSystemCommandTemplate
+	 Ordinal_162 
+	 Ordinal_894 
+	 Function SHGetPropertyStoreForWindow
+	 Ordinal_181 
+	 Ordinal_265 
+	 Function SHGetStockIconInfo
+	 Ordinal_241 
+	 Ordinal_154 
+	 Ordinal_840 
+	 Function Shell_GetCachedImageIndexW
+	 Ordinal_74 
+	 Ordinal_902 
+	 Ordinal_895 
+	 Ordinal_6 
+	 Ordinal_254 
+Import from module ole32.dll :
+	 Function CoTaskMemFree
+	 Function CoCreateInstance
+	 Function CoRegisterClassObject
+	 Function CoRevokeClassObject
+	 Function OleInitialize
+	 Function OleUninitialize
+	 Function StringFromGUID2
+	 Function CoRegisterMessageFilter
+	 Function CoFreeUnusedLibraries
+	 Function CoMarshalInterThreadInterfaceInStream
+	 Function CoUninitialize
+	 Function RegisterDragDrop
+	 Function RevokeDragDrop
+	 Function CoGetInterfaceAndReleaseStream
+	 Function CoGetMalloc
+	 Function CoTaskMemAlloc
+	 Function CLSIDFromString
+	 Function CoCreateFreeThreadedMarshaler
+	 Function CreateBindCtx
+	 Function PropVariantClear
+	 Function ReleaseStgMedium
+	 Function CreateStreamOnHGlobal
+	 Function CoInitializeEx
+	 Function CoInitialize
+Import from module OLEAUT32.dll :
+	 Ordinal_8 
+	 Ordinal_9 
+	 Ordinal_6 
+	 Ordinal_2 
+	 Ordinal_4 
+	 Ordinal_150 
+Import from module EXPLORERFRAME.dll :
+	 Ordinal_110 
+	 Ordinal_111 
+Import from module UxTheme.dll :
+	 Function GetThemeMargins
+	 Function EndBufferedPaint
+	 Function DrawThemeTextEx
+	 Function BeginBufferedPaint
+	 Function GetThemePartSize
+	 Function GetThemeBackgroundContentRect
+	 Function GetWindowTheme
+	 Function DrawThemeParentBackground
+	 Function GetThemeBackgroundExtent
+	 Function DrawThemeText
+	 Function GetThemeTextExtent
+	 Function DrawThemeBackground
+	 Function GetThemeMetric
+	 Function SetWindowTheme
+	 Function CloseThemeData
+	 Function OpenThemeData
+	 Function IsCompositionActive
+	 Function IsAppThemed
+	 Function BufferedPaintUnInit
+	 Function BufferedPaintClear
+	 Function IsThemeActive
+	 Function GetThemeRect
+	 Function IsThemePartDefined
+	 Function GetThemeColor
+	 Function GetThemeBackgroundRegion
+	 Function GetThemeBool
+	 Function DrawThemeIcon
+	 Function GetBufferedPaintBits
+	 Ordinal_86 
+	 Function BufferedPaintInit
+Import from module POWRPROF.dll :
+	 Function PowerDeterminePlatformRole
+	 Function CallNtPowerInformation
+	 Function GetPwrCapabilities
+Import from module dwmapi.dll :
+	 Function DwmIsCompositionEnabled
+	 Ordinal_105 
+	 Ordinal_113 
+	 Function DwmEnableBlurBehindWindow
+	 Ordinal_127 
+	 Ordinal_114 
+	 Function DwmUnregisterThumbnail
+	 Function DwmUpdateThumbnailProperties
+	 Ordinal_124 
+	 Function DwmQueryThumbnailSourceSize
+	 Function DwmSetWindowAttribute
+Import from module slc.dll :
+	 Function SLGetWindowsInformationDWORD
+Import from module gdiplus.dll :
+	 Function GdiplusStartup
+	 Function GdipFree
+	 Function GdipAlloc
+	 Function GdipDisposeImage
+	 Function GdipCreateFromHDC
+	 Function GdipDeleteGraphics
+	 Function GdipSetCompositingMode
+	 Function GdipSetInterpolationMode
+	 Function GdipDrawImageRectI
+	 Function GdipCreateBitmapFromHBITMAP
+	 Function GdipGetImageHeight
+	 Function GdipGetImageWidth
+	 Function GdipCloneImage
+	 Function GdiplusShutdown
+Import from module Secur32.dll :
+	 Function GetUserNameExW
+Import from module RPCRT4.dll :
+	 Function RpcBindingFromStringBindingW
+	 Function RpcStringBindingComposeW
+	 Function RpcBindingSetAuthInfoExW
+	 Function RpcBindingFree
+	 Function RpcStringFreeW
+	 Function I_RpcExceptionFilter
+	 Function NdrClientCall3
+Import from module PROPSYS.dll :
+	 Function VariantToStringAlloc
+	 Function PSCreateMemoryPropertyStore
+	 Function VariantToInt32WithDefault
+	 Function PropVariantToBoolean
+	 Function PropVariantToUInt64
+	 Function PropVariantToUInt32
+	 Function PropVariantToStringAlloc
+	 Function VariantToStringWithDefault
+	 Function PropVariantToString
+	 Function VariantToBooleanWithDefault
+	 Function PropVariantToInt64
+Import from module WINMM.dll :
+	 Function PlaySoundW (Delay Import)
+Import from module CFGMGR32.dll :
+	 Function CM_Request_Eject_PC (Delay Import)
+Import from module WINSTA.dll :
+	 Function WinStationSetInformationW (Delay Import)
+	 Function WinStationRegisterConsoleNotification (Delay Import)
+	 Function WinStationIsSessionRemoteable (Delay Import)
+Import from module OLEACC.dll :
+	 Function CreateStdAccessibleProxyW (Delay Import)
+	 Function LresultFromObject (Delay Import)
+	 Function AccessibleObjectFromWindow (Delay Import)
+	 Function GetRoleTextW (Delay Import)
+	 Function CreateStdAccessibleObject (Delay Import)
+Import from module WINBRAND.dll :
+	 Function BrandingFormatString (Delay Import)
+	 Function BrandingLoadImage (Delay Import)
+Import from module DUI70.dll :
+	 Function UnInitProcessPriv (Delay Import)
+	 Function InitThread (Delay Import)
+	 Function UnInitThread (Delay Import)
+	 Function InitProcessPriv (Delay Import)
+Import from module SndVolSSO.DLL :
+	 Ordinal_1  (Delay Import)
+	 Ordinal_4  (Delay Import)
+	 Ordinal_2  (Delay Import)
+	 Ordinal_3  (Delay Import)
+Import from module netutils.dll :
+	 Function NetApiBufferFree (Delay Import)
+Import from module wkscli.dll :
+	 Function NetGetJoinInformation (Delay Import)
+[-] Import listing done
