@@ -35,6 +35,7 @@ public class Analysis_Plugin_Auditpolicy extends _Analysis_Plugin_Super_Class im
 	
 	public volatile Node_Process process = null;
 	
+	public volatile Node_Generic node = null;
 	
 	public Analysis_Plugin_Auditpolicy(File file, Advanced_Analysis_Director par, String PLUGIN_NAME, String PLUGIN_DESCRIPTION, boolean execute_via_thread, JTextArea_Solomon jta_OUTPUT)
 	{
@@ -349,6 +350,8 @@ public class Analysis_Plugin_Auditpolicy extends _Analysis_Plugin_Super_Class im
 			if(line == null)
 				return false;
 			
+			String line_original_untrimmed = line;
+			
 			line = line.replace("	", " ").replace("\t", " ").replace("\\??\\", "").trim();
 			
 			if(parent.system_drive != null)
@@ -380,6 +383,48 @@ public class Analysis_Plugin_Auditpolicy extends _Analysis_Plugin_Super_Class im
 			//
 			if(lower.startsWith("unable to read "))  //--> e.g., Unable to read PEB for task.
 				return false;
+			
+			//
+			//distinguish between a policy and events within the policy
+			//
+			if(!line_original_untrimmed.startsWith("	"))
+			{
+				//line did not start with an indention indicating it is a new policy
+				node = parent.tree_AUDIT_POLICY.get(lower);
+				
+				//create new node
+				if(node == null)
+				{
+					node = new Node_Generic(plugin_name);
+					node.list_details = new LinkedList<String>();	
+					
+					if(line.endsWith(":"))
+						line = line.substring(0, line.lastIndexOf(":")).trim();
+					
+					//LINK!
+					node.name = line;
+					node.GRAPH_KEY_NAME = line;
+					parent.tree_AUDIT_POLICY.put(lower, node);
+				}
+				
+			}
+			else
+			{
+				//add entry to existing node
+				
+				//check if we missed creating the previous policy. if so, create null policy
+				if(node == null)
+				{
+					node = new Node_Generic(plugin_name);
+					node.list_details = new LinkedList<String>();	
+					node.name = "Null Policy";
+					node.GRAPH_KEY_NAME = "Null Policy";
+					parent.tree_AUDIT_POLICY.put("null policy", node);			
+				}
+				
+				//ADD ENTRY
+				node.list_details.add(line);
+			}
 			
 			if(parent.node_audit_policy == null)
 			{

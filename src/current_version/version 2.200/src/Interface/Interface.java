@@ -58,6 +58,7 @@ public class Interface extends Thread implements Runnable, ActionListener, KeyLi
 	
 	public static volatile Advanced_Analysis_Director advanced_analysis_director = null;
 	public static volatile Advanced_Analysis_Director advanced_analysis_AUTO_RUN_INSTANTIATION = null;
+	public static volatile Advanced_Analysis_Director advanced_analysis_director_SECOND_SNAPSHOT = null;
 
 	/**Hold over in case XREF was needed, advanced analysis is started, and then when complete, return to complete XREF*/
 	public static volatile boolean AUTOMATE_XREF_SEARCH = false;
@@ -112,6 +113,10 @@ public class Interface extends Thread implements Runnable, ActionListener, KeyLi
 		public static volatile JMenuItem jmnuitm_Set_Node_Length_PROCESS_INFORMATION_TREE = null;
 		public static volatile JMenuItem jmnuitm_Set_Div_Height_PROCESS_INFORMATION_TREE = null;
 		public static volatile JMenuItem jmnuitm_Set_Div_Width_PROCESS_INFORMATION_TREE  = null;
+		
+		public static volatile JMenu jmnuAnalysisReport_Execution_Plugin = null;
+			public static volatile JMenuItem jmnuitm_Only_Show_Button_If_Execution_Plugins_Detected  = null;
+			public static volatile JMenuItem jmnuitm_Always_Show_Button_Even_If_Execution_Plugins_Not_Detected  = null;
 		
 		public static volatile JMenu jmnuAnalysisReport_ProcessInformationTree_ProduceChildProcessTree = null;
 		public static volatile ButtonGroup bgAnalysisReport_ProcessInformationTree_ProduceChildProcessTree = null;
@@ -480,10 +485,15 @@ public class Interface extends Thread implements Runnable, ActionListener, KeyLi
 					jmnuitm_ExportSystemManifest = new JMenuItem("Export System Manifest");	jmnuSystemManifest.add(jmnuitm_ExportSystemManifest);	jmnuitm_ExportSystemManifest.addActionListener(this);  jmnuitm_ExportSystemManifest.setEnabled(false);
 					
 					
+					
+					
+					
+					
 				jmnuAnalysisReportProcessTree = new JMenu("Process Tree");
 				jmnuAnalysisReportProcessInformationTree = new JMenu("Process Information Tree");
 				
 				menu_bar.add(jmnuAdvancedAnalysis);
+				
 				menu_bar.add(jmnuDataXREF);
 				menu_bar.add(jmnuOptions);
 				
@@ -561,6 +571,11 @@ public class Interface extends Thread implements Runnable, ActionListener, KeyLi
 			jrbAnalysisReport_Handles_ProduceOutputInSingleType.setToolTipText("<html>Although handles can come in multiple subtypes, enable this option to write as a single type.</html>" );
 			
 				
+			jmnuAnalysisReport_Execution_Plugin = new JMenu("Execution Plugins");
+			jmnuitm_Only_Show_Button_If_Execution_Plugins_Detected = new JMenuItem("Only show Execution Plugins Button if advanced analysis plugins were auto-executed");	jmnuAnalysisReport_Execution_Plugin.add(jmnuitm_Only_Show_Button_If_Execution_Plugins_Detected);	jmnuitm_Only_Show_Button_If_Execution_Plugins_Detected.addActionListener(this);  //jmnuitm_Only_Show_Button_If_Execution_Plugins_Detected.setEnabled(false);
+			jmnuitm_Always_Show_Button_Even_If_Execution_Plugins_Not_Detected = new JMenuItem("Always show Executeion Plugins even if advanced analysis plugins were NOT detected");	jmnuAnalysisReport_Execution_Plugin.add(jmnuitm_Always_Show_Button_Even_If_Execution_Plugins_Not_Detected);	jmnuitm_Always_Show_Button_Even_If_Execution_Plugins_Not_Detected.addActionListener(this);  //jmnuitm_Always_Show_Button_Even_If_Execution_Plugins_Not_Detected.setEnabled(false);
+			jmnuAnalysisReport.add(jmnuAnalysisReport_Execution_Plugin);	
+			
 			jmnuAnalysisReport.add(jmnuitm_Open_Report);
 			jmnuAnalysisReport.add(jmnuitm_ReDraw_Report);
 					
@@ -2447,6 +2462,18 @@ public class Interface extends Thread implements Runnable, ActionListener, KeyLi
 			if(ae.getSource() == jmnuitm_Close)
 			{
 				close();
+			}
+			
+			else if(ae.getSource() == jmnuitm_Only_Show_Button_If_Execution_Plugins_Detected)
+			{
+				Analysis_Report_Container_Writer.ONLY_PRINT_EXECUTION_PLUGINS_IF_ADVANCED_ANALYSIS_INITIATED = true;
+				this.sop("Only print Execution Plugins button in Advanced Analysis HTML Report is set to " + Analysis_Report_Container_Writer.ONLY_PRINT_EXECUTION_PLUGINS_IF_ADVANCED_ANALYSIS_INITIATED);
+			}
+			
+			else if(ae.getSource() == jmnuitm_Always_Show_Button_Even_If_Execution_Plugins_Not_Detected)
+			{
+				Analysis_Report_Container_Writer.ONLY_PRINT_EXECUTION_PLUGINS_IF_ADVANCED_ANALYSIS_INITIATED = false;
+				this.sop("Only print Execution Plugins button in Advanced Analysis HTML Report is set to " + Analysis_Report_Container_Writer.ONLY_PRINT_EXECUTION_PLUGINS_IF_ADVANCED_ANALYSIS_INITIATED + ". I will always display Execution Plugins option in the export Analysis Report.");
 			}
 			
 			else if (ae.getSource() == jmnuitm_ImportSystemManifest_from_file_menu)

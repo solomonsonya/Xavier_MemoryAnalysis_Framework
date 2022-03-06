@@ -643,6 +643,18 @@ public class File_XREF extends Thread implements Runnable
 				result_found |= search_structure_Node_Registry_Hive(XREF_SEARCH_STRING, XREF_SEARCH_STRING_LOWER, intrface.jtaFile_XREF_Search_Results, intrface.advanced_analysis_director.tree_REGISTRY_HIVE_PRINTKEY, "User Assist");
 
 
+				
+				/////////////////////////////////////////////////////
+				//
+				// audit policies 
+				//
+				/////////////////////////////////////////////////////
+				result_found |= search_structure_NODE_GENERIC(XREF_SEARCH_STRING, XREF_SEARCH_STRING_LOWER, intrface.jtaFile_XREF_Search_Results, intrface.advanced_analysis_director.tree_AUDIT_POLICY, "Audit Policies", "Policy");
+				
+				
+				
+				
+				
 				/////////////////////////////////////////////////////
 				//
 				// not searched at this time...
@@ -650,6 +662,8 @@ public class File_XREF extends Thread implements Runnable
 				/////////////////////////////////////////////////////
 				//public volatile TreeMap<String, Node_hivelist> tree_hivelist = new TreeMap<String, Node_hivelist>();
 				//public volatile TreeMap<String, Node_get_service_sid> tree_get_service_sids = new TreeMap<String, Node_get_service_sid>();
+				//audit policies
+				//shutdown time
 				
 				
 				/////////////////////////////////////////////////////

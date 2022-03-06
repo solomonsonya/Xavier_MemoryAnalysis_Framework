@@ -33,6 +33,9 @@ public class Node_Generic
 	
 	public volatile LinkedList<String> list_details = null;
 	
+	/**used in write_node_information for the graph to know what to label each new node*/
+	public volatile String GRAPH_KEY_NAME = null;
+	
 	public volatile String pid = null;
 	public volatile String process_name = null;
 	public volatile Node_Process process = null;
@@ -197,9 +200,80 @@ public class Node_Generic
 	{
 		try
 		{
-			pw.println("\t\t" +  "{ \"name\": \"" + driver.normalize_html("READY").replace("\\", "\\\\") + "\" , \"children\": [");
-
+			if(this.GRAPH_KEY_NAME == null)
+				this.GRAPH_KEY_NAME = "Entry";
+			
+			pw.println("\t\t" +  "{ \"name\": \"" + driver.normalize_html(GRAPH_KEY_NAME).replace("\\", "\\\\") + "\" , \"children\": [");
+			
 			//driver.write_node_ENTRY("SID: ", this.sid, pw);
+			
+			if(PID > -2)
+				driver.write_node_ENTRY("PID: ", ""+this.PID, pw);
+			
+			driver.write_node_ENTRY("pid: ", this.pid, pw);
+			driver.write_node_ENTRY("Process Name: ", this.process_name, pw);
+			driver.write_node_ENTRY("Session: ", this.session, pw);
+			driver.write_node_ENTRY("Handle: ", this.handle, pw);
+			driver.write_node_ENTRY("Object: ", this.object, pw);
+			driver.write_node_ENTRY("Thread: ", this.thread, pw);
+			driver.write_node_ENTRY("Process Details: ", this.process_details, pw);
+			driver.write_node_ENTRY("nID: ", this.nID, pw);
+			driver.write_node_ENTRY("Rate (ms): ", this.rate_ms, pw);
+			driver.write_node_ENTRY("Countdown (ms): ", this.countdown_ms, pw);
+			driver.write_node_ENTRY("Function: ", this.function, pw);
+			driver.write_node_ENTRY("Type: ", this.type, pw);
+			driver.write_node_ENTRY("Callback: ", this.callback, pw);
+			driver.write_node_ENTRY("Module Name: ", this.module_name, pw);
+			driver.write_node_ENTRY("Details: ", this.details, pw);
+			driver.write_node_ENTRY("Offset V: ", this.offset_v, pw);
+			driver.write_node_ENTRY("Due Time: ", this.due_time, pw);
+			driver.write_node_ENTRY("Period Ms: ", this.period_ms, pw);
+			driver.write_node_ENTRY("Signaled: ", this.signaled, pw);
+			driver.write_node_ENTRY("Routine: ", this.routine, pw);
+			driver.write_node_ENTRY("Start Address: ", this.start_address, pw);
+			driver.write_node_ENTRY("End Address: ", this.end_address, pw);
+			driver.write_node_ENTRY("Date: ", this.date, pw);
+			driver.write_node_ENTRY("Time: ", this.time, pw);
+			driver.write_node_ENTRY("Reg Binary: ", this.reg_binary, pw);
+			driver.write_node_ENTRY("Raw Data First Line: ", this.raw_data_first_line, pw);
+			driver.write_node_ENTRY("ID: ", this.id, pw);
+			driver.write_node_ENTRY("Count: ", this.count, pw);
+			driver.write_node_ENTRY("Focus Count: ", this.focus_count, pw);
+			driver.write_node_ENTRY("Time Focused: ", this.time_focused, pw);
+			driver.write_node_ENTRY("Last Updated: ", this.last_updated, pw);
+			driver.write_node_ENTRY("Offset: ", this.offset, pw);
+			driver.write_node_ENTRY("Name: ", this.name, pw);
+			driver.write_node_ENTRY("Path: ", this.path, pw);
+			driver.write_node_ENTRY("Desktop Offset: ", this.desktop_offset, pw);
+			driver.write_node_ENTRY("Next: ", this.next, pw);
+			driver.write_node_ENTRY("Session ID: ", this.session_id, pw);
+			driver.write_node_ENTRY("Desktop Info: ", this.desktop_info, pw);
+			driver.write_node_ENTRY("Size: ", this.size, pw);
+			driver.write_node_ENTRY("Fshooks: ", this.fshooks, pw);
+			driver.write_node_ENTRY("Spwnd: ", this.spwnd, pw);
+			driver.write_node_ENTRY("Windows: ", this.windows, pw);
+			driver.write_node_ENTRY("Heap: ", this.heap, pw);
+			driver.write_node_ENTRY("Limit: ", this.limit, pw);
+			driver.write_node_ENTRY("Base: ", this.base, pw);
+			driver.write_node_ENTRY("Impscan Start Address: ", this.impscan_start_address, pw);
+			driver.write_node_ENTRY("Impscan End Address: ", this.impscan_end_address, pw);
+			driver.write_node_ENTRY("IAT: ", this.IAT, pw);
+			driver.write_node_ENTRY("Call: ", this.call, pw);
+			driver.write_node_ENTRY("Function Name Lower: ", this.function_name_lower, pw);
+			driver.write_node_ENTRY("Offset (P): ", this.offset_p, pw);
+			driver.write_node_ENTRY("Num Ptr: ", this.num_ptr, pw);
+			driver.write_node_ENTRY("Num Hnd: ", this.num_hnd, pw);
+			driver.write_node_ENTRY("Access: ", this.access, pw);
+			driver.write_node_ENTRY("Path Name: ", this.path_name, pw);
+			driver.write_node_ENTRY("File Name: ", this.file_name, pw);
+			driver.write_node_ENTRY("Process Offset (V): ", this.process_offset_V, pw);
+			driver.write_node_ENTRY("Module Base Address: ", this.module_base_address, pw);
+			driver.write_node_ENTRY("Process Offset P Trimmed: ", this.process_offset_P_trimmed, pw);
+			driver.write_node_ENTRY("Module Base Address Trimmed: ", this.module_base_address_trimmed, pw);
+			driver.write_node_ENTRY("Module Basse Address Trimmed: ", this.module_basse_address_trimmed, pw);
+
+			this.write_node_information_list("Details", list_details, pw);
+			this.write_node_information_list("Session Entries", list_session_entries, pw);
 			
 			
 			pw.println("\t\t" +  "]},");//end process information			
@@ -214,7 +288,31 @@ public class Node_Generic
 	}
 	
 	
-	
+	public boolean write_node_information_list(String title, LinkedList<String> list, PrintWriter pw)
+	{
+		try
+		{
+			if(list == null || list.isEmpty())
+				return false;
+			
+			pw.println("\t\t" +  "{ \"name\": \"" + driver.normalize_html(title).replace("\\", "\\\\") + "\" , \"children\": [");
+						
+			for(String entry : list)
+			{
+				driver.write_node_ENTRY("", entry, pw);	
+			}						
+			
+			pw.println("\t\t" +  "]},");	
+			
+			return true;
+		}
+		catch(Exception e)
+		{
+			driver.eop(myClassName, "write_node_information_list", e);
+		}
+		
+		return false; 
+	}
 	
 	
 	

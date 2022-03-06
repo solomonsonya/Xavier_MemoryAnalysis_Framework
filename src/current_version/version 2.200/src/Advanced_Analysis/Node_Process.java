@@ -2361,8 +2361,12 @@ public class Node_Process
 	{
 		try
 		{
-			if(this.fle_vadtree_output_image == null || !this.fle_vadtree_output_image.isFile() || !this.fle_vadtree_output_image.exists())
-				return false;
+			String vadtree_output_image = "-";
+			
+			//if(this.fle_vadtree_output_image == null || !this.fle_vadtree_output_image.isFile() || !this.fle_vadtree_output_image.exists())
+			//	return false;
+			
+			
 			
 			pw.print("<tr>");
 			

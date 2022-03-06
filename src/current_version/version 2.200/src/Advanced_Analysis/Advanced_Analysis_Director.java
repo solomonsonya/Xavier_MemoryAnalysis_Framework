@@ -183,6 +183,8 @@ public class Advanced_Analysis_Director extends Thread implements Runnable
 	/**Analyze cmdscan first, identify processes with command history. First - output */
 	public volatile TreeMap<Integer, Node_Process> tree_process_to_link_cmdline_cmdscan_consoles = new TreeMap<Integer, Node_Process>();
 	
+	public volatile TreeMap<String, Node_Generic> tree_AUDIT_POLICY = new TreeMap<String, Node_Generic>();
+	
 	public volatile String relative_path_to_converted_dot_process_image = "";
 	
 	public volatile String analysis_framework_export_name = null;
@@ -363,7 +365,17 @@ public class Advanced_Analysis_Director extends Thread implements Runnable
 				if(import_directory != null && import_directory.isDirectory() && import_directory.exists())
 				{
 					//try to delete the old directory
-					try	{	File fle = new File(path_fle_analysis_directory); fle.delete();	}	catch(Exception e){}
+					try	
+					{	
+						File fle = new File(path_fle_analysis_directory); 
+						
+						LinkedList<File> listing = new LinkedList<File>();
+						listing = driver.getFileListing(fle, true, null, listing);
+						
+						if(listing == null || listing.size() < 1)						
+							fle.delete();	
+						
+					}	catch(Exception e){}
 					
 					path_fle_analysis_directory = import_directory.getCanonicalPath().trim();
 					
@@ -471,6 +483,30 @@ public class Advanced_Analysis_Director extends Thread implements Runnable
 			}
 			else if(fle_manifest_IMPORT != null && fle_manifest_IMPORT.exists() && fle_manifest_IMPORT.isFile() && fle_manifest_IMPORT.length() > 0)
 			{
+				
+				//try to delete the old directory
+				try	
+				{	
+					File fle = new File(Interface.path_fle_analysis_directory); 
+					
+					LinkedList<File> listing = new LinkedList<File>();
+					listing = driver.getFileListing(fle, true, null, listing);
+					
+					if(listing == null || listing.size() < 1)						
+						fle.delete();	
+					
+				}	catch(Exception e){}
+				
+				path_fle_analysis_directory = fle_manifest_IMPORT.getParentFile().getCanonicalPath().trim();
+				
+				if(!path_fle_analysis_directory.endsWith(File.separator))
+					path_fle_analysis_directory = path_fle_analysis_directory + File.separator;	
+				
+				Interface.fle_analysis_directory = fle_manifest_IMPORT.getParentFile();
+				Interface.path_fle_analysis_directory = path_fle_analysis_directory;
+			
+				
+				
 				this.start();
 			}
 			else
@@ -1420,7 +1456,7 @@ public class Advanced_Analysis_Director extends Thread implements Runnable
 			
 			Start.intface.sop("\n\nImport process complete!");
 			
-			check_to_display_consoles();
+			analyze_display_consoles();
 			
 
 			
@@ -1939,18 +1975,23 @@ public class Advanced_Analysis_Director extends Thread implements Runnable
 				
 				////////////////////////////////////////////////////////////
 				//
-				// 
+				// auditpol
 				//
 				//////////////////////////////////////////////////////////
-				//else if(lower.startsWith("")) 			process_import_manifest_(line, lower, "", line_num, br, , );
+				else if(lower.startsWith("auditpol")) 			process_import_manifest_auditpol(line, lower, "auditpol", line_num, br, 8, true);
 				
 				
 				////////////////////////////////////////////////////////////
 				//
-				// 
+				// shutdown time
 				//
 				//////////////////////////////////////////////////////////
-				//else if(lower.startsWith("")) 			process_import_manifest_(line, lower, "", line_num, br, , );
+				else if(lower.startsWith("shutdown_time")) 			process_import_manifest_shutdown_time(line, lower, "shutdown_time", line_num, br, 13, true);
+
+
+
+				
+				
 				
 																			
 				else
@@ -1974,16 +2015,24 @@ public class Advanced_Analysis_Director extends Thread implements Runnable
 			
 			PROCESS_IMPSCAN = prev_PROCESS_IMPSCAN;
 			
-			analyze_user_assist();
+			boolean status = analyze_user_assist();
 			
-				driver.directive("\n\n DEBUG: printing manifest!");
+			if(status)
+				sop("\nUser Assist entries were detected. I have created a new tab for you copy these entries and paste into a spreadsheet to analyze and sort for artifacts");
+			
+			analyze_display_consoles();
+			
+			this.create_tree_structure(tree_PROCESS);
+			
+			
+			/*	driver.directive("\n\n DEBUG: printing manifest!");
 				DEBUG = true;								
 				this.write_manifest("\t");
 				execute_completion_actions();
 				driver.directive("\n\ndebug message print complete!");
 				//pw.println(Driver.END_OF_ENTRY_MINOR);
 				
-				
+			*/	
 			
 			
 			return true;
@@ -5537,7 +5586,7 @@ plugin_timeliner = new Analysis_Plugin_EXECUTION(null, this, "timeliner", "Creat
 		    /////////////////////////////////////////////////////////////////////
 			
 			Start.intface.sop("\nPrimary Advanced Analysis Actions Complete");
-			try	{ check_to_display_consoles();} catch(Exception e){}
+			try	{ analyze_display_consoles();} catch(Exception e){}
 			execute_completion_actions();
 			
 //			if(EXECUTE_EXPORT_MANIFEST)
@@ -7341,7 +7390,7 @@ plugin_timeliner = new Analysis_Plugin_EXECUTION(null, this, "timeliner", "Creat
 	}
 	
 	/**Determine if Consoles had txt relating to a process, if so, display a new console tab with the contents displayed to the user*/
-	public boolean check_to_display_consoles()
+	public boolean analyze_display_consoles()
 	{
 		try
 		{
@@ -7360,7 +7409,7 @@ plugin_timeliner = new Analysis_Plugin_EXECUTION(null, this, "timeliner", "Creat
 		}
 		catch(Exception e)
 		{
-			driver.eop(myClassName, "check_to_display_consoles", e);
+			driver.eop(myClassName, "analyze_display_consoles", e);
 		}
 		
 		return false;
@@ -7831,19 +7880,53 @@ plugin_timeliner = new Analysis_Plugin_EXECUTION(null, this, "timeliner", "Creat
 					{
 						driver.directive("Exception handled in " + this.myClassName + " attempting to extract SID/Ower_name tuple on SID: " + sid);
 						continue;
-					}
-					
-					
-					
-					
+					}																		
 				}
 			}
 			 
 
-					
-		
+			
+			//////////////////////////////////////////////////////////
+			//
+			// tree_audit_policies
+			//
+			////////////////////////////////////////////////////////		
+			if(this.tree_AUDIT_POLICY != null && !tree_AUDIT_POLICY.isEmpty())
+			{
+				write_manifest_header(pw, "Audit Policy");
+				
+				String header = "auditpol";
+												
+				boolean include_underline = (tree_AUDIT_POLICY.size() > 1);
+				
+				for(Node_Generic node : tree_AUDIT_POLICY.values())
+				{
+					if(node == null)
+						continue;
+
+					node.write_manifest(pw, header, delimiter, include_underline, false, false);			
+							
+				}																																	
+			}
 
 			
+			
+			//////////////////////////////////////////////////////////
+			//
+			// shutdown time
+			//
+			////////////////////////////////////////////////////////		
+			if(this.node_shutdown_time != null && !node_shutdown_time.list_details.isEmpty())
+			{
+				write_manifest_header(pw, "Shutdown Time");
+
+				String header = "shutdown_time";
+
+				boolean include_underline = false;
+
+				node_shutdown_time.write_manifest(pw, header, delimiter, include_underline, false, false);																																
+			}
+
 			
 			
 			
@@ -8177,6 +8260,8 @@ plugin_timeliner = new Analysis_Plugin_EXECUTION(null, this, "timeliner", "Creat
 			if(tree_user_assist_linked_by_time_focused == null || tree_user_assist_linked_by_time_focused.isEmpty())
 				return false;
 			
+			boolean status = false;
+			
 			if(Advanced_Analysis_Director.jtaUserAssistConsole == null)
 			{
 				
@@ -8216,11 +8301,13 @@ plugin_timeliner = new Analysis_Plugin_EXECUTION(null, this, "timeliner", "Creat
 					if(line == null || line.trim().equals(""))
 						continue;
 					
-					Advanced_Analysis_Director.jtaUserAssistConsole.append(line);										
+					Advanced_Analysis_Director.jtaUserAssistConsole.append(line);
+					
+					status = true;
 				}
 			}									
 			
-			return true;
+			return status;
 		}
 		catch(Exception e)
 		{
@@ -8232,9 +8319,228 @@ plugin_timeliner = new Analysis_Plugin_EXECUTION(null, this, "timeliner", "Creat
 	
 	
 	
+	/**
+	 * continuation mtd. assumes line and lower are valid
+	 * @param line
+	 * @param lower
+	 * @param mtd_designator
+	 * @return
+	 */
+	public boolean process_import_manifest_auditpol(String line, String lower, String mtd_designator, Long line_num, BufferedReader br, int designator_len, boolean multi_lines_used_to_describe_single_node)
+	{
+		try
+		{
+			if(line == null || line.trim().equals("") || lower == null || lower.trim().equals(""))
+				return false;
+			
+			if(!lower.startsWith(mtd_designator))
+			{
+				driver.directive("Unknown import at line [" + line_num + "] --> " + line);
+				return false;
+			}
+			
+			//
+			//remove designator header
+			//
+			String line_entry = line.substring(designator_len).trim();
+			
+			//
+			//split by "\t"
+			//
+			String [] arr = null;
+
+			try
+			{
+				arr = line_entry.split("\t");
+			}
+			catch(Exception ee)
+			{
+				arr = null;
+			}
+			
+			//
+			//validate
+			//
+			if(arr == null || arr.length < 2)
+			{
+				driver.directive("I was unable to parse manifest line [" + line_num + "] --> " + line);
+				return false;
+			}
+			
+			//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+			//process entry where EACH LINE DESCRIBES A DIFFERENT, INDIVIDUAL TOKEN ABOUT THE SAME NODE e.g. process node, dll node, and thread node descriptions
+			//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+			if(multi_lines_used_to_describe_single_node) 
+			{
+				String key = arr[0].toLowerCase().trim();
+				String value = arr[1].trim();
+				String key_lower = key.toLowerCase().trim();
+				
+				//
+				//value_to_check
+				//
+				if(key_lower.equals("plugin_name"))
+				{
+					node_generic_import_manifest = new Node_Generic(value);					
+				}
+				else if(key_lower.equals("name"))
+				{
+					this.tree_AUDIT_POLICY.put(value.toLowerCase().trim(), node_generic_import_manifest);
+					node_generic_import_manifest.GRAPH_KEY_NAME = value;
+					
+					//other
+					if(node_audit_policy == null)
+					{
+						node_audit_policy = new Node_Generic(node_generic_import_manifest.plugin_name);
+						node_audit_policy.list_details = new LinkedList<String>();						
+					}
+				}
+				
+				node_generic_import_manifest.import_manifest_line_entry(line_entry, arr, key_lower, value, this);
+				
+				//other
+				if(node_audit_policy != null && node_audit_policy.list_details != null)
+				{
+					if(line_entry.toLowerCase().trim().startsWith("name"))
+						line_entry = driver.trim_key("name", line_entry, true);
+					else if(line_entry.toLowerCase().trim().startsWith("list_details"))
+						line_entry = driver.trim_key("list_details", line_entry, true);
+					
+					if(!line_entry.toLowerCase().trim().startsWith("plugin_name"))
+						node_audit_policy.list_details.add(line_entry);
+				}
+				
+			}//end if
+			
+			////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+			// process entry where ENTIRE DESCRIPTION IS ON SINGLE LINE i.e., each new line describes a complete node e.g. handle node, privilege node, impscan
+			////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+			else
+			{
+				driver.directive("invalid directive received in process_import_manifest_" + mtd_designator + " mtd in class: " + this.myClassName );
+				
+			}//end else
+			
+			
+			
+			
+			
+			
+			return true;
+		}
+		catch(Exception e)
+		{
+			driver.eop(myClassName, "process_import_manifest_" + mtd_designator, e);
+		}
+		
+		return false;
+	}
 	
 	
 	
+	
+	/**
+	 * continuation mtd. assumes line and lower are valid
+	 * @param line
+	 * @param lower
+	 * @param mtd_designator
+	 * @return
+	 */
+	public boolean process_import_manifest_shutdown_time(String line, String lower, String mtd_designator, Long line_num, BufferedReader br, int designator_len, boolean multi_lines_used_to_describe_single_node)
+	{
+		try
+		{
+			if(line == null || line.trim().equals("") || lower == null || lower.trim().equals(""))
+				return false;
+			
+			if(!lower.startsWith(mtd_designator))
+			{
+				driver.directive("Unknown import at line [" + line_num + "] --> " + line);
+				return false;
+			}
+			
+			//
+			//remove designator header
+			//
+			String line_entry = line.substring(designator_len).trim();
+			
+			//
+			//split by "\t"
+			//
+			String [] arr = null;
+
+			try
+			{
+				arr = line_entry.split("\t");
+			}
+			catch(Exception ee)
+			{
+				arr = null;
+			}
+			
+			//
+			//validate
+			//
+			if(arr == null || arr.length < 2)
+			{
+				driver.directive("I was unable to parse manifest line [" + line_num + "] --> " + line);
+				return false;
+			}
+			
+			//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+			//process entry where EACH LINE DESCRIBES A DIFFERENT, INDIVIDUAL TOKEN ABOUT THE SAME NODE e.g. process node, dll node, and thread node descriptions
+			//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+			if(multi_lines_used_to_describe_single_node) 
+			{
+				String key = arr[0].toLowerCase().trim();
+				String value = arr[1].trim();
+				String key_lower = key.toLowerCase().trim();
+				
+				//
+				//value_to_check
+				//
+				if(key_lower.equals("plugin_name"))
+				{
+					node_shutdown_time = new Node_Generic(value);
+					node_shutdown_time.GRAPH_KEY_NAME = value;
+					node_shutdown_time.list_details = new LinkedList<String>();						
+				}
+								
+				//other
+				if(node_shutdown_time != null && node_shutdown_time.list_details != null)
+				{
+					if(line_entry.toLowerCase().trim().startsWith("list_details"))
+						line_entry = driver.trim_key("list_details", line_entry, true);
+					
+					if(!line_entry.toLowerCase().trim().startsWith("plugin_name"))
+						node_shutdown_time.list_details.add(line_entry);
+				}
+				
+			}//end if
+			
+			////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+			// process entry where ENTIRE DESCRIPTION IS ON SINGLE LINE i.e., each new line describes a complete node e.g. handle node, privilege node, impscan
+			////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+			else
+			{
+				driver.directive("invalid directive received in process_import_manifest_" + mtd_designator + " mtd in class: " + this.myClassName );
+				
+			}//end else
+			
+			
+			
+			
+			
+			
+			return true;
+		}
+		catch(Exception e)
+		{
+			driver.eop(myClassName, "process_import_manifest_" + mtd_designator, e);
+		}
+		
+		return false;
+	}
 	
 	
 	

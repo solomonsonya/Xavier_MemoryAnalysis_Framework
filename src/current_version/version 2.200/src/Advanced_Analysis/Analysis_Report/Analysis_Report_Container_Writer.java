@@ -30,6 +30,8 @@ public class Analysis_Report_Container_Writer extends Thread implements Runnable
 	public static final String myClassName = "Analysis_Report_Container_Writer";
 	public static volatile Driver driver = new Driver();
 	
+	public static volatile boolean ONLY_PRINT_EXECUTION_PLUGINS_IF_ADVANCED_ANALYSIS_INITIATED = true;
+	
 	public volatile Dependency_File_Writer_Tree dependency_file_writer_process_informaiton_tree = null;
 	public volatile Dependency_File_Writer_Tree dependency_file_writer_system_informaiton_tree = null;
 	public volatile Dependency_File_Writer_Tables dependency_file_writer_tables = null;
@@ -239,7 +241,13 @@ public class Analysis_Report_Container_Writer extends Thread implements Runnable
 			//
 			//Raw Output
 			//
-			write_button_raw_plugins(pw);
+			if(ONLY_PRINT_EXECUTION_PLUGINS_IF_ADVANCED_ANALYSIS_INITIATED)
+			{
+				if(parent != null && parent.tree_advanced_analysis_threads != null && parent.tree_advanced_analysis_threads.size() > 0)
+					write_button_raw_plugins(pw);
+			}
+			else
+				write_button_raw_plugins(pw);
 			
 			//
 			//footer
@@ -666,7 +674,7 @@ public class Analysis_Report_Container_Writer extends Thread implements Runnable
 			///////////////////////////////////////////////////////////////////////////////
 			//DLL Information Table - inner btn
 			///////////////////////////////////////////////////////////////////////////////		
-			/**change this --> */				if(parent.tree_DLL_by_path != null && parent.tree_DLL_by_path.size() > 0 && (parent.tree_DLL_by_path != null || parent.plugin_dlllist != null)){
+			/**change this --> */				if(parent.tree_DLL_by_path != null && parent.tree_DLL_by_path.size() > 0 && (parent.tree_DLL_by_path != null)){
 			/**change this --> */button_title = "DLL Information";
 			
 			page_title = button_title + " Table - " + file_name_memory_image;						
@@ -710,110 +718,11 @@ public class Analysis_Report_Container_Writer extends Thread implements Runnable
 			pw.println("		<a href=\"#Home\"> Home </a>" + "&nbsp&nbsp&nbsp&nbsp" + "<a href=\"dependency/" + import_file_name + "\"> " + import_file_name + " </a>");
 			pw.println("	</div>");
 			pw.println("");
-			pw.println("	");
+			pw.println("	<hr>");
 			}
-			
-			///////////////////////////////////////////////////////////////////////////////
-			//MFT File Tables
-			///////////////////////////////////////////////////////////////////////////////
-			if(parent.plugin_mftparser != null && parent.plugin_mftparser.path_to_output_directory != null && !parent.plugin_mftparser.path_to_output_directory.trim().equals(""))
-			{
-				//write header
-				pw.println("	<p></p><button type=\"button\" class=\"collapsible\">" + "MFT - Master File Table" + " </button>	<div class=\"content\" style=\"overflow: auto; width=auto; height=auto\">		  ");			
-				pw.println("		<p></p>");								
-											
-				write_mft_table("MFT - DLL Information", "dll.txt");
-				write_mft_table("MFT - Drivers Information", "sys.txt");
-				write_mft_table("MFT - Event Logs Information", "evt.txt");
-				write_mft_table("MFT - EXE Information", "exe.txt");
-				write_mft_table("MFT - Prefetch Information", "prefetch.txt");
-				write_mft_table("MFT - Temp File Information", "tmp.txt");
-				write_mft_table("MFT - TXT Information", "txt.txt");
-				write_mft_table("MFT - ZIP Information", "zip.txt");
-				
-				//close header
-				pw.println("	</div>");
-			}
-			
-			
-			
-			///////////////////////////////////////////////////////////////////////////////
-			//Get HASHDUMP Information Table - inner btn
-			///////////////////////////////////////////////////////////////////////////////			
-/**change this --> */ if(parent.tree_hashdump != null && parent.tree_hashdump.size() > 0)
-			{			
-				/**change this --> */button_title = "HASHDUMP Information";
-
-				page_title = button_title + " Table - " + file_name_memory_image;						
-				import_file_name = button_title.trim().toLowerCase().replace(" ", "_") + "_table_" + file_name_memory_image + ".html";
-
-				/**change this --> */fle = dependency_file_writer_tables.write_dependency_files_HASHDUMP_table(import_file_name, page_title);						
-
-				/**leave the rest below alone */
-				initial_frame_height = 170 + TABLE_DIV_HEIGHT_PER_ROW * parent.tree_hashdump.size();
-				if(initial_frame_height > this.DEFAULT_TABLE_DIV_HEIGHT) initial_frame_height = DEFAULT_TABLE_DIV_HEIGHT;
-							
-				pw.println("		  	");
-				pw.println("	<p></p><button type=\"button\" class=\"collapsible\">" + button_title + " </button>	<div class=\"content\" style=\"overflow: auto; width=auto; height=auto\">		  ");			
-				pw.println("		<p></p>");
-				pw.println("		<iframe src=\"dependency/" + import_file_name + "\" width=\"100%\" height=\"" + initial_frame_height + "\"></iframe>");						
-				pw.println("		<a href=\"#Home\"> Home </a>" + "&nbsp&nbsp&nbsp&nbsp" + "<a href=\"dependency/" + import_file_name + "\"> " + import_file_name + " </a>");
-				pw.println("	</div>");
-				pw.println("");
-				pw.println("	");
-			}
-			
-			///////////////////////////////////////////////////////////////////////////////
-			//Get SIDS Information Table - inner btn
-			///////////////////////////////////////////////////////////////////////////////			
-/**change this --> */ if(parent.tree_SIDS != null && parent.tree_SIDS.size() > 0)			{			
-				/**change this --> */button_title = "SIDS Information";
-
-				page_title = button_title + " Table - " + file_name_memory_image;						
-				import_file_name = button_title.trim().toLowerCase().replace(" ", "_") + "_table_" + file_name_memory_image + ".html";
-
-				/**change this --> */fle = dependency_file_writer_tables.write_dependency_files_SIDS_table(import_file_name, page_title);						
-
-				/**leave the rest below alone */
-				initial_frame_height = 170 + TABLE_DIV_HEIGHT_PER_ROW * parent.tree_SIDS.size();
-				if(initial_frame_height > this.DEFAULT_TABLE_DIV_HEIGHT) initial_frame_height = DEFAULT_TABLE_DIV_HEIGHT;
 						
-				pw.println("		  	");
-				pw.println("	<p></p><button type=\"button\" class=\"collapsible\">" + button_title + " </button>	<div class=\"content\" style=\"overflow: auto; width=auto; height=auto\">		  ");			
-				pw.println("		<p></p>");
-				pw.println("		<iframe src=\"dependency/" + import_file_name + "\" width=\"100%\" height=\"" + initial_frame_height + "\"></iframe>");						
-				pw.println("		<a href=\"#Home\"> Home </a>" + "&nbsp&nbsp&nbsp&nbsp" + "<a href=\"dependency/" + import_file_name + "\"> " + import_file_name + " </a>");
-				pw.println("	</div>");
-				pw.println("");
-				pw.println("	");
-			}
-
+			/////////////////////////////////////////////////////////////////////////////////////////
 			
-			///////////////////////////////////////////////////////////////////////////////
-			//Get HIVELIST Information Table - inner btn
-			///////////////////////////////////////////////////////////////////////////////			
-/**change this --> */ if(parent.tree_hivelist != null && parent.tree_hivelist.size() > 0)
-			{			
-				/**change this --> */button_title = "HiveList Information";
-			
-				page_title = button_title + " Table - " + file_name_memory_image;						
-				import_file_name = button_title.trim().toLowerCase().replace(" ", "_") + "_table_" + file_name_memory_image + ".html";
-			
-				/**change this --> */fle = dependency_file_writer_tables.write_dependency_files_HIVELIST_table(import_file_name, page_title);						
-			
-				/**leave the rest below alone */
-				initial_frame_height = 170 + TABLE_DIV_HEIGHT_PER_ROW * parent.tree_hivelist.size();
-				if(initial_frame_height > this.DEFAULT_TABLE_DIV_HEIGHT) initial_frame_height = DEFAULT_TABLE_DIV_HEIGHT;
-							
-				pw.println("		  	");
-				pw.println("	<p></p><button type=\"button\" class=\"collapsible\">" + button_title + " </button>	<div class=\"content\" style=\"overflow: auto; width=auto; height=auto\">		  ");			
-				pw.println("		<p></p>");
-				pw.println("		<iframe src=\"dependency/" + import_file_name + "\" width=\"100%\" height=\"" + initial_frame_height + "\"></iframe>");						
-				pw.println("		<a href=\"#Home\"> Home </a>" + "&nbsp&nbsp&nbsp&nbsp" + "<a href=\"dependency/" + import_file_name + "\"> " + import_file_name + " </a>");
-				pw.println("	</div>");
-				pw.println("");
-				pw.println("	");
-			}
 
 			///////////////////////////////////////////////////////////////////////////////
 			//Audit Policies Information Table - inner btn
@@ -841,21 +750,22 @@ public class Analysis_Report_Container_Writer extends Thread implements Runnable
 				pw.println("	");
 			}
 
-
+			
+		
 			
 			///////////////////////////////////////////////////////////////////////////////
-			//MALFIND Information Table - inner btn
-			///////////////////////////////////////////////////////////////////////////////	
-/**change this --> */				if(parent.tree_MALFIND != null && parent.tree_MALFIND.size() > 0){
-/**change this --> */button_title = "Malfind Information";
+			//CALLBACKS Information Table - inner btn
+			///////////////////////////////////////////////////////////////////////////////			
+/**change this --> */				if(parent.tree_CALLBACKS != null && parent.tree_CALLBACKS.size() > 0){
+/**change this --> */button_title = "Callbacks Information";	
 
 			page_title = button_title + " Table - " + file_name_memory_image;						
 			import_file_name = button_title.trim().toLowerCase().replace(" ", "_") + "_table_" + file_name_memory_image + ".html";
-
-/**change this --> */fle = dependency_file_writer_tables.write_dependency_files_MALFIND_table(import_file_name, page_title);						
-
+			
+/**change this --> */fle = dependency_file_writer_tables.write_dependency_files_DRIVER_table(import_file_name, page_title, false, parent.tree_CALLBACKS);						
+			
 /**leave the rest below alone */
-			initial_frame_height = 170 + TABLE_DIV_HEIGHT_PER_ROW * parent.tree_MALFIND.size();
+			initial_frame_height = 170 + TABLE_DIV_HEIGHT_PER_ROW * parent.tree_CALLBACKS.size();
 			if(initial_frame_height > this.DEFAULT_TABLE_DIV_HEIGHT) initial_frame_height = DEFAULT_TABLE_DIV_HEIGHT;
 						
 			pw.println("		  	");
@@ -866,24 +776,19 @@ public class Analysis_Report_Container_Writer extends Thread implements Runnable
 			pw.println("	</div>");
 			pw.println("");
 			pw.println("	");
+			}
 			
-}
-			
-			
-			
-			
-
-			
+						
 			///////////////////////////////////////////////////////////////////////////////
 			//DRIVERS Information Table - inner btn
 			///////////////////////////////////////////////////////////////////////////////	
-			/**change this --> */				if(parent.tree_DRIVERS != null && parent.tree_DRIVERS.size() > 0){
-			/**change this --> */button_title = "Drivers Information";
+/**change this --> */				if(parent.tree_DRIVERS != null && parent.tree_DRIVERS.size() > 0){
+/**change this --> */button_title = "Drivers Information";
 			
 			page_title = button_title + " Table - " + file_name_memory_image;						
 			import_file_name = button_title.trim().toLowerCase().replace(" ", "_") + "_table_" + file_name_memory_image + ".html";
 			
-			/**change this --> */fle = dependency_file_writer_tables.write_dependency_files_DRIVER_table(import_file_name, page_title, true, parent.tree_DRIVERS);						
+/**change this --> */fle = dependency_file_writer_tables.write_dependency_files_DRIVER_table(import_file_name, page_title, true, parent.tree_DRIVERS);						
 			
 			/**leave the rest below alone */
 			initial_frame_height = 170 + TABLE_DIV_HEIGHT_PER_ROW * parent.tree_DRIVERS.size();
@@ -899,12 +804,183 @@ public class Analysis_Report_Container_Writer extends Thread implements Runnable
 			pw.println("	");
 			}
 			
+
 			
+			///////////////////////////////////////////////////////////////////////////////
+			//DRIVER IRP HOOKS Information Table - inner btn
+			///////////////////////////////////////////////////////////////////////////////	
+/**change this --> */				if(parent.tree_DRIVER_IRP_HOOK != null && parent.tree_DRIVER_IRP_HOOK.size() > 0){
+/**change this --> */button_title = "Driver IRP Hooks Information";
+
+			page_title = button_title + " Table - " + file_name_memory_image;						
+			import_file_name = button_title.trim().toLowerCase().replace(" ", "_") + "_table_" + file_name_memory_image + ".html";
+
+/**change this --> */fle = dependency_file_writer_tables.write_dependency_files_DRIVER_table(import_file_name, page_title, false, parent.tree_DRIVER_IRP_HOOK);						
+
+			/**leave the rest below alone */
+			initial_frame_height = 170 + TABLE_DIV_HEIGHT_PER_ROW * parent.tree_DRIVER_IRP_HOOK.size();
+			if(initial_frame_height > this.DEFAULT_TABLE_DIV_HEIGHT) initial_frame_height = DEFAULT_TABLE_DIV_HEIGHT;
+						
+			pw.println("		  	");
+			pw.println("	<p></p><button type=\"button\" class=\"collapsible\">" + button_title + " </button>	<div class=\"content\" style=\"overflow: auto; width=auto; height=auto\">		  ");			
+			pw.println("		<p></p>");
+			pw.println("		<iframe src=\"dependency/" + import_file_name + "\" width=\"100%\" height=\"" + initial_frame_height + "\"></iframe>");						
+			pw.println("		<a href=\"#Home\"> Home </a>" + "&nbsp&nbsp&nbsp&nbsp" + "<a href=\"dependency/" + import_file_name + "\"> " + import_file_name + " </a>");
+			pw.println("	</div>");
+			pw.println("");
+			pw.println("	");
+}
+		
 			
+
+
+		///////////////////////////////////////////////////////////////////////////////
+		//Get HASHDUMP Information Table - inner btn
+		///////////////////////////////////////////////////////////////////////////////			
+/**change this --> */ if(parent.tree_hashdump != null && parent.tree_hashdump.size() > 0)
+		{			
+/**change this --> */button_title = "HASHDUMP Information";
+		
+			page_title = button_title + " Table - " + file_name_memory_image;						
+			import_file_name = button_title.trim().toLowerCase().replace(" ", "_") + "_table_" + file_name_memory_image + ".html";
+		
+/**change this --> */fle = dependency_file_writer_tables.write_dependency_files_HASHDUMP_table(import_file_name, page_title);						
+		
+			/**leave the rest below alone */
+			initial_frame_height = 170 + TABLE_DIV_HEIGHT_PER_ROW * parent.tree_hashdump.size();
+			if(initial_frame_height > this.DEFAULT_TABLE_DIV_HEIGHT) initial_frame_height = DEFAULT_TABLE_DIV_HEIGHT;
+						
+			pw.println("		  	");
+			pw.println("	<p></p><button type=\"button\" class=\"collapsible\">" + button_title + " </button>	<div class=\"content\" style=\"overflow: auto; width=auto; height=auto\">		  ");			
+			pw.println("		<p></p>");
+			pw.println("		<iframe src=\"dependency/" + import_file_name + "\" width=\"100%\" height=\"" + initial_frame_height + "\"></iframe>");						
+			pw.println("		<a href=\"#Home\"> Home </a>" + "&nbsp&nbsp&nbsp&nbsp" + "<a href=\"dependency/" + import_file_name + "\"> " + import_file_name + " </a>");
+			pw.println("	</div>");
+			pw.println("");
+			pw.println("	");
+		}
+
+
+
+
+			
+			///////////////////////////////////////////////////////////////////////////////
+			//Get HIVELIST Information Table - inner btn
+			///////////////////////////////////////////////////////////////////////////////			
+/**change this --> */ if(parent.tree_hivelist != null && parent.tree_hivelist.size() > 0)
+			{			
+/**change this --> */button_title = "HiveList Information";
+			
+				page_title = button_title + " Table - " + file_name_memory_image;						
+				import_file_name = button_title.trim().toLowerCase().replace(" ", "_") + "_table_" + file_name_memory_image + ".html";
+			
+/**change this --> */fle = dependency_file_writer_tables.write_dependency_files_HIVELIST_table(import_file_name, page_title);						
+			
+				/**leave the rest below alone */
+				initial_frame_height = 170 + TABLE_DIV_HEIGHT_PER_ROW * parent.tree_hivelist.size();
+				if(initial_frame_height > this.DEFAULT_TABLE_DIV_HEIGHT) initial_frame_height = DEFAULT_TABLE_DIV_HEIGHT;
+							
+				pw.println("		  	");
+				pw.println("	<p></p><button type=\"button\" class=\"collapsible\">" + button_title + " </button>	<div class=\"content\" style=\"overflow: auto; width=auto; height=auto\">		  ");			
+				pw.println("		<p></p>");
+				pw.println("		<iframe src=\"dependency/" + import_file_name + "\" width=\"100%\" height=\"" + initial_frame_height + "\"></iframe>");						
+				pw.println("		<a href=\"#Home\"> Home </a>" + "&nbsp&nbsp&nbsp&nbsp" + "<a href=\"dependency/" + import_file_name + "\"> " + import_file_name + " </a>");
+				pw.println("	</div>");
+				pw.println("");
+				pw.println("	");
+			}
+
+
+
+
+
+
+
+
+			///////////////////////////////////////////////////////////////////////////////
+			//MALFIND Information Table - inner btn
+			///////////////////////////////////////////////////////////////////////////////	
+/**change this --> */				if(parent.tree_MALFIND != null && parent.tree_MALFIND.size() > 0){
+/**change this --> */button_title = "Malfind Information";
+			
+			page_title = button_title + " Table - " + file_name_memory_image;						
+			import_file_name = button_title.trim().toLowerCase().replace(" ", "_") + "_table_" + file_name_memory_image + ".html";
+			
+/**change this --> */fle = dependency_file_writer_tables.write_dependency_files_MALFIND_table(import_file_name, page_title);						
+			
+			/**leave the rest below alone */
+			initial_frame_height = 170 + TABLE_DIV_HEIGHT_PER_ROW * parent.tree_MALFIND.size();
+			if(initial_frame_height > this.DEFAULT_TABLE_DIV_HEIGHT) initial_frame_height = DEFAULT_TABLE_DIV_HEIGHT;
+						
+			pw.println("		  	");
+			pw.println("	<p></p><button type=\"button\" class=\"collapsible\">" + button_title + " </button>	<div class=\"content\" style=\"overflow: auto; width=auto; height=auto\">		  ");			
+			pw.println("		<p></p>");
+			pw.println("		<iframe src=\"dependency/" + import_file_name + "\" width=\"100%\" height=\"" + initial_frame_height + "\"></iframe>");						
+			pw.println("		<a href=\"#Home\"> Home </a>" + "&nbsp&nbsp&nbsp&nbsp" + "<a href=\"dependency/" + import_file_name + "\"> " + import_file_name + " </a>");
+			pw.println("	</div>");
+			pw.println("");
+			pw.println("	");
+			
+			}
+
+
+
+
+
+
+
+			///////////////////////////////////////////////////////////////////////////////
+			//MFT File Tables
+			///////////////////////////////////////////////////////////////////////////////
+			if(parent.plugin_mftparser != null && parent.plugin_mftparser.path_to_output_directory != null && !parent.plugin_mftparser.path_to_output_directory.trim().equals(""))
+			{
+				//write header
+				pw.println("	<p></p><button type=\"button\" class=\"collapsible\">" + "MFT - Master File Table" + " </button>	<div class=\"content\" style=\"overflow: auto; width=auto; height=auto\">		  ");			
+				pw.println("		<p></p>");								
+											
+				write_mft_table("MFT - DLL Information", "dll.txt");
+				write_mft_table("MFT - Drivers Information", "sys.txt");
+				write_mft_table("MFT - Event Logs Information", "evt.txt");
+				write_mft_table("MFT - EXE Information", "exe.txt");
+				write_mft_table("MFT - Prefetch Information", "prefetch.txt");
+				write_mft_table("MFT - Temp File Information", "tmp.txt");
+				write_mft_table("MFT - TXT Information", "txt.txt");
+				write_mft_table("MFT - ZIP Information", "zip.txt");
+				
+				//close header
+				pw.println("	</div>");
+			}
+			
+			///////////////////////////////////////////////////////////////////////////////
+			//Get SIDS Information Table - inner btn
+			///////////////////////////////////////////////////////////////////////////////			
+/**change this --> */ if(parent.tree_SIDS != null && parent.tree_SIDS.size() > 0)			{			
+				/**change this --> */button_title = "SIDS Information";
+
+				page_title = button_title + " Table - " + file_name_memory_image;						
+				import_file_name = button_title.trim().toLowerCase().replace(" ", "_") + "_table_" + file_name_memory_image + ".html";
+
+				/**change this --> */fle = dependency_file_writer_tables.write_dependency_files_SIDS_table(import_file_name, page_title);						
+
+				/**leave the rest below alone */
+				initial_frame_height = 170 + TABLE_DIV_HEIGHT_PER_ROW * parent.tree_SIDS.size();
+				if(initial_frame_height > this.DEFAULT_TABLE_DIV_HEIGHT) initial_frame_height = DEFAULT_TABLE_DIV_HEIGHT;
+						
+				pw.println("		  	");
+				pw.println("	<p></p><button type=\"button\" class=\"collapsible\">" + button_title + " </button>	<div class=\"content\" style=\"overflow: auto; width=auto; height=auto\">		  ");			
+				pw.println("		<p></p>");
+				pw.println("		<iframe src=\"dependency/" + import_file_name + "\" width=\"100%\" height=\"" + initial_frame_height + "\"></iframe>");						
+				pw.println("		<a href=\"#Home\"> Home </a>" + "&nbsp&nbsp&nbsp&nbsp" + "<a href=\"dependency/" + import_file_name + "\"> " + import_file_name + " </a>");
+				pw.println("	</div>");
+				pw.println("");
+				pw.println("	");
+			}
+
+
 			///////////////////////////////////////////////////////////////////////////////
 			//THREADS Information Table - inner btn
 			///////////////////////////////////////////////////////////////////////////////	
-			/**change this --> */				if(parent.plugin_threads != null){
+			/**change this --> */				if(parent.tree_PROCESS != null){
 			/**change this --> */button_title = "Threads Information";
 
 			page_title = button_title + " Table - " + file_name_memory_image;						
@@ -926,6 +1002,31 @@ public class Analysis_Report_Container_Writer extends Thread implements Runnable
 			}
 			
 			
+
+			///////////////////////////////////////////////////////////////////////////////
+			//TIMERS Information Table - inner btn
+			///////////////////////////////////////////////////////////////////////////////		
+/**change this --> */				if(parent.tree_TIMERS != null && parent.tree_TIMERS.size() > 0){
+/**change this --> */button_title = "Timers Information";
+
+			page_title = button_title + " Table - " + file_name_memory_image;						
+			import_file_name = button_title.trim().toLowerCase().replace(" ", "_") + "_table_" + file_name_memory_image + ".html";
+
+/**change this --> */fle = dependency_file_writer_tables.write_dependency_files_DRIVER_table(import_file_name, page_title, false, parent.tree_TIMERS);						
+
+			/**leave the rest below alone */
+			initial_frame_height = 170 + TABLE_DIV_HEIGHT_PER_ROW * parent.tree_TIMERS.size();
+			if(initial_frame_height > this.DEFAULT_TABLE_DIV_HEIGHT) initial_frame_height = DEFAULT_TABLE_DIV_HEIGHT;
+						
+			pw.println("		  	");
+			pw.println("	<p></p><button type=\"button\" class=\"collapsible\">" + button_title + " </button>	<div class=\"content\" style=\"overflow: auto; width=auto; height=auto\">		  ");			
+			pw.println("		<p></p>");
+			pw.println("		<iframe src=\"dependency/" + import_file_name + "\" width=\"100%\" height=\"" + initial_frame_height + "\"></iframe>");						
+			pw.println("		<a href=\"#Home\"> Home </a>" + "&nbsp&nbsp&nbsp&nbsp" + "<a href=\"dependency/" + import_file_name + "\"> " + import_file_name + " </a>");
+			pw.println("	</div>");
+			pw.println("");
+			pw.println("	");
+			}
 			
 			
 			
@@ -955,88 +1056,13 @@ public class Analysis_Report_Container_Writer extends Thread implements Runnable
 			pw.println("");
 			pw.println("	");
 			}
-			
-			
-			///////////////////////////////////////////////////////////////////////////////
-			//CALLBACKS Information Table - inner btn
-			///////////////////////////////////////////////////////////////////////////////			
-/**change this --> */				if(parent.tree_CALLBACKS != null && parent.tree_CALLBACKS.size() > 0){
-/**change this --> */button_title = "Callbacks Information";	
-
-			page_title = button_title + " Table - " + file_name_memory_image;						
-			import_file_name = button_title.trim().toLowerCase().replace(" ", "_") + "_table_" + file_name_memory_image + ".html";
-			
-/**change this --> */fle = dependency_file_writer_tables.write_dependency_files_DRIVER_table(import_file_name, page_title, false, parent.tree_CALLBACKS);						
-			
-/**leave the rest below alone */
-			initial_frame_height = 170 + TABLE_DIV_HEIGHT_PER_ROW * parent.tree_CALLBACKS.size();
-			if(initial_frame_height > this.DEFAULT_TABLE_DIV_HEIGHT) initial_frame_height = DEFAULT_TABLE_DIV_HEIGHT;
-						
-			pw.println("		  	");
-			pw.println("	<p></p><button type=\"button\" class=\"collapsible\">" + button_title + " </button>	<div class=\"content\" style=\"overflow: auto; width=auto; height=auto\">		  ");			
-			pw.println("		<p></p>");
-			pw.println("		<iframe src=\"dependency/" + import_file_name + "\" width=\"100%\" height=\"" + initial_frame_height + "\"></iframe>");						
-			pw.println("		<a href=\"#Home\"> Home </a>" + "&nbsp&nbsp&nbsp&nbsp" + "<a href=\"dependency/" + import_file_name + "\"> " + import_file_name + " </a>");
-			pw.println("	</div>");
-			pw.println("");
-			pw.println("	");
-			}
-			
-			///////////////////////////////////////////////////////////////////////////////
-			//DRIVER IRP HOOKS Information Table - inner btn
-			///////////////////////////////////////////////////////////////////////////////	
-/**change this --> */				if(parent.tree_DRIVER_IRP_HOOK != null && parent.tree_DRIVER_IRP_HOOK.size() > 0){
-/**change this --> */button_title = "Driver IRP Hooks Information";
-
-			page_title = button_title + " Table - " + file_name_memory_image;						
-			import_file_name = button_title.trim().toLowerCase().replace(" ", "_") + "_table_" + file_name_memory_image + ".html";
-
-/**change this --> */fle = dependency_file_writer_tables.write_dependency_files_DRIVER_table(import_file_name, page_title, false, parent.tree_DRIVER_IRP_HOOK);						
-
-			/**leave the rest below alone */
-			initial_frame_height = 170 + TABLE_DIV_HEIGHT_PER_ROW * parent.tree_DRIVER_IRP_HOOK.size();
-			if(initial_frame_height > this.DEFAULT_TABLE_DIV_HEIGHT) initial_frame_height = DEFAULT_TABLE_DIV_HEIGHT;
-						
-			pw.println("		  	");
-			pw.println("	<p></p><button type=\"button\" class=\"collapsible\">" + button_title + " </button>	<div class=\"content\" style=\"overflow: auto; width=auto; height=auto\">		  ");			
-			pw.println("		<p></p>");
-			pw.println("		<iframe src=\"dependency/" + import_file_name + "\" width=\"100%\" height=\"" + initial_frame_height + "\"></iframe>");						
-			pw.println("		<a href=\"#Home\"> Home </a>" + "&nbsp&nbsp&nbsp&nbsp" + "<a href=\"dependency/" + import_file_name + "\"> " + import_file_name + " </a>");
-			pw.println("	</div>");
-			pw.println("");
-			pw.println("	");
-}
-
-			///////////////////////////////////////////////////////////////////////////////
-			//TIMERS Information Table - inner btn
-			///////////////////////////////////////////////////////////////////////////////		
-/**change this --> */				if(parent.tree_TIMERS != null && parent.tree_TIMERS.size() > 0){
-/**change this --> */button_title = "Timers Information";
-
-			page_title = button_title + " Table - " + file_name_memory_image;						
-			import_file_name = button_title.trim().toLowerCase().replace(" ", "_") + "_table_" + file_name_memory_image + ".html";
-
-/**change this --> */fle = dependency_file_writer_tables.write_dependency_files_DRIVER_table(import_file_name, page_title, false, parent.tree_TIMERS);						
-
-			/**leave the rest below alone */
-			initial_frame_height = 170 + TABLE_DIV_HEIGHT_PER_ROW * parent.tree_TIMERS.size();
-			if(initial_frame_height > this.DEFAULT_TABLE_DIV_HEIGHT) initial_frame_height = DEFAULT_TABLE_DIV_HEIGHT;
-						
-			pw.println("		  	");
-			pw.println("	<p></p><button type=\"button\" class=\"collapsible\">" + button_title + " </button>	<div class=\"content\" style=\"overflow: auto; width=auto; height=auto\">		  ");			
-			pw.println("		<p></p>");
-			pw.println("		<iframe src=\"dependency/" + import_file_name + "\" width=\"100%\" height=\"" + initial_frame_height + "\"></iframe>");						
-			pw.println("		<a href=\"#Home\"> Home </a>" + "&nbsp&nbsp&nbsp&nbsp" + "<a href=\"dependency/" + import_file_name + "\"> " + import_file_name + " </a>");
-			pw.println("	</div>");
-			pw.println("");
-			pw.println("	");
-			}
+	
 			
 			
 			///////////////////////////////////////////////////////////////////////////////
 			//Get VADTree Information Table - inner btn
 			///////////////////////////////////////////////////////////////////////////////			
-/**change this --> */ if(parent.tree_PROCESS != null && parent.tree_PROCESS.size() > 0 && parent.tree_VAD_INFO != null && parent.plugin_vadtree != null){			
+/**change this --> */ if(parent.tree_PROCESS != null && parent.tree_PROCESS.size() > 0 && parent.tree_VAD_INFO != null){			
 /**change this --> */button_title = "VADTREE Information";
 
 				page_title = button_title + " Table - " + file_name_memory_image;						

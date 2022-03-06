@@ -1846,8 +1846,13 @@ public class Dependency_File_Writer_Tree extends Thread implements Runnable
 				//
 				//Audit Policies
 				//
-				if(director.node_audit_policy != null)
-					director.node_audit_policy.write_node_information_from_list("Audit Policies", pw);	
+//				if(director.node_audit_policy != null)
+//					director.node_audit_policy.write_node_information_from_list("Audit Policies", pw);	
+				
+				//
+				//audit policies
+				//
+				audit_policies(pw);
 				
 				//
 				//get service sids
@@ -2471,7 +2476,58 @@ public class Dependency_File_Writer_Tree extends Thread implements Runnable
 	}
 	
 	
-	
+	public boolean audit_policies(PrintWriter pw)
+	{
+		try
+		{
+			pw.println("\t\t" +  "{ \"name\": \"Audit Policies\" , \"children\": [");
+
+			if(director.tree_AUDIT_POLICY != null)
+			{
+				
+				
+				if(director.tree_AUDIT_POLICY.size() > MAX_TREE_NODE_COUNT)
+				{
+					int count = 0;				
+					pw.println("\t\t\t" +  "{ \"name\": \"" + driver.normalize_html("[" + count + "]").replace("\\", "\\\\") + "\" , \"children\": [");
+					
+					for(Node_Generic node : director.tree_AUDIT_POLICY.values())
+					{															
+						if(count % MAX_TREE_NODE_COUNT == 0 && count > 0)
+						{
+							pw.println("\t\t\t" +  "]},");
+							
+							pw.println("\t\t\t" +  "{ \"name\": \"" + driver.normalize_html("[" + count + "]").replace("\\", "\\\\") + "\" , \"children\": [");
+						}
+						++count;
+						
+						node.write_node_information(pw);
+						
+						
+					}
+					
+					pw.println("\t\t\t" +  "]},");								
+				}
+				
+				else
+				{
+					for(Node_Generic node : director.tree_AUDIT_POLICY.values())
+						node.write_node_information(pw);
+				}
+					
+			}
+			
+			pw.println("\t\t" +  "]},");//end process information
+			
+			return true;
+		}
+		catch(Exception e)
+		{
+			driver.eop(myClassName, "audit_policies", e);
+		}
+		
+		return false;
+	}
 	
 	
 	
