@@ -55,7 +55,7 @@ import Plugin.Process_Plugin;
 		
 		public static final String NAME = "Xavier Framework";
 		public static final String NAME_LOWERCASE = "xavier_framework";
-		public static final String VERSION = "2.201";
+		public static final String VERSION = "2.300";
 		public static final String FULL_NAME = NAME + " vrs " + VERSION;
 						
 		public static Log log_unrecognized = null; 
@@ -806,6 +806,29 @@ import Plugin.Process_Plugin;
 			catch(Exception e)
 			{
 				this.eop(myClassName, "print_tree_values", e);				
+			}
+			
+			return false;
+		}
+		
+		public boolean print_tree_keys(String msg, TreeMap<String, String> tree)
+		{
+			try
+			{
+				if(tree == null || tree.size() < 1)
+				{
+					this.directive("PUNT! NO CONTENTS TO DISPLAY!");
+					return false;
+				}
+				
+				directive(msg);
+				
+				for(String key : tree.keySet())
+					directive("\t" + key);
+			}
+			catch(Exception e)
+			{
+				this.eop(myClassName, "print_tree_keys", e);				
 			}
 			
 			return false;
@@ -1743,6 +1766,12 @@ import Plugin.Process_Plugin;
 				
 				if(ip.startsWith("239.255.255"))
 					return true;
+				
+				if(ip.startsWith("*:*"))
+	        		return true;
+				
+				if(ip.startsWith(":"))
+	        		return true;
 				
 				
 				ip = ip.trim();

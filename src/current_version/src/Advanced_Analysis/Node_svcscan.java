@@ -406,6 +406,43 @@ public class Node_svcscan
 	
 	
 	
+	public String get_snapshot_analysis_key()// throws NullPointerException
+	{
+		try
+		{
+			return this.service_name;
+		}
+		catch(Exception e)
+		{
+			driver.eop(myClassName, "get_snapshot_analysis_key", e);
+		}
+		
+		return this.offset;
+	}
+	
+	
+	public String get_snapshot_analysis_COMPARATOR_VALUE()// throws NullPointerException
+	{
+		try
+		{
+			return 	"PID: " 			+ "	" +		PID 			+ "	" +
+					"offset: " 			+ "	" + 	offset			+ "	" +
+					"order: " 			+ "	" + 	order			+ "	" +
+					"start: " 			+ "	" + 	start			+ "	" +
+					"pid: " 			+ "	" + 	pid			 	+ "	" +
+					"service_name: " 	+ "	" + 	service_name 	+ "	" +
+					"display_name: " 	+ "	" + 	display_name 	+ "	" +
+					"service_type: " 	+ "	" + 	service_type 	+ "	" +
+					"service_state: " 	+ "	" + 	service_state 	+ "	" +
+					"binary_path: " 	+ "	" + 	binary_path;				
+		}
+		catch(Exception e)
+		{
+			driver.eop(myClassName, "get_snapshot_analysis_COMPARATOR_VALUE", e);
+		}
+		
+		return "==+++==";
+	}
 	
 	
 	

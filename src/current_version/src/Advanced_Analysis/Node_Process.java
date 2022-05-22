@@ -11,6 +11,8 @@ import Interface.*;
 import java.io.*;
 import java.util.*;
 
+import javax.swing.JTabbedPane;
+
 import Advanced_Analysis.Analysis_Plugin.Analysis_Plugin_dlllist;
 import Advanced_Analysis.Analysis_Plugin.Analysis_Plugin_impscan;
 import Advanced_Analysis.Analysis_Report.*;
@@ -3220,7 +3222,7 @@ public class Node_Process
 	}
 	
 	
-	public boolean check_to_display_consoles()
+	public boolean check_to_display_consoles(JTabbedPane jtabbed_pane)
 	{
 		try
 		{
@@ -3238,7 +3240,8 @@ public class Node_Process
 			{
 				try
 				{
-					Start.intface.jtabbedpane_AdvancedAnalysis.addTab("Console Output - " + this.get_process_html_header(), jtaConsolesOutput);
+					//Start.intface.jtabbedpane_AdvancedAnalysis.addTab("Console Output - " + this.get_process_html_header(), jtaConsolesOutput);
+					jtabbed_pane.addTab("Console Output - " + this.get_process_html_header(), jtaConsolesOutput);
 					consoles_has_been_added_to_gui = true;	
 				}
 				catch(Exception e)

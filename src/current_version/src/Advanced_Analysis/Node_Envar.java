@@ -131,15 +131,12 @@ public class Node_Envar
 	}
 	
 	
-	public boolean write_manifest_as_single_line(PrintWriter pw, String header, String delimiter)
+	public String write_manifest_as_single_line(PrintWriter pw, String header, String delimiter)
 	{
+		String output = "";
+		
 		try
-		{
-			if(pw == null)
-				return false;	
-			
-			String output = "";
-			
+		{												
 			output = driver.get_trimmed_entry("block", block, delimiter, false, false, "");
 			output = output + delimiter + driver.get_trimmed_entry("variable", variable, delimiter, false, false, "");	
 			output = output + delimiter + driver.get_trimmed_entry("value", value, delimiter, false, false, "");
@@ -147,7 +144,9 @@ public class Node_Envar
 			//
 			//write string!
 			//
-			driver.write_manifest_entry(pw, header, output);
+			
+			if(pw != null)	
+				driver.write_manifest_entry(pw, header, output);
 			
 		}
 		catch(Exception e)
@@ -155,7 +154,7 @@ public class Node_Envar
 			driver.eop(myClassName, "write_manifest_as_single_line", e);
 		}
 		
-		return false;
+		return output;
 	}
 	
 	/**
@@ -175,7 +174,10 @@ public class Node_Envar
 			delimiter = delimiter + " ";
 			
 			if(print_output_as_single_line)
-				return write_manifest_as_single_line(pw, header, delimiter);							 			
+			{
+				write_manifest_as_single_line(pw, header, delimiter);
+				return true;
+			}
 						
 //			driver.write_manifest_entry(pw, header, "block", block);
 //			driver.write_manifest_entry(pw, header, "variable", variable);
@@ -331,6 +333,36 @@ public class Node_Envar
 		
 		return false;
 	}
+	
+	public String get_snapshot_analysis_key()// throws NullPointerException
+	{
+		try
+		{
+			return this.variable;
+		}
+		catch(Exception e)
+		{
+			driver.eop(myClassName, "get_snapshot_analysis_key", e);
+		}
+		
+		return "====****====";
+	}
+	
+	
+	public String get_snapshot_analysis_COMPARATOR_VALUE()// throws NullPointerException
+	{
+		try
+		{
+			return 		this.write_manifest_as_single_line(null, "", "\t");		
+		}
+		catch(Exception e)
+		{
+			driver.eop(myClassName, "get_snapshot_analysis_COMPARATOR_VALUE", e);
+		}
+		
+		return "==+++==";
+	}
+	
 	
 	
 	

@@ -25,6 +25,7 @@ import org.apache.commons.io.LineIterator;
 
 import Advanced_Analysis.Advanced_Analysis_Director;
 import Advanced_Analysis.Node_Generic;
+import Advanced_Analysis.Snapshot_Manifest_Analysis;
 import Advanced_Analysis.Analysis_Plugin.Analysis_Plugin_DumpFiles;
 import Advanced_Analysis.Analysis_Plugin.Analysis_Plugin_EXECUTION;
 import Advanced_Analysis.Analysis_Plugin.Analysis_Plugin_memdump;
@@ -44,6 +45,15 @@ import Snapshot.Snapshot_Driver;
 public class Interface extends Thread implements Runnable, ActionListener, KeyListener
 {
 	public static volatile boolean AUTO_START_ADVANCED_ANALYSIS = false;
+	
+	public volatile Advanced_Analysis_Director advanced_analysis_director_snapshot_1 = null;
+	public volatile Advanced_Analysis_Director advanced_analysis_director_snapshot_2 = null;
+	
+	public volatile FileAttributeData file_attr_manifest_snapshot_1 = null;
+	public volatile FileAttributeData file_attr_manifest_snapshot_2 = null;
+	public volatile File fleSnapshotManifest_1 = null;
+	public volatile File fleSnapshotManifest_2 = null;
+	public volatile Snapshot_Manifest_Analysis snapshot_manifest_analysis = null;
 	
 	public volatile File_XREF file_xref = null;
 	
@@ -98,6 +108,10 @@ public class Interface extends Thread implements Runnable, ActionListener, KeyLi
 	public static volatile JMenu jmnuAdvancedAnalysis = null;
 	public static volatile JMenu jmnuAnalysisReport = null;
 	public static volatile JMenu jmnuSystemManifest = null;
+	
+	public static volatile JMenu jmnuSnapshotAnalysis = null;
+		public static volatile JMenuItem jmnuitm_InitiateSnapshotAnalysis = null;
+	
 	public static volatile JMenu jmnuImport = null;
 	public static volatile JMenu jmnuSpecify = null;
 		public static volatile JMenuItem jmnuitm_ExportSystemManifest = null;
@@ -151,6 +165,9 @@ public class Interface extends Thread implements Runnable, ActionListener, KeyLi
 	public JButton jbtnInitiateAdvancedAnalysis_AdvancedAnalysis = new JButton("Initiate Advanced Analysis");
 	public JPanel jpnlAdvancedAnalysis_Center = null;
 	public JTabbedPane jtabbedpane_AdvancedAnalysis = null;
+	public JTabbedPane jtabbedpane_SnapshotAnalysis_1 = null;
+	public JTabbedPane jtabbedpane_SnapshotAnalysis_2 = null;
+	
 	public static volatile JTextArea_Solomon jpnlAdvancedAnalysisConsole = null;
 	
 	public JPanel jpnlPlugin_Options = null;
@@ -211,6 +228,7 @@ public class Interface extends Thread implements Runnable, ActionListener, KeyLi
 		public static JTabbedPane jtabbedPane_File_XREF_FILE_SCAN  = null;
 		
 		public static JTextArea_Solomon jtaFile_XREF_Search_Results = null;
+		public static JTextArea_Solomon jtaSnapshotAnalysisConsole = null;
 	
 		public static JLabel jlblNum_Dump_Files = null;
 		public static JLabel jlblNum_Container_Files = null;
@@ -488,7 +506,6 @@ public class Interface extends Thread implements Runnable, ActionListener, KeyLi
 					
 					
 					
-					
 				jmnuAnalysisReportProcessTree = new JMenu("Process Tree");
 				jmnuAnalysisReportProcessInformationTree = new JMenu("Process Information Tree");
 				
@@ -504,6 +521,10 @@ public class Interface extends Thread implements Runnable, ActionListener, KeyLi
 				jmnuAdvancedAnalysis.add(jmnuAnalysisReport);
 												
 				jmnuAdvancedAnalysis.add(jmnuSystemManifest);
+				
+				jmnuSnapshotAnalysis = new JMenu("Snapshot Analysis");
+				jmnuitm_InitiateSnapshotAnalysis = new JMenuItem("Initiate Snapshot Analysis");	jmnuSnapshotAnalysis.add(jmnuitm_InitiateSnapshotAnalysis);	jmnuitm_InitiateSnapshotAnalysis.addActionListener(this);  jmnuitm_InitiateSnapshotAnalysis.setEnabled(false);  jmnuitm_InitiateSnapshotAnalysis.setMnemonic(KeyEvent.VK_S);	
+				jmnuAdvancedAnalysis.add(jmnuSnapshotAnalysis);
 				
 				
 				
@@ -950,9 +971,9 @@ public class Interface extends Thread implements Runnable, ActionListener, KeyLi
 			//
 			//NOTIFY USER
 			//
-			driver.directive("///////////////////////////////////////////////////////////////////////////////////");
-			driver.directive("// Welcome to " + Driver.FULL_NAME + " by Solomon Sonya @Carpenter1010\t//");
-			driver.directive("/////////////////////////////////////////////////////////////////////////////////\n");
+			driver.directive("///////////////////////////////////////////////////////////////////////////////");
+			driver.directive("// Welcome to " + Driver.FULL_NAME + " by Solomon Sonya @Carpenter1010    //");
+			driver.directive("/////////////////////////////////////////////////////////////////////////////\n");
 			
 			jbtnSearchImage.setToolTipText("<html>Enter specific keywords to search for hits through a specified image. <br>A new Tab will appear to allow you to select an image and enter keywords to search for hits.</html>");
 			this.jbtnHailMary.setToolTipText("<html><b>Proceed with caution on this one.</b> <br>Selecting this will enable every applicable plugin for analysis.<br>After selecting, click on Analyze to begin analysis.</html>");
@@ -964,6 +985,52 @@ public class Interface extends Thread implements Runnable, ActionListener, KeyLi
 			
 			menu_bar.add(jmnuHelp);
 			
+			//
+			//initialize dependencies
+			//
+			initialize_dependencies();
+			
+			
+			driver.directive("\nInitial Configuration Complete.");			
+	        driver.directive("\tPlease refer to the Volatility Configuration tab to view various options and plugins supported by this sample.");
+	        driver.directive("\tWhen you are ready, please enable one or more plugins from the top Plugins tab. ");
+	        driver.directive("\tPress Preview after making you selection(s) to load your selected plugins as well as view applicable parameters in the Memory Analysis tab.");
+	        driver.directive("\tFinally, press Analyze to run the analysis process for all selected plugins. Alternatively, you can select Execute from each plugin tab to run the analysis commands individually.");
+	        driver.directive("\tYou may also search through an image (e.g. hibernation file or pagefile) for specific keyword hits. You can click on the Search Image button for individual keyword searches.");
+	        driver.directive("\tHappy Hunting! - Solomon Sonya @Carpenter1010");
+			
+			
+			
+			jfrm.addWindowListener(new java.awt.event.WindowAdapter()
+			{
+				public void windowClosing(java.awt.event.WindowEvent e)
+				{
+					close();
+				}
+			});
+			
+			jfrm.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+			
+			jfrm.validate();
+			return true;
+		}
+		catch(Exception e)
+		{
+			driver.eop(myClassName, "initialize_component", e, true);
+		}
+		
+		return false;
+	}
+	
+	
+	/**
+	 * continuation mtd
+	 * @return
+	 */
+	public boolean initialize_dependencies()
+	{
+		try
+		{
 			//
 			//check if we have a config file or import files already completed
 			//
@@ -1035,33 +1102,11 @@ public class Interface extends Thread implements Runnable, ActionListener, KeyLi
 			//
 			specify_investigation_details(false);
 			
-			
-			driver.directive("\nInitial Configuration Complete.");			
-	        driver.directive("\tPlease refer to the Volatility Configuration tab to view various options and plugins supported by this sample.");
-	        driver.directive("\tWhen you are ready, please enable one or more plugins from the top Plugins tab. ");
-	        driver.directive("\tPress Preview after making you selection(s) to load your selected plugins as well as view applicable parameters in the Memory Analysis tab.");
-	        driver.directive("\tFinally, press Analyze to run the analysis process for all selected plugins. Alternatively, you can select Execute from each plugin tab to run the analysis commands individually.");
-	        driver.directive("\tYou may also search through an image (e.g. hibernation file or pagefile) for specific keyword hits. You can click on the Search Image button for individual keyword searches.");
-	        driver.directive("\tHappy Hunting! - Solomon Sonya @Carpenter1010");
-			
-			
-			
-			jfrm.addWindowListener(new java.awt.event.WindowAdapter()
-			{
-				public void windowClosing(java.awt.event.WindowEvent e)
-				{
-					close();
-				}
-			});
-			
-			jfrm.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
-			
-			jfrm.validate();
 			return true;
 		}
 		catch(Exception e)
 		{
-			driver.eop(myClassName, "initialize_component", e, true);
+			driver.eop(myClassName, "initialize_dependencies", e);
 		}
 		
 		return false;
@@ -1114,9 +1159,12 @@ public class Interface extends Thread implements Runnable, ActionListener, KeyLi
 			String plugin_autorun = "";
 			
 			try	{list_plugin_autorun.clear();} catch(Exception e){ list_plugin_autorun = new LinkedList<String>();}		
+			
+			boolean i_read_config_file = false;
+			
 			for(File fle : list)
 			{
-				if(fle == null)
+				if(fle == null || i_read_config_file)
 					continue;
 				
 				path = fle.getCanonicalPath().trim();
@@ -1128,6 +1176,8 @@ public class Interface extends Thread implements Runnable, ActionListener, KeyLi
 				
 				BufferedReader br = new BufferedReader(new FileReader(fle));
 				
+				i_read_config_file = true;
+				
 				while((line = br.readLine()) != null)
 				{
 					line = line.replace("\"", "").trim();
@@ -1137,6 +1187,9 @@ public class Interface extends Thread implements Runnable, ActionListener, KeyLi
 					
 					lower = line.toLowerCase().trim();
 					
+					//
+					//investigator_name
+					//
 					if(lower.startsWith("investigator_name"))
 					{
 						investigator_name = line.substring(17).trim();
@@ -1153,6 +1206,9 @@ public class Interface extends Thread implements Runnable, ActionListener, KeyLi
 						sop("Setting investigator_name= \"" + investigator_name + "\"");
 					}
 					
+					//
+					//investigation_description
+					//
 					else if(lower.startsWith("investigation_description"))
 					{
 						investigation_description = line.substring(25).trim();
@@ -1169,6 +1225,9 @@ public class Interface extends Thread implements Runnable, ActionListener, KeyLi
 						sop("Setting investigation_description= \"" + investigation_description + "\"");
 					}
 					
+					//
+					//profile
+					//
 					else if(lower.startsWith("profile"))
 					{
 						PROFILE = line.substring(7).trim();
@@ -1185,7 +1244,9 @@ public class Interface extends Thread implements Runnable, ActionListener, KeyLi
 						sop("Setting profile= \"" + PROFILE + "\"");
 					}
 					
-					
+					//
+					//plugin_autorun
+					//
 					else if(lower.startsWith("plugin_autorun"))
 					{
 						plugin_autorun = line.substring(14).trim();
@@ -1205,6 +1266,14 @@ public class Interface extends Thread implements Runnable, ActionListener, KeyLi
 					
 				}
 				
+				//
+				//close file
+				//
+				br.close();
+				
+				//
+				//Profile Autorun
+				//
 				if(list_plugin_autorun != null && list_plugin_autorun.size() > 0)
 				{
 					if(list_plugin_autorun.size() == 1)
@@ -1222,7 +1291,7 @@ public class Interface extends Thread implements Runnable, ActionListener, KeyLi
 					
 				}
 				
-				br.close();
+				
 			}
 			
 			
@@ -1510,7 +1579,7 @@ public class Interface extends Thread implements Runnable, ActionListener, KeyLi
 			list = driver.getFileListing(Start.fleImportMemoryAnalysisDirectory, true, null, list);
 			boolean volatility_name_found = false;
 			
-			
+			String file_name = "";
 			
 			if(list != null && !list.isEmpty())
 			{
@@ -1520,7 +1589,9 @@ public class Interface extends Thread implements Runnable, ActionListener, KeyLi
 					if(fle == null || !fle.exists() || !fle.isFile() || !fle.getCanonicalPath().toLowerCase().trim().endsWith("exe"))
 						continue;
 					
-					if(fle.getName().startsWith("volatility") || fle.getName().startsWith("vol"))
+					file_name = fle.getName().toLowerCase().trim();
+					
+					if(file_name.startsWith("volatility") || file_name.startsWith("vol"))
 					{
 						Interface.fle_volatility = fle;
 						volatility_name_found = true;
@@ -1528,7 +1599,7 @@ public class Interface extends Thread implements Runnable, ActionListener, KeyLi
 					}
 				}
 				
-				//check if nothing with "volatility" in its name was found
+				//check if anything with "volatility" in its name was found
 				if(!volatility_name_found)
 				{
 					driver.directive("NOTE: I could not find volatility named executable, I'm searching for next executable to use in my analysis");
@@ -1609,12 +1680,22 @@ public class Interface extends Thread implements Runnable, ActionListener, KeyLi
 			list = driver.getFileListing(Start.fleImportMemoryImageDirectory, true, null, list);
 			boolean import_image = false;
 			
+			String file_name = "";
+			
 			if(list != null && !list.isEmpty())
 			{
 				//at least there are files, iterate through to select the first one that has volatility
 				for(File fle : list)
 				{
 					if(fle == null || !fle.exists() || !fle.isFile())
+						continue;
+					
+					file_name = fle.getName().toLowerCase().trim();
+					
+					//
+					//omit config file
+					//
+					if(file_name.endsWith(".conf"))
 						continue;
 					
 					//take the first file found
@@ -1675,6 +1756,7 @@ public class Interface extends Thread implements Runnable, ActionListener, KeyLi
 			jmnuitm_ImportSystemManifest.setEnabled(true);
 			jmnuitm_ImportSystemManifest_from_file_menu.setEnabled(true);
 			jmnuitm_Initiate_Advanced_Analysis.setEnabled(true);
+			jmnuitm_InitiateSnapshotAnalysis.setEnabled(true);
 			
 			if(AUTO_START_ADVANCED_ANALYSIS)
 			{
@@ -1682,11 +1764,66 @@ public class Interface extends Thread implements Runnable, ActionListener, KeyLi
 				this.execute_advanced_analysis();
 			}
 			
+			//
+			//driver.directive("AUTO_START SNAPSHOT ANALYSIS in " + myClassName + " initial_configuration_complete_enable_gui mtd");
+			//AUTO_INITIATE_SNAPSHOT_ANALYSIS();
+			
 			return true;
 		}
 		catch(Exception e)
 		{
 			driver.eop(myClassName, "initial_configuration_complete_enable_gui", e);
+		}
+		
+		return false;
+	}
+	
+	public boolean AUTO_INITIATE_SNAPSHOT_ANALYSIS()
+	{
+		try
+		{
+			if(jtaSnapshotAnalysisConsole == null)
+			{								
+				jtaSnapshotAnalysisConsole = new JTextArea_Solomon("", true, "Snapshot Analysls", false);				
+				Start.intface.populate_export_btn(jtaSnapshotAnalysisConsole);
+				Start.intface.jtabbedPane_MAIN.addTab("Snapshot Analysis", jtaSnapshotAnalysisConsole);								
+			}
+			else
+				jtaSnapshotAnalysisConsole.clear();
+			
+			//get focus
+			try	{	Start.intface.jtabbedPane_MAIN.setSelectedComponent(jtaSnapshotAnalysisConsole);}catch(Exception e){}
+			
+			fleSnapshotManifest_1 = new File("C:\\Users\\Solomon Sonya\\Desktop\\_manifest.txt");
+			fleSnapshotManifest_2 = new File("C:\\Users\\Solomon Sonya\\Desktop\\_manifest2.txt");
+			
+			file_attr_manifest_snapshot_1 = new FileAttributeData(fleSnapshotManifest_1, true, true);
+			file_attr_manifest_snapshot_2 = new FileAttributeData(fleSnapshotManifest_2, true, true);
+			
+			jtaSnapshotAnalysisConsole.append("Manifest File Snapshot Analysis initialized.\n" + driver.UNDERLINE);
+			jtaSnapshotAnalysisConsole.append("Manifest Snapshot File [1]: " + fleSnapshotManifest_1);
+			jtaSnapshotAnalysisConsole.append("Manifest Snapshot File [2]: " + fleSnapshotManifest_2);
+			
+			
+			if(file_attr_manifest_snapshot_1.is_hashing_complete)
+				jtaSnapshotAnalysisConsole.append("Manifest Snapshot File [1] Particulars: " + file_attr_manifest_snapshot_1.toString("\n"));
+			if(file_attr_manifest_snapshot_2.is_hashing_complete)
+				jtaSnapshotAnalysisConsole.append("Manifest Snapshot File [2] Particulars: " + file_attr_manifest_snapshot_2.toString("\n"));
+			
+			
+			jtaSnapshotAnalysisConsole.append("\nImporting manifest [1]: " + fleSnapshotManifest_1.getName() + ". Please standby...");
+			
+			configure_gui_for_snapshot_analysis();
+			
+			//only execute 1st snapshot import. when finished, trigger to call the next one
+			advanced_analysis_director_snapshot_1 = new Advanced_Analysis_Director(fleSnapshotManifest_1, 1, this);
+			
+			
+			return true;
+		}
+		catch(Exception e)
+		{
+			driver.eop(myClassName, "AUTO_INITIATE_SNAPSHOT_ANALYSIS", e);
 		}
 		
 		return false;
@@ -1722,77 +1859,69 @@ public class Interface extends Thread implements Runnable, ActionListener, KeyLi
 				}
 			}
 			
-			String profile = PROFILE;
 			
-			if(list_profiles == null || list_profiles.isEmpty())
+			//
+			//determine if we have profile
+			//
+			if(PROFILE == null || PROFILE.length() < 2 || override_to_query_user)
 			{
-				if(Interface.fle_memory_image != null && Interface.fle_memory_image.exists() && Interface.fle_memory_image.isFile())
-					profile = driver.jop_Query("Please specify profile to load for this analysis:", "* Specify Profile for Image [" + Interface.fle_memory_image.getName() + "]");
-				else
-					profile = driver.jop_Query("Please specify profile to load for this analysis:", "* Specify Profile *");
-			}
-			
-			else
-			{
-				try
-				{
-					initial_configuration_complete_enable_gui();
-					
-					if(Plugin.list_plugins == null)
-						this.jlblNumPluginsDisplayed.setText(num_plugin_displayed_text + "[0]");
-					else
-						this.jlblNumPluginsDisplayed.setText(num_plugin_displayed_text + "[" + Plugin.list_plugins.size() + "]");
-					
-				}catch(Exception e){}
-				
-				
-				//otw, convert list of plugins to array to send to the JOP query message
-				String [] array = new String[list_profiles.size()];
-				
-				for(int i = 0; i < list_profiles.size(); i++)
-				{
-					array[i] = list_profiles.get(i);
-				}
-												
-				
-				//check if we already have profile set e.g. from setup.conf
-				if(override_to_query_user || PROFILE == null || PROFILE.length() < 2)
+				if(list_profiles == null || list_profiles.isEmpty())
 				{
 					if(Interface.fle_memory_image != null && Interface.fle_memory_image.exists() && Interface.fle_memory_image.isFile())
-						profile = ""+ driver.jop_queryJComboBox("Please specify profile to load for this analysis:", "Specify Profile for Image [" + Interface.fle_memory_image.getName() + "]", array);
+						PROFILE = driver.jop_Query("Please specify profile to load for this analysis:", "* Specify Profile for Image [" + Interface.fle_memory_image.getName() + "]");
 					else
-						profile = ""+ driver.jop_queryJComboBox("Please specify profile to load for this analysis:", "Specify Profile", array);
+						PROFILE = driver.jop_Query("* * * Please specify profile to load for this analysis:", "* Specify Profile *");
 				}
+				else
+				{
+					//otw, convert list of plugins to array to send to the JOP query message
+					String [] array = new String[list_profiles.size()];
 					
-				
-				
-				
+					for(int i = 0; i < list_profiles.size(); i++)
+					{
+						array[i] = list_profiles.get(i);
+					}
+					
+					if(Interface.fle_memory_image != null && Interface.fle_memory_image.exists() && Interface.fle_memory_image.isFile())
+						PROFILE = ""+ driver.jop_queryJComboBox("* Please specify profile to load for this analysis:", "Specify Profile for Image [" + Interface.fle_memory_image.getName() + "]", array);
+					else
+						PROFILE = ""+ driver.jop_queryJComboBox("* * Please specify profile to load for this analysis:", "Specify Profile", array);
+				}
 			}
+						
 			
-			//MANUAL ENTRY IF LIST FAILED ABOVE
-			if(profile == null || profile.trim().equals("") || profile.equalsIgnoreCase("null"))
-				profile = driver.jop_Query("No profile has been entered. \nPlease specify profile to load for this analysis:", "Specify Profile");
+//			
+//			//MANUAL ENTRY IF LIST FAILED ABOVE
+//			if(profile == null || profile.trim().equals("") || profile.equalsIgnoreCase("null"))
+//				profile = driver.jop_Query("No profile has been entered. \nPlease specify profile to load for this analysis:", "Specify Profile");
+//			
+//			if(profile == null)
+//			{
+//				driver.jop_Error("NOTE: No valid profile has been specified. This could contaminate results of our analysis...");
+//				return false;
+//			}
+//			
+//			profile = profile.trim();
+//			
+//			String [] array = profile.split(" ");
+//			
+//			if(array == null || array.length < 1)
+//				array = profile.split("\t");
+//			
+//			if(array == null || array.length < 1)
+//				array = profile.split("-");
+//			
+//			if(array != null && array.length > 0)
+//				profile = array[0].trim();
+//									
+//			PROFILE = profile;
 			
-			if(profile == null)
-			{
-				driver.jop_Error("NOTE: No valid profile has been specified. This could contaminate results of our analysis...");
-				return false;
-			}
+			initial_configuration_complete_enable_gui();
 			
-			profile = profile.trim();
-			
-			String [] array = profile.split(" ");
-			
-			if(array == null || array.length < 1)
-				array = profile.split("\t");
-			
-			if(array == null || array.length < 1)
-				array = profile.split("-");
-			
-			if(array != null && array.length > 0)
-				profile = array[0].trim();
-									
-			PROFILE = profile;
+			if(Plugin.list_plugins == null)
+				this.jlblNumPluginsDisplayed.setText(num_plugin_displayed_text + "[0]");
+			else
+				this.jlblNumPluginsDisplayed.setText(num_plugin_displayed_text + "[" + Plugin.list_plugins.size() + "]");
 			
 			this.jlblProfile.setText("  Profile: " + PROFILE);
 			this.jlblProfile.setToolTipText("  Profile: " + PROFILE);
@@ -2445,7 +2574,7 @@ public class Interface extends Thread implements Runnable, ActionListener, KeyLi
 			
 			if(fle != null && fle.exists() && fle.isFile())
 			{
-				advanced_analysis_director = new Advanced_Analysis_Director(fle);
+				advanced_analysis_director = new Advanced_Analysis_Director(fle, -1, null);
 			}
 			
 			return true;
@@ -2458,6 +2587,145 @@ public class Interface extends Thread implements Runnable, ActionListener, KeyLi
 		return false;
 	}
 	
+	
+	public boolean initiate_snapshot_analysis()
+	{
+		try
+		{
+			if(jtaSnapshotAnalysisConsole == null)
+			{								
+				jtaSnapshotAnalysisConsole = new JTextArea_Solomon("", true, "Snapshot Analysls", false);				
+				Start.intface.populate_export_btn(jtaSnapshotAnalysisConsole);
+				Start.intface.jtabbedPane_MAIN.addTab("Snapshot Analysis", jtaSnapshotAnalysisConsole);								
+			}
+			else
+				jtaSnapshotAnalysisConsole.clear();
+			
+			//get focus
+			try	{	Start.intface.jtabbedPane_MAIN.setSelectedComponent(jtaSnapshotAnalysisConsole);}catch(Exception e){}
+			
+			fleSnapshotManifest_1 = driver.querySelectFile(true, "Please select snapshot manifest file 1", JFileChooser.FILES_ONLY, driver.LAST_FILE_SELECTED);
+			
+			if(fleSnapshotManifest_1 == null)
+				return false;
+			
+			if(!fleSnapshotManifest_1.exists() || !fleSnapshotManifest_1.isFile() || fleSnapshotManifest_1.length() < 10)
+			{
+				driver.jop_Error("It appears an invalid file was selected.\nPlease try again if necessary...");
+				return false;
+			}
+			
+			fleSnapshotManifest_2 = driver.querySelectFile(true, "Please select snapshot manifest file 2", JFileChooser.FILES_ONLY, driver.LAST_FILE_SELECTED);
+			
+			if(fleSnapshotManifest_2 == null || !fleSnapshotManifest_2.exists() || !fleSnapshotManifest_2.isFile() || fleSnapshotManifest_2.length() < 10)
+			{
+				driver.jop_Error("It appears an invalid snapshot manifest 2 file was selected.\nI cannot initiate snapshot analysis if one of the manifest input files are invalid.\nPlease try again if necessary...");
+				return false;
+			}
+			
+			if(fleSnapshotManifest_1.getCanonicalPath().equals(fleSnapshotManifest_2.getCanonicalPath()))
+			{
+				driver.jop_Error("Punt!!! System Manifest Snapshot File [1] must be different than System Manifest Snapshot File [2]");
+				return false;
+			}
+			
+			file_attr_manifest_snapshot_1 = new FileAttributeData(fleSnapshotManifest_1, true, true);
+			file_attr_manifest_snapshot_2 = new FileAttributeData(fleSnapshotManifest_2, true, true);
+			
+			jtaSnapshotAnalysisConsole.append("Manifest File Snapshot Analysis initialized.\n" + driver.UNDERLINE);
+			jtaSnapshotAnalysisConsole.append("Manifest Snapshot File [1]: " + fleSnapshotManifest_1);
+			jtaSnapshotAnalysisConsole.append("Manifest Snapshot File [2]: " + fleSnapshotManifest_2);
+			
+			
+			if(file_attr_manifest_snapshot_1.is_hashing_complete)
+				jtaSnapshotAnalysisConsole.append("Manifest Snapshot File [1] Particulars: " + file_attr_manifest_snapshot_1.toString("\n"));
+			if(file_attr_manifest_snapshot_2.is_hashing_complete)
+				jtaSnapshotAnalysisConsole.append("Manifest Snapshot File [2] Particulars: " + file_attr_manifest_snapshot_2.toString("\n"));
+			
+			
+			jtaSnapshotAnalysisConsole.append("\nImporting manifest [1]: " + fleSnapshotManifest_1.getName() + ". Please standby...");
+			
+			configure_gui_for_snapshot_analysis();
+			
+			//only execute 1st snapshot import. when finished, trigger to call the next one
+			advanced_analysis_director_snapshot_1 = new Advanced_Analysis_Director(fleSnapshotManifest_1, 1, this);
+			
+			//wait to trigger by completion of the first snapshot to commence snapshot number 2
+			
+			return true;
+		}
+		catch(Exception e)
+		{
+			driver.eop(myClassName, "initiate_snapshot_analysis", e);
+		}
+		
+		return false;
+	}
+	
+	public boolean configure_gui_for_snapshot_analysis()
+	{
+		try
+		{
+			this.jtabbedpane_SnapshotAnalysis_1 = new JTabbedPane(JTabbedPane.LEFT);
+			this.jtabbedpane_SnapshotAnalysis_2 = new JTabbedPane(JTabbedPane.LEFT);
+			
+			jtabbedpane_AdvancedAnalysis.addTab("Snapshot Manifest Analysis 1 [" + this.fleSnapshotManifest_1.getName() + "]", jtabbedpane_SnapshotAnalysis_1);
+			jtabbedpane_AdvancedAnalysis.addTab("Snapshot Manifest Analysis 2 [" + this.fleSnapshotManifest_2.getName() + "]", jtabbedpane_SnapshotAnalysis_2);
+			
+			return true;
+		}
+		catch(Exception e)
+		{
+			driver.eop(myClassName, "configure_gui_for_snapshot_analysis", e);
+		}
+		
+		return false;
+	}
+	
+	/**
+	 * continuation mtd from initiate_snapshot_analysis
+	 * @return
+	 */
+	public boolean trigger_commence_snspshot_analysis_SNAPSHOT_2()
+	{
+		try
+		{
+			jtaSnapshotAnalysisConsole.append("DONE! Importing manifest [2]: " + fleSnapshotManifest_2.getName() + ". Please standby...");
+			advanced_analysis_director_snapshot_2 = new Advanced_Analysis_Director(fleSnapshotManifest_2, 2, this);
+			
+			return true;
+		}
+		catch(Exception e)
+		{
+			driver.eop(myClassName, "trigger_commence_snspshot_analysis_SNAPSHOT_2", e);
+		}
+		
+		return false;
+		
+	}
+	
+	public boolean trigger_execute_snspshot_analysis()
+	{
+		try
+		{
+			jtaSnapshotAnalysisConsole.append("DONE! Import complete. Starting comparison analysis.");
+			
+			//
+			//Phase 1: Search for added artifacts
+			//
+			snapshot_manifest_analysis = new Snapshot_Manifest_Analysis(this, this.advanced_analysis_director_snapshot_1, this.advanced_analysis_director_snapshot_2);
+			
+			
+			return true;
+		}
+		catch(Exception e)
+		{
+			driver.eop(myClassName, "trigger_execute_snspshot_analysis", e);
+		}
+		
+		return false;
+	}
+	
 	public void actionPerformed(ActionEvent ae)
 	{
 		try
@@ -2465,6 +2733,11 @@ public class Interface extends Thread implements Runnable, ActionListener, KeyLi
 			if(ae.getSource() == jmnuitm_Close)
 			{
 				close();
+			}
+			
+			else if(ae.getSource() == jmnuitm_InitiateSnapshotAnalysis)
+			{
+				initiate_snapshot_analysis();
 			}
 			
 			else if(ae.getSource() == jmnuitm_Only_Show_Button_If_Execution_Plugins_Detected)
@@ -3549,6 +3822,7 @@ public class Interface extends Thread implements Runnable, ActionListener, KeyLi
 			
 			LineIterator line_iterator = new LineIterator(brIn);
 			String line = "";
+			String lower = "";
 		    try 
 		    {
 		        while (line_iterator.hasNext()) 
@@ -3557,7 +3831,12 @@ public class Interface extends Thread implements Runnable, ActionListener, KeyLi
 		        	
 		        	if(line == null)
 		        		continue;
+		        	
+		        	lower = line.toLowerCase().trim();
 
+		        	//On Windows, ensure x86 or x64 is the binary in use
+		        	if(lower.contains("is not compatible with the version of Windows") && lower.contains("check your computer's system information to see whether you need a x86 (32-bit) or x64 (64-bit) version of the program"))
+		        		driver.jop_Error("it is you are attempting to run an incompatible volatility version on this OS.\nCheck that your OS is compatible with x86 or x64 version of volatility and try again...", "* * ERROR * * Possible Incompatible volatility selected!!!");
 		        	
 		        	if(line.toLowerCase().contains("supported plugin"))
 		        		supported_plugins_found = true;
@@ -3577,7 +3856,6 @@ public class Interface extends Thread implements Runnable, ActionListener, KeyLi
 		        //
 		        if(!supported_plugins_found)
 		        {
-		        	driver.jop_Error("Error! It doesn't look a valid Volatility executable was selected...", false);
 		        	return false;
 		        }
 		        
@@ -3919,7 +4197,7 @@ public class Interface extends Thread implements Runnable, ActionListener, KeyLi
 		        //
 		        if(list_volatility_info_configuration_PROFILES == null || list_volatility_info_configuration_PROFILES.isEmpty())
 		        {
-		        	driver.jop_Error("Error!!! It doesn't look a valid Volatility executable was selected...", false);
+		        	driver.jop_Error("Error!!! It doesn't look like a valid Volatility executable was selected...", false);
 		        	return false;
 		        }
 		        

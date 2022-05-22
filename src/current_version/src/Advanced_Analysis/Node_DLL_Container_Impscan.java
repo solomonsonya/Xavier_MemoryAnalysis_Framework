@@ -482,6 +482,23 @@ public class Node_DLL_Container_Impscan
 	
 	
 	
+	public String get_snapshot_analysis_key()// throws NullPointerException
+	{
+		try
+		{
+			return this.module_name_lower;
+		}
+		catch(Exception e)
+		{
+			driver.eop(myClassName, "get_snapshot_analysis_key", e);
+		}
+		
+		return this.module_name_lower;
+	}
+	
+	
+	
+	
 	
 	
 	

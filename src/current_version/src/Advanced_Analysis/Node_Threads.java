@@ -596,6 +596,60 @@ public volatile Node_Process process = null;
 		return false;
 	}
 	
+	public String get_snapshot_analysis_key()// throws NullPointerException
+	{
+		try
+		{
+			return this.ethread_address;
+		}
+		catch(Exception e)
+		{
+			driver.eop(myClassName, "get_snapshot_analysis_key", e);
+		}
+		
+		return ethread_address;
+	}
+	
+	
+	public String get_snapshot_analysis_COMPARATOR_VALUE()// throws NullPointerException
+	{
+		String output = "";
+		
+		try
+		{
+			output = output + "	TID:	 " +  TID;
+			output = output + "	ethread_address:	 " +  ethread_address;
+			output = output + "	pid:	 " +  pid;
+			output = output + "	tags:	 " +  tags;
+			output = output + "	created:	 " +  created;
+			output = output + "	exited:	 " +  exited;
+			output = output + "	owning_process_name:	 " +  owning_process_name;
+			output = output + "	attached_process_name:	 " +  attached_process_name;
+			output = output + "	state:	 " +  state;
+			output = output + "	base_priority:	 " +  base_priority;
+			output = output + "	priority:	 " +  priority;
+			output = output + "	TEB:	 " +  TEB;
+			output = output + "	start_address:	 " +  start_address;
+			output = output + "	service_table_address:	 " +  service_table_address;
+			output = output + "	service_table_0:	 " +  service_table_0;
+			output = output + "	service_table_1:	 " +  service_table_1;
+			output = output + "	service_table_2:	 " +  service_table_2;
+			output = output + "	service_table_3:	 " +  service_table_3;
+			output = output + "	win32thread:	 " +  win32thread;
+			output = output + "	crossThreadFlags:	 " +  crossThreadFlags;
+			
+			output = output.trim();
+		}
+		catch(Exception e)
+		{
+			driver.eop(myClassName, "get_snapshot_analysis_COMPARATOR_VALUE", e);
+		}
+		
+		return output;
+	}
+	
+	
+	
 	
 	
 	

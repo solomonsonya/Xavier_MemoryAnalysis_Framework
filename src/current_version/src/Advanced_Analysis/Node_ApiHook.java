@@ -350,6 +350,54 @@ public class Node_ApiHook
 	
 	
 	
+	public String get_snapshot_analysis_key()// throws NullPointerException
+	{
+		try
+		{
+			return this.hook_address;
+		}
+		catch(Exception e)
+		{
+			driver.eop(myClassName, "get_snapshot_analysis_key", e);
+		}
+		
+		return hook_address;
+	}
+	
+	
+	public String get_snapshot_analysis_COMPARATOR_VALUE()// throws NullPointerException
+	{
+		String output = "";
+		
+		try
+		{
+			output = output + "hook_mode:  " +  hook_mode + "\t";
+			output = output + "hook_type:  " +  hook_type + "\t";
+			output = output + "process_line:  " +  process_line + "\t";
+			output = output + "pid:  " +  pid + "\t";
+			output = output + "process_name:  " +  process_name + "\t";
+			output = output + "PID:  " +  PID + "\t";
+			output = output + "victim_module_line:  " +  victim_module_line + "\t";
+			output = output + "victim_module_name:  " +  victim_module_name + "\t";
+			output = output + "victim_module_base_address:  " +  victim_module_base_address + "\t";
+			output = output + "function:  " +  function + "\t";
+			output = output + "hook_address:  " +  hook_address + "\t";
+			output = output + "hooking_module:  " +  hooking_module + "\t";
+			output = output + "MZ_Detected:  " +  MZ_Detected + "\t";
+			output = output + "Trampoline_Initial_JMP_Detected:  " +  Trampoline_Initial_JMP_Detected + "\t";
+
+
+			
+			output = output.trim();
+		}
+		catch(Exception e)
+		{
+			driver.eop(myClassName, "get_snapshot_analysis_COMPARATOR_VALUE", e);
+		}
+		
+		return output;
+	}
+	
 	
 	
 	

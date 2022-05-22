@@ -287,7 +287,19 @@ public class Node_get_service_sid
 	
 	
 	
-	
+	public String toString()
+	{
+		try
+		{
+			return "Name: " + this.name + "\tService SID: " + this.sid; 
+		}
+		catch(Exception e)
+		{
+			driver.eop(myClassName, "toString", e);
+		}
+		
+		return this.name;
+	}
 	
 	
 	

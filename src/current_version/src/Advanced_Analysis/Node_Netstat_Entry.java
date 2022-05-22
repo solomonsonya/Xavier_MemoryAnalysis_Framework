@@ -198,6 +198,96 @@ public class Node_Netstat_Entry
 		return false;
 	}
 	
+	public boolean notify_user_netstat_entry()
+	{
+		try
+		{
+			if(this.process == null || this.process.director == null)				
+				return false;
+			
+			//validate
+			if(lookup.equals(""))
+				return false;
+			if(lookup.startsWith("10."))
+				return false;
+			if(lookup.startsWith("192.168"))
+        		return false;
+			if(driver.is_private_ipv4_address(lookup))
+				return true;
+			
+			if(this.process.director.jtaNetstatConsole == null)
+			{								
+				this.process.director.jtaNetstatConsole = new JTextArea_Solomon("", true, "Netstat", false);				
+				Start.intface.populate_export_btn(this.process.director.jtaNetstatConsole);
+				
+				if(process.director.system_manifest_snapshot_number < 0 || process.director.intrface == null)
+					Start.intface.jtabbedpane_AdvancedAnalysis.addTab("Netstat", this.process.director.jtaNetstatConsole);
+				else if(process.director.system_manifest_snapshot_number == 1 && process.director.intrface != null && process.director.intrface.jtabbedpane_SnapshotAnalysis_1 != null)
+					Start.intface.jtabbedpane_SnapshotAnalysis_1.addTab("Netstat", this.process.director.jtaNetstatConsole);	
+				else if(process.director.system_manifest_snapshot_number == 2 && process.director.intrface != null && process.director.intrface.jtabbedpane_SnapshotAnalysis_2 != null)
+					Start.intface.jtabbedpane_SnapshotAnalysis_2.addTab("Netstat", this.process.director.jtaNetstatConsole);
+				else
+					Start.intface.jtabbedpane_AdvancedAnalysis.addTab("Netstat", this.process.director.jtaNetstatConsole);
+				
+				try	{	Start.intface.jtabbedpane_AdvancedAnalysis.setToolTipTextAt(1, "<html>Netstat Entries are Tab-separated values<br>You can paste these entries for instance into an Excel type spreadsheet, <br> and sort by time_focused to provide indications of programs the user spent more time using.  </html>");} catch(Exception e){}
+				
+				this.process.director.sop("Snip of Netstat Entries are populated for your review. You can copy these entries into a spreadsheet to analyze and sort for artifacts of interest." );
+				
+				//print header
+				this.process.director.jtaNetstatConsole.append("protocol\tlocal address\tforeign address\tcreated\tpid\tprocess name\tstate\tppid\tparent process name");
+			}
+			
+			//
+			//write entry
+			//
+			this.process.director.jtaNetstatConsole.append_sp(protocol);
+			this.process.director.jtaNetstatConsole.append_sp("\t" + local_address);
+			this.process.director.jtaNetstatConsole.append_sp("\t" + foreign_address);
+			
+			
+			if(creation_date != null && !creation_date.trim().equals(""))
+				this.process.director.jtaNetstatConsole.append_sp("\t" + creation_date + " " + creation_time + " " + creation_utc);
+			else
+				this.process.director.jtaNetstatConsole.append_sp("\t-");
+			
+			
+			
+			this.process.director.jtaNetstatConsole.append_sp("\t" + PID);
+			
+			if(this.process != null)
+				this.process.director.jtaNetstatConsole.append_sp("\t" + this.process.process_name);
+			else
+				this.process.director.jtaNetstatConsole.append_sp("\t" + "-");
+			
+			if(state != null)
+				this.process.director.jtaNetstatConsole.append_sp("\t" + state);
+			else
+				this.process.director.jtaNetstatConsole.append_sp("\t" + "-");
+			
+			if(this.process != null)
+				this.process.director.jtaNetstatConsole.append_sp("\t" + this.process.PPID);
+			else
+				this.process.director.jtaNetstatConsole.append_sp("\t" + "-");
+			
+			if(this.process.parent_process != null)
+				this.process.director.jtaNetstatConsole.append_sp("\t" + this.process.parent_process.process_name);
+			else
+				this.process.director.jtaNetstatConsole.append_sp("\t" + "-");
+			
+			
+			//terminate entries
+			this.process.director.jtaNetstatConsole.append_sp("\n");
+			
+			return true;
+		}
+		catch(Exception e)
+		{
+			driver.eop(myClassName, "notify_user_netstat_entry", e);
+		}
+		
+		return false; 
+	}
+	
 	public boolean whois(String PATH_fle_analysis_directory)
 	{
 		try
@@ -221,6 +311,14 @@ public class Node_Netstat_Entry
         		return false;
 			if(driver.is_private_ipv4_address(lookup))
 				return true;
+			
+			
+			//
+			//conduct lookup
+			//
+			
+			//save entry to interface
+			notify_user_netstat_entry();
 			
 			//normalize
 			if(lookup.contains("http://"))
@@ -812,6 +910,11 @@ public class Node_Netstat_Entry
 			if(director != null)
 				director.tree_NETSTAT.put(process.PID, process);
 			
+			/////////////////////////////////////////////////////////////////////////
+			// update UI if foreign ip detected
+			/////////////////////////////////////////////////////////////////////////
+			node.notify_user_netstat_entry();
+			
 			return true;
 		}
 		catch(Exception e)
@@ -823,11 +926,75 @@ public class Node_Netstat_Entry
 	}
 	
 	
+	public String get_snapshot_analysis_key()// throws NullPointerException
+	{
+		try
+		{
+			return this.local_address;
+		}
+		catch(Exception e)
+		{
+			driver.eop(myClassName, "get_snapshot_analysis_key", e);
+		}
+		
+		return "==--==";
+	}
 	
 	
 	
-	
-	
+	public String get_snapshot_analysis_COMPARATOR_VALUE()
+	{
+		try
+		{
+			return 	
+					//
+					//connections - Windows XP and 2003 only
+					//
+					driver.get_trimmed_entry("offset_connections", offset_connections, "	", true, false, ":") 	+ 
+					driver.get_trimmed_entry("local_address", local_address, "	", true, false, ":") 				+ 
+					driver.get_trimmed_entry("foreign_address", foreign_address, "	", true, false, ":") 			+ 
+					
+					//
+					//connscan
+					//
+					driver.get_trimmed_entry("offset_connscan", offset_connscan, "	", true, false, ":")	+	
+					
+					//
+					//sockets
+					//
+					driver.get_trimmed_entry("offset_sockets", offset_sockets, "	", true, false, ":")	+
+					driver.get_trimmed_entry("local_port", local_port, "	", true, false, ":")	+	
+					driver.get_trimmed_entry("proto_value", proto_value, "	", true, false, ":")	+
+					driver.get_trimmed_entry("protocol", protocol, "	", true, false, ":")	+	
+					driver.get_trimmed_entry("creation_date", creation_date, "	", true, false, ":")	+
+					driver.get_trimmed_entry("creation_time", creation_time, "	", true, false, ":")	+	
+					driver.get_trimmed_entry("creation_utc", creation_utc, "	", true, false, ":")	+
+					
+					//
+					//sockscan
+					//
+					driver.get_trimmed_entry("offset_sockscan", offset_sockscan, "	", true, false, ":")	+	
+					
+					
+					//
+					//netscan
+					//
+					driver.get_trimmed_entry("offset_netscan", offset_netscan, "	", true, false, ":")	+
+					driver.get_trimmed_entry("state", state, "	", true, false, ":")	+	
+					driver.get_trimmed_entry("owner_name", owner_name, "	", true, false, ":")	+	
+					driver.get_trimmed_entry("lookup", lookup, "	", true, false, ":")
+					;								
+					
+					
+			
+		}
+		catch(Exception e)
+		{
+			driver.eop(myClassName, "get_snapshot_analysis_COMPARATOR_VALUE()", e);
+		}
+		
+		return toString();
+	}
 	
 	
 	

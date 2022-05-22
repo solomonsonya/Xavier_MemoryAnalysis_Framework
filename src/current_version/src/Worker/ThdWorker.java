@@ -41,6 +41,8 @@ public class ThdWorker extends Thread implements Runnable, ActionListener
 	public static volatile boolean refresh_jtable_protocol = false;
 	public static volatile boolean refresh_jtable_resolution = false;
 	
+	public static volatile boolean plugin_executed_from_file_xref = false;
+	
 	public volatile int plugins_in_execution = 0;
 	
 

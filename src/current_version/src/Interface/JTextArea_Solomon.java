@@ -38,7 +38,7 @@ public class JTextArea_Solomon extends JPanel implements ActionListener, KeyList
 	
 	int lineCount = 0;
 	public volatile boolean restrict_data_entries = true;
-	public final int maxLineCount = 1000;
+	public final int maxLineCount = Integer.MAX_VALUE;
 	
 	public JPanel jpnlSouth = new JPanel(new BorderLayout());
 	public JTextField jtf = new JTextField(12);

@@ -60,12 +60,12 @@ public class Analysis_Plugin_YaraScan extends _Analysis_Plugin_Super_Class imple
 			jta_console_output_execution_status = jta_OUTPUT;
 			
 			EXECUTION_TIME_STAMP = parent.EXECUTION_TIME_STAMP;
-			fle_volatility = parent.fle_volatility;
+			fle_volatility = Start.intface.fle_volatility;
 			fle_memory_image = parent.fle_memory_image;
-			PROFILE = parent.PROFILE;
+			PROFILE = Start.intface.PROFILE;
 			path_fle_analysis_directory = parent.path_fle_analysis_directory;
-			file_attr_volatility = parent.file_attr_volatility;
-			file_attr_memory_image = parent.file_attr_memory_image;
+			file_attr_volatility = Start.intface.file_attr_volatility;
+			file_attr_memory_image = Start.intface.file_attr_memory_image;
 			investigator_name = parent.investigator_name;
 			investigation_description = parent.investigation_description;
 			EXECUTE_VIA_THREAD = execute_via_thread;

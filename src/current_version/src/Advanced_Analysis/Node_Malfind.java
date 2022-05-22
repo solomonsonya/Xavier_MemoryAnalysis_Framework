@@ -346,6 +346,46 @@ public class Node_Malfind
 	
 	
 	
+	public String get_snapshot_analysis_key()// throws NullPointerException
+	{
+		try
+		{
+			return this.address;
+		}
+		catch(Exception e)
+		{
+			driver.eop(myClassName, "get_snapshot_analysis_key", e);
+		}
+		
+		return this.address;
+	}
+	
+	
+	public String get_snapshot_analysis_COMPARATOR_VALUE()// throws NullPointerException
+	{
+		String output = "";
+		
+		try
+		{						
+			output = output + "pid:\t" +  pid + "\t";
+			output = output + "process_name:\t" +  process_name + "\t";
+			output = output + "address:\t" +  address + "\t";
+			output = output + "vad_tag:\t" +  vad_tag + "\t";
+			output = output + "protection:\t" +  protection + "\t";
+			output = output + "flags:\t" +  flags + "\t";
+			output = output + "MZ_present:\t" +  MZ_present + "\t";
+			output = output + "Trampoline_initial_JMP_Detected:\t" +  Trampoline_initial_JMP_Detected + "\t";
+
+		}
+		catch(Exception e)
+		{
+			driver.eop(myClassName, "get_snapshot_analysis_COMPARATOR_VALUE", e);
+		}
+		
+		return output;
+	}
+	
+	
 	
 	
 	

@@ -845,6 +845,9 @@ public class File_XREF extends Thread implements Runnable
 					//notify
 					try	{ intrface.jtaFile_XREF_Search_Results.append("\n\nYARASEARCH\n" + driver.UNDERLINE);	} catch(Exception e){}
 					
+					//disable worker thread updating maps
+					try	{	Start.thd_worker.plugin_executed_from_file_xref = true;	}	 catch(Exception e){}
+					
 					//search
 					plugin_yarascan = new Analysis_Plugin_YaraScan(null, intrface.advanced_analysis_director, "yarascan", "Scan process or kernel memory with Yara signatures", true, jta, XREF_SEARCH_STRING, Start.intface.jtaFile_XREF_Search_Results, this);
 				}

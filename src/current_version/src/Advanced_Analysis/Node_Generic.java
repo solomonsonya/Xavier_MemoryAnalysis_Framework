@@ -181,6 +181,88 @@ public class Node_Generic
 							INDEX_KEY_GETSIDS = 5, 
 							INDEX_KEY_GET_SERVICE_SID = 6;
 	
+	
+	public volatile String key_name = null;
+	public volatile String snapshot_manifest_VALUE_1_same_value = null;
+	public volatile String snapshot_manifest_DIFFERENCE_value = null;
+	
+	/**
+	 * Snapshot comparator. If both values are the same, snapshot_value_1 is set, and snapshot_value_2 is null. If there's a difference, snapshot_value_1 holds value 1, and snapthot 2 is set with the value from manifest 2. If snapshot_value_2 is set, then it indicates there was a difference.  If both are null, then the value was never set.
+	 * @param key_name
+	 * @param snapshot_value_1
+	 * @param snapshot_value_2
+	 */
+	public Node_Generic(String Key_Name, String value_1, String value_2)
+	{
+		try
+		{
+			key_name = Key_Name; 
+			
+			//normalize null values
+			if(value_1 != null && (value_1.trim().equals("") || value_1.trim().equalsIgnoreCase("null")))
+				value_1 = null;
+			if(value_2 != null && (value_2.trim().equals("") || value_2.trim().equalsIgnoreCase("null")))
+				value_2 = null;
+			
+			
+			//perform the compare operations
+			if(value_1 == null && value_2 != null)
+			{
+				snapshot_manifest_VALUE_1_same_value = "NOT FOUND";
+				snapshot_manifest_DIFFERENCE_value = value_2;
+			}
+			
+			else if(value_2 == null && value_1 != null)
+			{
+				snapshot_manifest_VALUE_1_same_value = value_1;
+				snapshot_manifest_DIFFERENCE_value = "NOT FOUND";
+			}
+			
+			else if(value_1.toLowerCase().trim().equals(value_2.toLowerCase().trim()))
+				snapshot_manifest_VALUE_1_same_value = value_1;
+			
+			else//there is a difference
+			{
+				snapshot_manifest_VALUE_1_same_value = value_1;
+				snapshot_manifest_DIFFERENCE_value = value_2;
+			}
+						
+		}
+		catch(Exception e)
+		{
+			driver.eop(myClassName, "Comparator constructor", e);
+		}
+	}
+	
+	/**
+	 * returns 1 iff stating there was a difference from snapshots!
+	 * @param pw
+	 * @param jta
+	 * @return
+	 */
+	public int write_snapshot_report(PrintWriter pw, JTextArea_Solomon jta)
+	{
+		try
+		{
+			//check if there was a difference
+			if(snapshot_manifest_DIFFERENCE_value != null)
+			{
+				jta.append(this.key_name.toUpperCase());
+				jta.append("\t Snapshot Manifest 1 value: " + snapshot_manifest_VALUE_1_same_value);
+				jta.append("\t Snapshot Manifest 2 value: " + snapshot_manifest_DIFFERENCE_value);
+				return 1;
+			}
+			
+				
+		}
+		catch(Exception e)
+		{
+			driver.eop(myClassName, "write_snapshot_report", e);
+		}
+		
+		return 0;
+	}
+	
 	public Node_Generic(String PLUGIN_NAME)
 	{
 		try
@@ -801,15 +883,15 @@ public class Node_Generic
 		return false;
 	}
 	
-	public boolean write_manifest_as_single_line(PrintWriter pw, String header, String delimiter)
+	public String write_manifest_as_single_line(PrintWriter pw, String header, String delimiter)
 	{
+		String output = "";
+		
 		try
 		{
-			if(pw == null)
-				return false;	
-			
-			String output = "";
-			
+			//if(pw == null)
+			//	return null;	
+									
 			output = output + driver.get_trimmed_entry("pid", pid, delimiter, true, false, ":");
 			if(PID > -2)	output = output + driver.get_trimmed_entry("PID", ""+PID, delimiter, true, false, ":");
 			
@@ -942,7 +1024,8 @@ public class Node_Generic
 			//
 			//write string!
 			//
-			driver.write_manifest_entry(pw, header, output);
+			if(pw != null)
+				driver.write_manifest_entry(pw, header, output);
 			
 		}
 		catch(Exception e)
@@ -950,7 +1033,7 @@ public class Node_Generic
 			driver.eop(myClassName, "write_manifest_as_single_line", e);
 		}
 		
-		return false;
+		return output;
 	}
 	
 	/**
@@ -960,12 +1043,12 @@ public class Node_Generic
 	 * @param value
 	 * @return
 	 */
-	public boolean write_manifest(PrintWriter pw, String header, String delimiter, boolean include_underline, boolean print_output_as_single_line, boolean printing_vad_node_called_by_process)
+	public String write_manifest(PrintWriter pw, String header, String delimiter, boolean include_underline, boolean print_output_as_single_line, boolean printing_vad_node_called_by_process)
 	{
 		try
 		{
 			if(pw == null)
-				return false;	
+				return null;	
 			
 			delimiter = delimiter + " ";
 			
@@ -1111,14 +1194,14 @@ public class Node_Generic
 			//indicate printed node under process
 			this.printed_vad_info_node_under_process = printing_vad_node_called_by_process;
 
-			return true;
+			return "";
 		}
 		catch(Exception e)
 		{
 			driver.eop(myClassName, "write_manifest", e);
 		}
 		
-		return false;
+		return null;
 	}
 	
 	/**
@@ -1684,6 +1767,120 @@ public class Node_Generic
 		
 		return false;
 	}
+	
+	
+	
+	
+	
+	public String get_snapshot_analysis_key_VAD()// throws NullPointerException
+	{
+		try
+		{
+			return this.offset;
+		}
+		catch(Exception e)
+		{
+			driver.eop(myClassName, "get_snapshot_analysis_key_VAD", e);
+		}
+		
+		return this.offset;
+	}
+	
+	public String get_snapshot_analysis_key_DESKSCAN()// throws NullPointerException
+	{
+		try
+		{
+			return this.offset;
+		}
+		catch(Exception e)
+		{
+			driver.eop(myClassName, "get_snapshot_analysis_key_DESKSCAN", e);
+		}
+		
+		return this.offset;
+	}
+	
+	public String get_snapshot_analysis_COMPARATOR_VALUE()// throws NullPointerException
+	{
+		try
+		{
+			return 	this.write_manifest_as_single_line(null, "", "\t");
+		}
+		catch(Exception e)
+		{
+			driver.eop(myClassName, "get_snapshot_analysis_COMPARATOR_VALUE", e);
+		}
+		
+		return "==++++++==";
+	}
+	
+	
+	
+	public String get_snapshot_analysis_COMPARATOR_VALUE_IMPSCAN()// throws NullPointerException
+	{
+		String output = "";
+		
+		try
+		{
+			output = output + driver.get_trimmed_entry("function", function, "\t", true, false, ":");
+			output = output + driver.get_trimmed_entry("impscan_start_address", impscan_start_address, "\t", true, false, ":");
+			output = output + driver.get_trimmed_entry("impscan_end_address", impscan_end_address, "\t", true, false, ":");
+			output = output + driver.get_trimmed_entry("IAT entry address", IAT, "\t", true, false, ":");
+			output = output + driver.get_trimmed_entry("call", call, "\t", true, false, ":");			
+			output = output.trim();
+		}
+		catch(Exception e)
+		{
+			driver.eop(myClassName, "get_snapshot_analysis_COMPARATOR_VALUE", e);
+		}
+		
+		return output;
+	}
+	
+	
+	
+	
+	
+	public String get_comparator_key()// throws NullPointerException
+	{
+		
+		
+		try
+		{
+			if(function != null && function.trim().length() > 1)
+				return "function: " + function;
+			else if(IAT != null && IAT.trim().length() > 1)
+				return "IAT entry address: " + IAT;
+			else if(call != null && call.trim().length() > 1)
+				return "call address: " + call;
+			else if(call != null && call.trim().length() > 1)
+				return "call address: " + call;
+			else if(impscan_start_address != null && impscan_start_address.trim().length() > 1)
+				return "impscan_start_address: " + impscan_start_address;
+			else if(impscan_end_address != null && impscan_end_address.trim().length() > 1)
+				return "impscan_end_address: " + impscan_end_address;
+			
+		}
+		catch(Exception e)
+		{
+			driver.eop(myClassName, "get_snapshot_analysis_COMPARATOR_VALUE", e);
+		}
+		
+		return null;
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	
 	

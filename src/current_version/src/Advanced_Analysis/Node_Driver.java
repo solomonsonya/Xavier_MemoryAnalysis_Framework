@@ -983,8 +983,39 @@ public class Node_Driver
 	}
 	
 	
-	
-	
+	/**
+	 * override
+	 */
+	public String toString()
+	{
+		try
+		{
+			String value = "driver module_name: " + this.module_name;
+			
+			if(service_key != null)
+				value = value + "\tservice_key: " + service_key;
+			
+			if(offset_driverscan != null)
+				value = value + "\toffset_driverscan: " + offset_driverscan;
+			
+			if(start != null)
+				value = value + "\tstart: " + start;
+			
+			if(size_P != null)
+				value = value + "\tsize_P: " + size_P;
+			
+			
+						
+			
+			return  value;			
+		}
+		catch(Exception e)
+		{
+			driver.eop(myClassName, "toString", e);
+		}
+		
+		return "* * * " + this.driver_name;
+	}
 	
 	
 	

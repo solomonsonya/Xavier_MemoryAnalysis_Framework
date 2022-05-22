@@ -223,7 +223,26 @@ public class Node_Privs
 	
 	
 	
-	
+	public String toString()
+	{
+		try
+		{
+			return 	"PID: " 			+ "	" + 	PID 			+ "	" +
+					"process_name: " 	+ "	" + 	process_name 	+ "	" +
+					"value: " 			+ "	" + 	value 			+ "	" +
+					"privilege: " 		+ "	" + 	privilege 			+ "	" +
+					"privilege_lower: " + "	" + 	privilege_lower 			+ "	" +
+					"attributes: " 		+ "	" + 	attributes 			+ "	" +
+					"description: " 	+ "	" + 	description		;
+			
+		}
+		catch(Exception e)
+		{
+			driver.eop(myClassName, "toString", e);
+		}
+		
+		return " */*/";
+	}
 	
 	
 	
@@ -366,10 +385,34 @@ public class Node_Privs
 	
 	
 	
+	public String get_snapshot_analysis_key()// throws NullPointerException
+	{
+		try
+		{
+			return this.privilege;
+		}
+		catch(Exception e)
+		{
+			driver.eop(myClassName, "get_snapshot_analysis_key", e);
+		}
+		
+		return "==++==";
+	}
 	
 	
-	
-	
+	public String get_snapshot_analysis_COMPARATOR_VALUE()// throws NullPointerException
+	{
+		try
+		{
+			return toString();
+		}
+		catch(Exception e)
+		{
+			driver.eop(myClassName, "get_snapshot_analysis_COMPARATOR_VALUE", e);
+		}
+		
+		return "==++==";
+	}
 	
 	
 	

@@ -294,7 +294,19 @@ public class Node_hivelist
 	
 	
 	
-	
+	public String toString()
+	{
+		try
+		{
+			return "Registry Hive: " + this.name_registry + "\taddress(P): " + this.physical_address + "\taddress(V): " + this.virtual_address; 
+		}
+		catch(Exception e)
+		{
+			driver.eop(myClassName, "toString", e);
+		}
+		
+		return this.name_registry;
+	}
 	
 	
 }

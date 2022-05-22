@@ -49,6 +49,7 @@ import java.io.*;
 import java.util.*;
 
 import javax.swing.JOptionPane;
+import javax.swing.JTabbedPane;
 
 import org.apache.commons.io.LineIterator;
 
@@ -67,12 +68,16 @@ public class Advanced_Analysis_Director extends Thread implements Runnable
 	public static final String myClassName = "Advanced_Analysis_Director";	
 	public static volatile Driver driver = new Driver();
 	
+	public volatile int system_manifest_snapshot_number = -1;
+	public volatile Interface intrface = null;
+	
 	public volatile boolean AUTOMATED_ANALYSIS_STARTED = false;
 	public volatile boolean AUTOMATED_ANALYSIS_COMPLETE = false;
 	public volatile boolean EXECUTE_EXPORT_MANIFEST = false;
 	public static volatile boolean DO_NOT_INCLUDE_TIME_STAMP_IN_FILE_NAME = true;
 
-	public static volatile JTextArea_Solomon jtaUserAssistConsole = null;
+	public volatile JTextArea_Solomon jtaUserAssistConsole = null;
+	public volatile JTextArea_Solomon jtaNetstatConsole = null;
 	
 	/**add */
 	public static volatile boolean STORE_REGISTRY_RAW_DATA = false; 
@@ -422,7 +427,10 @@ public class Advanced_Analysis_Director extends Thread implements Runnable
 			EXECUTE_EXPORT_MANIFEST = explort_manifest_when_complete;
 			
 			if(initiate_analysis_upon_instantiation)
+			{
 				this.start();
+				driver.open_file(Interface.fle_analysis_directory);
+			}
 		}
 		catch(Exception e)
 		{
@@ -452,7 +460,10 @@ public class Advanced_Analysis_Director extends Thread implements Runnable
 				EXECUTE_EXPORT_MANIFEST = explort_manifest_when_complete;
 																			
 				if(initiate_analysis_upon_instantiation)
+				{
 					this.start();
+					driver.open_file(Interface.fle_analysis_directory);
+				}
 			}
 			
 			else
@@ -468,12 +479,18 @@ public class Advanced_Analysis_Director extends Thread implements Runnable
 		}
 	}
 	
-	/** Import Manifest*/
-	public Advanced_Analysis_Director(File fle_IMPORT_MANIFEST)
+	/** Import Manifest. set manifest_snapshot_number to -1 if this is just an import and analysis of snapshot file
+	 * 
+	 * 
+	 * */
+	public Advanced_Analysis_Director(File fle_IMPORT_MANIFEST, int manifest_snapshot_number, Interface INTERFACE)
 	{
 		try
 		{	
 			fle_manifest_IMPORT = fle_IMPORT_MANIFEST;
+			
+			system_manifest_snapshot_number = manifest_snapshot_number;
+			intrface = INTERFACE;
 			
 			if(fle_manifest_IMPORT != null && fle_manifest_IMPORT.exists() && fle_manifest_IMPORT.isFile() && fle_manifest_IMPORT.length() > 0 && fle_manifest_IMPORT.getCanonicalPath().toLowerCase().trim().endsWith(".lnk"))
 			{
@@ -484,26 +501,29 @@ public class Advanced_Analysis_Director extends Thread implements Runnable
 			else if(fle_manifest_IMPORT != null && fle_manifest_IMPORT.exists() && fle_manifest_IMPORT.isFile() && fle_manifest_IMPORT.length() > 0)
 			{
 				
-				//try to delete the old directory
-				try	
-				{	
-					File fle = new File(Interface.path_fle_analysis_directory); 
+				//try to delete the old directory if we are not dealing with snapshot analysis (i.e. only loading 1 manifest file!)
+				if(manifest_snapshot_number < 1 || intrface == null)
+				{
+					try	
+					{	//we're only dealing with system manifest reload, delete temp file since we'll set to a new output directory
+						File fle = new File(Interface.path_fle_analysis_directory); 
+						
+						LinkedList<File> listing = new LinkedList<File>();
+						listing = driver.getFileListing(fle, true, null, listing);
+						
+						if(listing == null || listing.size() < 1)						
+							fle.delete();	
+						
+					}	catch(Exception e){}
 					
-					LinkedList<File> listing = new LinkedList<File>();
-					listing = driver.getFileListing(fle, true, null, listing);
+					path_fle_analysis_directory = fle_manifest_IMPORT.getParentFile().getCanonicalPath().trim();
 					
-					if(listing == null || listing.size() < 1)						
-						fle.delete();	
+					if(!path_fle_analysis_directory.endsWith(File.separator))
+						path_fle_analysis_directory = path_fle_analysis_directory + File.separator;	
 					
-				}	catch(Exception e){}
-				
-				path_fle_analysis_directory = fle_manifest_IMPORT.getParentFile().getCanonicalPath().trim();
-				
-				if(!path_fle_analysis_directory.endsWith(File.separator))
-					path_fle_analysis_directory = path_fle_analysis_directory + File.separator;	
-				
-				Interface.fle_analysis_directory = fle_manifest_IMPORT.getParentFile();
-				Interface.path_fle_analysis_directory = path_fle_analysis_directory;
+					Interface.fle_analysis_directory = fle_manifest_IMPORT.getParentFile();
+					Interface.path_fle_analysis_directory = path_fle_analysis_directory;
+				}
 			
 				
 				
@@ -527,7 +547,7 @@ public class Advanced_Analysis_Director extends Thread implements Runnable
 		try
 		{
 			commence_action();
-			driver.open_file(Interface.fle_analysis_directory);
+			//driver.open_file(Interface.fle_analysis_directory);
 		}
 		catch(Exception e)
 		{
@@ -1818,7 +1838,7 @@ public class Advanced_Analysis_Director extends Thread implements Runnable
 				
 				////////////////////////////////////////////////////////////
 				//
-				// api_hooks - not done here, bcs imported in process
+				// api_hooks - not done here, bcs imported in DLL
 				//
 				//////////////////////////////////////////////////////////
 				else if(lower.startsWith("api_hooks")) 			;//process_import_manifest_api_hooks(line, lower, "api_hooks", line_num, br, 9, true);
@@ -2010,8 +2030,8 @@ public class Advanced_Analysis_Director extends Thread implements Runnable
 			//
 			if(list_import_manifest_file_error_message != null && list_import_manifest_file_error_message.size() > 0)
 				driver.print_linked_list("\n\n*\nERROR! It looks like there was at least [" + list_import_manifest_file_error_message.size() + "] error(s) detected on this manifest import:", list_import_manifest_file_error_message);
-			else
-				driver.directive("0 errors found while processing import file.");
+			//else
+				//driver.directive("0 errors found while processing import file.");
 			
 			PROCESS_IMPSCAN = prev_PROCESS_IMPSCAN;
 			
@@ -5149,7 +5169,26 @@ public class Advanced_Analysis_Director extends Thread implements Runnable
 			//////////////////////////////////////////////////////////////////
 			if(this.fle_manifest_IMPORT != null)
 			{
-				return import_manifest(fle_manifest_IMPORT);
+				boolean status = import_manifest(fle_manifest_IMPORT);
+				
+				//
+				//determine action based on the run index
+				//
+				if(system_manifest_snapshot_number < 0 || intrface == null)
+					return status;
+				else if(system_manifest_snapshot_number == 1 && intrface != null)
+				{
+					//snapshot analysis 1 is complete. load analysis 2
+					return intrface.trigger_commence_snspshot_analysis_SNAPSHOT_2();
+				}
+				else if(system_manifest_snapshot_number == 2 && intrface != null)
+				{
+					//snapshot analysis 2 is complete. load commence the comparison
+					return intrface.trigger_execute_snspshot_analysis();
+				}
+				else
+					driver.directive("\n\nPUNT! Unexpected condition entered in " + this.myClassName + " while loading system manifest import file(s)\n\n");
+				
 			}
 			
 			
@@ -5610,9 +5649,20 @@ plugin_timeliner = new Analysis_Plugin_EXECUTION(null, this, "timeliner", "Creat
 		{
 			if(!executed_create_tree_structure)
 				this.create_tree_structure(tree_PROCESS);
+		
+			if(Start.thd_worker != null && Start.thd_worker.plugin_executed_from_file_xref)
+			{
+				//untoggle
+				Start.thd_worker.plugin_executed_from_file_xref = false;
+				//do n/t
+			}
+			else
+			{
+				try	{	analysis_report = new Analysis_Report_Container_Writer(this);	}	catch(Exception e){}					
+				try	{	print_file_attributes();	}	catch(Exception e){}
+			}
 			
-			try	{	analysis_report = new Analysis_Report_Container_Writer(this);	}	catch(Exception e){}					
-			try	{	print_file_attributes();	}	catch(Exception e){}
+			
 			
 			AUTOMATED_ANALYSIS_COMPLETE = true;
 			
@@ -7397,12 +7447,24 @@ plugin_timeliner = new Analysis_Plugin_EXECUTION(null, this, "timeliner", "Creat
 			if(tree_PROCESS == null || tree_PROCESS.size() < 1)
 				return false;
 			
+			JTabbedPane jtabbed_pane = Start.intface.jtabbedpane_AdvancedAnalysis; 
+			
+			if(system_manifest_snapshot_number < 1 || intrface == null)
+				jtabbed_pane = Start.intface.jtabbedpane_AdvancedAnalysis;
+			else if(system_manifest_snapshot_number == 1 && intrface != null && intrface.jtabbedpane_SnapshotAnalysis_1 != null)
+				jtabbed_pane = Start.intface.jtabbedpane_SnapshotAnalysis_1;	
+			else if(system_manifest_snapshot_number == 2 && intrface != null && intrface.jtabbedpane_SnapshotAnalysis_2 != null)
+				jtabbed_pane = Start.intface.jtabbedpane_SnapshotAnalysis_2;
+			else
+				jtabbed_pane = Start.intface.jtabbedpane_AdvancedAnalysis;
+
+			
 			for(Node_Process process : tree_PROCESS.values())
 			{
 				if(process == null)						
 					continue;
-				
-				process.check_to_display_consoles();
+												
+				process.check_to_display_consoles(jtabbed_pane);
 			}					
 			
 			return true;
@@ -8262,25 +8324,38 @@ plugin_timeliner = new Analysis_Plugin_EXECUTION(null, this, "timeliner", "Creat
 			
 			boolean status = false;
 			
-			if(Advanced_Analysis_Director.jtaUserAssistConsole == null)
+			if(jtaUserAssistConsole == null)
 			{
 				
 				
-				Advanced_Analysis_Director.jtaUserAssistConsole = new JTextArea_Solomon("", true, "User Assist Entries - TSV", false);				
-				Start.intface.populate_export_btn(Advanced_Analysis_Director.jtaUserAssistConsole);
-				Start.intface.jtabbedpane_AdvancedAnalysis.addTab("User Assist Entries", Advanced_Analysis_Director.jtaUserAssistConsole);	
+				jtaUserAssistConsole = new JTextArea_Solomon("", true, "User Assist Entries - TSV", false);				
+				Start.intface.populate_export_btn(jtaUserAssistConsole);
+				
+				JTabbedPane jtabbed_pane = Start.intface.jtabbedpane_AdvancedAnalysis; 
+				
+				if(system_manifest_snapshot_number < 1 || intrface == null)
+					jtabbed_pane = Start.intface.jtabbedpane_AdvancedAnalysis;
+				else if(system_manifest_snapshot_number == 1 && intrface != null && intrface.jtabbedpane_SnapshotAnalysis_1 != null)
+					jtabbed_pane = Start.intface.jtabbedpane_SnapshotAnalysis_1;	
+				else if(system_manifest_snapshot_number == 2 && intrface != null && intrface.jtabbedpane_SnapshotAnalysis_2 != null)
+					jtabbed_pane = Start.intface.jtabbedpane_SnapshotAnalysis_2;
+				else
+					jtabbed_pane = Start.intface.jtabbedpane_AdvancedAnalysis;
+				
+				
+				jtabbed_pane.addTab("User Assist Entries", jtaUserAssistConsole);	
 				
 				try	{	Start.intface.jtabbedpane_AdvancedAnalysis.setToolTipTextAt(1, "<html>Entries are Tab-separated values<br>You can paste these entries for instance into an Excel type spreadsheet, <br> and sort by time_focused to provide indications of programs the user spent more time using.  </html>");} catch(Exception e){}
 				
 			}
 						
 			
-			Advanced_Analysis_Director.jtaUserAssistConsole.clear();
+			jtaUserAssistConsole.clear();
 			
 			String delimiter = "\t ";
 			String header = " registry_hive" + delimiter + "path" + delimiter + "reg_binary" + delimiter + "time_focused" + delimiter + "last_updated" + delimiter + "count" + delimiter + "focus_count" + delimiter + "reg_data_first_line";
 									
-			Advanced_Analysis_Director.jtaUserAssistConsole.append(header);
+			jtaUserAssistConsole.append(header);
 			
 			String registry_hive = "";
 			String path = "";
@@ -8301,7 +8376,7 @@ plugin_timeliner = new Analysis_Plugin_EXECUTION(null, this, "timeliner", "Creat
 					if(line == null || line.trim().equals(""))
 						continue;
 					
-					Advanced_Analysis_Director.jtaUserAssistConsole.append(line);
+					jtaUserAssistConsole.append(line);
 					
 					status = true;
 				}

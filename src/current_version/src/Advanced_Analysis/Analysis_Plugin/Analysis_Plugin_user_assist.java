@@ -172,23 +172,23 @@ public class Analysis_Plugin_user_assist extends _Analysis_Plugin_Super_Class im
 	{
 		try
 		{
-			if(director.tree_user_assist_linked_by_time_focused == null || director.tree_user_assist_linked_by_time_focused.isEmpty())
+			if(director == null || director.tree_user_assist_linked_by_time_focused == null || director.tree_user_assist_linked_by_time_focused.isEmpty())
 				return false;
 			
-			if(Advanced_Analysis_Director.jtaUserAssistConsole == null)
+			if(director.jtaUserAssistConsole == null)
 			{
 				
 				
-				Advanced_Analysis_Director.jtaUserAssistConsole = new JTextArea_Solomon("", true, "User Assist Entries - TSV", false);				
-				Start.intface.populate_export_btn(Advanced_Analysis_Director.jtaUserAssistConsole);
-				Start.intface.jtabbedpane_AdvancedAnalysis.addTab("User Assist Entries", Advanced_Analysis_Director.jtaUserAssistConsole);	
+				director.jtaUserAssistConsole = new JTextArea_Solomon("", true, "User Assist Entries - TSV", false);				
+				Start.intface.populate_export_btn(director.jtaUserAssistConsole);
+				Start.intface.jtabbedpane_AdvancedAnalysis.addTab("User Assist Entries", director.jtaUserAssistConsole);	
 				
 				try	{	Start.intface.jtabbedpane_AdvancedAnalysis.setToolTipTextAt(1, "<html>Entries are Tab-separated values<br>You can paste these entries for instance into an Excel type spreadsheet, <br> and sort by time_focused to provide indications of programs the user spent more time using.  </html>");} catch(Exception e){}
 				
 			}
 						
 			
-			Advanced_Analysis_Director.jtaUserAssistConsole.clear();
+			director.jtaUserAssistConsole.clear();
 			
 			String delimiter = "\t ";
 			String header = " registry_hive" + delimiter + "path" + delimiter + "reg_binary" + delimiter + "time_focused" + delimiter + "last_updated" + delimiter + "count" + delimiter + "focus_count" + delimiter + "reg_data_first_line";
@@ -224,7 +224,7 @@ public class Analysis_Plugin_user_assist extends _Analysis_Plugin_Super_Class im
 				}
 			}
 			
-			Advanced_Analysis_Director.jtaUserAssistConsole.append(header);
+			director.jtaUserAssistConsole.append(header);
 			
 			String registry_hive = "";
 			String path = "";
@@ -245,7 +245,7 @@ public class Analysis_Plugin_user_assist extends _Analysis_Plugin_Super_Class im
 					if(line == null || line.trim().equals(""))
 						continue;
 					
-					Advanced_Analysis_Director.jtaUserAssistConsole.append(line);
+					director.jtaUserAssistConsole.append(line);
 					
 					if(pw != null)
 						pw.println(line);
