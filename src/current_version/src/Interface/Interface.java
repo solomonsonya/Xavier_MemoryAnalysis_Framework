@@ -1900,21 +1900,29 @@ public class Interface extends Thread implements Runnable, ActionListener, KeyLi
 //				driver.jop_Error("NOTE: No valid profile has been specified. This could contaminate results of our analysis...");
 //				return false;
 //			}
-//			
-//			profile = profile.trim();
-//			
-//			String [] array = profile.split(" ");
-//			
-//			if(array == null || array.length < 1)
-//				array = profile.split("\t");
-//			
-//			if(array == null || array.length < 1)
-//				array = profile.split("-");
-//			
-//			if(array != null && array.length > 0)
-//				profile = array[0].trim();
-//									
-//			PROFILE = profile;
+			
+			if(PROFILE == null)
+				PROFILE = "";
+			
+			//normalize profile (remove white spaces and description
+			String profile = PROFILE;
+
+			profile = profile.trim();
+			
+			String [] array = profile.split(" ");
+			
+			if(array == null || array.length < 1)
+				array = profile.split("\t");
+			
+			if(array == null || array.length < 1)
+				array = profile.split("-");
+			
+			if(array != null && array.length > 0)
+				profile = array[0].trim();
+									
+			PROFILE = profile.trim();
+			
+			
 			
 			initial_configuration_complete_enable_gui();
 			
