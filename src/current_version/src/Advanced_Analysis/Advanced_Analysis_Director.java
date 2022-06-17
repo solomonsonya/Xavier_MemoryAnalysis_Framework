@@ -207,6 +207,7 @@ public class Advanced_Analysis_Director extends Thread implements Runnable
 	public volatile String investigation_description = "";
 	
 	public volatile File fle_manifest_EXPORT = null;
+	public volatile File fle_manifest_timeline_EXPORT = null;
 	
 	public volatile Analysis_Plugin_dlllist plugin_dlllist = null;
 	public volatile Analysis_Plugin_ldrmodules plugin_ldrmodules = null;
@@ -266,6 +267,8 @@ public class Advanced_Analysis_Director extends Thread implements Runnable
 	public volatile Analysis_Plugin_EXECUTION plugin_timeliner = null;
 	public volatile Analysis_Plugin_EXECUTION plugin_unloadedmodules = null;
 	public volatile Analysis_Plugin_user_assist plugin_userassist = null;
+	/**Pointer to the user assist file that has specific entries condensed to row format*/
+	public volatile File fle_user_asist_specific_entries = null;
 	public volatile Analysis_Plugin_EXECUTION plugin_userhandles = null;
 	public volatile Analysis_Plugin_VAD_INFO plugin_vadinfo = null;
 	public volatile Analysis_Plugin_EXECUTION plugin_vadwalk = null;
@@ -1302,6 +1305,18 @@ public class Advanced_Analysis_Director extends Thread implements Runnable
 					
 					plugin_mftparser.path_to_output_directory = plugin_mftparser.path_to_output_directory + "_mftparser_" + MFTPARSER_EXECUTION_TIME_STAMP_FROM_RELOAD_EXPORT_DIRECTORY + File.separator;
 				}
+				
+				else if(fle_name.equals("mftparser.txt"))
+				{
+					plugin_mftparser = new Process_Plugin(null, "mftparser", "Scans for and parses potential MFT entries");
+					plugin_mftparser.fleOutput = fle;
+					
+					//set import timestamp
+					if(this.MFTPARSER_EXECUTION_TIME_STAMP_FROM_RELOAD_EXPORT_DIRECTORY == null)	{	try	{	this.MFTPARSER_EXECUTION_TIME_STAMP_FROM_RELOAD_EXPORT_DIRECTORY = fle_name.substring(fle_name.indexOf("_")+1, fle_name.indexOf(".")).trim();	}		catch(Exception e){}}		
+				
+															
+					try	{	plugin_mftparser.path_to_output_directory = fle.getParentFile().getCanonicalPath().trim();	} catch(Exception e){}										
+				}
 
 //else if(fle_name.startsWith("mftparser"))
 	//plugin_mftparser = new Process_Plugin(fle, "mftparser", "Scans for and parses potential MFT entries", null, null, this.fle_volatility.getName() + " -f " + this.fle_memory_image.getName() + " mftparser --profile=" + this.PROFILE, true, false, "", false, jta);
@@ -1394,6 +1409,9 @@ public class Advanced_Analysis_Director extends Thread implements Runnable
 					
 				else if(fle_name.startsWith("userassist"))
 					plugin_userassist = new Analysis_Plugin_user_assist(fle,this, "userassist", "Print userassist registry keys and information", false, jta);
+				
+				else if(fle_name.startsWith("user_assist_entries.txt"))
+					fle_user_asist_specific_entries = fle;
 					
 				else if(fle_name.startsWith("printkey"))
 					plugin_printkey = new Analysis_Plugin_print_key(fle,this, "printkey", "Print a registry key, and its subkeys and values", false, jta);
@@ -2009,11 +2027,80 @@ public class Advanced_Analysis_Director extends Thread implements Runnable
 				else if(lower.startsWith("shutdown_time")) 			process_import_manifest_shutdown_time(line, lower, "shutdown_time", line_num, br, 13, true);
 
 
+				////////////////////////////////////////////////////////////
+				//
+				// filescan
+				//
+				//////////////////////////////////////////////////////////
+				else if(lower.startsWith("filescan")) 
+				{
+					;
+				}
+				
+				////////////////////////////////////////////////////////////
+				//
+				// mftparser
+				//
+				//////////////////////////////////////////////////////////
+				else if(lower.startsWith("mftparser")) 
+				{
+					;
+				}
+				
+				
+				////////////////////////////////////////////////////////////
+				//
+				// timeliner
+				//
+				//////////////////////////////////////////////////////////
+				else if(lower.startsWith("timeliner")) 
+				{
+					;
+				}
+
 
 				
 				
+				////////////////////////////////////////////////////////////
+				//
+				// user_assist_specific_entries
+				//
+				//////////////////////////////////////////////////////////
+				else if(lower.startsWith("userassist_specific_entries")) 
+				{
+					;
+				}
+
+
 				
-																			
+				
+				////////////////////////////////////////////////////////////
+				//
+				// shellbags
+				//
+				//////////////////////////////////////////////////////////
+				else if(lower.startsWith("shellbags")) 
+				{
+					;
+				}
+
+
+				
+				
+				////////////////////////////////////////////////////////////
+				//
+				// shimcache
+				//
+				//////////////////////////////////////////////////////////
+				else if(lower.startsWith("shimcache")) 
+				{
+					;
+				}
+
+
+																
+
+
 				else
 					list_import_manifest_file_error_message.add("Unknown manifest directive at line [" + line_num + "] -->" + line);
 			}
@@ -5238,12 +5325,9 @@ if(false)
 	
 	File fle = execute_plugin("pslist", "Print all running processes by following the EPROCESS lists", null, "", list_output, true);			
 	process_pslist(list_output);
-	
-	plugin_moddump = new Analysis_Plugin_SUPER_MODULES(null, this, "moddump", "Dump a kernel driver to an executable file sample", false, jta); //runs modules and modscan within moddump!
-	
-	//plugin_driverirp = new Analysis_Plugin_driverirp(fle, this, "driverirp", "Driver IRP hook detection", false, jta);
-	//plugin_callbacks  = new Analysis_Plugin_Callbacks(fle, this, "callbacks", "Print system-wide notification routines", false, jta);
-	
+			
+	procdump = new Analysis_Plugin_Dump(null, this, "procdump", "Dump a process to an executable file sample", true, jta, false);
+	dlldump = new Analysis_Plugin_Dump(null, this, "dlldump", "Dump DLLs from a process address space", true, jta, false);
 	
 	//this.launch_report_terminate_system();
 	return this.launch_report_terminate_system(false);
@@ -7513,8 +7597,11 @@ plugin_timeliner = new Analysis_Plugin_EXECUTION(null, this, "timeliner", "Creat
 		//
 		///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 		
-		PrintWriter pw = null;
+		PrintWriter pw_manifest = null;
 		String fle_manifest_path = null;
+		
+		PrintWriter pw_manifest_super_timeline = null;
+		String fle_manifest_super_timeline_path = null;
 		
 		try
 		{
@@ -7525,18 +7612,23 @@ plugin_timeliner = new Analysis_Plugin_EXECUTION(null, this, "timeliner", "Creat
 			}
 			
 			fle_manifest_EXPORT = new File(path_fle_analysis_directory + "manifest" + File.separator + "_manifest.txt");
+			fle_manifest_timeline_EXPORT = new File(path_fle_analysis_directory + "manifest" + File.separator + "_manifest_timeline.txt");
 			
 			try	{	fle_manifest_EXPORT.getParentFile().mkdir();} catch(Exception e){}
 			
-			pw = new PrintWriter(new FileWriter(fle_manifest_EXPORT));
+			pw_manifest = new PrintWriter(new FileWriter(fle_manifest_EXPORT));
+			pw_manifest_super_timeline = new PrintWriter(new FileWriter(fle_manifest_timeline_EXPORT));
+			
+			//write basic header
+			pw_manifest_super_timeline.println("time" + delimiter + "plugin" + delimiter + "key" + delimiter + "value" + delimiter + "details");
 			
 			//////////////////////////////////////////////////////////
 			//
 			// Investigation Particulars
 			//
 			////////////////////////////////////////////////////////
-			write_manifest_header(pw, "Investigation Particulars");
-			write_manifest_investigation_particulars(pw, "investigation_particulars");
+			write_manifest_header(pw_manifest, "Investigation Particulars");
+			write_manifest_investigation_particulars(pw_manifest, "investigation_particulars");
 			
 			
 			//////////////////////////////////////////////////////////
@@ -7544,7 +7636,7 @@ plugin_timeliner = new Analysis_Plugin_EXECUTION(null, this, "timeliner", "Creat
 			// process
 			//
 			////////////////////////////////////////////////////////
-			write_manifest_header(pw, "Process");
+			write_manifest_header(pw_manifest, "Process");
 			
 			if(this.tree_PROCESS != null)
 			{
@@ -7553,7 +7645,7 @@ plugin_timeliner = new Analysis_Plugin_EXECUTION(null, this, "timeliner", "Creat
 					if(process == null)
 						continue;
 					
-					process.write_manifest(pw);
+					process.write_manifest(pw_manifest);
 				}
 			}
 			
@@ -7562,7 +7654,7 @@ plugin_timeliner = new Analysis_Plugin_EXECUTION(null, this, "timeliner", "Creat
 			// child process
 			//
 			////////////////////////////////////////////////////////
-			write_manifest_header(pw, "Child Process(es)");
+			write_manifest_header(pw_manifest, "Child Process(es)");
 			
 			if(!executed_create_tree_structure)
 				this.create_tree_structure(tree_PROCESS);
@@ -7574,7 +7666,7 @@ plugin_timeliner = new Analysis_Plugin_EXECUTION(null, this, "timeliner", "Creat
 					if(process == null)
 						continue;
 					
-					process.write_manifest_child_process(pw);
+					process.write_manifest_child_process(pw_manifest);
 				}
 			}
 			
@@ -7596,8 +7688,8 @@ plugin_timeliner = new Analysis_Plugin_EXECUTION(null, this, "timeliner", "Creat
 					
 					if(process_list != null && process_list.trim().length() > 0)
 					{
-						write_manifest_header(pw, "Orphaned Process(es)");   //tree_ORPHAN_process
-						driver.write_manifest_entry(pw, "orphaned_process_list", process_list);
+						write_manifest_header(pw_manifest, "Orphaned Process(es)");   //tree_ORPHAN_process
+						driver.write_manifest_entry(pw_manifest, "orphaned_process_list", process_list);
 					}
 					
 				}
@@ -7627,8 +7719,8 @@ plugin_timeliner = new Analysis_Plugin_EXECUTION(null, this, "timeliner", "Creat
 					
 					if(process_list != null && process_list.trim().length() > 0)
 					{
-						write_manifest_header(pw, "Processes linked to cmdline, cmdscan, consoles");
-						driver.write_manifest_entry(pw, "processes_linked_to_cmdline_cmdscan_consoles", process_list);
+						write_manifest_header(pw_manifest, "Processes linked to cmdline, cmdscan, consoles");
+						driver.write_manifest_entry(pw_manifest, "processes_linked_to_cmdline_cmdscan_consoles", process_list);
 					}
 					
 				}
@@ -7650,7 +7742,7 @@ plugin_timeliner = new Analysis_Plugin_EXECUTION(null, this, "timeliner", "Creat
 			////////////////////////////////////////////////////////
 			if(tree_DLL_by_path != null && !tree_DLL_by_path.isEmpty())
 			{
-				write_manifest_header(pw, "DLL");
+				write_manifest_header(pw_manifest, "DLL");
 				if(this.tree_DLL_by_path != null)
 				{
 					boolean include_underline = (tree_DLL_by_path != null) & (!tree_DLL_by_path.isEmpty());
@@ -7660,7 +7752,7 @@ plugin_timeliner = new Analysis_Plugin_EXECUTION(null, this, "timeliner", "Creat
 						if(node == null)
 							continue;
 						
-						node.write_manifest(pw, delimiter, include_underline);
+						node.write_manifest(pw_manifest, delimiter, include_underline);
 					}
 				}
 			}
@@ -7672,7 +7764,7 @@ plugin_timeliner = new Analysis_Plugin_EXECUTION(null, this, "timeliner", "Creat
 			////////////////////////////////////////////////////////
 			if(tree_DRIVERS != null && !tree_DRIVERS.isEmpty())
 			{
-				write_manifest_header(pw, "Driver Modules"); //tree_DRIVERS = new TreeMap<String, >();
+				write_manifest_header(pw_manifest, "Driver Modules"); //tree_DRIVERS = new TreeMap<String, >();
 				if(this.tree_DRIVERS != null)
 				{
 					for(Node_Driver node : this.tree_DRIVERS.values())
@@ -7680,8 +7772,8 @@ plugin_timeliner = new Analysis_Plugin_EXECUTION(null, this, "timeliner", "Creat
 						if(node == null)
 							continue;
 						
-						node.write_manifest(pw, "driver_module");
-						pw.println(Driver.END_OF_ENTRY_MAJOR);
+						node.write_manifest(pw_manifest, "driver_module");
+						pw_manifest.println(Driver.END_OF_ENTRY_MAJOR);
 					}
 				}
 			}
@@ -7740,7 +7832,7 @@ plugin_timeliner = new Analysis_Plugin_EXECUTION(null, this, "timeliner", "Creat
 			////////////////////////////////////////////////////////
 			if(tree_session_entries != null && tree_session_entries.size() > 0)
 			{
-				write_manifest_header(pw, "Sessions");		//tree_session_entries = new TreeMap<String, LinkedList<String>>();
+				write_manifest_header(pw_manifest, "Sessions");		//tree_session_entries = new TreeMap<String, LinkedList<String>>();
 
 				boolean i_have_printed_first_entry = false;
 				String header = "sessions";
@@ -7753,15 +7845,15 @@ plugin_timeliner = new Analysis_Plugin_EXECUTION(null, this, "timeliner", "Creat
 						
 						//print new major heading if this is not the first entry
 						if(i_have_printed_first_entry)
-							pw.println(Driver.END_OF_ENTRY_MAJOR);
+							pw_manifest.println(Driver.END_OF_ENTRY_MAJOR);
 						else
 							i_have_printed_first_entry = true;
 						
-						driver.write_manifest_entry(pw, header, "session_container", key);
+						driver.write_manifest_entry(pw_manifest, header, "session_container", key);
 						
 						//output details
 						for(String entry : list)
-							driver.write_manifest_entry(pw, header, "session_entry", entry);
+							driver.write_manifest_entry(pw_manifest, header, "session_entry", entry);
 							
 					}
 					catch(Exception e)
@@ -7784,14 +7876,14 @@ plugin_timeliner = new Analysis_Plugin_EXECUTION(null, this, "timeliner", "Creat
 			{
 				String header = "deskscan";
 				
-				write_manifest_header(pw, "DeskScan");		
+				write_manifest_header(pw_manifest, "DeskScan");		
 							
 				for(Node_Generic desktop : tree_DESKSCAN.values())
 				{
 					if(desktop == null)
 						continue;
 					
-					desktop.write_manifest(pw, header, delimiter, false, false, false);
+					desktop.write_manifest(pw_manifest, header, delimiter, false, false, false);
 					
 					//print processes
 					if(desktop.tree_process != null && !desktop.tree_process.isEmpty() && desktop.desktop_offset != null)
@@ -7801,10 +7893,10 @@ plugin_timeliner = new Analysis_Plugin_EXECUTION(null, this, "timeliner", "Creat
 							if(process == null)
 								continue;
 							
-							driver.write_manifest_entry(pw, header, "process", process.get_deskscan_manifest_thread_list(desktop.desktop_offset));
+							driver.write_manifest_entry(pw_manifest, header, "process", process.get_deskscan_manifest_thread_list(desktop.desktop_offset));
 						}												
 					}					
-					pw.println(Driver.END_OF_ENTRY_MAJOR);
+					pw_manifest.println(Driver.END_OF_ENTRY_MAJOR);
 				}				
 			}
 			
@@ -7816,7 +7908,7 @@ plugin_timeliner = new Analysis_Plugin_EXECUTION(null, this, "timeliner", "Creat
 			////////////////////////////////////////////////////////
 			if(tree_REGISTRY_HIVE_USER_ASSIST != null && !tree_REGISTRY_HIVE_USER_ASSIST.isEmpty())
 			{
-				write_manifest_header(pw, "User Assist");
+				write_manifest_header(pw_manifest, "User Assist");
 				
 				String header = "user_assist";
 				
@@ -7825,8 +7917,8 @@ plugin_timeliner = new Analysis_Plugin_EXECUTION(null, this, "timeliner", "Creat
 					if(node == null)
 						continue;
 					
-					node.write_manifest(pw, header, delimiter);
-					pw.println(Driver.END_OF_ENTRY_MAJOR);
+					node.write_manifest(pw_manifest, header, delimiter);
+					pw_manifest.println(Driver.END_OF_ENTRY_MAJOR);
 				}
 			}
 
@@ -7838,7 +7930,7 @@ plugin_timeliner = new Analysis_Plugin_EXECUTION(null, this, "timeliner", "Creat
 			////////////////////////////////////////////////////////
 			if(tree_REGISTRY_HIVE_PRINTKEY != null && !tree_REGISTRY_HIVE_PRINTKEY.isEmpty())
 			{
-				write_manifest_header(pw, "Print Key");
+				write_manifest_header(pw_manifest, "Print Key");
 				
 				String header = "print_key";
 				
@@ -7847,8 +7939,8 @@ plugin_timeliner = new Analysis_Plugin_EXECUTION(null, this, "timeliner", "Creat
 					if(node == null)
 						continue;
 					
-					node.write_manifest(pw, header, delimiter);
-					pw.println(Driver.END_OF_ENTRY_MAJOR);
+					node.write_manifest(pw_manifest, header, delimiter);
+					pw_manifest.println(Driver.END_OF_ENTRY_MAJOR);
 				}
 			}
 			
@@ -7861,11 +7953,11 @@ plugin_timeliner = new Analysis_Plugin_EXECUTION(null, this, "timeliner", "Creat
 			////////////////////////////////////////////////////////
 			if(this.tree_hashdump != null && this.tree_hashdump.size() > 0)
 			{
-				write_manifest_header(pw, "HashDump"); // = new TreeMap<String, String>();
+				write_manifest_header(pw_manifest, "HashDump"); // = new TreeMap<String, String>();
 				
 				for(String hash : tree_hashdump.keySet())
 				{
-					driver.write_manifest_entry(pw, "hashdump", hash);
+					driver.write_manifest_entry(pw_manifest, "hashdump", hash);
 				}
 			}
 			
@@ -7878,7 +7970,7 @@ plugin_timeliner = new Analysis_Plugin_EXECUTION(null, this, "timeliner", "Creat
 			////////////////////////////////////////////////////////
 			if(tree_hivelist != null && !tree_hivelist.isEmpty())
 			{
-				write_manifest_header(pw, "HiveList");
+				write_manifest_header(pw_manifest, "HiveList");
 				
 				String header = "hivelist";
 				
@@ -7887,7 +7979,7 @@ plugin_timeliner = new Analysis_Plugin_EXECUTION(null, this, "timeliner", "Creat
 					if(node == null)
 						continue;
 					
-					node.write_manifest(pw, header, delimiter);
+					node.write_manifest(pw_manifest, header, delimiter);
 				}
 			}
 			 //tree_hivelist = new TreeMap<String, Node_hivelist>();
@@ -7900,7 +7992,7 @@ plugin_timeliner = new Analysis_Plugin_EXECUTION(null, this, "timeliner", "Creat
 			////////////////////////////////////////////////////////
 			if(tree_get_service_sids != null && !tree_get_service_sids.isEmpty())
 			{
-				write_manifest_header(pw, "Service SIDS");
+				write_manifest_header(pw_manifest, "Service SIDS");
 				
 				String header = "getservicesid";
 				
@@ -7909,7 +8001,7 @@ plugin_timeliner = new Analysis_Plugin_EXECUTION(null, this, "timeliner", "Creat
 					if(node == null)
 						continue;
 					
-					node.write_manifest(pw, header, delimiter);
+					node.write_manifest(pw_manifest, header, delimiter);
 				}
 			}
 
@@ -7921,7 +8013,7 @@ plugin_timeliner = new Analysis_Plugin_EXECUTION(null, this, "timeliner", "Creat
 			////////////////////////////////////////////////////////
 			if(tree_SIDS != null && !tree_SIDS.isEmpty())
 			{
-				write_manifest_header(pw, "SIDS");
+				write_manifest_header(pw_manifest, "SIDS");
 				
 				String owner_name = null;
 				
@@ -7936,7 +8028,7 @@ plugin_timeliner = new Analysis_Plugin_EXECUTION(null, this, "timeliner", "Creat
 						
 						owner_name = tree_SIDS.get(sid);
 						
-						driver.write_manifest_entry(pw, header, "sid:\t " + sid + delimiter + "owner_name:\t " + owner_name);						
+						driver.write_manifest_entry(pw_manifest, header, "sid:\t " + sid + delimiter + "owner_name:\t " + owner_name);						
 					}
 					catch(Exception e)
 					{
@@ -7955,7 +8047,7 @@ plugin_timeliner = new Analysis_Plugin_EXECUTION(null, this, "timeliner", "Creat
 			////////////////////////////////////////////////////////		
 			if(this.tree_AUDIT_POLICY != null && !tree_AUDIT_POLICY.isEmpty())
 			{
-				write_manifest_header(pw, "Audit Policy");
+				write_manifest_header(pw_manifest, "Audit Policy");
 				
 				String header = "auditpol";
 												
@@ -7966,7 +8058,7 @@ plugin_timeliner = new Analysis_Plugin_EXECUTION(null, this, "timeliner", "Creat
 					if(node == null)
 						continue;
 
-					node.write_manifest(pw, header, delimiter, include_underline, false, false);			
+					node.write_manifest(pw_manifest, header, delimiter, include_underline, false, false);			
 							
 				}																																	
 			}
@@ -7980,14 +8072,109 @@ plugin_timeliner = new Analysis_Plugin_EXECUTION(null, this, "timeliner", "Creat
 			////////////////////////////////////////////////////////		
 			if(this.node_shutdown_time != null && !node_shutdown_time.list_details.isEmpty())
 			{
-				write_manifest_header(pw, "Shutdown Time");
+				write_manifest_header(pw_manifest, "Shutdown Time");
 
 				String header = "shutdown_time";
 
 				boolean include_underline = false;
 
-				node_shutdown_time.write_manifest(pw, header, delimiter, include_underline, false, false);																																
+				node_shutdown_time.write_manifest(pw_manifest, header, delimiter, include_underline, false, false);																																
 			}
+
+			//////////////////////////////////////////////////////////
+			//
+			// Filescan
+			//
+			////////////////////////////////////////////////////////		
+			if(this.plugin_filescan != null && (plugin_filescan.fleOutput != null || plugin_filescan.fle_import != null))
+			{
+				write_manifest_header(pw_manifest, "FileScan");
+
+				String header = "filescan";
+
+				plugin_filescan.write_filescan_manifest(pw_manifest, header, delimiter);																																
+			}
+			
+			//////////////////////////////////////////////////////////
+			//
+			// MFTParser Specific Entries
+			//
+			////////////////////////////////////////////////////////			
+			if(this.plugin_mftparser != null && plugin_mftparser.fleOutput != null)
+			{
+				write_manifest_header(pw_manifest, "MFT Parser Specific Entries");
+
+				String header = "mftparser";
+
+				plugin_mftparser.write_mftparser_manifest(pw_manifest, header, delimiter, pw_manifest_super_timeline);																																
+			}
+			
+			
+			//////////////////////////////////////////////////////////
+			//
+			// Timeliner
+			//
+			////////////////////////////////////////////////////////			
+			if(this.plugin_timeliner != null && (plugin_timeliner.fleOutput != null || plugin_timeliner.fle_import != null))
+			{
+				write_manifest_header(pw_manifest, "Timeliner");
+
+				String header = "timeliner";
+
+				plugin_timeliner.write_timeliner_manifest(pw_manifest, header, delimiter, pw_manifest_super_timeline);																																
+			}
+
+
+			
+			//////////////////////////////////////////////////////////
+			//
+			// User Assist Special Entries
+			//
+			////////////////////////////////////////////////////////			
+			if(this.fle_user_asist_specific_entries != null || (plugin_userassist != null && this.plugin_userassist.fleUserAssist_focus_time != null))
+			{
+				write_manifest_header(pw_manifest, "User Assist Specific Entries");
+
+				String header = "userassist_specific_entries";
+
+				write_user_assist_specific_entries_manifest(pw_manifest, header, delimiter, pw_manifest_super_timeline);																																
+			}
+//
+//			Value                     File Name      Modified Date                  Create Date                    Access Date                    File Attr                 Unicode Name
+//			Value   Mru   Entry Type     GUID                                     GUID Description     Folder IDs
+//			Value   Mru   File Name      Modified Date                  Create Date                    Access Date                    File Attr                 Path
+//			Value   Mru   Entry Type     Path
+
+
+			//////////////////////////////////////////////////////////
+			//
+			// Shellbags
+			//
+			////////////////////////////////////////////////////////			
+			if(this.plugin_shellbags != null && (plugin_shellbags.fleOutput != null || plugin_shellbags.fle_import != null))
+			{
+				write_manifest_header(pw_manifest, "Shellbags");
+
+				String header = "shellbags";
+
+				plugin_shellbags.write_shellbags_manifest(pw_manifest, header, delimiter, pw_manifest_super_timeline);																																
+			}
+
+			
+			//////////////////////////////////////////////////////////
+			//
+			// Shimcache
+			//
+			////////////////////////////////////////////////////////			
+			if(this.plugin_shimcache != null && (plugin_shimcache.fleOutput != null || plugin_shimcache.fle_import != null))
+			{
+				write_manifest_header(pw_manifest, "Shimcache");
+
+				String header = "shimcache";
+
+				plugin_shimcache.write_shimcache_manifest(pw_manifest, header, delimiter, pw_manifest_super_timeline);																																
+			}
+
 
 			
 			
@@ -7995,18 +8182,15 @@ plugin_timeliner = new Analysis_Plugin_EXECUTION(null, this, "timeliner", "Creat
 			
 			
 			
+			try	{	pw_manifest.flush();} catch(Exception e){}
+			try	{	pw_manifest_super_timeline.flush();} catch(Exception e){}
 			
-			
-			
-			
-			
-			
-			
-			
-			
-			try	{	pw.close();} catch(Exception e){}
+			try	{	pw_manifest.close();} catch(Exception e){}
+			try	{	pw_manifest_super_timeline.close();} catch(Exception e){}
 			
 			try	{	fle_manifest_path = fle_manifest_EXPORT.getCanonicalPath();} catch(Exception e){}
+			
+			try	{	fle_manifest_super_timeline_path = this.fle_manifest_timeline_EXPORT.getCanonicalPath();} catch(Exception e){}
 			
 			Start.intface.sop("\nDone! If successful, manifest file has been written to " + fle_manifest_path);
 			return true;
@@ -8017,7 +8201,7 @@ plugin_timeliner = new Analysis_Plugin_EXECUTION(null, this, "timeliner", "Creat
 		}
 		
 		
-		try	{	pw.close();} catch(Exception e){}
+		try	{	pw_manifest.close();} catch(Exception e){}
 		Start.intface.sop("\n* * * Complete! If successful, manifest file has been written to " + fle_manifest_path);
 		return false;
 	}
@@ -8619,7 +8803,157 @@ plugin_timeliner = new Analysis_Plugin_EXECUTION(null, this, "timeliner", "Creat
 	
 	
 	
-	
+	/**
+	 * continuation mtd
+	 * @param pw
+	 * @param key
+	 * @param value
+	 * @return
+	 */
+	public boolean write_user_assist_specific_entries_manifest(PrintWriter pw, String header, String delimiter, PrintWriter pw_manifest_super_timeline)
+	{
+		try
+		{
+			if(pw == null)
+				return false;	
+			
+			delimiter = delimiter + " ";
+			
+			File fle = this.fle_user_asist_specific_entries; 
+			
+			if(fle == null && this.plugin_userassist != null && this.plugin_userassist.fleUserAssist_focus_time != null)
+				fle = this.plugin_userassist.fleUserAssist_focus_time;
+			
+			if(fle == null || fle.length() < 10)
+			{
+				driver.sop("NOTE: I am omitting " + header + " - I can not seem to locate valid data text file file to analyze");
+				return false;
+			}
+			
+			BufferedReader br = null;
+			
+			//open the file
+			try
+			{
+				br = new BufferedReader(new FileReader(fle));
+			}
+			catch(Exception ee)
+			{
+				driver.directive("Exception caught in write_" + header + "_manifest mtd in " + this.myClassName + " --> I could not open the output file in order to write contents to manifest file!");
+				return false;
+			}
+			
+			//notify
+			driver.directivesp("\nwriting " + header + " contents to manifest file...");
+				
+			//write header
+			pw.println("#" + header + "\tlast_updated\treg_binary\ttime_focused\tcount\t focus_count\tregistry_hive\tpath\treg_data_first_line");
+			
+			pw_manifest_super_timeline.println("time" + delimiter + "userassist" + delimiter + "key (user assist)" + delimiter + "value" + delimiter + "time_focused" + delimiter + "count" + delimiter + "focus_count" + delimiter + "registry" + delimiter + "path" + delimiter + "registry data first line");
+			
+			
+			//write contents
+			String line = "", lower = "";
+			
+			int line_number = 0;
+			String [] arr = null;
+			String token = null;
+			
+			String last_updated = null;
+			String reg_binary = null;
+			String time_focused = null;
+			String count = null;
+			String focus_count = null;
+			String registry_hive = null;
+			String path = null;
+			String reg_data_first_line = null;
+			
+			while((line = br.readLine()) != null)
+			{
+				++line_number;	
+				
+				if(line_number %10000 == 0)
+					driver.directive("");
+				if(line_number %30 == 0)
+					driver.directivesp(".");
+																		
+				try
+				{
+					if(line == null)
+						continue;
+					
+					line = line.trim();
+					
+					lower = line.toLowerCase().trim();
+					
+					if(lower.equals(""))
+						continue;
+					
+					if(lower.equals(""))
+						continue;
+					
+					if(lower.startsWith("#"))
+						continue;
+					
+					if(lower.startsWith("volatility"))
+						continue;
+					
+					if(lower.startsWith("registry_hive"))
+						continue;
+					
+					//re-init
+					last_updated = null;
+					reg_binary = null;
+					time_focused = null;
+					count = null;
+					focus_count = null;
+					registry_hive = null;
+					path = null;
+					reg_data_first_line = null;									
+					
+					//Parse --> C:\Users\admin\ntuser.dat	 Software\Microsoft\Windows\CurrentVersion\Explorer\UserAssist\{CEBFF5CD-ACE2-4F4F-9178-9926F41749EA}\Count	 UEME_CTLCUACount:ctor	 0:00:00.500000	 1970-01-01 00:00:00 UTC+0000	 0	 0	 0x00000000  ff ff ff ff 00 00 00 00 00 00 00 00 00 00 00 00   ................
+					arr = line.split("\t");
+					
+					//accumulate
+					registry_hive = arr[0].trim();
+					path = arr[1].trim();
+					reg_binary = arr[2].trim();
+					time_focused = arr[3].trim();
+					last_updated = arr[4].trim();
+					count = arr[5].trim();
+					focus_count = arr[6].trim();
+					reg_data_first_line = arr[7].trim();
+										
+					//write entries out!
+					pw.println(header + delimiter + last_updated + delimiter + reg_binary + delimiter + time_focused + delimiter + count + delimiter + focus_count + delimiter + registry_hive + delimiter + path + delimiter + reg_data_first_line);
+					
+					pw_manifest_super_timeline.println(last_updated + delimiter + "userassist" + delimiter + "reg_binary" + delimiter + reg_binary + delimiter + time_focused + delimiter + count + delimiter + focus_count + delimiter + registry_hive + delimiter + path + delimiter + reg_data_first_line);
+					
+				}
+				catch(Exception ee)
+				{
+					driver.directive(" Error! I had trouble processing line on file " + fle + " at line [" + line_number + "] entry --> " + line);
+					continue;
+				}
+				
+				
+			}
+			
+			try	{	br.close();}  catch(Exception e){}
+			
+			
+			
+
+
+			return true;
+		}
+		catch(Exception e)
+		{
+			driver.eop(myClassName, "write_user_assist_specific_entries_manifest", e, false);
+		}
+		
+		return false;
+	}
 	
 	
 	

@@ -186,6 +186,43 @@ public class Node_Generic
 	public volatile String snapshot_manifest_VALUE_1_same_value = null;
 	public volatile String snapshot_manifest_DIFFERENCE_value = null;
 	
+	//
+	//Shellbags Type 1 = Value                     File Name      Modified Date                  Create Date                    Access Date                    File Attr                 Unicode Name
+	//
+	/**Stores values 1..4, but a string to reduce data vice an int for every node created*/
+	public volatile String shell_bag_type = null;
+	public volatile String value = null;
+	public volatile String registry_name = null;
+	public volatile String modified_date = null;
+	public volatile String create_date = null;
+	public volatile String access_date = null;
+	public volatile String file_attr = null;
+	public volatile String unicode_name = null;
+	public volatile String additional_details = "";
+	
+	/**full analysis line properly tab delineated*/
+	public volatile String shell_bag_analysis_line = null;
+	public volatile String shell_bag_timeline = null;
+	
+	//
+	//Shellbags Type 2 = Value   Mru   Entry Type     GUID                                     GUID Description     Folder IDs
+	//
+	public volatile String mru = null;
+	public volatile String entry_type = null;
+	public volatile String guid = null;
+	public volatile String guid_description = null;
+	public volatile String folder_ids = null;
+	
+	//
+	//Shellbags type 3 = Value   Mru   File Name      Modified Date                  Create Date                    Access Date                    File Attr                 Path
+	//
+	//String path = null;
+	
+	//
+	//Shellbags type 4 = Value   Mru   Entry Type     Path
+	//
+	//all covered above
+	
 	/**
 	 * Snapshot comparator. If both values are the same, snapshot_value_1 is set, and snapshot_value_2 is null. If there's a difference, snapshot_value_1 holds value 1, and snapthot 2 is set with the value from manifest 2. If snapshot_value_2 is set, then it indicates there was a difference.  If both are null, then the value was never set.
 	 * @param key_name
@@ -1872,7 +1909,36 @@ public class Node_Generic
 	
 	
 	
-	
+	public String get_manifest_shellbags(int type, String delimiter)
+	{
+		String output = null;
+		
+		try
+		{
+			switch(type)
+			{
+				case Node_ShellBag_Container.TYPE_1:
+					return this.modified_date + delimiter + this.create_date + delimiter + this.access_date + delimiter + this.last_updated + delimiter + this.file_name + delimiter + this.unicode_name + delimiter + this.file_attr + delimiter + value + delimiter + registry_name + delimiter + key_name + delimiter + this.shell_bag_type + delimiter + additional_details;
+					
+				case Node_ShellBag_Container.TYPE_2:
+					return this.last_updated + delimiter + guid_description + delimiter + guid + delimiter + folder_ids + delimiter + entry_type + delimiter + value + delimiter + mru + delimiter +  registry_name + delimiter + key_name + delimiter  + this.shell_bag_type + delimiter +  additional_details;
+				
+				case Node_ShellBag_Container.TYPE_3:
+					return this.modified_date + delimiter + this.create_date + delimiter + this.access_date + delimiter + this.last_updated + delimiter + this.path + delimiter + this.file_name + delimiter + this.file_attr + delimiter + value + delimiter + mru + delimiter + registry_name + delimiter + key_name + delimiter  + this.shell_bag_type + delimiter +  additional_details;
+						
+				case Node_ShellBag_Container.TYPE_4:
+					return this.last_updated + delimiter + path + delimiter + entry_type + delimiter + value + delimiter + mru + delimiter +  registry_name + delimiter + key_name + delimiter  + this.shell_bag_type + delimiter +  additional_details;							
+			}
+			
+			
+		}
+		catch(Exception e)
+		{
+			driver.eop(myClassName, "get_manifest_shellbags", e);
+		}
+		
+		return output;
+	}
 	
 	
 	

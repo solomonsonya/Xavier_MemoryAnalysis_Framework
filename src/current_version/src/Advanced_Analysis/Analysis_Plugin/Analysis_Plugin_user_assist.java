@@ -214,6 +214,9 @@ public class Analysis_Plugin_user_assist extends _Analysis_Plugin_Super_Class im
 					{
 						pw = new PrintWriter(new FileWriter(fleUserAssist_focus_time));
 						pw.println(header);
+						
+						//save pointer to the director for easy access
+						try	{	director.fle_user_asist_specific_entries = fleUserAssist_focus_time;	} catch(Exception e){}
 					}
 					
 					

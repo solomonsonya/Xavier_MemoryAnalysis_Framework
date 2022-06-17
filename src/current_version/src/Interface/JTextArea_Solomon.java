@@ -315,11 +315,11 @@ public class JTextArea_Solomon extends JPanel implements ActionListener, KeyList
 			this.jta.append(line + "\n");
 			++lineCount;
 			
-			if(restrict_data_entries && lineCount > maxLineCount)
+			/*if(restrict_data_entries && lineCount > maxLineCount)
 			{
 				this.jta.replaceRange("", 0, (int)(jta.getDocument().getLength()/3));
 				lineCount = 0;
-			}
+			}*/
 			
 			if(this.jcbAutoScroll.isSelected())
 			{
@@ -333,10 +333,10 @@ public class JTextArea_Solomon extends JPanel implements ActionListener, KeyList
 				}
 			}
 			
-			if(MAX_CHAR_LEN > 0 && this.jta.getText().length() > MAX_CHAR_LEN)
+			/*if(restrict_data_entries && MAX_CHAR_LEN > 0 && this.jta.getText().length() > MAX_CHAR_LEN)
 			{
 				try	{	this.jta.replaceRange("",  0,  150000);	}	catch(Exception e){}
-			}
+			}*/
 			
 			
 			

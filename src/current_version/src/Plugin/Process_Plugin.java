@@ -70,6 +70,7 @@ public class Process_Plugin extends Thread implements Runnable
 	 public volatile File fleOutput = null;
 	 public volatile String path_to_output_directory = null;
 			
+	 public volatile String super_timeline_entry = null;
 	 
 	 /**Non-executing plugin*/
 	 public Process_Plugin(Plugin par, String PLUGIN_NAME, String PLUGIN_DESCRIPTION)
@@ -2085,10 +2086,213 @@ public class Process_Plugin extends Thread implements Runnable
 		
 	
 	
+	/**
+	 * continuation mtd
+	 * @param pw
+	 * @param key
+	 * @param value
+	 * @return
+	 */
+	public boolean write_mftparser_manifest(PrintWriter pw, String header, String delimiter, PrintWriter pw_super_timeline)
+	{
+		try
+		{
+			if(pw == null)
+				return false;	
+			
+			delimiter = delimiter + " ";
+			
+			File fle = this.fleOutput; 
+			
+//			if(fle == null)
+//				fle = this.fle_import;
+			
+			if(fle == null || fle.length() < 10)
+			{
+				driver.sop("NOTE: I am omitting " + header + " - I can not seem to locate valid data text file file to analyze");
+				return false;
+			}
+			
+			BufferedReader br = null;
+			
+			//open the file
+			try
+			{
+				br = new BufferedReader(new FileReader(fle));
+			}
+			catch(Exception ee)
+			{
+				driver.directive("Exception caught in write_mftparser_manifest mtd in " + this.myClassName + " --> I could not open the output file in order to write contents to manifest file!");
+				return false;
+			}
+							 			
+			driver.directivesp("\nwriting " + header + " contents to manifest file...");
+				
+			
+			
+			//write contents
+			String line = "", lower = "";
+			
+			
+			boolean begin_storing_entries = false;
+			
+			int line_number = -1;
+			String [] arr = null;
+			String output_line = "";
+			
+			
+			while((line = br.readLine()) != null)
+			{
+				if(line_number %10000 == 0)
+					driver.directive("");
+				if(line_number %30 == 0)
+					driver.directivesp(".");
+				
+				++line_number;								
+				
+				try
+				{
+					if(line == null)
+						continue;
+					
+					line = line.trim();
+					
+					lower = line.toLowerCase().trim();
+					
+					if(lower.equals(""))
+						continue;
+					
+					//seek the start of our specific MFT entries
+					if(lower.startsWith("# mft specific entries"))
+					{
+						begin_storing_entries = true;
+						pw.println("#" + header + "\tcreation_time\tmodified_time\tmft_altered_time\taccess_time\ttype_name_path\tentry_attribute\textension");
+						
+						pw_super_timeline.println("time" + delimiter + header + delimiter + "key (mft_entry_type)" + delimiter + "value (type/name/path)" + delimiter + "creation_time" + delimiter + "modified_time" + delimiter + "mft_altered_time" + delimiter + "access_time" + delimiter + "extension");
+					}
+					
+					if(!begin_storing_entries)
+						continue;
+					
+					if(lower.startsWith("#"))
+						continue;
+					
+					//omit header line
+					if(lower.startsWith("creation"))
+						continue;
+					
+					//analyze every line from this moment onward
+					arr = line.split("\t");
+					
+					output_line = null;
+					
+					//we should have 14 entries here, if not, alert and skip!
+					if(arr.length > 13)
+						output_line = analyze_mft_parser_line_14(arr, delimiter);
+					
+					if(output_line == null)
+					{
+						driver.directive("Analysis parsing error on " + header + " line [" + line_number + "]! I had difficulty parsing line --> " + line);
+						continue;
+					}
+					
+					
+					
+					//write entries out!
+					pw.println(header + delimiter + output_line);
+					
+					//write entry to manifest_timeline
+					pw_super_timeline.println(this.super_timeline_entry);
+					
+				}
+				catch(Exception ee)
+				{
+					driver.directive(" Error! I had trouble processing line on file " + fle + " at line [" + line_number + "] entry --> " + line);
+					continue;
+				}
+				
+				
+			}
+			
+			try	{	br.close();}  catch(Exception e){}
+			
+			
+			
+
+
+			return true;
+		}
+		catch(Exception e)
+		{
+			driver.eop(myClassName, "write_mftparser_manifest", e, false);
+		}
+		
+		return false;
+	}
 	
 	
-	
-	
+	public String analyze_mft_parser_line_14(String arr[], String delimiter)
+	{
+		String output_line = null;
+		super_timeline_entry = null;
+		
+		try
+		{
+			if(arr == null || arr.length < 12)
+				return null;
+			
+			String entry_type = "mft";
+			String type_name_path = "";
+			String extension = null;
+			
+			output_line = 	arr[0] + " " +  //creation date
+							arr[1] + " " +  //creation time
+							arr[2] + "\t"+  //creation utc
+							arr[3] + " " +  //modified date
+							arr[4] + " " +  //modified time
+							arr[5] + "\t"+  //modified utc
+							arr[6] + " " +  //mft altered date
+							arr[7] + " " +  //mft altered time
+							arr[8] + "\t"+  //mft altered utc
+							arr[9] + " " +  //access date
+							arr[10] + " " + //access time
+							arr[11] + "\t"+ //access utc
+							arr[12] + "\t"; //type_name_path
+			
+			//entry_attr
+			if(arr.length > 13)
+			{
+				output_line = output_line + arr[13] + "\t"; 
+				entry_type = arr[13];
+			}
+			
+			//extension
+			if(arr.length > 14)
+			{
+				output_line = output_line + arr[14] + "\t";
+				extension = arr[14];
+			}
+			
+			String creation_time = arr[0] + " " + arr[1] + " " + arr[2];
+			String modified_time = arr[3] + " " + arr[4] + " " + arr[5];
+			String mft_altered_time = arr[6] + " " + arr[7] + " " + arr[8];
+			String access_time = arr[9] + " " + arr[10] + " " + arr[11];
+			type_name_path = arr[12];
+			
+			
+			super_timeline_entry = 	driver.get_latest_time(creation_time, modified_time, mft_altered_time, access_time, 0) + delimiter + "mftparser" + delimiter + entry_type + delimiter + type_name_path + delimiter + creation_time + delimiter + modified_time + delimiter + mft_altered_time + delimiter + access_time;
+			
+			if(extension != null)
+				this.super_timeline_entry = this.super_timeline_entry + delimiter + extension;
+							
+		}
+		catch(Exception e)
+		{
+			driver.eop(myClassName, "analyze_mft_parser_line_14", e);							
+		}
+		
+		return output_line;
+	}
 	
 	
 	

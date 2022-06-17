@@ -55,7 +55,7 @@ import Plugin.Process_Plugin;
 		
 		public static final String NAME = "Xavier Framework";
 		public static final String NAME_LOWERCASE = "xavier_framework";
-		public static final String VERSION = "2.300";
+		public static final String VERSION = "2.301";
 		public static final String FULL_NAME = NAME + " vrs " + VERSION;
 						
 		public static Log log_unrecognized = null; 
@@ -3875,8 +3875,50 @@ import Plugin.Process_Plugin;
 	
 	
 	
-	
-	
+	/**
+	 * return the latest time from the series
+	 * return_index: 0 == return most recent time, 1 == return youngest time (happened first)
+	 * 
+	 * @param time_1
+	 * @param time_2
+	 * @param time_3
+	 * @param time_4
+	 * @param return_index: 0 == return most recent time, 1 == return youngest time (happened first)
+	 * @return
+	 */
+	public String get_latest_time(String time_1, String time_2, String time_3, String time_4, int return_index)
+	{
+		try
+		{
+			TreeMap<String, String> tree = new TreeMap<String, String>();
+			
+			if(time_1 != null)
+				tree.put(time_1.trim(), null);
+			if(time_2 != null)
+				tree.put(time_2.trim(), null);	
+			if(time_3 != null)
+				tree.put(time_3.trim(), null);
+			if(time_4 != null)
+				tree.put(time_4.trim(), null);
+			
+			LinkedList<String> list = new LinkedList<String>(tree.keySet());
+			
+			switch(return_index)
+			{
+				case 0:  return list.getLast();
+				case 1: return list.getFirst();
+			}
+			
+			return list.getLast();
+			
+		}
+		catch(Exception e)
+		{
+			this.eop(myClassName, "get_latest_time", e);
+		}
+		
+		return null;
+	}
 	
 	
 	

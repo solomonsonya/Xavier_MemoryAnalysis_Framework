@@ -430,6 +430,7 @@ public class Analysis_Plugin_Dump extends _Analysis_Plugin_Super_Class implement
 				return false;
 			
 			//0xfffffa800148f040 smss.exe             0x0000000077c90000 ntdll.dll            OK: module.248.3f68f040.77c90000.dll
+			//0x84a65b50 svchost.exe          0x0760a0000                      OK: module.3468.1f265b50.760a0000.dll  12
 
 			//Bifurcate result and module info
 			String arr[] = line.split("OK: ");
@@ -462,7 +463,24 @@ public class Analysis_Plugin_Dump extends _Analysis_Plugin_Super_Class implement
 			
 			String module_base_address = arr_header[i++].trim();
 			
-			String module_name = arr_header[i++].trim();
+			//note! an ArrayIndexOutOfBoundsException occurs here given entries that are missing module names e.g. --> 0x8a5c4aa0 vmtoolsd.exe         0x075ee0000                      OK: module.1960.13179aa0.75ee0000.dll  <-- NOTE: there should have been a X.dll name after 0x075ee0000
+			String module_name = "";
+			
+			try	
+			{
+				module_name = arr_header[i++].trim();
+			}
+			catch(ArrayIndexOutOfBoundsException aioe)
+			{
+				//driver.directive("[DLLDUMP] Punt! It appears I am missing a module name from analysis line --> " + line + " <-- All good. Although not expected, I will skip this line and proceed to analyze the next one!");
+				//return false;
+				module_name = "NO_NAME";
+				
+			}
+			catch(Exception e)
+			{
+				throw new Exception("Error:  " + e.getLocalizedMessage());
+			}
 			
 			for(; i < arr_header.length; i++)
 				module_name = module_name + " " + arr_header[i].trim();
@@ -549,7 +567,7 @@ public class Analysis_Plugin_Dump extends _Analysis_Plugin_Super_Class implement
 		}
 		catch(Exception e)
 		{
-			driver.eop(myClassName, "process_plugin_line_DLLDUMP on line: " + line, e);
+			driver.eop(myClassName, "process_plugin_line_DLLDUMP on line: " + line, e, true);
 		}
 		
 		return false;
