@@ -26,6 +26,15 @@ public class Node_Generic
 	
 	public volatile boolean I_HAVE_WRITTEN_PROCESS_HEADER_ALREADY = false;
 	
+	public static final String TIMELINE_KEY_NAME_FILESCAN = "filescan";
+	public static final String TIMELINE_KEY_NAME_MFTPARSER = "mftparser";
+	public static final String TIMELINE_KEY_NAME_TIMELINER = "timeliner";
+	public static final String TIMELINE_KEY_NAME_USERASSIST_SPECIFIC_ENTRIES = "userassist_specific_entries";
+	public static final String TIMELINE_KEY_NAME_SHELLBAGS = "shellbags";
+	public static final String TIMELINE_KEY_NAME_SHIMCACHE = "shimcache";
+	
+	public volatile String uniform_timeline_type = null;
+	
 	public volatile String plugin_name = null;
 	
 	/**populated when import manifest is importing Sessions entries*/
@@ -190,9 +199,13 @@ public class Node_Generic
 	//Shellbags Type 1 = Value                     File Name      Modified Date                  Create Date                    Access Date                    File Attr                 Unicode Name
 	//
 	/**Stores values 1..4, but a string to reduce data vice an int for every node created*/
-	public volatile String shell_bag_type = null;
+	public volatile String shellbag_type = null;
 	public volatile String value = null;
+	public volatile String shellbag_value = null;
+	/**text name of registry_hive*/
 	public volatile String registry_name = null;
+	/**text name of registry_key - name*/
+	public volatile String registry_key_name = null;
 	public volatile String modified_date = null;
 	public volatile String create_date = null;
 	public volatile String access_date = null;
@@ -222,6 +235,16 @@ public class Node_Generic
 	//Shellbags type 4 = Value   Mru   Entry Type     Path
 	//
 	//all covered above
+	
+	//
+	//mftparser
+	//
+	public volatile String mft_altered_date = null;
+	public volatile String entry_attr = null;
+	public volatile String extension = null;
+	public volatile String reg_data_first_line = null;
+	
+	
 	
 	/**
 	 * Snapshot comparator. If both values are the same, snapshot_value_1 is set, and snapshot_value_2 is null. If there's a difference, snapshot_value_1 holds value 1, and snapthot 2 is set with the value from manifest 2. If snapshot_value_2 is set, then it indicates there was a difference.  If both are null, then the value was never set.
@@ -705,7 +728,7 @@ public class Node_Generic
 			//////////////////////////////////////////////////////////////////////
 			XREF_SEARCH_HIT_FOUND |= this.check_value(offset, "Offset", search_chars_from_user, search_chars_from_user_lower, jta, searching_proces, container_search_name);
 			XREF_SEARCH_HIT_FOUND |= this.check_value(name, "Name", search_chars_from_user, search_chars_from_user_lower, jta, searching_proces, container_search_name);
-			XREF_SEARCH_HIT_FOUND |= this.check_value(path, "Path", search_chars_from_user, search_chars_from_user_lower, jta, searching_proces, container_search_name);
+			//XREF_SEARCH_HIT_FOUND |= this.check_value(path, "Path", search_chars_from_user, search_chars_from_user_lower, jta, searching_proces, container_search_name);
 
 			///////////////////////////////////////////////////////////////////////
 			//
@@ -830,6 +853,7 @@ public class Node_Generic
 			XREF_SEARCH_HIT_FOUND |= this.check_value(num_hnd, "num_hnd", search_chars_from_user, search_chars_from_user_lower, jta, searching_proces, container_search_name);
 			XREF_SEARCH_HIT_FOUND |= this.check_value(access, "access", search_chars_from_user, search_chars_from_user_lower, jta, searching_proces, container_search_name);
 			XREF_SEARCH_HIT_FOUND |= this.check_value(path_name, "path_name", search_chars_from_user, search_chars_from_user_lower, jta, searching_proces, container_search_name);
+			XREF_SEARCH_HIT_FOUND |= this.check_value(path, "path", search_chars_from_user, search_chars_from_user_lower, jta, searching_proces, container_search_name);
 
 
 			//
@@ -841,6 +865,37 @@ public class Node_Generic
 			//XREF_SEARCH_HIT_FOUND |= this.check_value(module_basse_address_trimmed, "module_basse_address_trimmed", search_chars_from_user, search_chars_from_user_lower, jta, searching_proces, container_search_name);
 			XREF_SEARCH_HIT_FOUND |= this.check_value((""+PID), (""+PID), search_chars_from_user, search_chars_from_user_lower, jta, searching_proces, container_search_name);
 
+			//
+			//mftparser, filescan, timeliner, userassist, etc...
+			//
+			XREF_SEARCH_HIT_FOUND |= this.check_value(shellbag_type, "shellbag_type", search_chars_from_user, search_chars_from_user_lower, jta, searching_proces, container_search_name);			
+			XREF_SEARCH_HIT_FOUND |= this.check_value(shellbag_value, "shellbag_value", search_chars_from_user, search_chars_from_user_lower, jta, searching_proces, container_search_name);
+			XREF_SEARCH_HIT_FOUND |= this.check_value(registry_name, "registry_name", search_chars_from_user, search_chars_from_user_lower, jta, searching_proces, container_search_name);
+			XREF_SEARCH_HIT_FOUND |= this.check_value(modified_date, "modified_date", search_chars_from_user, search_chars_from_user_lower, jta, searching_proces, container_search_name);
+			XREF_SEARCH_HIT_FOUND |= this.check_value(create_date, "create_date", search_chars_from_user, search_chars_from_user_lower, jta, searching_proces, container_search_name);
+			XREF_SEARCH_HIT_FOUND |= this.check_value(access_date, "access_date", search_chars_from_user, search_chars_from_user_lower, jta, searching_proces, container_search_name);
+			XREF_SEARCH_HIT_FOUND |= this.check_value(file_attr, "file_attr", search_chars_from_user, search_chars_from_user_lower, jta, searching_proces, container_search_name);
+			XREF_SEARCH_HIT_FOUND |= this.check_value(unicode_name, "unicode_name", search_chars_from_user, search_chars_from_user_lower, jta, searching_proces, container_search_name);
+			XREF_SEARCH_HIT_FOUND |= this.check_value(additional_details, "additional_details", search_chars_from_user, search_chars_from_user_lower, jta, searching_proces, container_search_name);
+			XREF_SEARCH_HIT_FOUND |= this.check_value(shell_bag_analysis_line, "shell_bag_analysis_line", search_chars_from_user, search_chars_from_user_lower, jta, searching_proces, container_search_name);
+			XREF_SEARCH_HIT_FOUND |= this.check_value(shell_bag_timeline, "shell_bag_timeline", search_chars_from_user, search_chars_from_user_lower, jta, searching_proces, container_search_name);
+			XREF_SEARCH_HIT_FOUND |= this.check_value(mru, "mru", search_chars_from_user, search_chars_from_user_lower, jta, searching_proces, container_search_name);
+			XREF_SEARCH_HIT_FOUND |= this.check_value(entry_type, "entry_type", search_chars_from_user, search_chars_from_user_lower, jta, searching_proces, container_search_name);
+			XREF_SEARCH_HIT_FOUND |= this.check_value(guid, "guid", search_chars_from_user, search_chars_from_user_lower, jta, searching_proces, container_search_name);
+			XREF_SEARCH_HIT_FOUND |= this.check_value(guid_description, "guid_description", search_chars_from_user, search_chars_from_user_lower, jta, searching_proces, container_search_name);
+			XREF_SEARCH_HIT_FOUND |= this.check_value(folder_ids, "folder_ids", search_chars_from_user, search_chars_from_user_lower, jta, searching_proces, container_search_name);
+			XREF_SEARCH_HIT_FOUND |= this.check_value(mft_altered_date, "mft_altered_date", search_chars_from_user, search_chars_from_user_lower, jta, searching_proces, container_search_name);
+			XREF_SEARCH_HIT_FOUND |= this.check_value(entry_attr, "entry_attr", search_chars_from_user, search_chars_from_user_lower, jta, searching_proces, container_search_name);
+			XREF_SEARCH_HIT_FOUND |= this.check_value(extension, "extension", search_chars_from_user, search_chars_from_user_lower, jta, searching_proces, container_search_name);
+			XREF_SEARCH_HIT_FOUND |= this.check_value(reg_data_first_line, "reg_data_first_line", search_chars_from_user, search_chars_from_user_lower, jta, searching_proces, container_search_name);
+			XREF_SEARCH_HIT_FOUND |= this.check_value(key_name, "key_name", search_chars_from_user, search_chars_from_user_lower, jta, searching_proces, container_search_name);
+			
+			//only search value if this is timeliner (bcs all the others double a path and the same info is passed into value. issue is this will result in a duplicate hit in File XREF
+			if(this.uniform_timeline_type != null && (this.uniform_timeline_type.equals(this.TIMELINE_KEY_NAME_FILESCAN) || this.uniform_timeline_type.equals(this.TIMELINE_KEY_NAME_MFTPARSER) || this.uniform_timeline_type.equals(this.TIMELINE_KEY_NAME_SHELLBAGS) || this.uniform_timeline_type.equals(this.TIMELINE_KEY_NAME_SHIMCACHE) || this.uniform_timeline_type.equals(this.TIMELINE_KEY_NAME_USERASSIST_SPECIFIC_ENTRIES)))
+				;//do n/telse
+			else	
+				XREF_SEARCH_HIT_FOUND |= this.check_value(value, "value", search_chars_from_user, search_chars_from_user_lower, jta, searching_proces, container_search_name);
+			
 			
 		}
 		catch(Exception e)
@@ -929,106 +984,107 @@ public class Node_Generic
 			//if(pw == null)
 			//	return null;	
 									
-			output = output + driver.get_trimmed_entry("pid", pid, delimiter, true, false, ":");
-			if(PID > -2)	output = output + driver.get_trimmed_entry("PID", ""+PID, delimiter, true, false, ":");
+			output = output + driver.get_trimmed_entry("pid", pid, delimiter, true,  true, false, ":");
+			if(PID > -2)	output = output + driver.get_trimmed_entry("PID", ""+PID, delimiter, true,  true, false, ":");
 			
-			output = output + driver.get_trimmed_entry("process_name", process_name, delimiter, true, false, ":");
+			output = output + driver.get_trimmed_entry("process_name", process_name, delimiter, true, true, false, ":");
 
 			//
 			//GDI Timers
 			//
-			output = output + driver.get_trimmed_entry("session", session, delimiter, true, false, ":");
-			output = output + driver.get_trimmed_entry("handle", handle, delimiter, true, false, ":");
-			output = output + driver.get_trimmed_entry("object", object, delimiter, true, false, ":");
-			output = output + driver.get_trimmed_entry("thread", thread, delimiter, true, false, ":");
-			output = output + driver.get_trimmed_entry("process_details", process_details, delimiter, true, false, ":");
-			output = output + driver.get_trimmed_entry("nID", nID, delimiter, true, false, ":");
-			output = output + driver.get_trimmed_entry("rate_ms", rate_ms, delimiter, true, false, ":");
-			output = output + driver.get_trimmed_entry("countdown_ms", countdown_ms, delimiter, true, false, ":");
-			output = output + driver.get_trimmed_entry("function", function, delimiter, true, false, ":");
+			output = output + driver.get_trimmed_entry("session", session, delimiter, true,  true, false, ":");
+			output = output + driver.get_trimmed_entry("handle", handle, delimiter, true,  true, false, ":");
+			output = output + driver.get_trimmed_entry("object", object, delimiter, true,  true, false, ":");
+			output = output + driver.get_trimmed_entry("thread", thread, delimiter, true,  true, false, ":");
+			output = output + driver.get_trimmed_entry("process_details", process_details, delimiter, true,  true, false, ":");
+			output = output + driver.get_trimmed_entry("nID", nID, delimiter, true,  true, false, ":");
+			output = output + driver.get_trimmed_entry("rate_ms", rate_ms, delimiter, true,  true, false, ":");
+			output = output + driver.get_trimmed_entry("countdown_ms", countdown_ms, delimiter, true,  true, false, ":");
+			output = output + driver.get_trimmed_entry("function", function, delimiter, true,  true, false, ":");
 
 			//
 			//Callbacks
 			//	
 			//public volatile Node_Driver node_driver = null;
-			output = output + driver.get_trimmed_entry("type", type, delimiter, true, false, ":");
-			output = output + driver.get_trimmed_entry("callback", callback, delimiter, true, false, ":");
-			output = output + driver.get_trimmed_entry("module_name", module_name, delimiter, true, false, ":");
-			output = output + driver.get_trimmed_entry("details", details, delimiter, true, false, ":");
+			output = output + driver.get_trimmed_entry("type", type, delimiter, true,  true, false, ":");
+			output = output + driver.get_trimmed_entry("callback", callback, delimiter, true,  true, false, ":");
+			output = output + driver.get_trimmed_entry("module_name", module_name, delimiter, true,  true, false, ":");
+			output = output + driver.get_trimmed_entry("details", details, delimiter, true,  true, false, ":");
 
 			//
 			//timers
 			//
-			output = output + driver.get_trimmed_entry("offset_v", offset_v, delimiter, true, false, ":");
-			output = output + driver.get_trimmed_entry("due_time", due_time, delimiter, true, false, ":");
-			output = output + driver.get_trimmed_entry("period_ms", period_ms, delimiter, true, false, ":");
-			output = output + driver.get_trimmed_entry("signaled", signaled, delimiter, true, false, ":");
-			output = output + driver.get_trimmed_entry("routine", routine, delimiter, true, false, ":");
+			output = output + driver.get_trimmed_entry("offset_v", offset_v, delimiter, true,  true, false, ":");
+			output = output + driver.get_trimmed_entry("due_time", due_time, delimiter, true,  true, false, ":");
+			output = output + driver.get_trimmed_entry("period_ms", period_ms, delimiter, true,  true, false, ":");
+			output = output + driver.get_trimmed_entry("signaled", signaled, delimiter, true,  true, false, ":");
+			output = output + driver.get_trimmed_entry("routine", routine, delimiter, true,  true, false, ":");
 
 			//
 			//Unloaded Modules
 			//
-			output = output + driver.get_trimmed_entry("start_address", start_address, delimiter, true, false, ":");
-			output = output + driver.get_trimmed_entry("end_address", end_address, delimiter, true, false, ":");
-			output = output + driver.get_trimmed_entry("date", date, delimiter, true, false, ":");
-			output = output + driver.get_trimmed_entry("time", time, delimiter, true, false, ":");
+			output = output + driver.get_trimmed_entry("start_address", start_address, delimiter, true,  true, false, ":");
+			output = output + driver.get_trimmed_entry("end_address", end_address, delimiter, true,  true, false, ":");
+			output = output + driver.get_trimmed_entry("date", date, delimiter, true,  true, false, ":");
+			output = output + driver.get_trimmed_entry("time", time, delimiter, true,  true, false, ":");
 
 			//
 			//userassist
 			//
-			output = output + driver.get_trimmed_entry("reg_binary", reg_binary, delimiter, true, false, ":");
-			output = output + driver.get_trimmed_entry("raw_data_first_line", raw_data_first_line, delimiter, true, false, ":");
-			output = output + driver.get_trimmed_entry("id", id, delimiter, true, false, ":");
-			output = output + driver.get_trimmed_entry("count", count, delimiter, true, false, ":");
-			output = output + driver.get_trimmed_entry("focus_count", this.focus_count, delimiter, true, false, ":");
-			output = output + driver.get_trimmed_entry("time_focused", this.time_focused, delimiter, true, false, ":");
-			output = output + driver.get_trimmed_entry("last_updated", last_updated, delimiter, true, false, ":");
+			output = output + driver.get_trimmed_entry("reg_binary", reg_binary, delimiter, true,  true, false, ":");
+			output = output + driver.get_trimmed_entry("raw_data_first_line", raw_data_first_line, delimiter, true,  true, false, ":");
+			output = output + driver.get_trimmed_entry("id", id, delimiter, true,  true, false, ":");
+			output = output + driver.get_trimmed_entry("count", count, delimiter, true,  true, false, ":");
+			output = output + driver.get_trimmed_entry("focus_count", this.focus_count, delimiter, true,  true, false, ":");
+			output = output + driver.get_trimmed_entry("time_focused", this.time_focused, delimiter, true,  true, false, ":");
+			output = output + driver.get_trimmed_entry("last_updated", last_updated, delimiter, true,  true, false, ":");
+			
 
 			//
 			//vadinfo
 			//
-			output = output + driver.get_trimmed_entry("offset", offset, delimiter, true, false, ":");
-			output = output + driver.get_trimmed_entry("name", name, delimiter, true, false, ":");
-			output = output + driver.get_trimmed_entry("path", path, delimiter, true, false, ":");
+			output = output + driver.get_trimmed_entry("offset", offset, delimiter, true,  true, false, ":");
+			output = output + driver.get_trimmed_entry("name", name, delimiter, true,  true, false, ":");
+			output = output + driver.get_trimmed_entry("path", path, delimiter, true,  true, false, ":");
 
 			//
 			//deskscan
 			//
-			output = output + driver.get_trimmed_entry("desktop_offset", desktop_offset, delimiter, true, false, ":");
-			output = output + driver.get_trimmed_entry("next", next, delimiter, true, false, ":");
-			output = output + driver.get_trimmed_entry("session_id", session_id, delimiter, true, false, ":");
-			output = output + driver.get_trimmed_entry("desktop_info", desktop_info, delimiter, true, false, ":");
-			output = output + driver.get_trimmed_entry("size", size, delimiter, true, false, ":");
-			output = output + driver.get_trimmed_entry("fshooks", fshooks, delimiter, true, false, ":");
-			output = output + driver.get_trimmed_entry("spwnd", spwnd, delimiter, true, false, ":");
-			output = output + driver.get_trimmed_entry("windows", windows, delimiter, true, false, ":");
-			output = output + driver.get_trimmed_entry("heap", heap, delimiter, true, false, ":");
-			output = output + driver.get_trimmed_entry("limit", limit, delimiter, true, false, ":");
-			output = output + driver.get_trimmed_entry("base", base, delimiter, true, false, ":");
+			output = output + driver.get_trimmed_entry("desktop_offset", desktop_offset, delimiter, true,  true, false, ":");
+			output = output + driver.get_trimmed_entry("next", next, delimiter, true,  true, false, ":");
+			output = output + driver.get_trimmed_entry("session_id", session_id, delimiter, true,  true, false, ":");
+			output = output + driver.get_trimmed_entry("desktop_info", desktop_info, delimiter, true,  true, false, ":");
+			output = output + driver.get_trimmed_entry("size", size, delimiter, true,  true, false, ":");
+			output = output + driver.get_trimmed_entry("fshooks", fshooks, delimiter, true,  true, false, ":");
+			output = output + driver.get_trimmed_entry("spwnd", spwnd, delimiter, true,  true, false, ":");
+			output = output + driver.get_trimmed_entry("windows", windows, delimiter, true,  true, false, ":");
+			output = output + driver.get_trimmed_entry("heap", heap, delimiter, true,  true, false, ":");
+			output = output + driver.get_trimmed_entry("limit", limit, delimiter, true,  true, false, ":");
+			output = output + driver.get_trimmed_entry("base", base, delimiter, true,  true, false, ":");
 
 			//
 			//impscan
 			//
-			output = output + driver.get_trimmed_entry("impscan_start_address", impscan_start_address, delimiter, true, false, ":");
-			output = output + driver.get_trimmed_entry("impscan_end_address", impscan_end_address, delimiter, true, false, ":");
-			output = output + driver.get_trimmed_entry("IAT", IAT, delimiter, true, false, ":");
-			output = output + driver.get_trimmed_entry("call", call, delimiter, true, false, ":");
-			//public volatile Node_DLL_Container_Impscan DLL_Container_Impscan, delimiter, true, false, ":");
-			output = output + driver.get_trimmed_entry("function_name_lower", function_name_lower, delimiter, true, false, ":");
+			output = output + driver.get_trimmed_entry("impscan_start_address", impscan_start_address, delimiter, true,  true, false, ":");
+			output = output + driver.get_trimmed_entry("impscan_end_address", impscan_end_address, delimiter, true,  true, false, ":");
+			output = output + driver.get_trimmed_entry("IAT", IAT, delimiter, true,  true, false, ":");
+			output = output + driver.get_trimmed_entry("call", call, delimiter, true,  true, false, ":");
+			//public volatile Node_DLL_Container_Impscan DLL_Container_Impscan, delimiter, true,  true, false, ":");
+			output = output + driver.get_trimmed_entry("function_name_lower", function_name_lower, delimiter, true,  true, false, ":");
 
 			//
 			//filescan
 			//
-			output = output + driver.get_trimmed_entry("offset_p", offset_p, delimiter, true, false, ":");
-			output = output + driver.get_trimmed_entry("num_ptr", num_ptr, delimiter, true, false, ":");
-			output = output + driver.get_trimmed_entry("num_hnd", num_hnd, delimiter, true, false, ":");
-			output = output + driver.get_trimmed_entry("access", access, delimiter, true, false, ":");
-			output = output + driver.get_trimmed_entry("path_name", path_name, delimiter, true, false, ":");
+			output = output + driver.get_trimmed_entry("offset_p", offset_p, delimiter, true,  true, false, ":");
+			output = output + driver.get_trimmed_entry("num_ptr", num_ptr, delimiter, true,  true, false, ":");
+			output = output + driver.get_trimmed_entry("num_hnd", num_hnd, delimiter, true,  true, false, ":");
+			output = output + driver.get_trimmed_entry("access", access, delimiter, true,  true, false, ":");
+			output = output + driver.get_trimmed_entry("path_name", path_name, delimiter, true,  true, false, ":");
 
 			//
 			//File XREF
 			//
-			output = output + driver.get_trimmed_entry("file_name", file_name, delimiter, true, false, ":");
+			output = output + driver.get_trimmed_entry("file_name", file_name, delimiter, true,  true, false, ":");
 
 			//
 			//DLLDUMP
@@ -1036,17 +1092,19 @@ public class Node_Generic
 			//------------------ -------------------- ------------------ -------------------- ------
 			//0xfffffa800148f040 smss.exe             0x0000000047ef0000 smss.exe             OK: module.248.3f68f040.47ef0000.dll, delimiter, true, false, ":");
 			//0xfffffa800148f040 smss.exe             0x0000000077c90000 ntdll.dll            OK: module.248.3f68f040.77c90000.dll, delimiter, true, false, ":");
-			output = output + driver.get_trimmed_entry("process_offset_V", process_offset_V, delimiter, true, false, ":");
-			output = output + driver.get_trimmed_entry("module_base_address", module_base_address, delimiter, true, false, ":");
-			output = output + driver.get_trimmed_entry("process_offset_P_trimmed", process_offset_P_trimmed, delimiter, true, false, ":");
-			output = output + driver.get_trimmed_entry("module_base_address_trimmed", module_base_address_trimmed, delimiter, true, false, ":");
-			output = output + driver.get_trimmed_entry("module_basse_address_trimmed", module_basse_address_trimmed, delimiter, true, false, ":");
+			output = output + driver.get_trimmed_entry("process_offset_V", process_offset_V, delimiter, true,  true, false, ":");
+			output = output + driver.get_trimmed_entry("module_base_address", module_base_address, delimiter, true,  true, false, ":");
+			output = output + driver.get_trimmed_entry("process_offset_P_trimmed", process_offset_P_trimmed, delimiter, true,  true, false, ":");
+			output = output + driver.get_trimmed_entry("module_base_address_trimmed", module_base_address_trimmed, delimiter, true,  true, false, ":");
+			output = output + driver.get_trimmed_entry("module_basse_address_trimmed", module_basse_address_trimmed, delimiter, true,  true, false, ":");
 				
+											
+			
 			//
 			//file
 			//
 			if(this.fle != null && file_name == null)
-				output = output + driver.get_trimmed_entry("fle", "/" + fle.getParentFile().getName() + "/" + fle.getName(), delimiter, true, false, ":"); 
+				output = output + driver.get_trimmed_entry("fle", "/" + fle.getParentFile().getName() + "/" + fle.getName(), delimiter, true,  true, false, ":"); 
 
 
 			if(list_details != null && !list_details.isEmpty())
@@ -1067,11 +1125,486 @@ public class Node_Generic
 		}
 		catch(Exception e)
 		{
-			driver.eop(myClassName, "write_manifest_as_single_line", e);
+			driver.eop(myClassName, "write_manifest_as_single_line", e, false);
 		}
 		
 		return output;
 	}
+	
+	
+	
+	public String write_manifest_timeline_filescan(PrintWriter pw, String header, String delimiter, boolean print_output_as_single_line, boolean include_token_name, boolean include_header_delimiter, boolean include_tail_delimiter, Advanced_Analysis_Director director)
+	{
+		String output = "";
+		
+		try
+		{
+			//create output string
+			output = output + driver.get_trimmed_entry("offset_p", offset_p, delimiter, include_token_name, include_header_delimiter, include_tail_delimiter, ":");
+			output = output + driver.get_trimmed_entry("num_ptr", num_ptr, delimiter, include_token_name, include_header_delimiter, include_tail_delimiter, ":");
+			output = output + driver.get_trimmed_entry("num_hnd", num_hnd, delimiter, include_token_name, include_header_delimiter, include_tail_delimiter, ":");
+			output = output + driver.get_trimmed_entry("access", access, delimiter, include_token_name, include_header_delimiter, include_tail_delimiter, ":");
+			output = output + driver.get_trimmed_entry("path", path, delimiter, include_token_name, include_header_delimiter, include_tail_delimiter, ":");
+			output = output + driver.get_trimmed_entry("additional_details", additional_details, delimiter, include_token_name, include_header_delimiter, include_tail_delimiter, ":");
+			
+			//
+			//normalize output
+			//
+			output = driver.normalize_system_root_and_device_hardrivedisk_volume(output, director);
+			
+			//
+			//write out!
+			//
+			if(pw != null)
+			{
+				if(print_output_as_single_line)
+				{
+					driver.write_manifest_entry(pw, header, output);
+				}
+				else//print out as each token
+				{
+					driver.write_manifest_entry(pw, header, "offset_p", offset_p);
+					driver.write_manifest_entry(pw, header, "num_ptr", num_ptr);
+					driver.write_manifest_entry(pw, header, "num_hnd", num_hnd);
+					driver.write_manifest_entry(pw, header, "access", access);
+					driver.write_manifest_entry(pw, header, "path", path);
+					driver.write_manifest_entry(pw, header, "additional_details", additional_details);
+				}
+			}
+		}
+		
+		catch(Exception e)
+		{
+			driver.eop(myClassName, "write_manifest_timeline_filescan", e);
+		}
+		
+		return output;
+	}
+	
+	public String write_manifest_timeline_mftparser(PrintWriter pw, String header, String delimiter, boolean print_output_as_single_line, boolean include_token_name, boolean include_header_delimiter, boolean include_tail_delimiter, Advanced_Analysis_Director director)
+	{
+		String output = "";
+		
+		try
+		{
+			//create output string
+			output = output + driver.get_trimmed_entry("create_date", this.create_date, delimiter, include_token_name, include_header_delimiter, include_tail_delimiter, ":");
+			output = output + driver.get_trimmed_entry("modified_date", this.modified_date, delimiter, include_token_name, include_header_delimiter, include_tail_delimiter, ":");
+			output = output + driver.get_trimmed_entry("mft_altered_date", this.mft_altered_date, delimiter, include_token_name, include_header_delimiter, include_tail_delimiter, ":");
+			output = output + driver.get_trimmed_entry("access_date", this.access_date, delimiter, include_token_name, include_header_delimiter, include_tail_delimiter, ":");
+			output = output + driver.get_trimmed_entry("path", this.path, delimiter, include_token_name, include_header_delimiter, include_tail_delimiter, ":");
+			output = output + driver.get_trimmed_entry("entry_attr", this.entry_attr, delimiter, include_token_name, include_header_delimiter, include_tail_delimiter, ":");
+			output = output + driver.get_trimmed_entry("extension", this.extension, delimiter, include_token_name, include_header_delimiter, include_tail_delimiter, ":");
+			output = output + driver.get_trimmed_entry("additional_details", this.additional_details, delimiter, include_token_name, include_header_delimiter, include_tail_delimiter, ":");
+			
+			//
+			//normalize output
+			//
+			output = driver.normalize_system_root_and_device_hardrivedisk_volume(output, director);
+			
+			//
+			//write out!
+			//
+			if(pw != null)
+			{
+				if(print_output_as_single_line)
+				{
+					driver.write_manifest_entry(pw, header, output);
+				}
+				else//print out as each token
+				{
+					driver.write_manifest_entry(pw, header, "create_date", this.create_date);
+					driver.write_manifest_entry(pw, header, "modified_date", this.modified_date);
+					driver.write_manifest_entry(pw, header, "mft_altered_date", this.mft_altered_date);
+					driver.write_manifest_entry(pw, header, "access_date", this.access_date);
+					driver.write_manifest_entry(pw, header, "path", this.path);
+					driver.write_manifest_entry(pw, header, "entry_attr", this.entry_attr);
+					driver.write_manifest_entry(pw, header, "extension", this.extension);
+					driver.write_manifest_entry(pw, header, "additional_details", this.additional_details);
+				}
+			}
+		}
+		
+		catch(Exception e)
+		{
+			driver.eop(myClassName, "write_manifest_timeline_mftparser", e);
+		}
+		
+		return output;
+	}
+	
+	public String write_manifest_timeline_timeliner(PrintWriter pw, String header, String delimiter, boolean print_output_as_single_line, boolean include_token_name, boolean include_header_delimiter, boolean include_tail_delimiter, Advanced_Analysis_Director director)
+	{
+		String output = "";
+		
+		try
+		{
+			//create output string
+			output = output + driver.get_trimmed_entry("time", time, delimiter, include_token_name, include_header_delimiter, include_tail_delimiter, ":");
+			output = output + driver.get_trimmed_entry("key", key_name, delimiter, include_token_name, include_header_delimiter, include_tail_delimiter, ":");
+			output = output + driver.get_trimmed_entry("value", value, delimiter, include_token_name, include_header_delimiter, include_tail_delimiter, ":");
+			output = output + driver.get_trimmed_entry("details", details, delimiter, include_token_name, include_header_delimiter, include_tail_delimiter, ":");
+			output = output + driver.get_trimmed_entry("additional_details", additional_details, delimiter, include_token_name, include_header_delimiter, include_tail_delimiter, ":");
+			
+			//
+			//normalize output
+			//
+			output = driver.normalize_system_root_and_device_hardrivedisk_volume(output, director);
+			
+			//
+			//write out!
+			//
+			if(pw != null)
+			{
+				if(print_output_as_single_line)
+				{
+					driver.write_manifest_entry(pw, header, output);
+				}
+				else//print out as each token
+				{
+					driver.write_manifest_entry(pw, header, "time", this.time);
+					driver.write_manifest_entry(pw, header, "key", this.key_name);
+					driver.write_manifest_entry(pw, header, "value", this.value);
+					driver.write_manifest_entry(pw, header, "details", this.details);
+					driver.write_manifest_entry(pw, header, "additional_details", this.additional_details);
+				}
+			}
+		}
+		
+		catch(Exception e)
+		{
+			driver.eop(myClassName, "write_manifest_timeline_timeliner", e);
+		}
+		
+		return output;
+	}
+	
+
+	public String write_manifest_timeline_userassist_specific_entries(PrintWriter pw, String header, String delimiter, boolean print_output_as_single_line, boolean include_token_name, boolean include_header_delimiter, boolean include_tail_delimiter, Advanced_Analysis_Director director)
+	{
+		String output = "";
+
+		try
+		{
+			//create output string
+			output = output + driver.get_trimmed_entry("last_updated", last_updated, delimiter, include_token_name, include_header_delimiter, include_tail_delimiter, ":");
+			output = output + driver.get_trimmed_entry("reg_binary", reg_binary, delimiter, include_token_name, include_header_delimiter, include_tail_delimiter, ":");
+			output = output + driver.get_trimmed_entry("time_focused", time_focused, delimiter, include_token_name, include_header_delimiter, include_tail_delimiter, ":");
+			output = output + driver.get_trimmed_entry("count", count, delimiter, include_token_name, include_header_delimiter, include_tail_delimiter, ":");
+			output = output + driver.get_trimmed_entry("focus_count", focus_count, delimiter, include_token_name, include_header_delimiter, include_tail_delimiter, ":");
+			output = output + driver.get_trimmed_entry("registry_name", registry_name, delimiter, include_token_name, include_header_delimiter, include_tail_delimiter, ":");
+			output = output + driver.get_trimmed_entry("path", path, delimiter, include_token_name, include_header_delimiter, include_tail_delimiter, ":");
+			output = output + driver.get_trimmed_entry("reg_data_first_line", reg_data_first_line, delimiter, include_token_name, include_header_delimiter, include_tail_delimiter, ":");
+			output = output + driver.get_trimmed_entry("additional_details", additional_details, delimiter, include_token_name, include_header_delimiter, include_tail_delimiter, ":");
+			
+			
+			//
+			//normalize output
+			//
+			output = driver.normalize_system_root_and_device_hardrivedisk_volume(output, director);
+			
+			//
+			//write out!
+			//
+			if(pw != null)
+			{
+				if(print_output_as_single_line)
+				{
+					driver.write_manifest_entry(pw, header, output);
+				}
+				else//print out as each token
+				{
+					driver.write_manifest_entry(pw, header, "last_updated", last_updated);
+					driver.write_manifest_entry(pw, header, "reg_binary", reg_binary);
+					driver.write_manifest_entry(pw, header, "time_focused", this.time_focused);
+					driver.write_manifest_entry(pw, header, "count", count);
+					driver.write_manifest_entry(pw, header, "focus_count", this.focus_count);
+					driver.write_manifest_entry(pw, header, "registry_name", this.registry_name);
+					driver.write_manifest_entry(pw, header, "path", this.path);			
+					driver.write_manifest_entry(pw, header, "reg_data_first_line", reg_data_first_line);
+					driver.write_manifest_entry(pw, header, "additional_details", additional_details);
+				}
+			}
+		}
+		
+		catch(Exception e)
+		{
+			driver.eop(myClassName, "write_manifest_timeline_userassist_specific_entries", e);
+		}
+		
+		return output;
+	}
+	
+	public String write_manifest_timeline_shellbags(PrintWriter pw, String header, String delimiter, boolean print_output_as_single_line, boolean include_token_name, boolean include_header_delimiter, boolean include_tail_delimiter, Advanced_Analysis_Director director)
+	{
+		String output = "";
+		
+		try
+		{
+			//create output string
+
+
+
+			if(this.shellbag_type != null)
+			{
+				int type = Integer.parseInt(this.shellbag_type.trim());
+
+				switch(type)
+				{
+				//modified_date	 create_date	 access_date	 last_updated	 file_name	 unicode_name	 file_attr	 value	 registry_name	 key_name	 shellbag_type	 additional_details
+				case Node_ShellBag_Container.TYPE_1:
+				{
+					output = output + driver.get_trimmed_entry("modified_date", this.modified_date, delimiter, include_token_name, include_header_delimiter, include_tail_delimiter, ":");
+					output = output + driver.get_trimmed_entry("create_date", this.create_date, delimiter, include_token_name, include_header_delimiter, include_tail_delimiter, ":");
+					output = output + driver.get_trimmed_entry("access_date", this.access_date, delimiter, include_token_name, include_header_delimiter, include_tail_delimiter, ":");
+					output = output + driver.get_trimmed_entry("last_updated", this.last_updated, delimiter, include_token_name, include_header_delimiter, include_tail_delimiter, ":");
+					output = output + driver.get_trimmed_entry("file_name", this.file_name, delimiter, include_token_name, include_header_delimiter, include_tail_delimiter, ":");
+					output = output + driver.get_trimmed_entry("unicode_name", this.unicode_name, delimiter, include_token_name, include_header_delimiter, include_tail_delimiter, ":");
+					output = output + driver.get_trimmed_entry("file_attr", this.file_attr, delimiter, include_token_name, include_header_delimiter, include_tail_delimiter, ":");
+					output = output + driver.get_trimmed_entry("shellbag_value", this.shellbag_value, delimiter, include_token_name, include_header_delimiter, include_tail_delimiter, ":");
+					output = output + driver.get_trimmed_entry("registry_name", this.registry_name, delimiter, include_token_name, include_header_delimiter, include_tail_delimiter, ":");
+					output = output + driver.get_trimmed_entry("registry_key_name", this.registry_key_name, delimiter, include_token_name, include_header_delimiter, include_tail_delimiter, ":");
+					output = output + driver.get_trimmed_entry("shellbag_type", this.shellbag_type, delimiter, include_token_name, include_header_delimiter, include_tail_delimiter, ":");
+					output = output + driver.get_trimmed_entry("additional_details", this.additional_details, delimiter, include_token_name, include_header_delimiter, include_tail_delimiter, ":");
+
+					//
+					//normalize output
+					//
+					output = driver.normalize_system_root_and_device_hardrivedisk_volume(output, director);
+					
+					//
+					//write out!
+					//
+					if(pw != null)
+					{
+						if(print_output_as_single_line)
+							driver.write_manifest_entry(pw, header, output);
+						else
+						{
+							driver.write_manifest_entry(pw, header, "modified_date", this.modified_date);
+							driver.write_manifest_entry(pw, header, "create_date", this.create_date);
+							driver.write_manifest_entry(pw, header, "access_date", this.access_date);
+							driver.write_manifest_entry(pw, header, "last_updated", this.last_updated);
+							driver.write_manifest_entry(pw, header, "file_name", this.file_name);
+							driver.write_manifest_entry(pw, header, "unicode_name", this.unicode_name);
+							driver.write_manifest_entry(pw, header, "file_attr", this.file_attr);
+							driver.write_manifest_entry(pw, header, "shellbag_value", this.shellbag_value);
+							driver.write_manifest_entry(pw, header, "registry_name", this.registry_name);
+							driver.write_manifest_entry(pw, header, "registry_key_name", this.registry_key_name);
+							driver.write_manifest_entry(pw, header, "shellbag_type", this.shellbag_type);
+							driver.write_manifest_entry(pw, header, "additional_details", this.additional_details);
+						}
+					}								
+
+					break;
+				}
+
+				//
+				//case 2
+				//
+				case Node_ShellBag_Container.TYPE_2:
+				{
+					output = output + driver.get_trimmed_entry("last_updated", this.last_updated, delimiter, include_token_name, include_header_delimiter, include_tail_delimiter, ":");
+					output = output + driver.get_trimmed_entry("guid_description", this.guid_description, delimiter, include_token_name, include_header_delimiter, include_tail_delimiter, ":");
+					output = output + driver.get_trimmed_entry("guid", this.guid, delimiter, include_token_name, include_header_delimiter, include_tail_delimiter, ":");
+					output = output + driver.get_trimmed_entry("folder_ids", this.folder_ids, delimiter, include_token_name, include_header_delimiter, include_tail_delimiter, ":");
+					output = output + driver.get_trimmed_entry("entry_type", this.entry_type, delimiter, include_token_name, include_header_delimiter, include_tail_delimiter, ":");
+					output = output + driver.get_trimmed_entry("shellbag_value", this.shellbag_value, delimiter, include_token_name, include_header_delimiter, include_tail_delimiter, ":");
+					output = output + driver.get_trimmed_entry("mru", this.mru, delimiter, include_token_name, include_header_delimiter, include_tail_delimiter, ":");
+					output = output + driver.get_trimmed_entry("registry_name", this.registry_name, delimiter, include_token_name, include_header_delimiter, include_tail_delimiter, ":");
+					output = output + driver.get_trimmed_entry("registry_key_name", this.registry_key_name, delimiter, include_token_name, include_header_delimiter, include_tail_delimiter, ":");
+					output = output + driver.get_trimmed_entry("shellbag_type", this.shellbag_type, delimiter, include_token_name, include_header_delimiter, include_tail_delimiter, ":");
+					output = output + driver.get_trimmed_entry("additional_details", this.additional_details, delimiter, include_token_name, include_header_delimiter, include_tail_delimiter, ":");
+
+					//
+					//normalize output
+					//
+					output = driver.normalize_system_root_and_device_hardrivedisk_volume(output, director);
+					
+					//
+					//write out!
+					//
+					if(pw != null)
+					{
+						if(print_output_as_single_line)
+							driver.write_manifest_entry(pw, header, output);
+						else
+						{
+							driver.write_manifest_entry(pw, header, "last_updated", this.last_updated);
+							driver.write_manifest_entry(pw, header, "guid_description", this.guid_description);
+							driver.write_manifest_entry(pw, header, "guid", this.guid);
+							driver.write_manifest_entry(pw, header, "folder_ids", this.folder_ids);
+							driver.write_manifest_entry(pw, header, "entry_type", this.entry_type);
+							driver.write_manifest_entry(pw, header, "shellbag_value", this.shellbag_value);
+							driver.write_manifest_entry(pw, header, "mru", this.mru);
+							driver.write_manifest_entry(pw, header, "registry_name", this.registry_name);
+							driver.write_manifest_entry(pw, header, "registry_key_name", this.registry_key_name);
+							driver.write_manifest_entry(pw, header, "shellbag_type", this.shellbag_type);
+							driver.write_manifest_entry(pw, header, "additional_details", this.additional_details);
+						}
+					}								
+
+					break;
+				}
+
+
+				//
+				//Case 3
+				//
+				case Node_ShellBag_Container.TYPE_3:
+				{
+					output = output + driver.get_trimmed_entry("modified_date", this.modified_date, delimiter, include_token_name, include_header_delimiter, include_tail_delimiter, ":");
+					output = output + driver.get_trimmed_entry("create_date", this.create_date, delimiter, include_token_name, include_header_delimiter, include_tail_delimiter, ":");
+					output = output + driver.get_trimmed_entry("access_date", this.access_date, delimiter, include_token_name, include_header_delimiter, include_tail_delimiter, ":");
+					output = output + driver.get_trimmed_entry("last_updated", this.last_updated, delimiter, include_token_name, include_header_delimiter, include_tail_delimiter, ":");
+					output = output + driver.get_trimmed_entry("path", this.path, delimiter, include_token_name, include_header_delimiter, include_tail_delimiter, ":");
+					output = output + driver.get_trimmed_entry("file_name", this.file_name, delimiter, include_token_name, include_header_delimiter, include_tail_delimiter, ":");
+					output = output + driver.get_trimmed_entry("file_attr", this.file_attr, delimiter, include_token_name, include_header_delimiter, include_tail_delimiter, ":");
+					output = output + driver.get_trimmed_entry("shellbag_value", this.shellbag_value, delimiter, include_token_name, include_header_delimiter, include_tail_delimiter, ":");
+					output = output + driver.get_trimmed_entry("mru", this.mru, delimiter, include_token_name, include_header_delimiter, include_tail_delimiter, ":");
+					output = output + driver.get_trimmed_entry("registry_name", this.registry_name, delimiter, include_token_name, include_header_delimiter, include_tail_delimiter, ":");
+					output = output + driver.get_trimmed_entry("registry_key_name", this.registry_key_name, delimiter, include_token_name, include_header_delimiter, include_tail_delimiter, ":");
+					output = output + driver.get_trimmed_entry("shellbag_type", this.shellbag_type, delimiter, include_token_name, include_header_delimiter, include_tail_delimiter, ":");
+					output = output + driver.get_trimmed_entry("additional_details", this.additional_details, delimiter, include_token_name, include_header_delimiter, include_tail_delimiter, ":");
+
+
+
+					//
+					//normalize output
+					//
+					output = driver.normalize_system_root_and_device_hardrivedisk_volume(output, director);
+					
+					//
+					//write out!
+					//
+					if(pw != null)
+					{
+						if(print_output_as_single_line)
+							driver.write_manifest_entry(pw, header, output);
+						else
+						{
+							driver.write_manifest_entry(pw, header, "modified_date", this.modified_date);
+							driver.write_manifest_entry(pw, header, "create_date", this.create_date);
+							driver.write_manifest_entry(pw, header, "access_date", this.access_date);
+							driver.write_manifest_entry(pw, header, "last_updated", this.last_updated);
+							driver.write_manifest_entry(pw, header, "path", this.path);
+							driver.write_manifest_entry(pw, header, "file_name", this.file_name);
+							driver.write_manifest_entry(pw, header, "file_attr", this.file_attr);
+							driver.write_manifest_entry(pw, header, "shellbag_value", this.shellbag_value);
+							driver.write_manifest_entry(pw, header, "mru", this.mru);
+							driver.write_manifest_entry(pw, header, "registry_name", this.registry_name);
+							driver.write_manifest_entry(pw, header, "registry_key_name", this.registry_key_name);
+							driver.write_manifest_entry(pw, header, "shellbag_type", this.shellbag_type);
+							driver.write_manifest_entry(pw, header, "additional_details", this.additional_details);
+						}
+					}								
+
+					break;
+				}
+
+				//
+				//Case 3
+				//
+				case Node_ShellBag_Container.TYPE_4:
+				{
+					output = output + driver.get_trimmed_entry("last_updated", this.last_updated, delimiter, include_token_name, include_header_delimiter, include_tail_delimiter, ":");
+					output = output + driver.get_trimmed_entry("path", this.path, delimiter, include_token_name, include_header_delimiter, include_tail_delimiter, ":");
+					output = output + driver.get_trimmed_entry("entry_type", this.entry_type, delimiter, include_token_name, include_header_delimiter, include_tail_delimiter, ":");
+					output = output + driver.get_trimmed_entry("shellbag_value", this.shellbag_value, delimiter, include_token_name, include_header_delimiter, include_tail_delimiter, ":");
+					output = output + driver.get_trimmed_entry("mru", this.mru, delimiter, include_token_name, include_header_delimiter, include_tail_delimiter, ":");
+					output = output + driver.get_trimmed_entry("registry_name", this.registry_name, delimiter, include_token_name, include_header_delimiter, include_tail_delimiter, ":");
+					output = output + driver.get_trimmed_entry("registry_key_name", this.registry_key_name, delimiter, include_token_name, include_header_delimiter, include_tail_delimiter, ":");
+					output = output + driver.get_trimmed_entry("shellbag_type", this.shellbag_type, delimiter, include_token_name, include_header_delimiter, include_tail_delimiter, ":");
+					output = output + driver.get_trimmed_entry("additional_details", this.additional_details, delimiter, include_token_name, include_header_delimiter, include_tail_delimiter, ":");
+						
+																		
+					//
+					//normalize output
+					//
+					output = driver.normalize_system_root_and_device_hardrivedisk_volume(output, director);
+					
+					//
+					//write out!
+					//
+					if(pw != null)
+						{
+							if(print_output_as_single_line)
+								driver.write_manifest_entry(pw, header, output);
+							else
+							{
+								driver.write_manifest_entry(pw, header, "last_updated", this.last_updated);
+								driver.write_manifest_entry(pw, header, "path", this.path);
+								driver.write_manifest_entry(pw, header, "entry_type", this.entry_type);
+								driver.write_manifest_entry(pw, header, "shellbag_value", this.shellbag_value);
+								driver.write_manifest_entry(pw, header, "mru", this.mru);
+								driver.write_manifest_entry(pw, header, "registry_name", this.registry_name);
+								driver.write_manifest_entry(pw, header, "registry_key_name", this.registry_key_name);
+								driver.write_manifest_entry(pw, header, "shellbag_type", this.shellbag_type);
+								driver.write_manifest_entry(pw, header, "additional_details", this.additional_details);
+							}
+						}								
+						
+						break;
+					}
+					
+					
+				}//end switch
+				
+				
+			}						
+			
+		}
+		
+		catch(Exception e)
+		{
+			driver.eop(myClassName, "write_manifest_timeline_shellbags", e);
+		}
+		
+		return output;
+	}
+	
+	
+	public String write_manifest_timeline_shimcache(PrintWriter pw, String header, String delimiter, boolean print_output_as_single_line, boolean include_token_name, boolean include_header_delimiter, boolean include_tail_delimiter, Advanced_Analysis_Director director)
+	{
+		String output = "";
+		
+		try
+		{
+			//create output string
+			output = output + driver.get_trimmed_entry("last_updated", this.last_updated, delimiter, include_token_name, include_header_delimiter, include_tail_delimiter, ":");
+			output = output + driver.get_trimmed_entry("path", path, delimiter, include_token_name, include_header_delimiter, include_tail_delimiter, ":");
+			output = output + driver.get_trimmed_entry("additional_details", additional_details, delimiter, include_token_name, include_header_delimiter, include_tail_delimiter, ":");
+			
+			//
+			//normalize output
+			//
+			output = driver.normalize_system_root_and_device_hardrivedisk_volume(output, director);
+			
+			//
+			//write out!
+			//
+			if(pw != null)
+			{
+				if(print_output_as_single_line)
+				{
+					driver.write_manifest_entry(pw, header, output);
+				}
+				else//print out as each token
+				{
+					driver.write_manifest_entry(pw, header, "last_updated", last_updated);
+					driver.write_manifest_entry(pw, header, "additional_details", additional_details);
+				}
+			}
+		}
+		
+		catch(Exception e)
+		{
+			driver.eop(myClassName, "write_manifest_timeline_shimcache", e);
+		}
+		
+		return output;
+	}
+	
 	
 	/**
 	 * continuation mtd
@@ -1080,17 +1613,41 @@ public class Node_Generic
 	 * @param value
 	 * @return
 	 */
-	public String write_manifest(PrintWriter pw, String header, String delimiter, boolean include_underline, boolean print_output_as_single_line, boolean printing_vad_node_called_by_process)
+	public String write_manifest(PrintWriter pw, String header, String delimiter, boolean include_underline, boolean print_output_as_single_line, boolean printing_vad_node_called_by_process, Advanced_Analysis_Director director)
 	{
 		try
 		{
+			if(uniform_timeline_type != null)
+			{
+				if(uniform_timeline_type.equals(this.TIMELINE_KEY_NAME_FILESCAN))
+					return write_manifest_timeline_filescan(pw, header, delimiter, print_output_as_single_line, false, false, true, director);
+				
+				if(uniform_timeline_type.equals(this.TIMELINE_KEY_NAME_MFTPARSER))
+					return write_manifest_timeline_mftparser(pw, header, delimiter, print_output_as_single_line, false, false, true, director);
+				
+				if(uniform_timeline_type.equals(this.TIMELINE_KEY_NAME_TIMELINER))
+					return write_manifest_timeline_timeliner(pw, header, delimiter, print_output_as_single_line, false, false, true, director);
+				
+				if(uniform_timeline_type.equals(this.TIMELINE_KEY_NAME_USERASSIST_SPECIFIC_ENTRIES))
+					return write_manifest_timeline_userassist_specific_entries(pw, header, delimiter, print_output_as_single_line, false, false, true, director);
+				
+				if(uniform_timeline_type.equals(this.TIMELINE_KEY_NAME_SHELLBAGS))
+					return write_manifest_timeline_shellbags(pw, header, delimiter, print_output_as_single_line, false, false, true, director);
+				
+				if(uniform_timeline_type.equals(this.TIMELINE_KEY_NAME_SHIMCACHE))
+					return write_manifest_timeline_shimcache(pw, header, delimiter, print_output_as_single_line, false, false, true, director);
+			}
+			
+			
+			
 			if(pw == null)
 				return null;	
 			
 			delimiter = delimiter + " ";
-			
+												
 			if(print_output_as_single_line)
-				return write_manifest_as_single_line(pw, header, delimiter);
+				return write_manifest_as_single_line(pw, header, delimiter);			
+			
 							 			
 			driver.write_manifest_entry(pw, header, "plugin_name", plugin_name);
 			driver.write_manifest_entry(pw, header, "pid", pid);
@@ -1146,6 +1703,7 @@ public class Node_Generic
 			driver.write_manifest_entry(pw, header, "focus_count", this.focus_count);
 			driver.write_manifest_entry(pw, header, "time_focused", this.time_focused);
 			driver.write_manifest_entry(pw, header, "last_updated", last_updated);
+			
 
 			//
 			//vadinfo
@@ -1187,6 +1745,7 @@ public class Node_Generic
 			driver.write_manifest_entry(pw, header, "num_hnd", num_hnd);
 			driver.write_manifest_entry(pw, header, "access", access);
 			driver.write_manifest_entry(pw, header, "path_name", path_name);
+			
 
 			//
 			//File XREF
@@ -1205,9 +1764,9 @@ public class Node_Generic
 			driver.write_manifest_entry(pw, header, "module_base_address_trimmed", module_base_address_trimmed);
 			driver.write_manifest_entry(pw, header, "module_basse_address_trimmed", module_basse_address_trimmed);
 			
+			
+			
 
-			
-			
 			
 			
 			
@@ -1859,11 +2418,11 @@ public class Node_Generic
 		
 		try
 		{
-			output = output + driver.get_trimmed_entry("function", function, "\t", true, false, ":");
-			output = output + driver.get_trimmed_entry("impscan_start_address", impscan_start_address, "\t", true, false, ":");
-			output = output + driver.get_trimmed_entry("impscan_end_address", impscan_end_address, "\t", true, false, ":");
-			output = output + driver.get_trimmed_entry("IAT entry address", IAT, "\t", true, false, ":");
-			output = output + driver.get_trimmed_entry("call", call, "\t", true, false, ":");			
+			output = output + driver.get_trimmed_entry("function", function, "\t", true, true, false, ":");
+			output = output + driver.get_trimmed_entry("impscan_start_address", impscan_start_address, "\t", true,  true, false, ":");
+			output = output + driver.get_trimmed_entry("impscan_end_address", impscan_end_address, "\t", true,  true, false, ":");
+			output = output + driver.get_trimmed_entry("IAT entry address", IAT, "\t", true,  true, false, ":");
+			output = output + driver.get_trimmed_entry("call", call, "\t", true,  true, false, ":");			
 			output = output.trim();
 		}
 		catch(Exception e)
@@ -1918,16 +2477,16 @@ public class Node_Generic
 			switch(type)
 			{
 				case Node_ShellBag_Container.TYPE_1:
-					return this.modified_date + delimiter + this.create_date + delimiter + this.access_date + delimiter + this.last_updated + delimiter + this.file_name + delimiter + this.unicode_name + delimiter + this.file_attr + delimiter + value + delimiter + registry_name + delimiter + key_name + delimiter + this.shell_bag_type + delimiter + additional_details;
+					return this.modified_date + delimiter + this.create_date + delimiter + this.access_date + delimiter + this.last_updated + delimiter + this.file_name + delimiter + this.unicode_name + delimiter + this.file_attr + delimiter + value + delimiter + registry_name + delimiter + registry_key_name + delimiter + this.shellbag_type + delimiter + additional_details;
 					
 				case Node_ShellBag_Container.TYPE_2:
-					return this.last_updated + delimiter + guid_description + delimiter + guid + delimiter + folder_ids + delimiter + entry_type + delimiter + value + delimiter + mru + delimiter +  registry_name + delimiter + key_name + delimiter  + this.shell_bag_type + delimiter +  additional_details;
+					return this.last_updated + delimiter + guid_description + delimiter + guid + delimiter + folder_ids + delimiter + entry_type + delimiter + value + delimiter + mru + delimiter +  registry_name + delimiter + registry_key_name + delimiter  + this.shellbag_type + delimiter +  additional_details;
 				
 				case Node_ShellBag_Container.TYPE_3:
-					return this.modified_date + delimiter + this.create_date + delimiter + this.access_date + delimiter + this.last_updated + delimiter + this.path + delimiter + this.file_name + delimiter + this.file_attr + delimiter + value + delimiter + mru + delimiter + registry_name + delimiter + key_name + delimiter  + this.shell_bag_type + delimiter +  additional_details;
+					return this.modified_date + delimiter + this.create_date + delimiter + this.access_date + delimiter + this.last_updated + delimiter + this.path + delimiter + this.file_name + delimiter + this.file_attr + delimiter + value + delimiter + mru + delimiter + registry_name + delimiter + registry_key_name + delimiter  + this.shellbag_type + delimiter +  additional_details;
 						
 				case Node_ShellBag_Container.TYPE_4:
-					return this.last_updated + delimiter + path + delimiter + entry_type + delimiter + value + delimiter + mru + delimiter +  registry_name + delimiter + key_name + delimiter  + this.shell_bag_type + delimiter +  additional_details;							
+					return this.last_updated + delimiter + path + delimiter + entry_type + delimiter + value + delimiter + mru + delimiter +  registry_name + delimiter + registry_key_name + delimiter  + this.shellbag_type + delimiter +  additional_details;							
 			}
 			
 			
@@ -1939,6 +2498,283 @@ public class Node_Generic
 		
 		return output;
 	}
+	
+	
+	
+	
+	
+	public String get_timeline_value()
+	{
+		try
+		{
+			if(this.uniform_timeline_type == null)
+				;//do n/t, fall through and return unk
+			else if(this.registry_key_name.equalsIgnoreCase(TIMELINE_KEY_NAME_FILESCAN) && this.path != null) 
+				return this.path;
+			else if(this.registry_key_name.equalsIgnoreCase(TIMELINE_KEY_NAME_FILESCAN) && this.path_name != null) 
+				return this.path_name;
+			
+		}
+		catch(Exception e)
+		{
+			driver.eop(myClassName, "get_timeline_key", e);
+		}
+		
+		return "unknown";
+	}
+	
+	
+	public boolean write_xavier_super_timeline_manifest(PrintWriter pw, String header, String delimiter)
+	{
+		try
+		{
+			if(header == null)
+				header = "";
+			
+			String output = null;
+			
+			String ADDITIONAL_DETAL = this.additional_details;
+			
+			if(ADDITIONAL_DETAL == null)
+				ADDITIONAL_DETAL = "";
+			
+			ADDITIONAL_DETAL = ADDITIONAL_DETAL.trim();
+			
+			String EXTENSION = this.extension;
+			
+			if(EXTENSION == null)
+				EXTENSION = "";
+			
+			EXTENSION = EXTENSION.trim();
+			
+			if(header.equals(Node_Generic.TIMELINE_KEY_NAME_FILESCAN))
+				return true;
+			
+			if(header.equals(Node_Generic.TIMELINE_KEY_NAME_MFTPARSER))
+				output = driver.get_latest_time(this.create_date, this.modified_date, this.mft_altered_date, this.access_date, 0) + delimiter + this.uniform_timeline_type + delimiter +  this.key_name + delimiter +  this.value + delimiter +  this.create_date + delimiter +  this.modified_date + delimiter +  this.mft_altered_date + delimiter +  this.access_date + delimiter +  EXTENSION + delimiter +  ADDITIONAL_DETAL; 
+			
+			if(header.equals(Node_Generic.TIMELINE_KEY_NAME_TIMELINER))
+				output = this.time + delimiter + this.uniform_timeline_type + delimiter + key_name + delimiter + value + delimiter + details + delimiter + ADDITIONAL_DETAL;
+			
+			if(header.equals(Node_Generic.TIMELINE_KEY_NAME_USERASSIST_SPECIFIC_ENTRIES))
+				output = this.last_updated + delimiter + this.uniform_timeline_type + delimiter + key_name + delimiter + value + delimiter + this.time_focused + delimiter + this.count + delimiter + this.focus_count + delimiter + this.registry_name + delimiter + this.path  + delimiter + this.reg_data_first_line  + delimiter + ADDITIONAL_DETAL;
+			
+			if(header.equals(Node_Generic.TIMELINE_KEY_NAME_SHELLBAGS))
+				return true;
+			
+			if(header.equals(Node_Generic.TIMELINE_KEY_NAME_SHIMCACHE))
+				output = this.last_updated + delimiter + this.uniform_timeline_type + delimiter + key_name + delimiter + value + delimiter + ADDITIONAL_DETAL;
+			
+			pw.println(output);
+			
+			return true;
+		}
+		catch(Exception e)
+		{
+			driver.eop(myClassName, "write_xavier_super_timeline_manifest", e);
+		}
+		
+		return false;
+	}
+	
+	
+	public LinkedList<String> search_XREF(String XREF_SEARCH_STRING, String XREF_SEARCH_STRING_LOWER, LinkedList<String> list_hits_found, String container_name, String mneumonic, String delimiter)
+	{
+		try
+		{
+			this.check_value(offset, "Offset", XREF_SEARCH_STRING, XREF_SEARCH_STRING_LOWER, list_hits_found, container_name, mneumonic, delimiter);
+			
+			this.check_value(pid, "PID", XREF_SEARCH_STRING, XREF_SEARCH_STRING_LOWER, list_hits_found, container_name, mneumonic, delimiter);
+			this.check_value(process_name, "process name", XREF_SEARCH_STRING, XREF_SEARCH_STRING_LOWER, list_hits_found, container_name, mneumonic, delimiter);
+			this.check_value(session, "session", XREF_SEARCH_STRING, XREF_SEARCH_STRING_LOWER, list_hits_found, container_name, mneumonic, delimiter);
+			this.check_value(handle, "handle", XREF_SEARCH_STRING, XREF_SEARCH_STRING_LOWER, list_hits_found, container_name, mneumonic, delimiter);
+			this.check_value(object, "object", XREF_SEARCH_STRING, XREF_SEARCH_STRING_LOWER, list_hits_found, container_name, mneumonic, delimiter);
+			this.check_value(thread, "thread", XREF_SEARCH_STRING, XREF_SEARCH_STRING_LOWER, list_hits_found, container_name, mneumonic, delimiter);
+			this.check_value(process_details, "process details", XREF_SEARCH_STRING, XREF_SEARCH_STRING_LOWER, list_hits_found, container_name, mneumonic, delimiter);
+			this.check_value(nID, "nID", XREF_SEARCH_STRING, XREF_SEARCH_STRING_LOWER, list_hits_found, container_name, mneumonic, delimiter);
+			this.check_value(rate_ms, "rate (ms)", XREF_SEARCH_STRING, XREF_SEARCH_STRING_LOWER, list_hits_found, container_name, mneumonic, delimiter);
+			this.check_value(countdown_ms, "countdown (ms)", XREF_SEARCH_STRING, XREF_SEARCH_STRING_LOWER, list_hits_found, container_name, mneumonic, delimiter);
+			this.check_value(function, "function", XREF_SEARCH_STRING, XREF_SEARCH_STRING_LOWER, list_hits_found, container_name, mneumonic, delimiter);
+			this.check_value(type, "type", XREF_SEARCH_STRING, XREF_SEARCH_STRING_LOWER, list_hits_found, container_name, mneumonic, delimiter);
+			this.check_value(callback, "callback", XREF_SEARCH_STRING, XREF_SEARCH_STRING_LOWER, list_hits_found, container_name, mneumonic, delimiter);
+			this.check_value(module_name, "module name", XREF_SEARCH_STRING, XREF_SEARCH_STRING_LOWER, list_hits_found, container_name, mneumonic, delimiter);
+			this.check_value(details, "details", XREF_SEARCH_STRING, XREF_SEARCH_STRING_LOWER, list_hits_found, container_name, mneumonic, delimiter);
+			this.check_value(offset_v, "offset (V)", XREF_SEARCH_STRING, XREF_SEARCH_STRING_LOWER, list_hits_found, container_name, mneumonic, delimiter);
+			this.check_value(due_time, "due time", XREF_SEARCH_STRING, XREF_SEARCH_STRING_LOWER, list_hits_found, container_name, mneumonic, delimiter);
+			this.check_value(period_ms, "period (ms)", XREF_SEARCH_STRING, XREF_SEARCH_STRING_LOWER, list_hits_found, container_name, mneumonic, delimiter);
+			this.check_value(signaled, "signaled", XREF_SEARCH_STRING, XREF_SEARCH_STRING_LOWER, list_hits_found, container_name, mneumonic, delimiter);
+			this.check_value(routine, "routine", XREF_SEARCH_STRING, XREF_SEARCH_STRING_LOWER, list_hits_found, container_name, mneumonic, delimiter);
+			this.check_value(start_address, "start address", XREF_SEARCH_STRING, XREF_SEARCH_STRING_LOWER, list_hits_found, container_name, mneumonic, delimiter);
+			this.check_value(end_address, "end address", XREF_SEARCH_STRING, XREF_SEARCH_STRING_LOWER, list_hits_found, container_name, mneumonic, delimiter);
+			this.check_value(date, "date", XREF_SEARCH_STRING, XREF_SEARCH_STRING_LOWER, list_hits_found, container_name, mneumonic, delimiter);
+			this.check_value(time, "time", XREF_SEARCH_STRING, XREF_SEARCH_STRING_LOWER, list_hits_found, container_name, mneumonic, delimiter);
+			this.check_value(reg_binary, "reg binary", XREF_SEARCH_STRING, XREF_SEARCH_STRING_LOWER, list_hits_found, container_name, mneumonic, delimiter);
+			this.check_value(raw_data_first_line, "raw_data_first_line", XREF_SEARCH_STRING, XREF_SEARCH_STRING_LOWER, list_hits_found, container_name, mneumonic, delimiter);
+			this.check_value(id, "ID", XREF_SEARCH_STRING, XREF_SEARCH_STRING_LOWER, list_hits_found, container_name, mneumonic, delimiter);
+			this.check_value(count, "count", XREF_SEARCH_STRING, XREF_SEARCH_STRING_LOWER, list_hits_found, container_name, mneumonic, delimiter);
+			this.check_value(focus_count, "focus count", XREF_SEARCH_STRING, XREF_SEARCH_STRING_LOWER, list_hits_found, container_name, mneumonic, delimiter);
+			this.check_value(time_focused, "time focused", XREF_SEARCH_STRING, XREF_SEARCH_STRING_LOWER, list_hits_found, container_name, mneumonic, delimiter);
+			this.check_value(last_updated, "last updated", XREF_SEARCH_STRING, XREF_SEARCH_STRING_LOWER, list_hits_found, container_name, mneumonic, delimiter);
+			this.check_value(offset, "offset", XREF_SEARCH_STRING, XREF_SEARCH_STRING_LOWER, list_hits_found, container_name, mneumonic, delimiter);
+			this.check_value(name, "name", XREF_SEARCH_STRING, XREF_SEARCH_STRING_LOWER, list_hits_found, container_name, mneumonic, delimiter);
+			this.check_value(path, "path", XREF_SEARCH_STRING, XREF_SEARCH_STRING_LOWER, list_hits_found, container_name, mneumonic, delimiter);
+			this.check_value(desktop_offset, "desktop offset", XREF_SEARCH_STRING, XREF_SEARCH_STRING_LOWER, list_hits_found, container_name, mneumonic, delimiter);
+			this.check_value(next, "next", XREF_SEARCH_STRING, XREF_SEARCH_STRING_LOWER, list_hits_found, container_name, mneumonic, delimiter);
+			this.check_value(session_id, "session ID", XREF_SEARCH_STRING, XREF_SEARCH_STRING_LOWER, list_hits_found, container_name, mneumonic, delimiter);
+			this.check_value(desktop_info, "desktop info", XREF_SEARCH_STRING, XREF_SEARCH_STRING_LOWER, list_hits_found, container_name, mneumonic, delimiter);
+			this.check_value(size, "size", XREF_SEARCH_STRING, XREF_SEARCH_STRING_LOWER, list_hits_found, container_name, mneumonic, delimiter);
+			this.check_value(fshooks, "fshooks", XREF_SEARCH_STRING, XREF_SEARCH_STRING_LOWER, list_hits_found, container_name, mneumonic, delimiter);
+			this.check_value(spwnd, "spwnd", XREF_SEARCH_STRING, XREF_SEARCH_STRING_LOWER, list_hits_found, container_name, mneumonic, delimiter);
+			this.check_value(windows, "windows", XREF_SEARCH_STRING, XREF_SEARCH_STRING_LOWER, list_hits_found, container_name, mneumonic, delimiter);
+			this.check_value(heap, "heap", XREF_SEARCH_STRING, XREF_SEARCH_STRING_LOWER, list_hits_found, container_name, mneumonic, delimiter);
+			this.check_value(limit, "limit", XREF_SEARCH_STRING, XREF_SEARCH_STRING_LOWER, list_hits_found, container_name, mneumonic, delimiter);
+			this.check_value(base, "base", XREF_SEARCH_STRING, XREF_SEARCH_STRING_LOWER, list_hits_found, container_name, mneumonic, delimiter);
+			this.check_value(impscan_start_address, "impscan_start_address", XREF_SEARCH_STRING, XREF_SEARCH_STRING_LOWER, list_hits_found, container_name, mneumonic, delimiter);
+			this.check_value(impscan_end_address, "impscan_end_address", XREF_SEARCH_STRING, XREF_SEARCH_STRING_LOWER, list_hits_found, container_name, mneumonic, delimiter);
+			this.check_value(IAT, "IAT", XREF_SEARCH_STRING, XREF_SEARCH_STRING_LOWER, list_hits_found, container_name, mneumonic, delimiter);
+			this.check_value(call, "call", XREF_SEARCH_STRING, XREF_SEARCH_STRING_LOWER, list_hits_found, container_name, mneumonic, delimiter);
+			this.check_value(function_name_lower, "function_name_lower", XREF_SEARCH_STRING, XREF_SEARCH_STRING_LOWER, list_hits_found, container_name, mneumonic, delimiter);
+			this.check_value(offset_p, "offset (p)", XREF_SEARCH_STRING, XREF_SEARCH_STRING_LOWER, list_hits_found, container_name, mneumonic, delimiter);
+			this.check_value(num_ptr, "num_ptr", XREF_SEARCH_STRING, XREF_SEARCH_STRING_LOWER, list_hits_found, container_name, mneumonic, delimiter);
+			this.check_value(num_hnd, "num_hnd", XREF_SEARCH_STRING, XREF_SEARCH_STRING_LOWER, list_hits_found, container_name, mneumonic, delimiter);
+			this.check_value(access, "access", XREF_SEARCH_STRING, XREF_SEARCH_STRING_LOWER, list_hits_found, container_name, mneumonic, delimiter);
+			this.check_value(path_name, "path_name", XREF_SEARCH_STRING, XREF_SEARCH_STRING_LOWER, list_hits_found, container_name, mneumonic, delimiter);
+			this.check_value(file_name, "file_name", XREF_SEARCH_STRING, XREF_SEARCH_STRING_LOWER, list_hits_found, container_name, mneumonic, delimiter);
+			this.check_value(process_offset_V, "process_offset (V)", XREF_SEARCH_STRING, XREF_SEARCH_STRING_LOWER, list_hits_found, container_name, mneumonic, delimiter);
+			this.check_value(module_base_address, "module_base_address", XREF_SEARCH_STRING, XREF_SEARCH_STRING_LOWER, list_hits_found, container_name, mneumonic, delimiter);
+			//this.check_value(process_offset_P_trimmed, "process_offset_P_trimmed", XREF_SEARCH_STRING, XREF_SEARCH_STRING_LOWER, list_hits_found, container_name, mneumonic, delimiter);
+			//this.check_value(module_base_address_trimmed, "module_base_address_trimmed", XREF_SEARCH_STRING, XREF_SEARCH_STRING_LOWER, list_hits_found, container_name, mneumonic, delimiter);
+			//this.check_value(module_basse_address_trimmed, "module_basse_address_trimmed", XREF_SEARCH_STRING, XREF_SEARCH_STRING_LOWER, list_hits_found, container_name, mneumonic, delimiter);
+			
+			
+			this.check_value(snapshot_manifest_VALUE_1_same_value, "snapshot_manifest_VALUE_1_same_value", XREF_SEARCH_STRING, XREF_SEARCH_STRING_LOWER, list_hits_found, container_name, mneumonic, delimiter);
+			this.check_value(snapshot_manifest_DIFFERENCE_value, "snapshot_manifest_DIFFERENCE_value", XREF_SEARCH_STRING, XREF_SEARCH_STRING_LOWER, list_hits_found, container_name, mneumonic, delimiter);
+			this.check_value(shellbag_type, "shellbag_type", XREF_SEARCH_STRING, XREF_SEARCH_STRING_LOWER, list_hits_found, container_name, mneumonic, delimiter);
+			
+			this.check_value(shellbag_value, "shellbag_value", XREF_SEARCH_STRING, XREF_SEARCH_STRING_LOWER, list_hits_found, container_name, mneumonic, delimiter);
+			this.check_value(registry_name, "registry_name", XREF_SEARCH_STRING, XREF_SEARCH_STRING_LOWER, list_hits_found, container_name, mneumonic, delimiter);
+			this.check_value(registry_key_name, "registry_key_name", XREF_SEARCH_STRING, XREF_SEARCH_STRING_LOWER, list_hits_found, container_name, mneumonic, delimiter);
+			this.check_value(modified_date, "modified_date", XREF_SEARCH_STRING, XREF_SEARCH_STRING_LOWER, list_hits_found, container_name, mneumonic, delimiter);
+			this.check_value(create_date, "create_date", XREF_SEARCH_STRING, XREF_SEARCH_STRING_LOWER, list_hits_found, container_name, mneumonic, delimiter);
+			this.check_value(access_date, "access_date", XREF_SEARCH_STRING, XREF_SEARCH_STRING_LOWER, list_hits_found, container_name, mneumonic, delimiter);
+			this.check_value(file_attr, "file_attr", XREF_SEARCH_STRING, XREF_SEARCH_STRING_LOWER, list_hits_found, container_name, mneumonic, delimiter);
+			this.check_value(unicode_name, "unicode_name", XREF_SEARCH_STRING, XREF_SEARCH_STRING_LOWER, list_hits_found, container_name, mneumonic, delimiter);
+			this.check_value(additional_details, "additional_details", XREF_SEARCH_STRING, XREF_SEARCH_STRING_LOWER, list_hits_found, container_name, mneumonic, delimiter);
+			this.check_value(shell_bag_analysis_line, "shell_bag_analysis_line", XREF_SEARCH_STRING, XREF_SEARCH_STRING_LOWER, list_hits_found, container_name, mneumonic, delimiter);
+			this.check_value(shell_bag_timeline, "shell_bag_timeline", XREF_SEARCH_STRING, XREF_SEARCH_STRING_LOWER, list_hits_found, container_name, mneumonic, delimiter);
+			this.check_value(mru, "MRU", XREF_SEARCH_STRING, XREF_SEARCH_STRING_LOWER, list_hits_found, container_name, mneumonic, delimiter);
+			this.check_value(entry_type, "entry type", XREF_SEARCH_STRING, XREF_SEARCH_STRING_LOWER, list_hits_found, container_name, mneumonic, delimiter);
+			this.check_value(guid, "guid", XREF_SEARCH_STRING, XREF_SEARCH_STRING_LOWER, list_hits_found, container_name, mneumonic, delimiter);
+			this.check_value(guid_description, "guid description", XREF_SEARCH_STRING, XREF_SEARCH_STRING_LOWER, list_hits_found, container_name, mneumonic, delimiter);
+			this.check_value(folder_ids, "folder IDS", XREF_SEARCH_STRING, XREF_SEARCH_STRING_LOWER, list_hits_found, container_name, mneumonic, delimiter);
+			this.check_value(mft_altered_date, "mft_altered_date", XREF_SEARCH_STRING, XREF_SEARCH_STRING_LOWER, list_hits_found, container_name, mneumonic, delimiter);
+			this.check_value(entry_attr, "entry_attr", XREF_SEARCH_STRING, XREF_SEARCH_STRING_LOWER, list_hits_found, container_name, mneumonic, delimiter);
+			this.check_value(extension, "extension", XREF_SEARCH_STRING, XREF_SEARCH_STRING_LOWER, list_hits_found, container_name, mneumonic, delimiter);
+			this.check_value(reg_data_first_line, "reg_data_first_line", XREF_SEARCH_STRING, XREF_SEARCH_STRING_LOWER, list_hits_found, container_name, mneumonic, delimiter);
+
+			
+			if(this.uniform_timeline_type != null && this.uniform_timeline_type.equals(TIMELINE_KEY_NAME_TIMELINER))
+			{
+				this.check_value(key_name, "key_name", XREF_SEARCH_STRING, XREF_SEARCH_STRING_LOWER, list_hits_found, container_name, mneumonic, delimiter);
+				this.check_value(value, "value", XREF_SEARCH_STRING, XREF_SEARCH_STRING_LOWER, list_hits_found, container_name, mneumonic, delimiter);
+			}
+				
+				
+			
+			
+		}
+		catch(Exception e)
+		{
+			driver.eop(myClassName, "search_XREF - linked list", e);
+		}
+		
+		return list_hits_found;
+	}
+	
+	
+	
+	public LinkedList<String> check_value(String variable_to_check, String variable_name, String XREF_SEARCH_STRING, String XREF_SEARCH_STRING_LOWER, LinkedList<String> list_hits_found, String container_name, String mneumonic, String delimiter)
+	{
+		try
+		{
+			if(variable_to_check == null)
+				return list_hits_found;
+			
+			lower = variable_to_check.toLowerCase().trim();
+			
+			if(lower.equals(""))
+				return list_hits_found;
+			
+			if(lower.contains(XREF_SEARCH_STRING_LOWER))
+			{
+				String key = "";
+				
+				if(uniform_timeline_type.equals(Node_Generic.TIMELINE_KEY_NAME_FILESCAN))
+				{
+					key = mneumonic + " @ Offset (P) " + this.offset_p + ":\t";					
+				}
+				
+				else if(uniform_timeline_type.equals(Node_Generic.TIMELINE_KEY_NAME_MFTPARSER))
+				{
+					key = mneumonic + ":\t";
+				}
+
+				else if(uniform_timeline_type.equals(Node_Generic.TIMELINE_KEY_NAME_TIMELINER))
+				{
+					key = mneumonic + " @ " + key_name + " " + this.value + ":\t";
+				}
+				else if(uniform_timeline_type.equals(Node_Generic.TIMELINE_KEY_NAME_USERASSIST_SPECIFIC_ENTRIES))
+				{
+					key = mneumonic + ":\t";
+				}
+				else if(uniform_timeline_type.equals(Node_Generic.TIMELINE_KEY_NAME_SHELLBAGS))
+				{
+					key = mneumonic + ":\t";
+				}
+				else if(uniform_timeline_type.equals(Node_Generic.TIMELINE_KEY_NAME_SHIMCACHE))
+				{
+					key = mneumonic + ":\t";
+				}
+
+				list_hits_found.add(key + "[" + variable_name + "] " + variable_to_check);									
+			}
+			
+		}
+		catch(Exception e)
+		{
+			driver.eop(myClassName, "check_value - linked list", e);
+		}
+		
+		return list_hits_found;
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	
 	

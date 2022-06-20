@@ -47,14 +47,14 @@ public class Analysis_Plugin_cmdscan extends _Analysis_Plugin_Super_Class implem
 			jta_console_output_execution_status = jta_OUTPUT;
 			
 			EXECUTION_TIME_STAMP = director.EXECUTION_TIME_STAMP;
-			fle_volatility = director.fle_volatility;
-			fle_memory_image = director.fle_memory_image;
-			PROFILE = director.PROFILE;
-			path_fle_analysis_directory = director.path_fle_analysis_directory;
-			file_attr_volatility = director.file_attr_volatility;
-			file_attr_memory_image = director.file_attr_memory_image;
-			investigator_name = director.investigator_name;
-			investigation_description = director.investigation_description;
+//			fle_volatility = director.fle_volatility;
+//			fle_memory_image = director.fle_memory_image;
+//			PROFILE = director.PROFILE;
+//			path_fle_analysis_directory = director.path_fle_analysis_directory;
+//			file_attr_volatility = director.file_attr_volatility;
+//			file_attr_memory_image = director.file_attr_memory_image;
+//			investigator_name = director.investigator_name;
+//			investigation_description = director.investigation_description;
 			EXECUTE_VIA_THREAD = execute_via_thread;
 			
 			if(execute_via_thread)
@@ -157,13 +157,13 @@ public class Analysis_Plugin_cmdscan extends _Analysis_Plugin_Super_Class implem
 	{
 		try
 		{							
-			if(fle_volatility == null || !fle_volatility.exists() || !fle_volatility.isFile())
+			if(Interface.fle_volatility == null || !Interface.fle_volatility.exists() || !Interface.fle_volatility.isFile())
 			{
 				driver.sop("* * ERROR! Valid volatility executable binary has not been set. I cannot proceed with execution of plugin: [" + plugin_name + "]. * * ");
 				return false;
 			}
 			
-			if(fle_memory_image == null || !fle_memory_image.exists() || !fle_memory_image.isFile())
+			if(Interface.fle_memory_image == null || !Interface.fle_memory_image.exists() || !Interface.fle_memory_image.isFile())
 			{
 				driver.sop("* * ERROR! Valid memory image for analysis has not been set. I cannot proceed with execution of plugin: [" + plugin_name + "]. * *");				
 				return false;
@@ -174,7 +174,7 @@ public class Analysis_Plugin_cmdscan extends _Analysis_Plugin_Super_Class implem
 			//
 			if(cmd == null)
 			{
-				cmd = "\"" + fle_volatility.getCanonicalPath().trim() + "\" -f \"" + fle_memory_image.getCanonicalPath().trim() + "\" " + plugin_name + " --profile=" + PROFILE;
+				cmd = "\"" + Interface.fle_volatility.getCanonicalPath().trim() + "\" -f \"" + Interface.fle_memory_image.getCanonicalPath().trim() + "\" " + plugin_name + " --profile=" + Interface.PROFILE;
 			}						
 			
 			//
@@ -209,12 +209,12 @@ public class Analysis_Plugin_cmdscan extends _Analysis_Plugin_Super_Class implem
 			if(Advanced_Analysis_Director.DO_NOT_INCLUDE_TIME_STAMP_IN_FILE_NAME)
 			{
 				if(additional_file_name_detail == null || additional_file_name_detail.trim().equals(""))
-					fleOutput = new File(path_fle_analysis_directory + plugin_name + File.separator + "_" + plugin_name + ".txt");
+					fleOutput = new File(Interface.path_fle_analysis_directory + plugin_name + File.separator + "_" + plugin_name + ".txt");
 				else
-					fleOutput = new File(path_fle_analysis_directory + plugin_name + File.separator + "_" + plugin_name + "_" + additional_file_name_detail + "" + ".txt");
+					fleOutput = new File(Interface.path_fle_analysis_directory + plugin_name + File.separator + "_" + plugin_name + "_" + additional_file_name_detail + "" + ".txt");
 			}
 			else
-				fleOutput = new File(path_fle_analysis_directory + plugin_name + File.separator + "_" + plugin_name + "_" + additional_file_name_detail + time_stamp + ".txt");
+				fleOutput = new File(Interface.path_fle_analysis_directory + plugin_name + File.separator + "_" + plugin_name + "_" + additional_file_name_detail + time_stamp + ".txt");
 			
 			try	
 			{	

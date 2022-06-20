@@ -65,14 +65,14 @@ public class Analysis_Plugin_impscan extends _Analysis_Plugin_Super_Class implem
 			jta_console_output_execution_status = jta_OUTPUT;
 			
 			EXECUTION_TIME_STAMP = parent.EXECUTION_TIME_STAMP;
-			fle_volatility = parent.fle_volatility;
-			fle_memory_image = parent.fle_memory_image;
-			PROFILE = parent.PROFILE;
-			path_fle_analysis_directory = parent.path_fle_analysis_directory;
-			file_attr_volatility = parent.file_attr_volatility;
-			file_attr_memory_image = parent.file_attr_memory_image;
-			investigator_name = parent.investigator_name;
-			investigation_description = parent.investigation_description;
+//			fle_volatility = parent.fle_volatility;
+//			fle_memory_image = parent.fle_memory_image;
+//			PROFILE = parent.PROFILE;
+//			path_fle_analysis_directory = parent.path_fle_analysis_directory;
+//			file_attr_volatility = parent.file_attr_volatility;
+//			file_attr_memory_image = parent.file_attr_memory_image;
+//			investigator_name = parent.investigator_name;
+//			investigation_description = parent.investigation_description;
 			EXECUTE_VIA_THREAD = execute_via_thread;
 			
 			process = PROCESS;
@@ -211,13 +211,13 @@ public class Analysis_Plugin_impscan extends _Analysis_Plugin_Super_Class implem
 	{
 		try
 		{							
-			if(fle_volatility == null || !fle_volatility.exists() || !fle_volatility.isFile())
+			if(Interface.fle_volatility == null || !Interface.fle_volatility.exists() || !Interface.fle_volatility.isFile())
 			{
 				driver.sop("* * ERROR! Valid volatility executable binary has not been set. I cannot proceed with execution of plugin: [" + plugin_name + "]. * * ");
 				return false;
 			}
 			
-			if(fle_memory_image == null || !fle_memory_image.exists() || !fle_memory_image.isFile())
+			if(Interface.fle_memory_image == null || !Interface.fle_memory_image.exists() || !Interface.fle_memory_image.isFile())
 			{
 				driver.sop("* * ERROR! Valid memory image for analysis has not been set. I cannot proceed with execution of plugin: [" + plugin_name + "]. * *");				
 				return false;
@@ -228,7 +228,7 @@ public class Analysis_Plugin_impscan extends _Analysis_Plugin_Super_Class implem
 			//
 			String time_stamp = driver.get_time_stamp("_");
 
-			fleOutput = new File(path_fle_analysis_directory + plugin_name + File.separator + File.separator + this.output_file_name);
+			fleOutput = new File(Interface.path_fle_analysis_directory + plugin_name + File.separator + File.separator + this.output_file_name);
 			
 			
 			try	
@@ -244,7 +244,7 @@ public class Analysis_Plugin_impscan extends _Analysis_Plugin_Super_Class implem
 			//with base address:
 			//cmd = "\"" + fle_volatility.getCanonicalPath().trim() + "\" -f \"" + fle_memory_image.getCanonicalPath().trim() + "\" " + "--profile=" + PROFILE + " " + plugin_name + " -b " + this.base_address + " -v -p " + PID;
 			if(cmd == null)			
-				cmd = "\"" + fle_volatility.getCanonicalPath().trim() + "\" -f \"" + fle_memory_image.getCanonicalPath().trim() + "\" " + "--profile=" + PROFILE + " " + plugin_name + " -v -p " + PID;
+				cmd = "\"" + Interface.fle_volatility.getCanonicalPath().trim() + "\" -f \"" + Interface.fle_memory_image.getCanonicalPath().trim() + "\" " + "--profile=" + Interface.PROFILE + " " + plugin_name + " -v -p " + PID;
 					
 			
 			

@@ -55,7 +55,7 @@ import Plugin.Process_Plugin;
 		
 		public static final String NAME = "Xavier Framework";
 		public static final String NAME_LOWERCASE = "xavier_framework";
-		public static final String VERSION = "2.301";
+		public static final String VERSION = "2.302";
 		public static final String FULL_NAME = NAME + " vrs " + VERSION;
 						
 		public static Log log_unrecognized = null; 
@@ -3698,16 +3698,24 @@ import Plugin.Process_Plugin;
 	 * @param delimiter
 	 * @return
 	 */
-	public String get_trimmed_entry(String key, String value, String delimiter, boolean include_head_delimiter, boolean include_tail_delimiter, String key_identifier_token)
+	public String get_trimmed_entry(String key, String value, String delimiter, boolean include_key_name, boolean include_head_delimiter, boolean include_tail_delimiter, String key_identifier_token)
 	{
+		String output = "";
+		
 		try
 		{
-			if(key == null || key.trim().equals("") || key.toLowerCase().trim().equals("null") || value == null || value.trim().equals("") || value.toLowerCase().trim().equals("null"))
+						
+			if(value == null || value.trim().equals("") || value.toLowerCase().trim().equals("null"))
 				return "";
-									
+				
+			if(include_key_name && (key == null || key.trim().equals("") || key.toLowerCase().trim().equals("null")))
+				return "";
+			else if(!include_key_name)
+				key = "";
+			
 			if(delimiter == null)
 				delimiter = "\t ";
-			
+									
 			key = key.replace(delimiter, " ");
 			value = value.replace(delimiter, " ");
 			
@@ -3717,16 +3725,26 @@ import Plugin.Process_Plugin;
 			if(include_tail_delimiter)
 			{
 				if(key_identifier_token == null || key_identifier_token.trim().equals(""))
-					return key + delimiter + value + delimiter;
+					output =  key + delimiter + value + delimiter;
 				
-				return key + key_identifier_token + " " + delimiter + value + delimiter;
+				output =  key + key_identifier_token + " " + delimiter + value + delimiter;
 			}
 			
 			//otw, return key: value (without tail delimiter)
 			if(key_identifier_token == null || key_identifier_token.trim().equals(""))
-				return key + delimiter + value;	
+				output =  key + delimiter + value;	
 			
-			return key + key_identifier_token + " " + delimiter + value;
+			output =  key + key_identifier_token + " " + delimiter + value;
+			
+			if(!include_key_name)
+			{
+				output = value;
+				
+				if(include_head_delimiter)
+					output = delimiter + output;
+				if(include_tail_delimiter)
+					output = output + delimiter;
+			}
 			
 		}
 		catch(Exception e)
@@ -3734,7 +3752,7 @@ import Plugin.Process_Plugin;
 			this.eop(myClassName, "get_trimmed_entry", e);
 		}
 		
-		return "";
+		return output;
 	}
 	
 	/**
@@ -3925,7 +3943,28 @@ import Plugin.Process_Plugin;
 	
 	
 	
-	
+	public String normalize_system_root_and_device_hardrivedisk_volume(String output, Advanced_Analysis_Director director)
+	{
+		try
+		{
+			if(director == null)
+				return output;
+			
+			
+			
+			if(director.system_drive != null && director.system_drive.length() > 1)
+				output = output.replace("\\Device\\HarddiskVolume1", director.system_drive);
+			
+			if(director.system_root != null && director.system_root.length() > 1)
+				output = output.replace("\\SystemRoot", director.system_root);
+		}
+		catch(Exception e)
+		{
+			eop(myClassName, "normalize_system_root", e);
+		}
+		
+		return output;
+	}
 	
 	
 	

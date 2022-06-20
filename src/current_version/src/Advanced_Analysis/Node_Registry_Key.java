@@ -270,7 +270,7 @@ public class Node_Registry_Key
 		return false;
 	}
 	
-	public boolean write_manifest(PrintWriter pw, String header, String delimiter)
+	public boolean write_manifest(PrintWriter pw, String header, String delimiter, Advanced_Analysis_Director director)
 	{				
 		try
 		{
@@ -316,7 +316,7 @@ public class Node_Registry_Key
 					pw.println(Driver.END_OF_ENTRY_MINOR_SUB_CATEGORY_1);
 					
 					
-					node.write_manifest(pw, header + sub_header_sub_key, delimiter, false, false, false);
+					node.write_manifest(pw, header + sub_header_sub_key, delimiter, false, false, false, director);
 				}
 			}
 			

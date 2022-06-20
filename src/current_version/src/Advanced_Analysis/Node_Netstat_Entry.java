@@ -706,39 +706,39 @@ public class Node_Netstat_Entry
 								//
 								//connections - Windows XP and 2003 only
 								//
-								driver.get_trimmed_entry("offset_connections", offset_connections, delimiter, true, false, key_identifier_token) 	+ 
-								driver.get_trimmed_entry("local_address", local_address, delimiter, true, false, key_identifier_token) 				+ 
-								driver.get_trimmed_entry("foreign_address", foreign_address, delimiter, true, false, key_identifier_token) 			+ 
+								driver.get_trimmed_entry("offset_connections", offset_connections, delimiter, true, true, false, key_identifier_token) 	+ 
+								driver.get_trimmed_entry("local_address", local_address, delimiter, true, true, false, key_identifier_token) 				+ 
+								driver.get_trimmed_entry("foreign_address", foreign_address, delimiter, true, true, false, key_identifier_token) 			+ 
 								
 								//
 								//connscan
 								//
-								driver.get_trimmed_entry("offset_connscan", offset_connscan, delimiter, true, false, key_identifier_token)	+	
+								driver.get_trimmed_entry("offset_connscan", offset_connscan, delimiter, true, true, false, key_identifier_token)	+	
 								
 								//
 								//sockets
 								//
-								driver.get_trimmed_entry("offset_sockets", offset_sockets, delimiter, true, false, key_identifier_token)	+
-								driver.get_trimmed_entry("local_port", local_port, delimiter, true, false, key_identifier_token)	+	
-								driver.get_trimmed_entry("proto_value", proto_value, delimiter, true, false, key_identifier_token)	+
-								driver.get_trimmed_entry("protocol", protocol, delimiter, true, false, key_identifier_token)	+	
-								driver.get_trimmed_entry("creation_date", creation_date, delimiter, true, false, key_identifier_token)	+
-								driver.get_trimmed_entry("creation_time", creation_time, delimiter, true, false, key_identifier_token)	+	
-								driver.get_trimmed_entry("creation_utc", creation_utc, delimiter, true, false, key_identifier_token)	+
+								driver.get_trimmed_entry("offset_sockets", offset_sockets, delimiter, true, true, false, key_identifier_token)	+
+								driver.get_trimmed_entry("local_port", local_port, delimiter, true, true, false, key_identifier_token)	+	
+								driver.get_trimmed_entry("proto_value", proto_value, delimiter, true, true, false, key_identifier_token)	+
+								driver.get_trimmed_entry("protocol", protocol, delimiter, true, true, false, key_identifier_token)	+	
+								driver.get_trimmed_entry("creation_date", creation_date, delimiter, true, true, false, key_identifier_token)	+
+								driver.get_trimmed_entry("creation_time", creation_time, delimiter, true, true, false, key_identifier_token)	+	
+								driver.get_trimmed_entry("creation_utc", creation_utc, delimiter, true, true, false, key_identifier_token)	+
 								
 								//
 								//sockscan
 								//
-								driver.get_trimmed_entry("offset_sockscan", offset_sockscan, delimiter, true, false, key_identifier_token)	+	
+								driver.get_trimmed_entry("offset_sockscan", offset_sockscan, delimiter, true, true, false, key_identifier_token)	+	
 								
 								
 								//
 								//netscan
 								//
-								driver.get_trimmed_entry("offset_netscan", offset_netscan, delimiter, true, false, key_identifier_token)	+
-								driver.get_trimmed_entry("state", state, delimiter, true, false, key_identifier_token)	+	
-								driver.get_trimmed_entry("owner_name", owner_name, delimiter, true, false, key_identifier_token)	+	
-								driver.get_trimmed_entry("lookup", lookup, delimiter, true, false, key_identifier_token)
+								driver.get_trimmed_entry("offset_netscan", offset_netscan, delimiter, true, true, false, key_identifier_token)	+
+								driver.get_trimmed_entry("state", state, delimiter, true, true, false, key_identifier_token)	+	
+								driver.get_trimmed_entry("owner_name", owner_name, delimiter, true, true, false, key_identifier_token)	+	
+								driver.get_trimmed_entry("lookup", lookup, delimiter, true, true, false, key_identifier_token)
 								;			
 			
 			driver.write_manifest_entry(pw, header, netstat);
@@ -950,39 +950,39 @@ public class Node_Netstat_Entry
 					//
 					//connections - Windows XP and 2003 only
 					//
-					driver.get_trimmed_entry("offset_connections", offset_connections, "	", true, false, ":") 	+ 
-					driver.get_trimmed_entry("local_address", local_address, "	", true, false, ":") 				+ 
-					driver.get_trimmed_entry("foreign_address", foreign_address, "	", true, false, ":") 			+ 
+					driver.get_trimmed_entry("offset_connections", offset_connections, "	", true, true, false, ":") 	+ 
+					driver.get_trimmed_entry("local_address", local_address, "	", true, true, false, ":") 				+ 
+					driver.get_trimmed_entry("foreign_address", foreign_address, "	", true, true, false, ":") 			+ 
 					
 					//
 					//connscan
 					//
-					driver.get_trimmed_entry("offset_connscan", offset_connscan, "	", true, false, ":")	+	
+					driver.get_trimmed_entry("offset_connscan", offset_connscan, "	", true, true, false, ":")	+	
 					
 					//
 					//sockets
 					//
-					driver.get_trimmed_entry("offset_sockets", offset_sockets, "	", true, false, ":")	+
-					driver.get_trimmed_entry("local_port", local_port, "	", true, false, ":")	+	
-					driver.get_trimmed_entry("proto_value", proto_value, "	", true, false, ":")	+
-					driver.get_trimmed_entry("protocol", protocol, "	", true, false, ":")	+	
-					driver.get_trimmed_entry("creation_date", creation_date, "	", true, false, ":")	+
-					driver.get_trimmed_entry("creation_time", creation_time, "	", true, false, ":")	+	
-					driver.get_trimmed_entry("creation_utc", creation_utc, "	", true, false, ":")	+
+					driver.get_trimmed_entry("offset_sockets", offset_sockets, "	", true, true, false, ":")	+
+					driver.get_trimmed_entry("local_port", local_port, "	", true, true, false, ":")	+	
+					driver.get_trimmed_entry("proto_value", proto_value, "	", true, true, false, ":")	+
+					driver.get_trimmed_entry("protocol", protocol, "	", true, true, false, ":")	+	
+					driver.get_trimmed_entry("creation_date", creation_date, "	", true, true, false, ":")	+
+					driver.get_trimmed_entry("creation_time", creation_time, "	", true, true, false, ":")	+	
+					driver.get_trimmed_entry("creation_utc", creation_utc, "	", true, true, false, ":")	+
 					
 					//
 					//sockscan
 					//
-					driver.get_trimmed_entry("offset_sockscan", offset_sockscan, "	", true, false, ":")	+	
+					driver.get_trimmed_entry("offset_sockscan", offset_sockscan, "	", true, true, false, ":")	+	
 					
 					
 					//
 					//netscan
 					//
-					driver.get_trimmed_entry("offset_netscan", offset_netscan, "	", true, false, ":")	+
-					driver.get_trimmed_entry("state", state, "	", true, false, ":")	+	
-					driver.get_trimmed_entry("owner_name", owner_name, "	", true, false, ":")	+	
-					driver.get_trimmed_entry("lookup", lookup, "	", true, false, ":")
+					driver.get_trimmed_entry("offset_netscan", offset_netscan, "	", true, true, false, ":")	+
+					driver.get_trimmed_entry("state", state, "	", true, true, false, ":")	+	
+					driver.get_trimmed_entry("owner_name", owner_name, "	", true, true, false, ":")	+	
+					driver.get_trimmed_entry("lookup", lookup, "	", true, true, false, ":")
 					;								
 					
 					

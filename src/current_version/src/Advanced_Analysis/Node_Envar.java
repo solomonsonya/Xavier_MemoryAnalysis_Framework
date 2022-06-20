@@ -137,9 +137,9 @@ public class Node_Envar
 		
 		try
 		{												
-			output = driver.get_trimmed_entry("block", block, delimiter, false, false, "");
-			output = output + delimiter + driver.get_trimmed_entry("variable", variable, delimiter, false, false, "");	
-			output = output + delimiter + driver.get_trimmed_entry("value", value, delimiter, false, false, "");
+			output = driver.get_trimmed_entry("block", block, delimiter, true, false, false, "");
+			output = output + delimiter + driver.get_trimmed_entry("variable", variable, delimiter,true,  false, false, "");	
+			output = output + delimiter + driver.get_trimmed_entry("value", value, delimiter, true, false, false, "");
 
 			//
 			//write string!

@@ -46,6 +46,8 @@ public class Interface extends Thread implements Runnable, ActionListener, KeyLi
 {
 	public static volatile boolean AUTO_START_ADVANCED_ANALYSIS = false;
 	
+	public static volatile boolean IMPORT_SYSTEM_MANIFEST_RUN_AT_LEAST_ONCE = false;
+	
 	public volatile Advanced_Analysis_Director advanced_analysis_director_snapshot_1 = null;
 	public volatile Advanced_Analysis_Director advanced_analysis_director_snapshot_2 = null;
 	
@@ -2353,7 +2355,9 @@ public class Interface extends Thread implements Runnable, ActionListener, KeyLi
 						node.plugin_execution =  new Analysis_Plugin_memdump(null, advanced_analysis_director, "memdump", "Dump the addressable memory for a process", true, Start.intface.jpnlConsole, node.pid);
 					}
 					else	//else, FILESCAN dump file!
+					{
 						node.plugin_dumpfile = new Analysis_Plugin_DumpFiles(null, advanced_analysis_director, "dumpfiles -Q " + node.offset_p, "Dump Windows Event Logs ", true, Start.intface.jpnlConsole, node.file_name, node.offset_p);
+					}
 				
 					node_last_to_start_execution = node;
 					
@@ -2583,6 +2587,8 @@ public class Interface extends Thread implements Runnable, ActionListener, KeyLi
 			if(fle != null && fle.exists() && fle.isFile())
 			{
 				advanced_analysis_director = new Advanced_Analysis_Director(fle, -1, null);
+				
+				IMPORT_SYSTEM_MANIFEST_RUN_AT_LEAST_ONCE = true;
 			}
 			
 			return true;
@@ -2762,12 +2768,35 @@ public class Interface extends Thread implements Runnable, ActionListener, KeyLi
 			
 			else if (ae.getSource() == jmnuitm_ImportSystemManifest_from_file_menu)
 			{
-				import_system_manifest();
+				
+				if(IMPORT_SYSTEM_MANIFEST_RUN_AT_LEAST_ONCE)
+				{
+					String prompt = "At this time, only one system load snapshot action should be executed per program instantiation. \n\nIt is recommended to restart the program in order to re-import a new system snapshot.\n\nProceeding (without program restart) may cause unexpected results. \n\nDo you wish to continue?";
+					
+					if(driver.jop_Confirm(prompt, "It is not recommended to proceed without restarting " + driver.NAME) == JOptionPane.YES_OPTION)
+					{
+						driver.sop("User has been warned but selected to override. Proceeding to import manifest without program restart. System may cause unexpected results...");
+						import_system_manifest();
+					}
+				}
+				else
+					import_system_manifest();
 			}
 			
 			else if(ae.getSource() == jmnuitm_ImportSystemManifest)
 			{
-				import_system_manifest();
+				if(IMPORT_SYSTEM_MANIFEST_RUN_AT_LEAST_ONCE)
+				{
+					String prompt = "At this time, only one system load snapshot action should be executed per program instantiation. \n\nIt is recommended to restart the program in order to re-import a new system snapshot.\n\nProceeding (without program restart) may cause unexpected results. \n\nDo you wish to continue?";
+					
+					if(driver.jop_Confirm(prompt, "It is not recommended to proceed without restarting " + driver.NAME) == JOptionPane.YES_OPTION)
+					{
+						driver.sop("User has been warned but selected to override. \nProceeding to import manifest without program restart. \n * * * Program execution may cause unexpected results * * * ");
+						import_system_manifest();
+					}
+				}
+				else
+					import_system_manifest();
 			}
 			
 			else if(ae.getSource() == jmnuitm_Initiate_Advanced_Analysis)
@@ -3138,14 +3167,25 @@ public class Interface extends Thread implements Runnable, ActionListener, KeyLi
 				if(advanced_analysis_director.tree_ORPHAN_process == null || advanced_analysis_director.tree_ORPHAN_process.size() < 1)
 					advanced_analysis_director.create_tree_structure(advanced_analysis_director.tree_PROCESS);
 				
+				
+				boolean prev = Analysis_Report_Container_Writer.open_file_when_complete;
+				Analysis_Report_Container_Writer.open_file_when_complete = true;
+				
 				advanced_analysis_director.analysis_report = new Analysis_Report_Container_Writer(advanced_analysis_director);				
 				advanced_analysis_director.print_file_attributes();
+				
+				Analysis_Report_Container_Writer.open_file_when_complete = prev;
 			}
 			else
 			{			
+				boolean prev = Analysis_Report_Container_Writer.open_file_when_complete;
+				Analysis_Report_Container_Writer.open_file_when_complete = true;
+				
 				//otw
 				advanced_analysis_director.analysis_report.commence_action();
 				driver.jop_Message("Process complete! Please refresh output file");
+				
+				Analysis_Report_Container_Writer.open_file_when_complete = prev;
 			}
 			
 			return true;
@@ -4590,13 +4630,13 @@ public class Interface extends Thread implements Runnable, ActionListener, KeyLi
 		{						
 			if(fle_volatility == null || !fle_volatility.exists() || !fle_volatility.isFile())
 			{
-				driver.sop("* * ERROR! Valid volatility executable binary has not been set. I cannot proceed yet... * * ");
+				driver.sop("* * - ERROR! Valid volatility executable binary has not been set. I cannot proceed yet... * * ");
 				return false;
 			}
 			
 			if(fle_memory_image == null || !fle_memory_image.exists() || !fle_memory_image.isFile())
 			{
-				driver.sop("* * ERROR! Valid valid image to analyze not been set. I cannot proceed yet... * * ");				
+				driver.sop("* * - ERROR! Valid valid image to analyze not been set. I cannot proceed yet... * * ");				
 				return false;
 			}
 			

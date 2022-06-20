@@ -71,6 +71,17 @@ public class Advanced_Analysis_Director extends Thread implements Runnable
 	public volatile int system_manifest_snapshot_number = -1;
 	public volatile Interface intrface = null;
 	
+	public static final int LOAD_ACTION_IMPORT_ANALYSIS_DIRECTORY = 0;
+	public static final int LOAD_ACTION_IMPORT_SYSTEM_MANIFEST = 1;
+	public static final int LOAD_ACTION_SNAPSHOT_COMPARISON = 2;
+	public static final int LOAD_ACTION_AUTO_RUN_PLUGINS = 3;
+	public static final int LOAD_ACTION_INITIATE_ADVANCED_ANALYSIS = 4;
+	
+	/**Specify if we are loading from analysis directory, importing system manifest file, executing advanced analysis, snapshot comparison, loading autorun plugins, etc*/
+	public volatile int my_load_action = 0;
+	
+	public static volatile String PARSE_DELIMITER = "\t";
+	
 	public volatile boolean AUTOMATED_ANALYSIS_STARTED = false;
 	public volatile boolean AUTOMATED_ANALYSIS_COMPLETE = false;
 	public volatile boolean EXECUTE_EXPORT_MANIFEST = false;
@@ -345,6 +356,30 @@ public class Advanced_Analysis_Director extends Thread implements Runnable
 	public volatile Node_Registry_Hive node_registry_hive_import_manifest = null;
 	public volatile Node_CmdScan node_cmdscan_import_manifest = null; 
 	
+	
+	public volatile TreeMap<String, Node_Generic> tree_filescan = new TreeMap<String, Node_Generic>();
+	public volatile TreeMap<String, Node_Generic> tree_mftparser = new TreeMap<String, Node_Generic>();
+	public volatile TreeMap<String, Node_Generic> tree_timeliner = new TreeMap<String, Node_Generic>();
+	public volatile TreeMap<String, Node_Generic> tree_userassist_specific_entries = new TreeMap<String, Node_Generic>();
+	public volatile TreeMap<String, Node_Generic> tree_shellbags_TYPE_1 = new TreeMap<String, Node_Generic>();
+	public volatile TreeMap<String, Node_Generic> tree_shellbags_TYPE_2 = new TreeMap<String, Node_Generic>();
+	public volatile TreeMap<String, Node_Generic> tree_shellbags_TYPE_3 = new TreeMap<String, Node_Generic>();
+	public volatile TreeMap<String, Node_Generic> tree_shellbags_TYPE_4 = new TreeMap<String, Node_Generic>();
+	public volatile TreeMap<String, Node_Generic> tree_shimcache = new TreeMap<String, Node_Generic>();
+	
+	public volatile TreeMap<Integer, Node_ShellBag_Container> tree_shell_bags = new TreeMap<Integer, Node_ShellBag_Container>();
+	
+	
+	public static final String manifest_header_TYPE_1 = "modified_date" + "\t" + "create_date" + "\t" + "access_date" + "\t" + "last_updated" + "\t" + "file_name" + "\t" + "unicode_name" + "\t" + "file_attr" + "\t" + "shellbag_value" + "\t" + "registry_name" + "\t" + "registry_key_name" + "\t" + "shellbag_type" + "\t" + "additional_details";
+	public static final String manifest_header_TYPE_2 = "last_updated" + "\t" + "guid_description" + "\t" + "guid" + "\t" + "folder_ids" + "\t" + "entry_type" + "\t" + "shellbag_value" + "\t" + "mru" + "\t" + "registry_name" + "\t" + "registry_key_name" + "\t" + "shellbag_type" + "\t" + "additional_details";
+	public static final String manifest_header_TYPE_3 = "modified_date" + "\t" + "create_date" + "\t" + "access_date" + "\t" + "last_updated" + "\t" + "path" + "\t" + "file_name" + "\t" + "file_attr" + "\t" + "shellbag_value" + "\t" + "mru" + "\t" + "registry_name" + "\t" + "registry_key_name" + "\t" + "shellbag_type" + "\t" + "additional_details";
+	public static final String manifest_header_TYPE_4 = "last_updated" + "\t" + "path" + "\t" + "entry_type" + "\t" + "shellbag_value" + "\t" + "mru" + "\t" + "registry_name" + "\t" + "registry_key_name" + "\t" + "shellbag_type" + "\t" + "additional_details";
+
+	public static final String timeline_header_TYPE_1 = "time" + "\t" + "shellbags" + "\t" + "key" + "\t" + "value" + "\t" + "shellbag_type" + "\t" + "file_name" + "\t" + "file_attr" + "\t" + "create date" + "\t" + "modified_date" + "\t" + "access_date" + "\t" + "last_updated" + "\t" + "shellbag_value" + "\t" + "registry" + "\t" + "registry_key" + "\t" + "additional_details";
+	public static final String timeline_header_TYPE_2 = "time" + "\t" + "shellbags" + "\t" + "key" + "\t" + "value" + "\t" + "shellbag_type" + "\t" + "folder_ids" + "\t" + "entry_type" + "\t" + "guid" + "\t" + "shellbag_value" + "\t" + "mru" + "\t" + "registry" + "\t" + "registry_key" + "\t" + "additional_details";
+	public static final String timeline_header_TYPE_3 = "time" + "\t" + "shellbags" + "\t" + "key" + "\t" + "value" + "\t" + "shellbag_type" + "\t" + "file_name" + "\t" + "file_attr" + "\t" + "create date" + "\t" + "modified_date" + "\t" + "access_date" + "\t" + "last_updated" + "\t" + "shellbag_value" + "\t" + "mru" + "\t" + "registry" + "\t" + "registry_key" + "\t" + "additional_details";
+	public static final String timeline_header_TYPE_4 = "time" + "\t" + "shellbags" + "\t" + "key" + "\t" + "value" + "\t" + "shellbag_type" + "\t" + "entry_type" + "\t" + "shellbag_value"+ "\t" + "mru" + "\t" + "registry" + "\t" + "registry_key" + "\t" + "additional_details";
+	
 	/**Import Advanced analysis Directory:
 	 * Load previously completed advanced analysis output files
 	 * not compatible yet: /malfind/malfind_dump directory
@@ -353,6 +388,8 @@ public class Advanced_Analysis_Director extends Thread implements Runnable
 	{
 		try
 		{	
+			my_load_action = LOAD_ACTION_IMPORT_ANALYSIS_DIRECTORY;
+			
 			if(list != null && list.size() > 0)
 			{
 				list_import_files = list;
@@ -417,6 +454,8 @@ public class Advanced_Analysis_Director extends Thread implements Runnable
 	{
 		try
 		{		
+			my_load_action = LOAD_ACTION_INITIATE_ADVANCED_ANALYSIS;
+			
 			fle_volatility = file_volatily;
 			fle_memory_image = file_memory_image;
 			PROFILE = profile;
@@ -446,6 +485,8 @@ public class Advanced_Analysis_Director extends Thread implements Runnable
 	{
 		try
 		{	
+			my_load_action = LOAD_ACTION_AUTO_RUN_PLUGINS;
+			
 			if(list != null && list.size() > 0)
 			{
 				list_auto_plugins_execution = list;
@@ -490,6 +531,8 @@ public class Advanced_Analysis_Director extends Thread implements Runnable
 	{
 		try
 		{	
+			my_load_action = LOAD_ACTION_IMPORT_SYSTEM_MANIFEST;
+			
 			fle_manifest_IMPORT = fle_IMPORT_MANIFEST;
 			
 			system_manifest_snapshot_number = manifest_snapshot_number;
@@ -1625,7 +1668,7 @@ public class Advanced_Analysis_Director extends Thread implements Runnable
 	
 	
 	
-	public boolean import_manifest(File fle)
+	public boolean import_manifest(File fle, String delimiter)
 	{
 		long line_num = 0;
 		BufferedReader br = null;
@@ -1661,6 +1704,8 @@ public class Advanced_Analysis_Director extends Thread implements Runnable
 				
 				if(line_num % 10000 == 0)
 					driver.sp("\n");
+				
+				line = driver.normalize_system_root_and_device_hardrivedisk_volume(line, this);
 				
 				line = line.trim();
 				
@@ -2032,9 +2077,10 @@ public class Advanced_Analysis_Director extends Thread implements Runnable
 				// filescan
 				//
 				//////////////////////////////////////////////////////////
-				else if(lower.startsWith("filescan")) 
+				else if(lower.startsWith(Node_Generic.TIMELINE_KEY_NAME_FILESCAN)) 
 				{
-					;
+					//driver.directive(process_import_manifest_filescan(line, lower, Node_Generic.TIMELINE_KEY_NAME_FILESCAN, delimiter, line_num, tree_filescan).write_manifest(null, Node_Generic.TIMELINE_KEY_NAME_FILESCAN, "\t", false, true, false));
+					process_import_manifest_filescan(line, lower, Node_Generic.TIMELINE_KEY_NAME_FILESCAN, delimiter, line_num, tree_filescan);
 				}
 				
 				////////////////////////////////////////////////////////////
@@ -2042,9 +2088,10 @@ public class Advanced_Analysis_Director extends Thread implements Runnable
 				// mftparser
 				//
 				//////////////////////////////////////////////////////////
-				else if(lower.startsWith("mftparser")) 
+				else if(lower.startsWith(Node_Generic.TIMELINE_KEY_NAME_MFTPARSER)) 
 				{
-					;
+					//driver.directive(process_import_manifest_mftparser(line, lower, Node_Generic.TIMELINE_KEY_NAME_MFTPARSER, delimiter, line_num, tree_mftparser).write_manifest(null, Node_Generic.TIMELINE_KEY_NAME_MFTPARSER, "\t", false, true, false));
+					process_import_manifest_mftparser(line, lower, Node_Generic.TIMELINE_KEY_NAME_MFTPARSER, delimiter, line_num, tree_mftparser);
 				}
 				
 				
@@ -2053,9 +2100,10 @@ public class Advanced_Analysis_Director extends Thread implements Runnable
 				// timeliner
 				//
 				//////////////////////////////////////////////////////////
-				else if(lower.startsWith("timeliner")) 
+				else if(lower.startsWith(Node_Generic.TIMELINE_KEY_NAME_TIMELINER)) 
 				{
-					;
+					//driver.directive(process_import_manifest_timeliner(line, lower, Node_Generic.TIMELINE_KEY_NAME_TIMELINER, delimiter, line_num, tree_timeliner).write_manifest(null, Node_Generic.TIMELINE_KEY_NAME_TIMELINER, "\t", false, true, false));
+					process_import_manifest_timeliner(line, lower, Node_Generic.TIMELINE_KEY_NAME_TIMELINER, delimiter, line_num, tree_timeliner);
 				}
 
 
@@ -2066,9 +2114,10 @@ public class Advanced_Analysis_Director extends Thread implements Runnable
 				// user_assist_specific_entries
 				//
 				//////////////////////////////////////////////////////////
-				else if(lower.startsWith("userassist_specific_entries")) 
+				else if(lower.startsWith(Node_Generic.TIMELINE_KEY_NAME_USERASSIST_SPECIFIC_ENTRIES)) 
 				{
-					;
+					//driver.directive(process_import_manifest_userassist_specific_entries(line, lower, Node_Generic.TIMELINE_KEY_NAME_USERASSIST_SPECIFIC_ENTRIES, delimiter, line_num, this.tree_userassist_specific_entries).write_manifest(null, Node_Generic.TIMELINE_KEY_NAME_USERASSIST_SPECIFIC_ENTRIES, "\t", false, true, false));
+					process_import_manifest_userassist_specific_entries(line, lower, Node_Generic.TIMELINE_KEY_NAME_USERASSIST_SPECIFIC_ENTRIES, delimiter, line_num, this.tree_userassist_specific_entries);
 				}
 
 
@@ -2079,9 +2128,10 @@ public class Advanced_Analysis_Director extends Thread implements Runnable
 				// shellbags
 				//
 				//////////////////////////////////////////////////////////
-				else if(lower.startsWith("shellbags")) 
+				else if(lower.startsWith(Node_Generic.TIMELINE_KEY_NAME_SHELLBAGS)) 
 				{
-					;
+					//driver.directive(process_import_manifest_shellbags(line, lower, Node_Generic.TIMELINE_KEY_NAME_SHELLBAGS, delimiter, line_num).write_manifest(null, Node_Generic.TIMELINE_KEY_NAME_SHELLBAGS, "\t", false, true, false));
+					process_import_manifest_shellbags(line, lower, Node_Generic.TIMELINE_KEY_NAME_SHELLBAGS, delimiter, line_num);
 				}
 
 
@@ -2092,12 +2142,13 @@ public class Advanced_Analysis_Director extends Thread implements Runnable
 				// shimcache
 				//
 				//////////////////////////////////////////////////////////
-				else if(lower.startsWith("shimcache")) 
+				else if(lower.startsWith(Node_Generic.TIMELINE_KEY_NAME_SHIMCACHE)) 
 				{
-					;
+					//driver.directive(process_import_manifest_shimcache(line, lower, Node_Generic.TIMELINE_KEY_NAME_SHIMCACHE, delimiter, line_num, this.tree_shimcache).write_manifest(null, Node_Generic.TIMELINE_KEY_NAME_SHIMCACHE, "\t", false, true, false));
+					process_import_manifest_shimcache(line, lower, Node_Generic.TIMELINE_KEY_NAME_SHIMCACHE, delimiter, line_num, this.tree_shimcache);
 				}
 
-
+				
 																
 
 
@@ -2141,6 +2192,9 @@ public class Advanced_Analysis_Director extends Thread implements Runnable
 				
 			*/	
 			
+			try	{	System.gc();} catch(Exception e){}
+			
+			try	{	br.close();}catch(Exception eee){}	
 			
 			return true;
 		}
@@ -2149,13 +2203,753 @@ public class Advanced_Analysis_Director extends Thread implements Runnable
 			driver.eop(myClassName, "import_manifest last line read: [" + line_num + "]", e);
 		}
 		
-		try	{	br.close();}catch(Exception eee){}
+		
 		
 		driver.directive("\n* * * Complete with errors! [" + line_num + "] line(s) read on import file");
 		
 		PROCESS_IMPSCAN = prev_PROCESS_IMPSCAN;
 		
+		try	{	br.close();} catch(Exception e){}
+		
 		return false;
+	}
+	
+	public Node_Generic process_import_manifest_filescan(String line, String lower, String header, String delimiter, long line_number, TreeMap<String, Node_Generic> tree)
+	{
+		//init
+		Node_Generic node = new Node_Generic(header);
+		
+		try
+		{
+			if(line == null || line.trim().equals(""))
+				return null;
+			
+			if(delimiter == null || delimiter.trim().equals(""))
+				delimiter = "\t";
+			
+			line = line.substring(header.length()).trim();
+			
+			//offset_p	#ptr	#hnd	access	path
+			String [] arr = line.split(delimiter);
+									
+			//set unique timeline standadized type
+			node.uniform_timeline_type = header;			
+									
+			//
+			//set amplifying data
+			//
+			node.offset_p 	= arr[0].trim();
+			node.num_ptr 	= arr[1].trim();
+			node.num_hnd	= arr[2].trim();
+			node.access		= arr[3].trim();
+			node.path		= arr[4].trim();
+			
+			//
+			//additional details
+			//
+			try
+			{
+				for(int i = 5; i < arr.length; i++)
+					node.additional_details = node.additional_details + "\t" + arr[i].trim();
+				
+				node.additional_details = node.additional_details.trim();
+			}
+			catch(Exception e)
+			{
+				//do n/t
+			}
+			
+			//
+			//set key, value for uniform manifest timeline
+			//
+			node.key_name = "path";
+			node.value = node.path;	
+				
+			//
+			//specify link type
+			//
+			//String link_key = node.path.replace("\t", "") + "\t" + node.offset_p.replace("\t", " ");
+			String link_key = line;
+					
+			//link!
+			tree.put(link_key, node);
+						
+			return node;
+		}
+		catch(Exception e)
+		{
+			driver.directive("[" + header + "]\tError in process_import_manifest_" + header + " mtd in " + this.myClassName + "! I had difficulty processing line [" + line_number + "] --> " + line);
+		}
+		
+		return node;
+	}
+	
+	
+	public Node_Generic process_import_manifest_mftparser(String line, String lower, String header, String delimiter, long line_number, TreeMap<String, Node_Generic> tree)
+	{
+		//init
+		Node_Generic node = new Node_Generic(header);
+		
+		try
+		{
+			if(line == null || line.trim().equals(""))
+				return null;
+			
+			if(delimiter == null || delimiter.trim().equals(""))
+				delimiter = "\t";
+			
+			line = line.substring(header.length()).trim();
+			
+			//creation_time	modified_time	mft_altered_time	access_time	path	entry_attribute	extension
+			String [] arr = line.split(delimiter);
+									
+			//set unique timeline standadized type
+			node.uniform_timeline_type = header;			
+									
+			//
+			//set amplifying data
+			//
+			node.create_date 	= arr[0].trim();
+			node.modified_date 	= arr[1].trim();
+			node.mft_altered_date	= arr[2].trim();
+			node.access_date		= arr[3].trim();
+			node.path		= arr[4].trim();
+			node.entry_attr		= arr[5].trim();
+			
+			if(arr.length > 6)
+				node.extension		= arr[6].trim();
+			
+			//
+			//additional details
+			//
+			try
+			{
+				for(int i = 7; i < arr.length; i++)
+					node.additional_details = node.additional_details +  "\t" + arr[i].trim();
+				
+				node.additional_details = node.additional_details.trim();
+			}
+			catch(Exception e)
+			{
+				//do n/t
+			}
+					
+			
+			//
+			//set key, value for uniform manifest timeline
+			//
+			node.key_name = "path";
+			node.value = node.path;	
+				
+			//
+			//specify link type
+			//
+			//String link_key = node.mft_altered_date.replace("\t", " ") + "\t" + node.path.replace("\t", "");
+			String link_key = line;
+					
+			//link!
+			tree.put(link_key, node);
+						
+			return node;
+		}
+		catch(Exception e)
+		{
+			driver.directive("[" + header + "]\tError in process_import_manifest_" + header + " mtd in " + this.myClassName + "! I had difficulty processing line [" + line_number + "] --> " + line);
+		}
+		
+		return node;
+	}
+	
+	public Node_Generic process_import_manifest_timeliner(String line, String lower, String header, String delimiter, long line_number, TreeMap<String, Node_Generic> tree)
+	{
+		//init
+		Node_Generic node = new Node_Generic(header);
+		
+		try
+		{
+			if(line == null || line.trim().equals(""))
+				return null;
+			
+			if(delimiter == null || delimiter.trim().equals(""))
+				delimiter = "\t";
+			
+			line = line.substring(header.length()).trim();
+			
+			//creation_time	modified_time	mft_altered_time	access_time	path	entry_attribute	extension
+			String [] arr = line.split(delimiter);
+									
+			//set unique timeline standadized type
+			node.uniform_timeline_type = header;			
+				
+			if(arr.length < 4)
+			{
+				//
+				//set amplifying data
+				//
+				node.time 		= arr[0].trim();
+				node.key_name 	= arr[1].trim();
+				node.value		= arr[2].trim();				
+			}
+			else//normal
+			{
+				//
+				//set amplifying data
+				//
+				node.time 		= arr[0].trim();
+				node.key_name 	= arr[1].trim();
+				node.value		= arr[2].trim();
+				node.details	= arr[3].trim();
+			}
+			
+			//
+			//additional details
+			//
+			try
+			{
+				for(int i = 4; i < arr.length; i++)
+					node.additional_details = node.additional_details +  "\t" + arr[i].trim();
+				
+				node.additional_details = node.additional_details.trim();
+			}
+			catch(Exception e)
+			{
+				//do n/t
+			}
+						
+
+						
+			//
+			//set key, value for uniform manifest timeline
+			//
+			//node.key_name = "path";
+			//node.value = node.path;	
+				
+			//
+			//specify link type
+			//
+			//String link_key = node.time + "\t" + node.key_name + "\t" + node.value;
+			String link_key = line;
+					
+			//link!
+			tree.put(link_key, node);
+						
+			return node;
+		}
+		catch(Exception e)
+		{
+			driver.directive("[" + header + "]\tError in process_import_manifest_" + header + " mtd in " + this.myClassName + "! I had difficulty processing line [" + line_number + "] --> " + line);
+		}
+		
+		return node;
+	}
+	
+	public Node_Generic process_import_manifest_userassist_specific_entries(String line, String lower, String header, String delimiter, long line_number, TreeMap<String, Node_Generic> tree)
+	{
+		//init
+		Node_Generic node = new Node_Generic(header);
+		
+		try
+		{
+			if(line == null || line.trim().equals(""))
+				return null;
+			
+			if(delimiter == null || delimiter.trim().equals(""))
+				delimiter = "\t";
+			
+			line = line.substring(header.length()).trim();
+			
+			//creation_time	modified_time	mft_altered_time	access_time	path	entry_attribute	extension
+			String [] arr = line.split(delimiter);
+									
+			//set unique timeline standadized type
+			node.uniform_timeline_type = header;			
+				
+			//
+			//set amplifying data
+			//
+			node.last_updated 		= arr[0].trim();
+			node.reg_binary 	= arr[1].trim();
+			node.time_focused		= arr[2].trim();
+			node.count		= arr[3].trim();
+			node.focus_count		= arr[4].trim();
+			node.registry_name		= arr[5].trim();
+			node.path		= arr[6].trim();
+			node.reg_data_first_line		= arr[7].trim();
+//			node.		= arr[8].trim();
+//			node.		= arr[9].trim();
+//			node.		= arr[10].trim();
+//			node.		= arr[11].trim();
+			
+			
+			//
+			//additional details
+			//
+			try
+			{
+				for(int i = 8; i < arr.length; i++)
+					node.additional_details = node.additional_details +  "\t" + arr[i].trim();
+				
+				node.additional_details = node.additional_details.trim();
+			}
+			catch(Exception e)
+			{
+				//do n/t
+			}
+						
+
+						
+			//
+			//set key, value for uniform manifest timeline
+			//
+			node.key_name = "reg_binary";
+			node.value = node.reg_binary;	
+				
+			//
+			//specify link type
+			//
+			//String link_key = node.last_updated + "\t" + node.value;
+			String link_key = line;
+					
+			//link!
+			tree.put(link_key, node);
+						
+			return node;
+		}
+		catch(Exception e)
+		{
+			driver.directive("[" + header + "]\tError in process_import_manifest_" + header + " mtd in " + this.myClassName + "! I had difficulty processing line [" + line_number + "] --> " + line);
+		}
+		
+		return node;
+	}
+	
+	public Node_Generic process_import_manifest_shellbags(String line, String lower, String header, String delimiter, long line_number)
+	{
+		//init
+		Node_Generic node = new Node_Generic(header);
+		
+		try
+		{
+			if(line == null || line.trim().equals(""))
+				return null;
+			
+			if(delimiter == null || delimiter.trim().equals(""))
+				delimiter = "\t";
+			
+			line = line.substring(header.length()).trim();
+			
+			//creation_time	modified_time	mft_altered_time	access_time	path	entry_attribute	extension
+			String [] arr = line.split(delimiter);
+			
+			//determine parse action based on array size!
+			
+			if(arr.length >= 12)
+				return process_import_manifest_shellbags_type_3(line, lower, header, delimiter, line_number, this.tree_shellbags_TYPE_3, Node_ShellBag_Container.TYPE_3);
+			else if(arr.length >= 11)
+				return process_import_manifest_shellbags_type_1(line, lower, header, delimiter, line_number, this.tree_shellbags_TYPE_1, Node_ShellBag_Container.TYPE_1);
+			else if(arr.length >= 10)
+				return process_import_manifest_shellbags_type_2(line, lower, header, delimiter, line_number, this.tree_shellbags_TYPE_2, Node_ShellBag_Container.TYPE_2);
+			else if(arr.length >= 8)
+				return process_import_manifest_shellbags_type_4(line, lower, header, delimiter, line_number, this.tree_shellbags_TYPE_4, Node_ShellBag_Container.TYPE_4);
+			else
+				throw new Error("unknow shellbag arr type based on index size!");
+			
+			
+		}
+		catch(Exception e)
+		{
+			driver.directive("[" + header + "]\tError in process_import_manifest_" + header + " mtd in " + this.myClassName + "! I had difficulty processing line [" + line_number + "] --> " + line);
+		}
+		
+		return null;
+	}
+	
+	public Node_Generic process_import_manifest_shellbags_type_1(String line, String lower, String header, String delimiter, long line_number, TreeMap<String, Node_Generic> tree, int shell_bag_type)
+	{
+		//init
+		Node_Generic node = new Node_Generic(header);
+		
+		try
+		{
+			//set shellbag type			
+			node.shellbag_type = "" + shell_bag_type;
+			
+			if(line == null || line.trim().equals(""))
+				return null;
+			
+			if(delimiter == null || delimiter.trim().equals(""))
+				delimiter = "\t";
+			
+			//line = line.substring(header.length()).trim();
+			
+			//split
+			String [] arr = line.split(delimiter);
+									
+			//set unique timeline standadized type
+			node.uniform_timeline_type = header;			
+				
+			//
+			//set amplifying data
+			//
+			node.modified_date 		= arr[0].trim();
+			node.create_date 		= arr[1].trim();
+			node.access_date		= arr[2].trim();
+			node.last_updated		= arr[3].trim();
+			node.file_name			= arr[4].trim();
+			node.unicode_name		= arr[5].trim();
+			node.file_attr			= arr[6].trim();
+			node.shellbag_value				= arr[7].trim();
+			node.registry_name		= arr[8].trim();
+			node.registry_key_name	= arr[9].trim();
+			node.shellbag_type		= arr[10].trim();
+			
+			//
+			//additional details
+			//
+			try
+			{
+				for(int i = 11; i < arr.length; i++)
+					node.additional_details = node.additional_details +  "\t" + arr[i].trim();
+				
+				node.additional_details = node.additional_details.trim();
+			}
+			catch(Exception e)
+			{
+				//do n/t
+			}
+						
+
+						
+			//
+			//set key, value for uniform manifest timeline
+			//
+			node.key_name = "unicode_name";
+			node.value = node.unicode_name;	
+				
+			//
+			//specify link type
+			//
+			//String link_key = node.access_date + "\t" + node.value;
+			String link_key = line;
+					
+			//link!
+			tree.put(link_key, node);
+						
+			return node;
+		}
+		catch(Exception e)
+		{
+			driver.directive("[" + header + "]\tError in process_import_manifest_" + header + "_type_" + shell_bag_type + " mtd in " + this.myClassName + "! I had difficulty processing line [" + line_number + "] --> " + line);
+		}
+		
+		return node;
+	}
+	
+	public Node_Generic process_import_manifest_shellbags_type_2(String line, String lower, String header, String delimiter, long line_number, TreeMap<String, Node_Generic> tree, int shell_bag_type)
+	{
+		//init
+		Node_Generic node = new Node_Generic(header);
+		
+		try
+		{
+			//set shellbag type			
+			node.shellbag_type = "" + shell_bag_type;
+			
+			if(line == null || line.trim().equals(""))
+				return null;
+			
+			if(delimiter == null || delimiter.trim().equals(""))
+				delimiter = "\t";
+			
+			//line = line.substring(header.length()).trim();
+			
+			//split
+			String [] arr = line.split(delimiter);
+									
+			//set unique timeline standadized type
+			node.uniform_timeline_type = header;			
+				
+			//
+			//set amplifying data
+			//
+			node.last_updated 		= arr[0].trim();
+			node.guid_description 		= arr[1].trim();
+			node.guid		= arr[2].trim();
+			node.folder_ids		= arr[3].trim();
+			node.entry_type			= arr[4].trim();
+			node.shellbag_value		= arr[5].trim();
+			node.mru			= arr[6].trim();
+			node.registry_name				= arr[7].trim();
+			node.registry_key_name		= arr[8].trim();
+			node.shellbag_type	= arr[9].trim();
+			
+			//
+			//additional details
+			//
+			try
+			{
+				for(int i = 10; i < arr.length; i++)
+					node.additional_details = node.additional_details +  "\t" + arr[i].trim();
+				
+				node.additional_details = node.additional_details.trim();
+			}
+			catch(Exception e)
+			{
+				//do n/t
+			}
+						
+
+						
+			//
+			//set key, value for uniform manifest timeline
+			//
+			node.key_name = "guid_description";
+			node.value = node.guid_description;	
+				
+			//
+			//specify link type
+			//
+			//String link_key = node.last_updated + "\t" + node.guid_description + "\t" + node.guid;
+			String link_key = line;
+					
+			//link!
+			tree.put(link_key, node);
+						
+			return node;
+		}
+		catch(Exception e)
+		{
+			driver.directive("[" + header + "]\tError in process_import_manifest_" + header + "_type_" + shell_bag_type + " mtd in " + this.myClassName + "! I had difficulty processing line [" + line_number + "] --> " + line);
+		}
+		
+		return node;
+	}
+	
+	public Node_Generic process_import_manifest_shellbags_type_3(String line, String lower, String header, String delimiter, long line_number, TreeMap<String, Node_Generic> tree, int shell_bag_type)
+	{
+		//init
+		Node_Generic node = new Node_Generic(header);
+		
+		try
+		{
+			//set shellbag type			
+			node.shellbag_type = "" + shell_bag_type;
+			
+			if(line == null || line.trim().equals(""))
+				return null;
+			
+			if(delimiter == null || delimiter.trim().equals(""))
+				delimiter = "\t";
+			
+			//line = line.substring(header.length()).trim();
+			
+			//split
+			String [] arr = line.split(delimiter);
+									
+			//set unique timeline standadized type
+			node.uniform_timeline_type = header;			
+				
+			//
+			//set amplifying data
+			//
+			node.modified_date 		= arr[0].trim();
+			node.create_date 		= arr[1].trim();
+			node.access_date		= arr[2].trim();
+			node.last_updated		= arr[3].trim();
+			node.path			= arr[4].trim();
+			node.file_name		= arr[5].trim();
+			node.file_attr			= arr[6].trim();
+			node.shellbag_value				= arr[7].trim();
+			node.mru		= arr[8].trim();
+			node.registry_name	= arr[9].trim();
+			node.registry_key_name	= arr[10].trim();
+			node.shellbag_type	= arr[11].trim();
+			
+			//
+			//additional details
+			//
+			try
+			{
+				for(int i = 12; i < arr.length; i++)
+					node.additional_details = node.additional_details +  "\t" + arr[i].trim();
+				
+				node.additional_details = node.additional_details.trim();
+			}
+			catch(Exception e)
+			{
+				//do n/t
+			}
+									
+			//
+			//set key, value for uniform manifest timeline
+			//
+			node.key_name = "path";
+			node.value = node.path;	
+				
+			//
+			//specify link type
+			//
+			//String link_key = node.modified_date + "\t" + node.path + "\t" + node.file_attr;
+			String link_key = line;
+					
+			//link!
+			tree.put(link_key, node);
+						
+			return node;
+		}
+		catch(Exception e)
+		{
+			driver.directive("[" + header + "]\tError in process_import_manifest_" + header + "_type_" + shell_bag_type + " mtd in " + this.myClassName + "! I had difficulty processing line [" + line_number + "] --> " + line);
+		}
+		
+		return node;
+	}
+	
+	
+	public Node_Generic process_import_manifest_shellbags_type_4(String line, String lower, String header, String delimiter, long line_number, TreeMap<String, Node_Generic> tree, int shell_bag_type)
+	{
+		//init
+		Node_Generic node = new Node_Generic(header);
+		
+		try
+		{
+			//set shellbag type			
+			node.shellbag_type = "" + shell_bag_type;
+			
+			if(line == null || line.trim().equals(""))
+				return null;
+			
+			if(delimiter == null || delimiter.trim().equals(""))
+				delimiter = "\t";
+			
+			//line = line.substring(header.length()).trim();
+			
+			//split
+			String [] arr = line.split(delimiter);
+									
+			//set unique timeline standadized type
+			node.uniform_timeline_type = header;			
+				
+			//
+			//set amplifying data
+			//
+			node.last_updated 		= arr[0].trim();
+			node.path 		= arr[1].trim();
+			node.entry_type		= arr[2].trim();
+			node.shellbag_value		= arr[3].trim();
+			node.mru			= arr[4].trim();
+			node.registry_name		= arr[5].trim();
+			node.registry_key_name			= arr[6].trim();
+			node.shellbag_type				= arr[7].trim();
+			
+			//
+			//additional details
+			//
+			try
+			{
+				for(int i = 8; i < arr.length; i++)
+					node.additional_details = node.additional_details +  "\t" + arr[i].trim();
+				
+				node.additional_details = node.additional_details.trim();
+			}
+			catch(Exception e)
+			{
+				//do n/t
+			}
+									
+			//
+			//set key, value for uniform manifest timeline
+			//
+			node.key_name = "path";
+			node.value = node.path;	
+				
+			//
+			//specify link type
+			//
+			//String link_key = node.last_updated + "\t" + node.path;
+			String link_key = line;
+					
+			//link!
+			tree.put(link_key, node);
+						
+			return node;
+		}
+		catch(Exception e)
+		{
+			driver.directive("[" + header + "]\tError in process_import_manifest_" + header + "_type_" + shell_bag_type + " mtd in " + this.myClassName + "! I had difficulty processing line [" + line_number + "] --> " + line);
+		}
+		
+		return node;
+	}
+	
+	public Node_Generic process_import_manifest_shimcache(String line, String lower, String header, String delimiter, long line_number, TreeMap<String, Node_Generic> tree)
+	{
+		//init
+		Node_Generic node = new Node_Generic(header);
+		
+		try
+		{
+			if(line == null || line.trim().equals(""))
+				return null;
+			
+			if(delimiter == null || delimiter.trim().equals(""))
+				delimiter = "\t";
+			
+			line = line.substring(header.length()).trim();
+			
+			//creation_time	modified_time	mft_altered_time	access_time	path	entry_attribute	extension
+			String [] arr = line.split(delimiter);
+									
+			//set unique timeline standadized type
+			node.uniform_timeline_type = header;			
+				
+			//
+			//set amplifying data
+			//
+			node.last_updated 		= arr[0].trim();
+			node.path 	= arr[1].trim();
+			
+			
+			//
+			//additional details
+			//
+			try
+			{
+				for(int i = 2; i < arr.length; i++)
+					node.additional_details = node.additional_details +  "\t" + arr[i].trim();
+				
+				node.additional_details = node.additional_details.trim();
+			}
+			catch(Exception e)
+			{
+				//do n/t
+			}
+						
+
+						
+			//
+			//set key, value for uniform manifest timeline
+			//
+			node.key_name = "path";
+			node.value = node.path;	
+				
+			//
+			//specify link type
+			//
+			//String link_key = node.last_updated + "\t" + node.value;
+			String link_key = line;
+					
+			//link!
+			tree.put(link_key, node);
+						
+			return node;
+		}
+		catch(Exception e)
+		{
+			driver.directive("[" + header + "]\tError in process_import_manifest_" + header + " mtd in " + this.myClassName + "! I had difficulty processing line [" + line_number + "] --> " + line);
+		}
+		
+		return node;
 	}
 	
 	
@@ -5256,7 +6050,7 @@ public class Advanced_Analysis_Director extends Thread implements Runnable
 			//////////////////////////////////////////////////////////////////
 			if(this.fle_manifest_IMPORT != null)
 			{
-				boolean status = import_manifest(fle_manifest_IMPORT);
+				boolean status = import_manifest(fle_manifest_IMPORT, PARSE_DELIMITER);
 				
 				//
 				//determine action based on the run index
@@ -5742,8 +6536,18 @@ plugin_timeliner = new Analysis_Plugin_EXECUTION(null, this, "timeliner", "Creat
 			}
 			else
 			{
+				boolean prev = Analysis_Report_Container_Writer.open_file_when_complete;
+								
+				Analysis_Report_Container_Writer.open_file_when_complete = false;
+				
+				if(this.my_load_action == this.LOAD_ACTION_INITIATE_ADVANCED_ANALYSIS)
+					Analysis_Report_Container_Writer.open_file_when_complete = true;
+				
 				try	{	analysis_report = new Analysis_Report_Container_Writer(this);	}	catch(Exception e){}					
 				try	{	print_file_attributes();	}	catch(Exception e){}
+				
+				Analysis_Report_Container_Writer.open_file_when_complete = prev;
+				
 			}
 			
 			
@@ -7611,8 +8415,18 @@ plugin_timeliner = new Analysis_Plugin_EXECUTION(null, this, "timeliner", "Creat
 				return false;
 			}
 			
-			fle_manifest_EXPORT = new File(path_fle_analysis_directory + "manifest" + File.separator + "_manifest.txt");
-			fle_manifest_timeline_EXPORT = new File(path_fle_analysis_directory + "manifest" + File.separator + "_manifest_timeline.txt");
+			if(path_fle_analysis_directory != null && (path_fle_analysis_directory.toLowerCase().trim().endsWith("manifest") || path_fle_analysis_directory.toLowerCase().trim().endsWith("manifest" + File.separator)))
+			{
+				fle_manifest_EXPORT = new File(path_fle_analysis_directory + "_manifest.txt");
+				fle_manifest_timeline_EXPORT = new File(path_fle_analysis_directory + "_manifest_timeline.txt");
+			}
+			else
+			{
+				fle_manifest_EXPORT = new File(path_fle_analysis_directory + "manifest" + File.separator + "_manifest.txt");
+				fle_manifest_timeline_EXPORT = new File(path_fle_analysis_directory + "manifest" + File.separator + "_manifest_timeline.txt");
+			}
+			
+			
 			
 			try	{	fle_manifest_EXPORT.getParentFile().mkdir();} catch(Exception e){}
 			
@@ -7883,7 +8697,7 @@ plugin_timeliner = new Analysis_Plugin_EXECUTION(null, this, "timeliner", "Creat
 					if(desktop == null)
 						continue;
 					
-					desktop.write_manifest(pw_manifest, header, delimiter, false, false, false);
+					desktop.write_manifest(pw_manifest, header, delimiter, false, false, false, this);
 					
 					//print processes
 					if(desktop.tree_process != null && !desktop.tree_process.isEmpty() && desktop.desktop_offset != null)
@@ -7917,7 +8731,7 @@ plugin_timeliner = new Analysis_Plugin_EXECUTION(null, this, "timeliner", "Creat
 					if(node == null)
 						continue;
 					
-					node.write_manifest(pw_manifest, header, delimiter);
+					node.write_manifest(pw_manifest, header, delimiter, this);
 					pw_manifest.println(Driver.END_OF_ENTRY_MAJOR);
 				}
 			}
@@ -7939,7 +8753,7 @@ plugin_timeliner = new Analysis_Plugin_EXECUTION(null, this, "timeliner", "Creat
 					if(node == null)
 						continue;
 					
-					node.write_manifest(pw_manifest, header, delimiter);
+					node.write_manifest(pw_manifest, header, delimiter, this);
 					pw_manifest.println(Driver.END_OF_ENTRY_MAJOR);
 				}
 			}
@@ -8058,7 +8872,7 @@ plugin_timeliner = new Analysis_Plugin_EXECUTION(null, this, "timeliner", "Creat
 					if(node == null)
 						continue;
 
-					node.write_manifest(pw_manifest, header, delimiter, include_underline, false, false);			
+					node.write_manifest(pw_manifest, header, delimiter, include_underline, false, false, this);			
 							
 				}																																	
 			}
@@ -8078,7 +8892,7 @@ plugin_timeliner = new Analysis_Plugin_EXECUTION(null, this, "timeliner", "Creat
 
 				boolean include_underline = false;
 
-				node_shutdown_time.write_manifest(pw_manifest, header, delimiter, include_underline, false, false);																																
+				node_shutdown_time.write_manifest(pw_manifest, header, delimiter, include_underline, false, false, this);																																
 			}
 
 			//////////////////////////////////////////////////////////
@@ -8086,11 +8900,20 @@ plugin_timeliner = new Analysis_Plugin_EXECUTION(null, this, "timeliner", "Creat
 			// Filescan
 			//
 			////////////////////////////////////////////////////////		
-			if(this.plugin_filescan != null && (plugin_filescan.fleOutput != null || plugin_filescan.fle_import != null))
+			if(this.tree_filescan != null && this.tree_filescan.size() > 0)
 			{
 				write_manifest_header(pw_manifest, "FileScan");
 
-				String header = "filescan";
+				String header = Node_Generic.TIMELINE_KEY_NAME_FILESCAN;
+				
+				write_manifest_entries_from_tree(tree_filescan, header, pw_manifest, pw_manifest_super_timeline, delimiter);				
+								
+			}
+			else if(this.plugin_filescan != null && (plugin_filescan.fleOutput != null || plugin_filescan.fle_import != null))
+			{
+				write_manifest_header(pw_manifest, "FileScan");
+
+				String header = Node_Generic.TIMELINE_KEY_NAME_FILESCAN;
 
 				plugin_filescan.write_filescan_manifest(pw_manifest, header, delimiter);																																
 			}
@@ -8100,11 +8923,20 @@ plugin_timeliner = new Analysis_Plugin_EXECUTION(null, this, "timeliner", "Creat
 			// MFTParser Specific Entries
 			//
 			////////////////////////////////////////////////////////			
-			if(this.plugin_mftparser != null && plugin_mftparser.fleOutput != null)
+			if(this.tree_mftparser != null && this.tree_mftparser.size() > 0)
 			{
 				write_manifest_header(pw_manifest, "MFT Parser Specific Entries");
 
-				String header = "mftparser";
+				String header = Node_Generic.TIMELINE_KEY_NAME_MFTPARSER;
+				
+				write_manifest_entries_from_tree(tree_mftparser, header, pw_manifest, pw_manifest_super_timeline, delimiter);				
+								
+			}
+			else if(this.plugin_mftparser != null && plugin_mftparser.fleOutput != null)
+			{
+				write_manifest_header(pw_manifest, "MFT Parser Specific Entries");
+
+				String header = Node_Generic.TIMELINE_KEY_NAME_MFTPARSER;
 
 				plugin_mftparser.write_mftparser_manifest(pw_manifest, header, delimiter, pw_manifest_super_timeline);																																
 			}
@@ -8115,11 +8947,20 @@ plugin_timeliner = new Analysis_Plugin_EXECUTION(null, this, "timeliner", "Creat
 			// Timeliner
 			//
 			////////////////////////////////////////////////////////			
-			if(this.plugin_timeliner != null && (plugin_timeliner.fleOutput != null || plugin_timeliner.fle_import != null))
+			if(this.tree_timeliner != null && this.tree_timeliner.size() > 0)
 			{
 				write_manifest_header(pw_manifest, "Timeliner");
 
-				String header = "timeliner";
+				String header = Node_Generic.TIMELINE_KEY_NAME_TIMELINER;
+				
+				write_manifest_entries_from_tree(tree_timeliner, header, pw_manifest, pw_manifest_super_timeline, delimiter);				
+								
+			}
+			else if(this.plugin_timeliner != null && (plugin_timeliner.fleOutput != null || plugin_timeliner.fle_import != null))
+			{
+				write_manifest_header(pw_manifest, "Timeliner");
+
+				String header = Node_Generic.TIMELINE_KEY_NAME_TIMELINER;
 
 				plugin_timeliner.write_timeliner_manifest(pw_manifest, header, delimiter, pw_manifest_super_timeline);																																
 			}
@@ -8131,11 +8972,20 @@ plugin_timeliner = new Analysis_Plugin_EXECUTION(null, this, "timeliner", "Creat
 			// User Assist Special Entries
 			//
 			////////////////////////////////////////////////////////			
-			if(this.fle_user_asist_specific_entries != null || (plugin_userassist != null && this.plugin_userassist.fleUserAssist_focus_time != null))
+			if(this.tree_userassist_specific_entries != null && this.tree_userassist_specific_entries.size() > 0)
 			{
 				write_manifest_header(pw_manifest, "User Assist Specific Entries");
 
-				String header = "userassist_specific_entries";
+				String header = Node_Generic.TIMELINE_KEY_NAME_USERASSIST_SPECIFIC_ENTRIES;
+				
+				write_manifest_entries_from_tree(tree_userassist_specific_entries, header, pw_manifest, pw_manifest_super_timeline, delimiter);				
+								
+			}
+			else if(this.fle_user_asist_specific_entries != null || (plugin_userassist != null && this.plugin_userassist.fleUserAssist_focus_time != null))
+			{
+				write_manifest_header(pw_manifest, "User Assist Specific Entries");
+
+				String header = Node_Generic.TIMELINE_KEY_NAME_USERASSIST_SPECIFIC_ENTRIES;
 
 				write_user_assist_specific_entries_manifest(pw_manifest, header, delimiter, pw_manifest_super_timeline);																																
 			}
@@ -8151,11 +9001,22 @@ plugin_timeliner = new Analysis_Plugin_EXECUTION(null, this, "timeliner", "Creat
 			// Shellbags
 			//
 			////////////////////////////////////////////////////////			
-			if(this.plugin_shellbags != null && (plugin_shellbags.fleOutput != null || plugin_shellbags.fle_import != null))
+			if((this.tree_shellbags_TYPE_1 != null && this.tree_shellbags_TYPE_1.size() > 0) || (this.tree_shellbags_TYPE_2 != null && this.tree_shellbags_TYPE_2.size() > 0) || (this.tree_shellbags_TYPE_3 != null && this.tree_shellbags_TYPE_3.size() > 0) || (this.tree_shellbags_TYPE_4 != null && this.tree_shellbags_TYPE_4.size() > 0))
+			{
+				write_manifest_header(pw_manifest, "Shellbags");
+								
+				//write entries
+				write_manifest_entries_from_tree_SHELLBAGS(tree_shellbags_TYPE_1, Node_Generic.TIMELINE_KEY_NAME_SHELLBAGS, pw_manifest, pw_manifest_super_timeline, delimiter, manifest_header_TYPE_1, timeline_header_TYPE_1, Node_ShellBag_Container.TYPE_1);
+				write_manifest_entries_from_tree_SHELLBAGS(tree_shellbags_TYPE_2, Node_Generic.TIMELINE_KEY_NAME_SHELLBAGS, pw_manifest, pw_manifest_super_timeline, delimiter, manifest_header_TYPE_2, timeline_header_TYPE_2, Node_ShellBag_Container.TYPE_2);
+				write_manifest_entries_from_tree_SHELLBAGS(tree_shellbags_TYPE_3, Node_Generic.TIMELINE_KEY_NAME_SHELLBAGS, pw_manifest, pw_manifest_super_timeline, delimiter, manifest_header_TYPE_3, timeline_header_TYPE_3, Node_ShellBag_Container.TYPE_3);
+				write_manifest_entries_from_tree_SHELLBAGS(tree_shellbags_TYPE_4, Node_Generic.TIMELINE_KEY_NAME_SHELLBAGS, pw_manifest, pw_manifest_super_timeline, delimiter, manifest_header_TYPE_4, timeline_header_TYPE_4, Node_ShellBag_Container.TYPE_4);
+								
+			}
+			else if(this.plugin_shellbags != null && (plugin_shellbags.fleOutput != null || plugin_shellbags.fle_import != null))
 			{
 				write_manifest_header(pw_manifest, "Shellbags");
 
-				String header = "shellbags";
+				String header = Node_Generic.TIMELINE_KEY_NAME_SHELLBAGS;
 
 				plugin_shellbags.write_shellbags_manifest(pw_manifest, header, delimiter, pw_manifest_super_timeline);																																
 			}
@@ -8166,11 +9027,20 @@ plugin_timeliner = new Analysis_Plugin_EXECUTION(null, this, "timeliner", "Creat
 			// Shimcache
 			//
 			////////////////////////////////////////////////////////			
-			if(this.plugin_shimcache != null && (plugin_shimcache.fleOutput != null || plugin_shimcache.fle_import != null))
+			if(this.tree_shimcache != null && this.tree_shimcache.size() > 0)
 			{
 				write_manifest_header(pw_manifest, "Shimcache");
 
-				String header = "shimcache";
+				String header = Node_Generic.TIMELINE_KEY_NAME_SHIMCACHE;
+				
+				write_manifest_entries_from_tree(tree_shimcache, header, pw_manifest, pw_manifest_super_timeline, delimiter);				
+								
+			}
+			else if(this.plugin_shimcache != null && (plugin_shimcache.fleOutput != null || plugin_shimcache.fle_import != null))
+			{
+				write_manifest_header(pw_manifest, "Shimcache");
+
+				String header = Node_Generic.TIMELINE_KEY_NAME_SHIMCACHE;
 
 				plugin_shimcache.write_shimcache_manifest(pw_manifest, header, delimiter, pw_manifest_super_timeline);																																
 			}
@@ -8197,7 +9067,7 @@ plugin_timeliner = new Analysis_Plugin_EXECUTION(null, this, "timeliner", "Creat
 		}
 		catch(Exception e)
 		{
-			driver.eop(myClassName, "write_manifest", e);
+			driver.eop(myClassName, "write_manifest", e, false);
 		}
 		
 		
@@ -8205,6 +9075,117 @@ plugin_timeliner = new Analysis_Plugin_EXECUTION(null, this, "timeliner", "Creat
 		Start.intface.sop("\n* * * Complete! If successful, manifest file has been written to " + fle_manifest_path);
 		return false;
 	}
+	
+	public boolean write_manifest_entries_from_tree_SHELLBAGS(TreeMap<String, Node_Generic> tree, String header, PrintWriter pw_manifest, PrintWriter pw_manifest_super_timeline, String delimiter, String manifest_header, String timeline_header, int type)
+	{
+		try
+		{
+			if(tree == null || tree.isEmpty())
+				return false;
+			
+			//write headers - main manifest
+			pw_manifest.println("#" + header + delimiter + manifest_header);
+			
+			//write header - timeline manifest
+			pw_manifest_super_timeline.println(timeline_header);
+						
+			
+			for(Node_Generic node : tree.values())
+			{
+				if(node == null)
+					continue;
+				
+				//Constitute analysis line for manifest file
+				node.shell_bag_analysis_line = node.get_manifest_shellbags(type, delimiter);
+				
+				//constitute timeline manifest file
+				switch(type)
+				{
+					case Node_ShellBag_Container.TYPE_1:
+					{
+						node.shell_bag_timeline = driver.get_latest_time(node.modified_date, node.create_date, node.access_date, null, 0) + delimiter + header + delimiter + "file name (unicode)" + delimiter + node.unicode_name + delimiter + node.shellbag_type + delimiter + node.file_name + delimiter + node.file_attr + delimiter + node.create_date + delimiter + node.modified_date + delimiter + node.access_date + delimiter + node.last_updated + delimiter + node.value + delimiter + node.registry_name + delimiter + node.registry_key_name + delimiter + node.additional_details; 
+						break;
+					}
+					
+					case Node_ShellBag_Container.TYPE_2:
+					{
+						node.shell_bag_timeline = node.last_updated + delimiter + header + delimiter + "guid description" + delimiter + node.guid_description + delimiter + node.shellbag_type + delimiter + node.folder_ids + delimiter + node.entry_type + delimiter + node.guid + delimiter + node.value + delimiter + node.mru + delimiter + node.registry_name + delimiter + node.registry_key_name + delimiter + node.additional_details;
+						break;
+					}
+					
+					case Node_ShellBag_Container.TYPE_3:
+					{
+						node.shell_bag_timeline = driver.get_latest_time(node.modified_date, node.create_date, node.access_date, null, 0) + delimiter + header + delimiter + "path" + delimiter + node.path + delimiter + node.shellbag_type + delimiter + node.file_name + delimiter + node.file_attr + delimiter + node.create_date + delimiter + node.modified_date + delimiter + node.access_date + delimiter + node.last_updated + delimiter + node.value + delimiter + node.mru + delimiter + node.registry_name + delimiter + node.registry_key_name + delimiter + node.additional_details;
+						break;
+					}
+					
+					case Node_ShellBag_Container.TYPE_4:
+					{
+						node.shell_bag_timeline = node.last_updated + delimiter + header + delimiter + "path" + delimiter + node.path + delimiter + node.shellbag_type + delimiter + node.entry_type + delimiter + node.value + delimiter + node.mru + delimiter + node.registry_name + delimiter + node.registry_key_name + delimiter + node.additional_details;
+						break;
+					}
+					
+				}
+				
+				//write out data!
+				pw_manifest.println(header + delimiter + node.shell_bag_analysis_line);
+				pw_manifest_super_timeline.println(node.shell_bag_timeline);
+			}
+			
+			return true;
+		}
+		catch(Exception e)
+		{
+			driver.eop(myClassName, "write_manifest_entries_from_tree_SHELLBAGS", e);
+		}
+		
+		return false;
+	}
+	
+	
+	
+	public boolean write_manifest_entries_from_tree(TreeMap<String, Node_Generic> tree, String header, PrintWriter pw_manifest, PrintWriter pw_manifest_super_timeline, String delimiter)
+	{
+		try
+		{
+			if(tree == null || tree.size() < 1)
+				return false;
+			
+			if(header == null)
+				header = "";
+			
+			//write headers to files
+			pw_manifest.println("#" + header + delimiter + get_header(delimiter, false, header, null));
+			
+			if(header.equals(Node_Generic.TIMELINE_KEY_NAME_FILESCAN))
+				;//do n/t
+			else if(header.equals(Node_Generic.TIMELINE_KEY_NAME_SHELLBAGS))
+				;//do n/t
+			else
+				pw_manifest_super_timeline.println(get_header(delimiter, true, header, null));
+															
+			//print data to files
+			for(Node_Generic node : tree.values())
+			{
+				if(node == null)
+					continue;
+				
+				node.write_manifest(pw_manifest, header, delimiter, false, true, false, this);
+				
+				node.write_xavier_super_timeline_manifest(pw_manifest_super_timeline, header, delimiter);
+			}
+				
+			
+			return true;
+		}
+		catch(Exception e)
+		{
+			driver.eop(myClassName, "write_manifest_from_tree", e);
+		}
+		
+		return false;
+	}
+	
 	
 	
 	
@@ -8847,9 +9828,9 @@ plugin_timeliner = new Analysis_Plugin_EXECUTION(null, this, "timeliner", "Creat
 			driver.directivesp("\nwriting " + header + " contents to manifest file...");
 				
 			//write header
-			pw.println("#" + header + "\tlast_updated\treg_binary\ttime_focused\tcount\t focus_count\tregistry_hive\tpath\treg_data_first_line");
+			pw.println("#" + header  + delimiter + get_header(delimiter, false, header, null));
 			
-			pw_manifest_super_timeline.println("time" + delimiter + "userassist" + delimiter + "key (user assist)" + delimiter + "value" + delimiter + "time_focused" + delimiter + "count" + delimiter + "focus_count" + delimiter + "registry" + delimiter + "path" + delimiter + "registry data first line");
+			pw_manifest_super_timeline.println(get_header(delimiter, true, header, null));
 			
 			
 			//write contents
@@ -8864,7 +9845,7 @@ plugin_timeliner = new Analysis_Plugin_EXECUTION(null, this, "timeliner", "Creat
 			String time_focused = null;
 			String count = null;
 			String focus_count = null;
-			String registry_hive = null;
+			String registry_name = null;
 			String path = null;
 			String reg_data_first_line = null;
 			
@@ -8907,7 +9888,7 @@ plugin_timeliner = new Analysis_Plugin_EXECUTION(null, this, "timeliner", "Creat
 					time_focused = null;
 					count = null;
 					focus_count = null;
-					registry_hive = null;
+					registry_name = null;
 					path = null;
 					reg_data_first_line = null;									
 					
@@ -8915,7 +9896,7 @@ plugin_timeliner = new Analysis_Plugin_EXECUTION(null, this, "timeliner", "Creat
 					arr = line.split("\t");
 					
 					//accumulate
-					registry_hive = arr[0].trim();
+					registry_name = arr[0].trim();
 					path = arr[1].trim();
 					reg_binary = arr[2].trim();
 					time_focused = arr[3].trim();
@@ -8925,9 +9906,9 @@ plugin_timeliner = new Analysis_Plugin_EXECUTION(null, this, "timeliner", "Creat
 					reg_data_first_line = arr[7].trim();
 										
 					//write entries out!
-					pw.println(header + delimiter + last_updated + delimiter + reg_binary + delimiter + time_focused + delimiter + count + delimiter + focus_count + delimiter + registry_hive + delimiter + path + delimiter + reg_data_first_line);
+					pw.println(header + delimiter + last_updated + delimiter + reg_binary + delimiter + time_focused + delimiter + count + delimiter + focus_count + delimiter + registry_name + delimiter + path + delimiter + reg_data_first_line);
 					
-					pw_manifest_super_timeline.println(last_updated + delimiter + "userassist" + delimiter + "reg_binary" + delimiter + reg_binary + delimiter + time_focused + delimiter + count + delimiter + focus_count + delimiter + registry_hive + delimiter + path + delimiter + reg_data_first_line);
+					pw_manifest_super_timeline.println(last_updated + delimiter + "userassist" + delimiter + "reg_binary" + delimiter + reg_binary + delimiter + time_focused + delimiter + count + delimiter + focus_count + delimiter + registry_name + delimiter + path + delimiter + reg_data_first_line);
 					
 				}
 				catch(Exception ee)
@@ -8967,7 +9948,68 @@ plugin_timeliner = new Analysis_Plugin_EXECUTION(null, this, "timeliner", "Creat
 	
 	
 	
-	
+	public static String get_header(String delimiter, boolean return_value_in_xavier_super_timeline_format, String header, String shellbags_type)
+	{		
+		try
+		{
+			if(header == null)
+				header = "";
+			
+			String output = "";
+			
+			if(header.toLowerCase().equals(Node_Generic.TIMELINE_KEY_NAME_FILESCAN))
+			{
+				return "offset_p" + delimiter + "#ptr" + delimiter + "#hnd" + delimiter + "access" + delimiter + "path" + delimiter + "additional_detail";								
+			}
+			
+			else if(header.toLowerCase().equals(Node_Generic.TIMELINE_KEY_NAME_MFTPARSER))
+			{
+				if(return_value_in_xavier_super_timeline_format) //return in timeline manifest format
+					return "time" + delimiter + header + delimiter + "key (mft_entry_type)" + delimiter + "value (type/name/path)" + delimiter + "creation_time" + delimiter + "modified_time" + delimiter + "mft_altered_time" + delimiter + "access_time" + delimiter + "extension" + delimiter + "additional_detail";
+				else//normal manifest format
+					return 	"creation_time" + delimiter + "modified_time" + delimiter + "mft_altered_time" + delimiter + "access_time" + delimiter + "path" + delimiter + "entry_attribute" + delimiter + "extension" + delimiter + "additional_detail";
+				
+			}
+			
+			else if(header.toLowerCase().equals(Node_Generic.TIMELINE_KEY_NAME_TIMELINER))
+			{
+				if(return_value_in_xavier_super_timeline_format) //return in timeline manifest format
+					return "time" + delimiter + header + delimiter + "key (timeliner)" + delimiter + "value" + delimiter + "details" + delimiter + "additional_details";
+				else//normal manifest format
+					return 	"time" + delimiter + "key" + delimiter + "value" + delimiter + "details" + delimiter + "additional_detail";
+				
+			}
+			
+			else if(header.toLowerCase().equals(Node_Generic.TIMELINE_KEY_NAME_USERASSIST_SPECIFIC_ENTRIES))
+			{
+				if(return_value_in_xavier_super_timeline_format) //return in timeline manifest format
+					return "time" + delimiter + "userassist" + delimiter + "key (user assist)" + delimiter + "value" + delimiter + "time_focused" + delimiter + "count" + delimiter + "focus_count" + delimiter + "registry" + delimiter + "path" + delimiter + "registry data first line" + delimiter + "additional_detail";
+				else//normal manifest format
+					return 	"last_updated" + delimiter + "reg_binary" + delimiter + "time_focused" + delimiter + "count" + delimiter + " focus_count" + delimiter + "registry_name" + delimiter + "path" + delimiter + "reg_data_first_line" + delimiter + "additional_detail";
+				
+			}
+			
+			else if(header.toLowerCase().equals(Node_Generic.TIMELINE_KEY_NAME_SHIMCACHE))
+			{
+				if(return_value_in_xavier_super_timeline_format) //return in timeline manifest format
+					return "time" + delimiter + header + delimiter + "key" + delimiter + "value" + delimiter + "additional_detail";
+				else//normal manifest format
+					return 	"last_modified_time" + delimiter + "path" + delimiter + "additional_detail";
+				
+			}
+			
+			return output;
+			
+		}
+		catch(Exception e)
+		{
+			driver.eop(myClassName, "get_header", e);
+		}
+		
+		driver.directive("ERROR! Unknown header - I can not format output files with an appropriate header from class: " + myClassName + " based on provided header [" + header + "] --< it does not meet one of my expected directives...");
+		
+		return "";
+	}
 	
 	
 	

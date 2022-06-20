@@ -45,14 +45,14 @@ public class Analysis_Plugin_vadtree extends _Analysis_Plugin_Super_Class implem
 			jta_console_output_execution_status = jta_OUTPUT;
 			
 			EXECUTION_TIME_STAMP = parent.EXECUTION_TIME_STAMP;
-			fle_volatility = parent.fle_volatility;
-			fle_memory_image = parent.fle_memory_image;
-			PROFILE = parent.PROFILE;
-			path_fle_analysis_directory = parent.path_fle_analysis_directory;
-			file_attr_volatility = parent.file_attr_volatility;
-			file_attr_memory_image = parent.file_attr_memory_image;
-			investigator_name = parent.investigator_name;
-			investigation_description = parent.investigation_description;
+//			fle_volatility = parent.fle_volatility;
+//			fle_memory_image = parent.fle_memory_image;
+//			PROFILE = parent.PROFILE;
+//			path_fle_analysis_directory = parent.path_fle_analysis_directory;
+//			file_attr_volatility = parent.file_attr_volatility;
+//			file_attr_memory_image = parent.file_attr_memory_image;
+//			investigator_name = parent.investigator_name;
+//			investigation_description = parent.investigation_description;
 			EXECUTE_VIA_THREAD = execute_via_thread;
 			
 			if(execute_via_thread)
@@ -160,13 +160,13 @@ public class Analysis_Plugin_vadtree extends _Analysis_Plugin_Super_Class implem
 	{
 		try
 		{							
-			if(fle_volatility == null || !fle_volatility.exists() || !fle_volatility.isFile())
+			if(Interface.fle_volatility == null || !Interface.fle_volatility.exists() || !Interface.fle_volatility.isFile())
 			{
 				driver.sop("* * ERROR! Valid volatility executable binary has not been set. I cannot proceed with execution of plugin: [" + plugin_name + "]. * * ");
 				return false;
 			}
 			
-			if(fle_memory_image == null || !fle_memory_image.exists() || !fle_memory_image.isFile())
+			if(Interface.fle_memory_image == null || !Interface.fle_memory_image.exists() || !Interface.fle_memory_image.isFile())
 			{
 				driver.sop("* * ERROR! Valid memory image for analysis has not been set. I cannot proceed with execution of plugin: [" + plugin_name + "]. * *");				
 				return false;
@@ -180,12 +180,12 @@ public class Analysis_Plugin_vadtree extends _Analysis_Plugin_Super_Class implem
 			if(Advanced_Analysis_Director.DO_NOT_INCLUDE_TIME_STAMP_IN_FILE_NAME)
 			{
 				if(additional_file_name_detail == null || additional_file_name_detail.trim().equals(""))
-					fleOutput = new File(path_fle_analysis_directory + plugin_name + File.separator + "_" + plugin_name + ".txt");
+					fleOutput = new File(Interface.path_fle_analysis_directory + plugin_name + File.separator + "_" + plugin_name + ".txt");
 				else
-					fleOutput = new File(path_fle_analysis_directory + plugin_name + File.separator + "_" + plugin_name + "_" + additional_file_name_detail + "" + ".txt");
+					fleOutput = new File(Interface.path_fle_analysis_directory + plugin_name + File.separator + "_" + plugin_name + "_" + additional_file_name_detail + "" + ".txt");
 			}
 			else				
-				fleOutput = new File(path_fle_analysis_directory + plugin_name + File.separator + "_" + plugin_name + "_" + additional_file_name_detail + time_stamp + ".txt");
+				fleOutput = new File(Interface.path_fle_analysis_directory + plugin_name + File.separator + "_" + plugin_name + "_" + additional_file_name_detail + time_stamp + ".txt");
 			
 			
 			try	
@@ -200,7 +200,7 @@ public class Analysis_Plugin_vadtree extends _Analysis_Plugin_Super_Class implem
 			//
 			if(cmd == null)
 			{
-				cmd = "\"" + fle_volatility.getCanonicalPath().trim() + "\" -f \"" + fle_memory_image.getCanonicalPath().trim() + "\" " + plugin_name + " --profile=" + PROFILE;
+				cmd = "\"" + Interface.fle_volatility.getCanonicalPath().trim() + "\" -f \"" + Interface.fle_memory_image.getCanonicalPath().trim() + "\" " + plugin_name + " --profile=" + Interface.PROFILE;
 			}						
 			
 			
@@ -450,7 +450,7 @@ public class Analysis_Plugin_vadtree extends _Analysis_Plugin_Super_Class implem
 			String image_extension = "png";
 			
 			String time_stamp = driver.get_time_stamp("_");
-			String path_dot_file = path_fle_analysis_directory + this.plugin_name + File.separator + "_" + plugin_name + "_" + this.fle_memory_image.getName() + ".dot";
+			String path_dot_file = Interface.path_fle_analysis_directory + this.plugin_name + File.separator + "_" + plugin_name + "_" + Interface.fle_memory_image.getName() + ".dot";
 			path_dot_file = path_dot_file.substring(path_dot_file.indexOf(Driver.NAME_LOWERCASE)).trim();
 			
 			if(!path_dot_file.startsWith(File.separator))
@@ -462,9 +462,9 @@ public class Analysis_Plugin_vadtree extends _Analysis_Plugin_Super_Class implem
 			
 			
 											
-			String relative_path_to_converted_dot_process_image = plugin_name + File.separator + "_" + plugin_name + "_" + this.fle_memory_image.getName() + "." + image_extension; 
+			String relative_path_to_converted_dot_process_image = plugin_name + File.separator + "_" + plugin_name + "_" + Interface.fle_memory_image.getName() + "." + image_extension; 
 			
-			String cmd = "\"" + fle_volatility.getCanonicalPath().trim() + "\" -f \"" + fle_memory_image.getCanonicalPath().trim() + "\"" + " -f " + "\"" + fle_memory_image.getCanonicalPath().trim() + "\"" + " --profile=" + PROFILE + " " + plugin_name + " --output=dot --output-file=\"." + path_dot_file.trim().replace(File.separator,"/");
+			String cmd = "\"" + Interface.fle_volatility.getCanonicalPath().trim() + "\" -f \"" + Interface.fle_memory_image.getCanonicalPath().trim() + "\"" + " -f " + "\"" + Interface.fle_memory_image.getCanonicalPath().trim() + "\"" + " --profile=" + Interface.PROFILE + " " + plugin_name + " --output=dot --output-file=\"." + path_dot_file.trim().replace(File.separator,"/");
 			
 			
 			
@@ -558,7 +558,7 @@ public class Analysis_Plugin_vadtree extends _Analysis_Plugin_Super_Class implem
 			 {
 				 pid = line.substring(line.indexOf(":")+1, line.lastIndexOf(" ")).trim();
 				 
-				 fle_data = new File(path_fle_analysis_directory + plugin_name + File.separator + "vadtree_output_data" + File.separator + "vadtree_" + pid + "_" + this.fle_memory_image.getName() + ".dot");				 
+				 fle_data = new File(Interface.path_fle_analysis_directory + plugin_name + File.separator + "vadtree_output_data" + File.separator + "vadtree_" + pid + "_" + Interface.fle_memory_image.getName() + ".dot");				 
 				 try	{	fle_data.getParentFile().mkdirs();	} catch(Exception e){}
 				 				 				 
 				 try
@@ -606,10 +606,10 @@ public class Analysis_Plugin_vadtree extends _Analysis_Plugin_Super_Class implem
 					 //
 					 try
 					 {
-						 fle_image = new File(path_fle_analysis_directory + plugin_name + File.separator + "vadtree_output_image" + File.separator + "vadtree_" + pid + "_" + this.fle_memory_image.getName()+ ".png");						 
+						 fle_image = new File(Interface.path_fle_analysis_directory + plugin_name + File.separator + "vadtree_output_image" + File.separator + "vadtree_" + pid + "_" + Interface.fle_memory_image.getName()+ ".png");						 
 						 try	{	fle_image.getParentFile().mkdirs();	} catch(Exception e){}
 						 
-						 String relative_path_vadtree_image = plugin_name + File.separator + "vadtree_output_image" + File.separator + "vadtree_" + pid + "_" + this.fle_memory_image.getName()+ ".png";
+						 String relative_path_vadtree_image = plugin_name + File.separator + "vadtree_output_image" + File.separator + "vadtree_" + pid + "_" + Interface.fle_memory_image.getName()+ ".png";
 						 
 						 if(this.nde_process != null)
 						 {
@@ -751,7 +751,7 @@ public class Analysis_Plugin_vadtree extends _Analysis_Plugin_Super_Class implem
 			String image_extension = "png";
 			
 			String time_stamp = driver.get_time_stamp("_");
-			String path_dot_file = path_fle_analysis_directory + this.plugin_name + File.separator + "_" + plugin_name + "_" + this.fle_memory_image.getName() + ".dot";
+			String path_dot_file = Interface.path_fle_analysis_directory + this.plugin_name + File.separator + "_" + plugin_name + "_" + Interface.fle_memory_image.getName() + ".dot";
 			path_dot_file = path_dot_file.substring(path_dot_file.indexOf(Driver.NAME_LOWERCASE)).trim();
 			
 			if(!path_dot_file.startsWith(File.separator))
@@ -762,15 +762,15 @@ public class Analysis_Plugin_vadtree extends _Analysis_Plugin_Super_Class implem
 			
 			
 			
-			String path_converted_file = path_fle_analysis_directory + plugin_name + File.separator + "_" + plugin_name + "_" + this.fle_memory_image.getName() + "." + image_extension;
+			String path_converted_file = Interface.path_fle_analysis_directory + plugin_name + File.separator + "_" + plugin_name + "_" + Interface.fle_memory_image.getName() + "." + image_extension;
 			path_converted_file = path_converted_file.substring(path_converted_file.indexOf(Driver.NAME_LOWERCASE)).trim();
 			
 			if(!path_converted_file.startsWith(File.separator))
 				path_converted_file = File.separator + path_converted_file;
 											
-			String relative_path_to_converted_dot_process_image = plugin_name + File.separator + "_" + plugin_name + "_" + this.fle_memory_image.getName() + "." + image_extension; 
+			String relative_path_to_converted_dot_process_image = plugin_name + File.separator + "_" + plugin_name + "_" + Interface.fle_memory_image.getName() + "." + image_extension; 
 			
-			String cmd = "\"" + fle_volatility.getCanonicalPath().trim() + "\" -f \"" + fle_memory_image.getCanonicalPath().trim() + "\"" + " -f " + "\"" + fle_memory_image.getCanonicalPath().trim() + "\"" + " --profile=" + PROFILE + " " + plugin_name + " --output=dot --output-file=\"." + path_dot_file.trim().replace(File.separator,"/");
+			String cmd = "\"" + Interface.fle_volatility.getCanonicalPath().trim() + "\" -f \"" + Interface.fle_memory_image.getCanonicalPath().trim() + "\"" + " -f " + "\"" + Interface.fle_memory_image.getCanonicalPath().trim() + "\"" + " --profile=" + Interface.PROFILE + " " + plugin_name + " --output=dot --output-file=\"." + path_dot_file.trim().replace(File.separator,"/");
 			
 			
 			
@@ -880,7 +880,7 @@ public class Analysis_Plugin_vadtree extends _Analysis_Plugin_Super_Class implem
 				//output here will actually be the PNG file, thus write straight to location
 				InputStream is =proc.getInputStream();
 				
-				File fle_converted_image = new File(path_fle_analysis_directory + plugin_name + File.separator + plugin_name + "_" + this.fle_memory_image.getName() + "." + image_extension);
+				File fle_converted_image = new File(Interface.path_fle_analysis_directory + plugin_name + File.separator + plugin_name + "_" + Interface.fle_memory_image.getName() + "." + image_extension);
 				
 				sop("\nAttempting to write VAD tree image file at: " + fle_converted_image);
 				

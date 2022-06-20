@@ -3457,7 +3457,7 @@ public class Node_Process
 			//
 			//my vad
 			//
-			try	{	if(this.VAD != null)	VAD.write_manifest(pw, "my_vad_info", "\t", false, false, true);			}	catch(Exception e){}
+			try	{	if(this.VAD != null)	VAD.write_manifest(pw, "my_vad_info", "\t", false, false, true, this.director);			}	catch(Exception e){}
 				
 			
 			//
@@ -3707,7 +3707,7 @@ public class Node_Process
 					if(node == null)
 						continue;
 
-					node.write_manifest(pw, header, delimiter, include_underline, print_output_as_single_line, true);	
+					node.write_manifest(pw, header, delimiter, include_underline, print_output_as_single_line, true, this.director);	
 				}
 				
 			}			
@@ -3778,7 +3778,7 @@ public class Node_Process
 				if(node == null)
 					continue;
 
-				node.write_manifest(pw, header, delimiter, include_underline, print_output_as_single_line, true);			
+				node.write_manifest(pw, header, delimiter, include_underline, print_output_as_single_line, true, this.director);			
 						
 			}			
 			

@@ -2166,9 +2166,9 @@ public class Process_Plugin extends Thread implements Runnable
 					if(lower.startsWith("# mft specific entries"))
 					{
 						begin_storing_entries = true;
-						pw.println("#" + header + "\tcreation_time\tmodified_time\tmft_altered_time\taccess_time\ttype_name_path\tentry_attribute\textension");
+						pw.println("#" + header + delimiter + Advanced_Analysis_Director.get_header(delimiter, false, header, null));
 						
-						pw_super_timeline.println("time" + delimiter + header + delimiter + "key (mft_entry_type)" + delimiter + "value (type/name/path)" + delimiter + "creation_time" + delimiter + "modified_time" + delimiter + "mft_altered_time" + delimiter + "access_time" + delimiter + "extension");
+						pw_super_timeline.println(Advanced_Analysis_Director.get_header(delimiter, true, header, null));
 					}
 					
 					if(!begin_storing_entries)
@@ -2242,7 +2242,7 @@ public class Process_Plugin extends Thread implements Runnable
 				return null;
 			
 			String entry_type = "mft";
-			String type_name_path = "";
+			String path = "";
 			String extension = null;
 			
 			output_line = 	arr[0] + " " +  //creation date
@@ -2277,10 +2277,10 @@ public class Process_Plugin extends Thread implements Runnable
 			String modified_time = arr[3] + " " + arr[4] + " " + arr[5];
 			String mft_altered_time = arr[6] + " " + arr[7] + " " + arr[8];
 			String access_time = arr[9] + " " + arr[10] + " " + arr[11];
-			type_name_path = arr[12];
+			path = arr[12];
 			
 			
-			super_timeline_entry = 	driver.get_latest_time(creation_time, modified_time, mft_altered_time, access_time, 0) + delimiter + "mftparser" + delimiter + entry_type + delimiter + type_name_path + delimiter + creation_time + delimiter + modified_time + delimiter + mft_altered_time + delimiter + access_time;
+			super_timeline_entry = 	driver.get_latest_time(creation_time, modified_time, mft_altered_time, access_time, 0) + delimiter + "mftparser" + delimiter + entry_type + delimiter + path + delimiter + creation_time + delimiter + modified_time + delimiter + mft_altered_time + delimiter + access_time;
 			
 			if(extension != null)
 				this.super_timeline_entry = this.super_timeline_entry + delimiter + extension;

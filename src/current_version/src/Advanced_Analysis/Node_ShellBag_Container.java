@@ -65,16 +65,58 @@ public class Node_ShellBag_Container
 	
 	
 	
+//	public String get_manifest_header(String delimiter)
+//	{
+//		try
+//		{
+//			switch(this.my_type)
+//			{
+//				case TYPE_1: return manifest_header_TYPE_1; "modified_date" + delimiter + "create_date" + delimiter + "access_date" + delimiter + "last_updated" + delimiter + "file_name" + delimiter + "unicode_name" + delimiter + "file_attr" + delimiter + "shellbag_value" + delimiter + "registry_name" + delimiter + "registry_key_name" + delimiter + "shellbag_type" + delimiter + "additional_details";
+//				case TYPE_2: return manifest_header_TYPE_2; "last_updated" + delimiter + "guid_description" + delimiter + "guid" + delimiter + "folder_ids" + delimiter + "entry_type" + delimiter + "shellbag_value" + delimiter + "mru" + delimiter +  "registry_name" + delimiter + "registry_key_name" + delimiter  + "shellbag_type" + delimiter + "additional_details";
+//				case TYPE_3: return manifest_header_TYPE_3; "modified_date" + delimiter + "create_date" + delimiter + "access_date" + delimiter + "last_updated" + delimiter + "path" + delimiter + "file_name" + delimiter + "file_attr" + delimiter + "shellbag_value" + delimiter + "mru" + delimiter + "registry_name" + delimiter + "registry_key_name" + delimiter  + "shellbag_type" + delimiter +  "additional_details";
+//				case TYPE_4: return manifest_header_TYPE_4; "last_updated" + delimiter + "path" + delimiter + "entry_type" + delimiter + "shellbag_value" + delimiter + "mru" + delimiter + "registry_name" + delimiter + "registry_key_name" + delimiter  + "shellbag_type" + delimiter +  "additional_details";									
+//			}
+//		}
+//		catch(Exception e)
+//		{
+//			driver.eop(myClassName, "get_manifest_header", e);
+//		}
+//		
+//		return "####";
+//	}
+//	
+//	
+//	
+//	public String get_timeliner_header(String delimiter)
+//	{
+//		try
+//		{
+//			switch(this.my_type)
+//			{
+//				case TYPE_1: timeline_header_TYPE_1; return "time" + delimiter + "shellbags" + delimiter + "key" + delimiter + "value" + delimiter + "shellbag_type" + delimiter + "file_name" + delimiter + "file_attr" + delimiter + "create date" + delimiter + "modified_date" + delimiter + "access_date" + delimiter + "last_updated" + delimiter + "shellbag_value" + delimiter + "registry" + delimiter + "registry_key" + delimiter + "additional_details";
+//				case TYPE_2: timeline_header_TYPE_2; return "time" + delimiter + "shellbags" + delimiter + "key" + delimiter + "value" + delimiter + "shellbag_type" + delimiter + "folder_ids" + delimiter + "entry_type" + delimiter + "guid" + delimiter + "shellbag_value" + delimiter + "mru" + delimiter + "registry" + delimiter + "registry_key" + delimiter + "additional_details";
+//				case TYPE_3: timeline_header_TYPE_3; return "time" + delimiter + "shellbags" + delimiter + "key" + delimiter + "value" + delimiter + "shellbag_type" + delimiter + "file_name" + delimiter + "file_attr" + delimiter + "create date" + delimiter + "modified_date" + delimiter + "access_date" + delimiter + "last_updated" + delimiter + "shellbag_value" + delimiter + "mru" + delimiter + "registry" + delimiter + "registry_key" + delimiter + "additional_details";
+//				case TYPE_4: timeline_header_TYPE_4; return "time" + delimiter + "shellbags" + delimiter + "key" + delimiter + "value" + delimiter + "shellbag_type" + delimiter + "entry_type" + delimiter + "shellbag_value"+ delimiter + "mru" + delimiter + "registry" + delimiter + "registry_key" + delimiter + "additional_details";
+//			}
+//		}
+//		catch(Exception e)
+//		{
+//			driver.eop(myClassName, "get_manifest_header", e);
+//		}
+//		
+//		return "####";
+//	}
+	
 	public String get_manifest_header(String delimiter)
 	{
 		try
 		{
 			switch(this.my_type)
 			{
-				case TYPE_1: return "modified_date" + delimiter + "create_date" + delimiter + "access_date" + delimiter + "last_updated" + delimiter + "file_name" + delimiter + "unicode_name" + delimiter + "file_attr" + delimiter + "value" + delimiter + "registry_name" + delimiter + "key_name" + delimiter + "shellbag_type" + delimiter + "additional_details";
-				case TYPE_2: return "last_updated" + delimiter + "guid_description" + delimiter + "guid" + delimiter + "folder_ids" + delimiter + "entry_type" + delimiter + "value" + delimiter + "mru" + delimiter +  "registry_name" + delimiter + "key_name" + delimiter  + "shellbag_type" + delimiter + "additional_details";
-				case TYPE_3: return "modified_date" + delimiter + "create_date" + delimiter + "access_date" + delimiter + "last_updated" + delimiter + "path" + delimiter + "file_name" + delimiter + "file_attr" + delimiter + "value" + delimiter + "mru" + delimiter + "registry_name" + delimiter + "key_name" + delimiter  + "shellbag_type" + delimiter +  "additional_details";
-				case TYPE_4: return "last_updated" + delimiter + "path" + delimiter + "entry_type" + delimiter + "value" + delimiter + "mru" + delimiter + "registry_name" + delimiter + "key_name" + delimiter  + "shellbag_type" + delimiter +  "additional_details";									
+				case TYPE_1: return Advanced_Analysis_Director.manifest_header_TYPE_1; 
+				case TYPE_2: return Advanced_Analysis_Director.manifest_header_TYPE_2; 
+				case TYPE_3: return Advanced_Analysis_Director.manifest_header_TYPE_3; 
+				case TYPE_4: return Advanced_Analysis_Director.manifest_header_TYPE_4; 									
 			}
 		}
 		catch(Exception e)
@@ -93,10 +135,10 @@ public class Node_ShellBag_Container
 		{
 			switch(this.my_type)
 			{
-				case TYPE_1: return "time" + delimiter + "shellbags" + delimiter + "key" + delimiter + "value" + delimiter + "shellbag_type" + delimiter + "file_name" + delimiter + "file_attr" + delimiter + "create date" + delimiter + "modified_date" + delimiter + "access_date" + delimiter + "last_updated" + delimiter + "shellbag_value" + delimiter + "registry" + delimiter + "registry_key" + delimiter + "additional_details";
-				case TYPE_2: return "time" + delimiter + "shellbags" + delimiter + "key" + delimiter + "value" + delimiter + "shellbag_type" + delimiter + "folder_ids" + delimiter + "entry_type" + delimiter + "guid" + delimiter + "shellbag_value" + delimiter + "mru" + delimiter + "registry" + delimiter + "registry_key" + delimiter + "additional_details";
-				case TYPE_3: return "time" + delimiter + "shellbags" + delimiter + "key" + delimiter + "value" + delimiter + "shellbag_type" + delimiter + "file_name" + delimiter + "file_attr" + delimiter + "create date" + delimiter + "modified_date" + delimiter + "access_date" + delimiter + "last_updated" + delimiter + "shellbag_value" + delimiter + "mru" + delimiter + "registry" + delimiter + "registry_key" + delimiter + "additional_details";
-				case TYPE_4: return "time" + delimiter + "shellbags" + delimiter + "key" + delimiter + "value" + delimiter + "shellbag_type" + delimiter + "entry_type" + delimiter + "shellbag_value"+ delimiter + "mru" + delimiter + "registry" + delimiter + "registry_key" + delimiter + "additional_details";
+				case TYPE_1: return Advanced_Analysis_Director.timeline_header_TYPE_1; 
+				case TYPE_2: return Advanced_Analysis_Director.timeline_header_TYPE_2; 
+				case TYPE_3: return Advanced_Analysis_Director.timeline_header_TYPE_3;
+				case TYPE_4: return Advanced_Analysis_Director.timeline_header_TYPE_4; 
 			}
 		}
 		catch(Exception e)
@@ -106,8 +148,6 @@ public class Node_ShellBag_Container
 		
 		return "####";
 	}
-	
-	
 	
 	
 	

@@ -53,14 +53,14 @@ public class Analysis_Plugin_memdump extends _Analysis_Plugin_Super_Class implem
 			jta_console_output_execution_status = jta_OUTPUT;
 			
 			EXECUTION_TIME_STAMP = parent.EXECUTION_TIME_STAMP;
-			fle_volatility = parent.fle_volatility;
-			fle_memory_image = parent.fle_memory_image;
-			PROFILE = parent.PROFILE;
-			path_fle_analysis_directory = parent.path_fle_analysis_directory;
-			file_attr_volatility = parent.file_attr_volatility;
-			file_attr_memory_image = parent.file_attr_memory_image;
-			investigator_name = parent.investigator_name;
-			investigation_description = parent.investigation_description;
+//			fle_volatility = parent.fle_volatility;
+//			fle_memory_image = parent.fle_memory_image;
+//			PROFILE = parent.PROFILE;
+//			path_fle_analysis_directory = parent.path_fle_analysis_directory;
+//			file_attr_volatility = parent.file_attr_volatility;
+//			file_attr_memory_image = parent.file_attr_memory_image;
+//			investigator_name = parent.investigator_name;
+//			investigation_description = parent.investigation_description;
 			EXECUTE_VIA_THREAD = execute_via_thread;
 			PID = pid;
 			
@@ -166,13 +166,13 @@ public class Analysis_Plugin_memdump extends _Analysis_Plugin_Super_Class implem
 	{
 		try
 		{							
-			if(fle_volatility == null || !fle_volatility.exists() || !fle_volatility.isFile())
+			if(Interface.fle_volatility == null || !Interface.fle_volatility.exists() || !Interface.fle_volatility.isFile())
 			{
 				driver.sop("* * ERROR! Valid volatility executable binary has not been set. I cannot proceed with execution of plugin: [" + plugin_name + "]. * * ");
 				return false;
 			}
 			
-			if(fle_memory_image == null || !fle_memory_image.exists() || !fle_memory_image.isFile())
+			if(Interface.fle_memory_image == null || !Interface.fle_memory_image.exists() || !Interface.fle_memory_image.isFile())
 			{
 				driver.sop("* * ERROR! Valid memory image for analysis has not been set. I cannot proceed with execution of plugin: [" + plugin_name + "]. * *");				
 				return false;
@@ -183,7 +183,7 @@ public class Analysis_Plugin_memdump extends _Analysis_Plugin_Super_Class implem
 			//
 			String time_stamp = driver.get_time_stamp("_");
 
-			fleOutput = new File(path_fle_analysis_directory + plugin_name + File.separator + "_" + plugin_name + "_" + additional_file_name_detail + time_stamp + "_" + System.nanoTime() + ".txt");
+			fleOutput = new File(Interface.path_fle_analysis_directory + plugin_name + File.separator + "_" + plugin_name + "_" + additional_file_name_detail + time_stamp + "_" + System.nanoTime() + ".txt");
 			
 			
 			try	
@@ -198,7 +198,7 @@ public class Analysis_Plugin_memdump extends _Analysis_Plugin_Super_Class implem
 			//
 			if(cmd == null)
 			{
-				cmd = "\"" + fle_volatility.getCanonicalPath().trim() + "\" -f \"" + fle_memory_image.getCanonicalPath().trim() + "\" " + plugin_name + " --profile=" + PROFILE + " memdump -p " + PID + " --dump-dir " + "\"" + fleOutput.getParentFile().getCanonicalPath(); //leave final " off;
+				cmd = "\"" + Interface.fle_volatility.getCanonicalPath().trim() + "\" -f \"" + Interface.fle_memory_image.getCanonicalPath().trim() + "\" " + plugin_name + " --profile=" + Interface.PROFILE + " memdump -p " + PID + " --dump-dir " + "\"" + fleOutput.getParentFile().getCanonicalPath(); //leave final " off;
 			}						
 			
 			

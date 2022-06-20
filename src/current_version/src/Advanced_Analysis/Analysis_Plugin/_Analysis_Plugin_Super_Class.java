@@ -26,14 +26,14 @@ public class _Analysis_Plugin_Super_Class extends Thread implements Runnable
 	
 	public static volatile String EXECUTION_TIME_STAMP = driver.getTime_Specified_Hyphenated_with_seconds_using_colon(System.currentTimeMillis());
 	
-	public volatile File fle_volatility = null;
-	public volatile File fle_memory_image = null;
-	public volatile String PROFILE = Interface.PROFILE;
-	public volatile String path_fle_analysis_directory = "";
-	public volatile FileAttributeData file_attr_volatility = null;  
-	public volatile FileAttributeData file_attr_memory_image = null;
-	public volatile String investigator_name = "";
-	public volatile String investigation_description = "";
+//	public volatile File fle_volatility = null;
+//	public volatile File fle_memory_image = null;
+//	public volatile String PROFILE = Interface.PROFILE;
+//	public volatile String path_fle_analysis_directory = "";
+//	public volatile FileAttributeData file_attr_volatility = null;  
+//	public volatile FileAttributeData file_attr_memory_image = null;
+//	public volatile String investigator_name = "";
+//	public volatile String investigation_description = "";
 	
 	public volatile String plugin_name = "";
 	public volatile String plugin_description = "";
@@ -71,7 +71,7 @@ public class _Analysis_Plugin_Super_Class extends Thread implements Runnable
 	{
 		try
 		{
-			return driver.write_process_header(investigator_name, investigation_description, EXECUTION_TIME_STAMP, file_attr_volatility, file_attr_memory_image, fle_memory_image, pw, plugin_name, plugin_description, execution_command);
+			return driver.write_process_header(Interface.investigator_name, Interface.investigation_description, EXECUTION_TIME_STAMP, Interface.file_attr_volatility, Interface.file_attr_memory_image, Interface.fle_memory_image, pw, plugin_name, plugin_description, execution_command);
 		}
 		catch(Exception e)
 		{

@@ -262,6 +262,7 @@ public class File_XREF extends Thread implements Runnable
 				}
 			}
 			
+			
 
 			//check if advanced analysis was started, and is still running
 			if(intrface.advanced_analysis_director != null && intrface.advanced_analysis_director.AUTOMATED_ANALYSIS_STARTED && !intrface.advanced_analysis_director.AUTOMATED_ANALYSIS_COMPLETE)
@@ -347,10 +348,13 @@ public class File_XREF extends Thread implements Runnable
 			//
 			//Take inventory of files present in working directory
 			//
-			
+
 			//Search directory for expected files
 			LinkedList<File> list_files = new LinkedList<File>();
-			list_files = driver.getFileListing(new File(intrface.path_fle_analysis_directory), true, null, list_files);
+			
+			//only iterate through files if directory load was selected!
+			if(intrface != null && intrface.advanced_analysis_director != null && intrface.advanced_analysis_director.my_load_action == Advanced_Analysis_Director.LOAD_ACTION_IMPORT_ANALYSIS_DIRECTORY)
+				list_files = driver.getFileListing(new File(intrface.path_fle_analysis_directory), true, null, list_files);
 			
 			LinkedList<File> list_impscan = new LinkedList<File>();
 			LinkedList<File> list_dependency_import_files = new LinkedList<File>();
@@ -626,10 +630,10 @@ public class File_XREF extends Thread implements Runnable
 				
 				/////////////////////////////////////////////////////
 				//
-				// search 
+				// search Deskscan
 				//
 				/////////////////////////////////////////////////////
-				result_found |= search_structure_NODE_GENERIC(XREF_SEARCH_STRING, XREF_SEARCH_STRING_LOWER, intrface.jtaFile_XREF_Search_Results, intrface.advanced_analysis_director.tree_DESKSCAN, "Deskscan", "Desktop");
+				result_found |= search_structure_NODE_GENERIC(XREF_SEARCH_STRING, XREF_SEARCH_STRING_LOWER, intrface.jtaFile_XREF_Search_Results, intrface.advanced_analysis_director.tree_DESKSCAN, "Deskscan", "Desktop", -1);
 				
 				
 				
@@ -649,9 +653,41 @@ public class File_XREF extends Thread implements Runnable
 				// audit policies 
 				//
 				/////////////////////////////////////////////////////
-				result_found |= search_structure_NODE_GENERIC(XREF_SEARCH_STRING, XREF_SEARCH_STRING_LOWER, intrface.jtaFile_XREF_Search_Results, intrface.advanced_analysis_director.tree_AUDIT_POLICY, "Audit Policies", "Policy");
+				result_found |= search_structure_NODE_GENERIC(XREF_SEARCH_STRING, XREF_SEARCH_STRING_LOWER, intrface.jtaFile_XREF_Search_Results, intrface.advanced_analysis_director.tree_AUDIT_POLICY, "Audit Policies", "Policy", -1);
 				
+				/////////////////////////////////////////////////////
+				//
+				// filescan, mftparser, timeliner structures 
+				//
+				/////////////////////////////////////////////////////
+				String delimiter = "\t";
+				LinkedList<String> list = null;
+				list = search_structure_NODE_GENERIC_FILESCAN_MFT_TIMELINE_SHELLBAGS_SHIMCACHE(XREF_SEARCH_STRING, XREF_SEARCH_STRING_LOWER, intrface.jtaFile_XREF_Search_Results, intrface.advanced_analysis_director.tree_filescan, "FileScan", "File", index_dump_files_store_action_FILESCAN, delimiter);
+					result_found |= (list != null && !list.isEmpty());
 				
+				list = search_structure_NODE_GENERIC_FILESCAN_MFT_TIMELINE_SHELLBAGS_SHIMCACHE(XREF_SEARCH_STRING, XREF_SEARCH_STRING_LOWER, intrface.jtaFile_XREF_Search_Results, intrface.advanced_analysis_director.tree_mftparser, "MFT Parser", "File Entry", index_dump_files_store_action_MFTPARSER, delimiter);
+					result_found |= (list != null && !list.isEmpty());
+				
+				list = search_structure_NODE_GENERIC_FILESCAN_MFT_TIMELINE_SHELLBAGS_SHIMCACHE(XREF_SEARCH_STRING, XREF_SEARCH_STRING_LOWER, intrface.jtaFile_XREF_Search_Results, intrface.advanced_analysis_director.tree_timeliner, "Timeliner", "Entry", -1, delimiter);
+					result_found |= (list != null && !list.isEmpty());
+				
+				list = search_structure_NODE_GENERIC_FILESCAN_MFT_TIMELINE_SHELLBAGS_SHIMCACHE(XREF_SEARCH_STRING, XREF_SEARCH_STRING_LOWER, intrface.jtaFile_XREF_Search_Results, intrface.advanced_analysis_director.tree_userassist_specific_entries, "User Assist Specific Entry", "User Assist", index_dump_files_store_action_USERASSIST, delimiter);
+					result_found |= (list != null && !list.isEmpty());
+				
+				list = search_structure_NODE_GENERIC_FILESCAN_MFT_TIMELINE_SHELLBAGS_SHIMCACHE(XREF_SEARCH_STRING, XREF_SEARCH_STRING_LOWER, intrface.jtaFile_XREF_Search_Results, intrface.advanced_analysis_director.tree_shellbags_TYPE_1, "Shellbags", "Attribute [1]", -1, delimiter);
+					result_found |= (list != null && !list.isEmpty());
+				
+				list = search_structure_NODE_GENERIC_FILESCAN_MFT_TIMELINE_SHELLBAGS_SHIMCACHE(XREF_SEARCH_STRING, XREF_SEARCH_STRING_LOWER, intrface.jtaFile_XREF_Search_Results, intrface.advanced_analysis_director.tree_shellbags_TYPE_2, "Shellbags", "Attribute [2]", -1, delimiter);
+					result_found |= (list != null && !list.isEmpty());
+				
+				list = search_structure_NODE_GENERIC_FILESCAN_MFT_TIMELINE_SHELLBAGS_SHIMCACHE(XREF_SEARCH_STRING, XREF_SEARCH_STRING_LOWER, intrface.jtaFile_XREF_Search_Results, intrface.advanced_analysis_director.tree_shellbags_TYPE_3, "Shellbags", "Attribute [3]", -1, delimiter);
+					result_found |= (list != null && !list.isEmpty());
+				
+				list = search_structure_NODE_GENERIC_FILESCAN_MFT_TIMELINE_SHELLBAGS_SHIMCACHE(XREF_SEARCH_STRING, XREF_SEARCH_STRING_LOWER, intrface.jtaFile_XREF_Search_Results, intrface.advanced_analysis_director.tree_shellbags_TYPE_4, "Shellbags", "Attribute [4]", -1, delimiter);
+					result_found |= (list != null && !list.isEmpty());
+				
+				list = search_structure_NODE_GENERIC_FILESCAN_MFT_TIMELINE_SHELLBAGS_SHIMCACHE(XREF_SEARCH_STRING, XREF_SEARCH_STRING_LOWER, intrface.jtaFile_XREF_Search_Results, intrface.advanced_analysis_director.tree_shimcache, "Shimcache", "Cached Entry", -1, delimiter);
+					result_found |= (list != null && !list.isEmpty());
 				
 				
 				
@@ -1061,6 +1097,32 @@ public class File_XREF extends Thread implements Runnable
 	}
 	
 	
+	public boolean populate_filescan_found_entry(Node_Generic node)
+	{
+		try
+		{
+			Node_Generic node_file = new Node_Generic("filescan");
+			
+			String line = node.offset_p + "  " + node.num_ptr + "  " + node.num_hnd + " " + node.access + " ";
+			
+			if(node.path != null && node.path.trim().length() > 1)
+				line = line + node.path;
+			else
+				line = line + node.path_name;
+			
+			node_file.process_file_scan_entry(line, intrface.is_memory_image_WINDOWS());	
+			
+			this.tree_dump_file_entries_FILEDUMP_XREF.put("filescan - " + node_file.path_name + " " + node_file.offset_p, node_file);
+			
+			return true;
+		}
+		catch(Exception e)
+		{
+			driver.eop(myClassName, "populate_filescan_found_entry", e);
+		}
+		
+		return false;
+	}
 	
 	
 	/**
@@ -1068,7 +1130,7 @@ public class File_XREF extends Thread implements Runnable
 	 * 
 	 * @return
 	 */
-	public boolean search_structure_NODE_GENERIC(String XREF_SEARCH_STRING, String XREF_SEARCH_STRING_LOWER, JTextArea_Solomon jta, TreeMap<String, Node_Generic> tree, String container_name, String mneumonic)
+	public boolean search_structure_NODE_GENERIC(String XREF_SEARCH_STRING, String XREF_SEARCH_STRING_LOWER, JTextArea_Solomon jta, TreeMap<String, Node_Generic> tree, String container_name, String mneumonic, int load_action)
 	{
 		try
 		{
@@ -1078,8 +1140,6 @@ public class File_XREF extends Thread implements Runnable
 			boolean status = false;		
 			
 			this.reset_search_value_node_generic(tree, false);
-			
-			boolean I_HAVE_WRITTEN_HEADER = false;
 			
 			Node_Generic node = null;
 			
@@ -1094,6 +1154,19 @@ public class File_XREF extends Thread implements Runnable
 					continue;
 				
 				status |= node.search_XREF(XREF_SEARCH_STRING, XREF_SEARCH_STRING_LOWER, jta, null, container_name + " @ " + key);
+				
+//				if(status)
+//				{
+//					//value was found, determine if we wish to handle the program differently based on what was found
+//					switch(load_action)
+//					{
+//						case index_dump_files_store_action_FILESCAN:
+//						{
+//							populate_filescan_found_entry(node);
+//							break;
+//						}
+//					}
+//				}
 			}
 			
 			if(status)
@@ -1150,6 +1223,101 @@ public class File_XREF extends Thread implements Runnable
 		
 		return false;
 	}
+	
+	
+	
+	/**
+	 * Special Search to better handle searching through the already constituted trees 
+	 * 
+	 * @return
+	 */
+	public LinkedList<String> search_structure_NODE_GENERIC_FILESCAN_MFT_TIMELINE_SHELLBAGS_SHIMCACHE(String XREF_SEARCH_STRING, String XREF_SEARCH_STRING_LOWER, JTextArea_Solomon jta, TreeMap<String, Node_Generic> tree, String container_name, String mneumonic, int load_action, String delimiter)
+	{
+		LinkedList<String> list_hits_found = new LinkedList<String>();
+		LinkedList<Node_Generic> list_nodes_with_hits_found = new LinkedList<Node_Generic>();
+		
+		try
+		{
+			if(tree == null || tree.isEmpty())
+				return null;
+			
+			boolean status = false;		
+			
+			this.reset_search_value_node_generic(tree, false);
+			
+			String output = "";
+			
+			int list_size = 0;
+			
+			//place the found hits in this list						
+			for(Node_Generic node : tree.values())
+			{
+				if(node == null)
+					continue;				
+				
+				//check val before the search
+				list_size = list_hits_found.size();
+				
+				//xref search
+				node.search_XREF(XREF_SEARCH_STRING, XREF_SEARCH_STRING_LOWER, list_hits_found, container_name, mneumonic, delimiter);
+				
+				//determine if this node is responsible for a hit being found
+				if(list_hits_found.size() > list_size)
+					list_nodes_with_hits_found.add(node);				 
+			}
+			
+			//check list for hits
+			if(list_hits_found != null && list_hits_found.size() > 0 && jta != null)
+			{
+				//hits found!
+				jta.append("\n\n" + container_name + "\n" + driver.UNDERLINE);
+
+				for(String hit : list_hits_found)
+				{
+					if(hit == null)
+						continue;
+					
+					jta.append(hit);										
+				}
+				
+				jta.append("\n");
+			}
+			
+
+			//update filescan if applicable
+			if(list_nodes_with_hits_found != null && list_nodes_with_hits_found.size() > 0)
+			{
+				for(Node_Generic node : list_nodes_with_hits_found)
+				{
+					if(node == null)
+						continue;
+					
+					if(node.uniform_timeline_type == null)
+						continue;
+					
+					if(node.uniform_timeline_type.equals(Node_Generic.TIMELINE_KEY_NAME_FILESCAN))
+					{
+						this.populate_filescan_found_entry(node);
+					}
+				}
+			}
+			
+			//reset
+			this.reset_search_value_node_generic(tree, false);
+			
+			
+		}
+		catch(Exception e)
+		{
+			driver.eop(myClassName, "search_structure_NODE_GENERIC_FILESCAN_MFT_TIMELINE_SHELLBAGS_SHIMCACHE", e);
+		}
+		
+		this.reset_search_value_node_generic(tree, false);
+		
+		return list_hits_found;
+	}
+	
+	
 	
 	/**
 	 * continuation mtd from process_search 
@@ -1564,7 +1732,7 @@ public class File_XREF extends Thread implements Runnable
 			{
 				boolean prev = driver.output_enabled;
 				
-				driver.sop_CONSOLE_ONLY("Empty file received. No search actions for plugin/output file [" + plugin_name + "]");
+//driver.sop_CONSOLE_ONLY("Empty file received. No search actions for plugin/output file [" + plugin_name + "]");
 				return -1;
 			}
 			
@@ -1792,7 +1960,7 @@ public class File_XREF extends Thread implements Runnable
 					}	
 					
 					//
-					//store file container
+					//store file container: i.e., store reference t the file where a hit was found
 					//
 					try
 					{

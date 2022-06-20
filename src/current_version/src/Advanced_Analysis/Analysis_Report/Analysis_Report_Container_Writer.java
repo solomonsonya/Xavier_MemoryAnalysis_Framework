@@ -41,7 +41,7 @@ public class Analysis_Report_Container_Writer extends Thread implements Runnable
 	public static boolean WORD_WRAP = false;
 	public static String word_wrap_directive = "";
 	
-	public static volatile boolean open_file_when_complete = true;
+	public static volatile boolean open_file_when_complete = false;
 	
 	public volatile File fle_volatility = null;
 	public volatile File fle_memory_image = null;

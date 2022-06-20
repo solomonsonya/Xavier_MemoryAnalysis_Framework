@@ -255,7 +255,7 @@ public class Node_Registry_Hive
 	
 	
 	
-	public boolean write_manifest(PrintWriter pw, String header, String delimiter)
+	public boolean write_manifest(PrintWriter pw, String header, String delimiter, Advanced_Analysis_Director director)
 	{				
 		try
 		{
@@ -277,7 +277,7 @@ public class Node_Registry_Hive
 				if(registry_key == null)
 					continue;
 				
-				registry_key.write_manifest(pw, header, delimiter);
+				registry_key.write_manifest(pw, header, delimiter, director);
 			
 				if(registry_key.path != null)
 					pw.println(Driver.END_OF_ENTRY_MINOR);

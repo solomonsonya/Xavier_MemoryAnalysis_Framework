@@ -39,7 +39,7 @@ public class Analysis_Plugin_EXECUTION extends _Analysis_Plugin_Super_Class impl
 	
 	public volatile Node_Process process = null;
 	
-	public volatile TreeMap<Integer, Node_ShellBag_Container> tree_shell_bags = null;
+	//public volatile TreeMap<Integer, Node_ShellBag_Container> tree_shell_bags = null;
 	
 	
 	boolean update_gui = false;
@@ -59,14 +59,14 @@ public class Analysis_Plugin_EXECUTION extends _Analysis_Plugin_Super_Class impl
 			this.EXECUTION_COMMAND_OVERRIDE = execution_command_override_otbn;
 			
 			EXECUTION_TIME_STAMP = parent.EXECUTION_TIME_STAMP;
-			fle_volatility = parent.fle_volatility;
-			fle_memory_image = parent.fle_memory_image;
-			PROFILE = parent.PROFILE;
-			path_fle_analysis_directory = parent.path_fle_analysis_directory;
-			file_attr_volatility = parent.file_attr_volatility;
-			file_attr_memory_image = parent.file_attr_memory_image;
-			investigator_name = parent.investigator_name;
-			investigation_description = parent.investigation_description;
+//			fle_volatility = parent.fle_volatility;
+//			fle_memory_image = parent.fle_memory_image;
+//			PROFILE = parent.PROFILE;
+//			path_fle_analysis_directory = parent.path_fle_analysis_directory;
+//			file_attr_volatility = parent.file_attr_volatility;
+//			file_attr_memory_image = parent.file_attr_memory_image;
+//			investigator_name = parent.investigator_name;
+//			investigation_description = parent.investigation_description;
 			EXECUTE_VIA_THREAD = execute_via_thread;			
 			
 			
@@ -96,14 +96,14 @@ public class Analysis_Plugin_EXECUTION extends _Analysis_Plugin_Super_Class impl
 			
 			
 			EXECUTION_TIME_STAMP = parent.EXECUTION_TIME_STAMP;
-			fle_volatility = parent.fle_volatility;
-			fle_memory_image = parent.fle_memory_image;
-			PROFILE = parent.PROFILE;
-			path_fle_analysis_directory = parent.path_fle_analysis_directory;
-			file_attr_volatility = parent.file_attr_volatility;
-			file_attr_memory_image = parent.file_attr_memory_image;
-			investigator_name = parent.investigator_name;
-			investigation_description = parent.investigation_description;
+//			fle_volatility = parent.fle_volatility;
+//			fle_memory_image = parent.fle_memory_image;
+//			PROFILE = parent.PROFILE;
+//			path_fle_analysis_directory = parent.path_fle_analysis_directory;
+//			file_attr_volatility = parent.file_attr_volatility;
+//			file_attr_memory_image = parent.file_attr_memory_image;
+//			investigator_name = parent.investigator_name;
+//			investigation_description = parent.investigation_description;
 			EXECUTE_VIA_THREAD = execute_via_thread;			
 			
 			
@@ -215,13 +215,13 @@ public class Analysis_Plugin_EXECUTION extends _Analysis_Plugin_Super_Class impl
 	{
 		try
 		{							
-			if(fle_volatility == null || !fle_volatility.exists() || !fle_volatility.isFile())
+			if(Interface.fle_volatility == null || !Interface.fle_volatility.exists() || !Interface.fle_volatility.isFile())
 			{
 				driver.sop("* * ERROR! Valid volatility executable binary has not been set. I cannot proceed with execution of plugin: [" + plugin_name + "]. * * ");
 				return false;
 			}
 			
-			if(fle_memory_image == null || !fle_memory_image.exists() || !fle_memory_image.isFile())
+			if(Interface.fle_memory_image == null || !Interface.fle_memory_image.exists() || !Interface.fle_memory_image.isFile())
 			{
 				driver.sop("* * ERROR! Valid memory image for analysis has not been set. I cannot proceed with execution of plugin: [" + plugin_name + "]. * *");				
 				return false;
@@ -238,12 +238,12 @@ public class Analysis_Plugin_EXECUTION extends _Analysis_Plugin_Super_Class impl
 			if(Advanced_Analysis_Director.DO_NOT_INCLUDE_TIME_STAMP_IN_FILE_NAME)
 			{
 				if(additional_file_name_detail == null || additional_file_name_detail.trim().equals(""))
-					fleOutput = new File(path_fle_analysis_directory + plugin_name + File.separator + "_" + plugin_name + ".txt");
+					fleOutput = new File(Interface.path_fle_analysis_directory + plugin_name + File.separator + "_" + plugin_name + ".txt");
 				else
-					fleOutput = new File(path_fle_analysis_directory + plugin_name + File.separator + "_" + plugin_name + "_" + additional_file_name_detail + "" + ".txt");
+					fleOutput = new File(Interface.path_fle_analysis_directory + plugin_name + File.separator + "_" + plugin_name + "_" + additional_file_name_detail + "" + ".txt");
 			}
 			else
-				fleOutput = new File(path_fle_analysis_directory + plugin_name + File.separator + "_" + plugin_name + "_" + additional_file_name_detail + time_stamp + ".txt");
+				fleOutput = new File(Interface.path_fle_analysis_directory + plugin_name + File.separator + "_" + plugin_name + "_" + additional_file_name_detail + time_stamp + ".txt");
 			
 			//update if other filename is provided
 //			if(output_directory_specification != null)
@@ -261,7 +261,7 @@ public class Analysis_Plugin_EXECUTION extends _Analysis_Plugin_Super_Class impl
 			//
 			if(cmd == null)
 			{
-				cmd = "\"" + fle_volatility.getCanonicalPath().trim() + "\" -f \"" + fle_memory_image.getCanonicalPath().trim() + "\" " + plugin_name + " --profile=" + PROFILE;
+				cmd = "\"" + Interface.fle_volatility.getCanonicalPath().trim() + "\" -f \"" + Interface.fle_memory_image.getCanonicalPath().trim() + "\" " + plugin_name + " --profile=" + Interface.PROFILE;
 			}						
 			
 			if((plugin_name.toLowerCase().contains("dump") || plugin_name.toLowerCase().contains("evtlogs")) && !(plugin_name.toLowerCase().contains("hashdump") || plugin_name.toLowerCase().contains("lsadump")))
@@ -582,11 +582,11 @@ public class Analysis_Plugin_EXECUTION extends _Analysis_Plugin_Super_Class impl
 			driver.directivesp("\nwriting filescan contents to manifest file");
 			
 			//write file header
-			pw.println("#" + header + "\toffset_p\t#ptr\t#hnd\taccess\tname_path");
+			pw.println("#" + header + delimiter + Advanced_Analysis_Director.get_header(delimiter, false, header, null));
 			
 			//write contents
 			String line = "", lower = "";
-			String offset_p = "", ptr = "", hnd = "", access = "", name_path = "";
+			String offset_p = "", ptr = "", hnd = "", access = "", path = "";
 			int line_number = -1;
 			String [] arr = null;
 			
@@ -607,6 +607,9 @@ public class Analysis_Plugin_EXECUTION extends _Analysis_Plugin_Super_Class impl
 					
 					line = line.trim();
 					
+					//normalize entry
+					line = driver.normalize_system_root_and_device_hardrivedisk_volume(line, parent);
+					
 					lower = line.toLowerCase().trim();
 					
 					if(lower.equals("") || lower.startsWith("#") || !lower.startsWith("0x"))
@@ -617,7 +620,7 @@ public class Analysis_Plugin_EXECUTION extends _Analysis_Plugin_Super_Class impl
 					ptr = "";
 					hnd = "";
 					access = "";
-					name_path = "";
+					path = "";
 					
 					//tokenize line
 					arr = line.split(" ");
@@ -643,7 +646,7 @@ public class Analysis_Plugin_EXECUTION extends _Analysis_Plugin_Super_Class impl
 						else if(access.length() < 1)
 							access = token;
 						else 
-							name_path = name_path + token + " ";
+							path = path + token + " ";
 					}
 					
 //					offset_p = arr[0].replaceAll("\t", " ").trim();
@@ -656,10 +659,10 @@ public class Analysis_Plugin_EXECUTION extends _Analysis_Plugin_Super_Class impl
 //						name_path = name_path + " " + arr[i].replaceAll("\t", " ").trim();
 //					}
 					
-					name_path = name_path.trim();
+					path = path.trim();
 					
 					//write entries out!
-					pw.println(header + delimiter + offset_p + delimiter + ptr + delimiter + hnd + delimiter + access + delimiter + name_path);
+					pw.println(header + delimiter + offset_p + delimiter + ptr + delimiter + hnd + delimiter + access + delimiter + path);
 					
 				}
 				catch(Exception ee)
@@ -732,9 +735,9 @@ public class Analysis_Plugin_EXECUTION extends _Analysis_Plugin_Super_Class impl
 			driver.directivesp("\nwriting " + header + " contents to manifest file...");
 				
 			//write header
-			pw.println("#" + header + "\tlast_modified_time\tpath");
+			pw.println("#" + header + delimiter + Advanced_Analysis_Director.get_header(delimiter, false, header, null));
 			
-			pw_manifest_super_timeline.println("time" + delimiter + header + delimiter + "key" + delimiter + "value");
+			pw_manifest_super_timeline.println(Advanced_Analysis_Director.get_header(delimiter, true, header, null));
 			
 			//write contents
 			String line = "", lower = "";
@@ -826,6 +829,9 @@ public class Analysis_Plugin_EXECUTION extends _Analysis_Plugin_Super_Class impl
 						//do n/t
 					}
 					
+					//normalize entry
+					line = driver.normalize_system_root_and_device_hardrivedisk_volume(line, parent);
+					
 					//write entries out!
 					pw.println(header + delimiter + year + " " + time + " " + utc + delimiter + path);
 					
@@ -903,9 +909,9 @@ public class Analysis_Plugin_EXECUTION extends _Analysis_Plugin_Super_Class impl
 			driver.directivesp("\nwriting " + header + " contents to manifest file...");
 				
 			//write header
-			pw.println("#" + header + "\ttime\tkey\tvalue\tdetails");
+			pw.println("#" + header + delimiter + Advanced_Analysis_Director.get_header(delimiter, false, header, null));
 			
-			pw_super_timeline.println("time" + delimiter + header + delimiter + "key (timeliner)" + delimiter + "value" + delimiter + "details" + delimiter + "additional_details");
+			pw_super_timeline.println(Advanced_Analysis_Director.get_header(delimiter, true, header, null));
 			
 			//write contents
 			String line = "", lower = "";
@@ -971,6 +977,9 @@ public class Analysis_Plugin_EXECUTION extends _Analysis_Plugin_Super_Class impl
 					
 					if(line == null)
 						continue;
+					
+					//normalize entry
+					line = driver.normalize_system_root_and_device_hardrivedisk_volume(line, parent);
 					
 					pw.println(header + delimiter + line);
 					
@@ -1052,7 +1061,7 @@ public class Analysis_Plugin_EXECUTION extends _Analysis_Plugin_Super_Class impl
 			
 			BufferedReader br = null;
 			
-			tree_shell_bags = new TreeMap<Integer, Node_ShellBag_Container>();
+			//tree_shell_bags = new TreeMap<Integer, Node_ShellBag_Container>();
 			
 			//open the file
 			try
@@ -1083,7 +1092,7 @@ public class Analysis_Plugin_EXECUTION extends _Analysis_Plugin_Super_Class impl
 			String token = null;
 			
 			String registry = "";
-			String key = "";
+			String registry_key_name = "";
 			String last_updated = "";
 			int type = 0;
 			
@@ -1138,7 +1147,7 @@ public class Analysis_Plugin_EXECUTION extends _Analysis_Plugin_Super_Class impl
 					if(lower.startsWith("registry:"))
 						registry = line.substring(9).trim();
 					else if(lower.startsWith("key:"))
-						key = line.substring(4).trim();
+						registry_key_name = line.substring(4).trim();
 					else if(lower.startsWith("last updated:"))
 						last_updated = line.substring(13).trim();
 					else if(line.equals("Value                     File Name      Modified Date                  Create Date                    Access Date                    File Attr                 Unicode Name"))
@@ -1166,7 +1175,7 @@ public class Analysis_Plugin_EXECUTION extends _Analysis_Plugin_Super_Class impl
 								//
 								try	
 								{	
-									container  = tree_shell_bags.get(type);	
+									container  = parent.tree_shell_bags.get(type);	
 									
 									if(container == null || container.tree_shellbag_entries == null)
 										throw new Exception("container did not exist for type [" + type + "] - need to create it first");								
@@ -1176,13 +1185,13 @@ public class Analysis_Plugin_EXECUTION extends _Analysis_Plugin_Super_Class impl
 								{	
 									container = new Node_ShellBag_Container(type, this, this.parent);
 									
-									this.tree_shell_bags.put(type,  container);									
+									parent.tree_shell_bags.put(type,  container);									
 								}
 								
 								//
 								//analyze and store the data
 								//
-								analysis_line = analyze_shellbags_entry_type_1(registry, key, last_updated, line, type, line_number, container);																																															
+								analysis_line = analyze_shellbags_entry_type_1(registry, registry_key_name, last_updated, line, type, line_number, container);																																															
 								
 								break;
 							}
@@ -1194,7 +1203,7 @@ public class Analysis_Plugin_EXECUTION extends _Analysis_Plugin_Super_Class impl
 								//
 								try	
 								{	
-									container  = tree_shell_bags.get(type);	
+									container  = parent.tree_shell_bags.get(type);	
 									
 									if(container == null || container.tree_shellbag_entries == null)
 										throw new Exception("container did not exist for type [" + type + "] - need to create it first");								
@@ -1204,13 +1213,13 @@ public class Analysis_Plugin_EXECUTION extends _Analysis_Plugin_Super_Class impl
 								{	
 									container = new Node_ShellBag_Container(type, this, this.parent);
 									
-									this.tree_shell_bags.put(type,  container);									
+									parent.tree_shell_bags.put(type,  container);									
 								}
 								
 								//
 								//analyze and store the data
 								//
-								analysis_line = analyze_shellbags_entry_type_2(registry, key, last_updated, line, type, line_number, container);
+								analysis_line = analyze_shellbags_entry_type_2(registry, registry_key_name, last_updated, line, type, line_number, container);
 								break;
 							}
 							
@@ -1221,7 +1230,7 @@ public class Analysis_Plugin_EXECUTION extends _Analysis_Plugin_Super_Class impl
 								//
 								try	
 								{	
-									container  = tree_shell_bags.get(type);	
+									container  = parent.tree_shell_bags.get(type);	
 									
 									if(container == null || container.tree_shellbag_entries == null)
 										throw new Exception("container did not exist for type [" + type + "] - need to create it first");								
@@ -1231,13 +1240,13 @@ public class Analysis_Plugin_EXECUTION extends _Analysis_Plugin_Super_Class impl
 								{	
 									container = new Node_ShellBag_Container(type, this, this.parent);
 									
-									this.tree_shell_bags.put(type,  container);									
+									parent.tree_shell_bags.put(type,  container);									
 								}
 								
 								//
 								//analyze and store the data
 								//
-								analysis_line = analyze_shellbags_entry_type_3(registry, key, last_updated, line, type, line_number, container);
+								analysis_line = analyze_shellbags_entry_type_3(registry, registry_key_name, last_updated, line, type, line_number, container);
 								break;
 							}
 							
@@ -1248,7 +1257,7 @@ public class Analysis_Plugin_EXECUTION extends _Analysis_Plugin_Super_Class impl
 								//
 								try	
 								{	
-									container  = tree_shell_bags.get(type);	
+									container  = parent.tree_shell_bags.get(type);	
 									
 									if(container == null || container.tree_shellbag_entries == null)
 										throw new Exception("container did not exist for type [" + type + "] - need to create it first");								
@@ -1258,13 +1267,13 @@ public class Analysis_Plugin_EXECUTION extends _Analysis_Plugin_Super_Class impl
 								{	
 									container = new Node_ShellBag_Container(type, this, this.parent);
 									
-									this.tree_shell_bags.put(type,  container);									
+									parent.tree_shell_bags.put(type,  container);									
 								}
 								
 								//
 								//analyze and store the data
 								//
-								analysis_line = analyze_shellbags_entry_type_4(registry, key, last_updated, line, type, line_number, container);
+								analysis_line = analyze_shellbags_entry_type_4(registry, registry_key_name, last_updated, line, type, line_number, container);
 								break;
 							}
 							default:
@@ -1292,9 +1301,9 @@ public class Analysis_Plugin_EXECUTION extends _Analysis_Plugin_Super_Class impl
 			//
 			//Phase 3 - write entries
 			//
-			if(this.tree_shell_bags != null && this.tree_shell_bags.size() > 0)
+			if(parent.tree_shell_bags != null && parent.tree_shell_bags.size() > 0)
 			{								
-				for(Node_ShellBag_Container shellbag_container : this.tree_shell_bags.values())
+				for(Node_ShellBag_Container shellbag_container : parent.tree_shell_bags.values())
 				{
 					if(shellbag_container == null || shellbag_container.tree_shellbag_entries == null || shellbag_container.tree_shellbag_entries.size() < 1)
 						continue;
@@ -1330,7 +1339,7 @@ public class Analysis_Plugin_EXECUTION extends _Analysis_Plugin_Super_Class impl
 	
 	
 	
-	public String analyze_shellbags_entry_type_1(String registry, String key, String last_updated, String line, int type, int line_number, Node_ShellBag_Container container)
+	public String analyze_shellbags_entry_type_1(String registry, String registry_key_name, String last_updated, String line, int type, int line_number, Node_ShellBag_Container container)
 	{
 		try
 		{
@@ -1351,9 +1360,9 @@ public class Analysis_Plugin_EXECUTION extends _Analysis_Plugin_Super_Class impl
 			Node_Generic node = new Node_Generic("shellbag_entry");
 			
 			node.registry_name = registry;
-			node.key_name = key;
+			node.registry_key_name = registry_key_name;
 			node.last_updated = last_updated;
-			node.shell_bag_type = ""+type;
+			node.shellbag_type = ""+type;
 			
 			for(String token : arr)
 			{
@@ -1390,7 +1399,7 @@ public class Analysis_Plugin_EXECUTION extends _Analysis_Plugin_Super_Class impl
 			//
 			node.shell_bag_analysis_line = node.get_manifest_shellbags(type, delimiter);
 			
-			node.shell_bag_timeline = driver.get_latest_time(node.modified_date, node.create_date, node.access_date, null, 0) + delimiter + header + delimiter + "file name (unicode)" + delimiter + node.unicode_name + delimiter + node.shell_bag_type + delimiter + node.file_name + delimiter + node.file_attr + delimiter + node.create_date + delimiter + node.modified_date + delimiter + node.access_date + delimiter + node.last_updated + delimiter + node.value + delimiter + node.registry_name + delimiter + node.key_name + delimiter + node.additional_details;
+			node.shell_bag_timeline = driver.get_latest_time(node.modified_date, node.create_date, node.access_date, null, 0) + delimiter + header + delimiter + "file name (unicode)" + delimiter + node.unicode_name + delimiter + node.shellbag_type + delimiter + node.file_name + delimiter + node.file_attr + delimiter + node.create_date + delimiter + node.modified_date + delimiter + node.access_date + delimiter + node.last_updated + delimiter + node.value + delimiter + node.registry_name + delimiter + node.registry_key_name + delimiter + node.additional_details;
 			
 			//link
 			container.tree_shellbag_entries.put(node.shell_bag_analysis_line, node);
@@ -1406,7 +1415,7 @@ public class Analysis_Plugin_EXECUTION extends _Analysis_Plugin_Super_Class impl
 	}
 	
 	
-	public String analyze_shellbags_entry_type_2(String registry, String key, String last_updated, String line, int type, int line_number, Node_ShellBag_Container container)
+	public String analyze_shellbags_entry_type_2(String registry_name, String registry_key_name, String last_updated, String line, int type, int line_number, Node_ShellBag_Container container)
 	{
 		try
 		{
@@ -1426,10 +1435,10 @@ public class Analysis_Plugin_EXECUTION extends _Analysis_Plugin_Super_Class impl
 			//Create the new node
 			Node_Generic node = new Node_Generic("shellbag_entry");
 			
-			node.registry_name = registry;
-			node.key_name = key;
+			node.registry_name = registry_name;
+			node.registry_key_name = registry_key_name;
 			node.last_updated = last_updated;
-			node.shell_bag_type = ""+type;
+			node.shellbag_type = ""+type;
 			
 			for(String token : arr)
 			{
@@ -1465,7 +1474,7 @@ public class Analysis_Plugin_EXECUTION extends _Analysis_Plugin_Super_Class impl
 			//
 			node.shell_bag_analysis_line = node.get_manifest_shellbags(type, "\t");
 			
-			node.shell_bag_timeline = node.last_updated + delimiter + header + delimiter + "guid description" + delimiter + node.guid_description + delimiter + node.shell_bag_type + delimiter + node.folder_ids + delimiter + node.entry_type + delimiter + node.guid + delimiter + node.value + delimiter + node.mru + delimiter + node.registry_name + delimiter + node.key_name + delimiter + node.additional_details;
+			node.shell_bag_timeline = node.last_updated + delimiter + header + delimiter + "guid description" + delimiter + node.guid_description + delimiter + node.shellbag_type + delimiter + node.folder_ids + delimiter + node.entry_type + delimiter + node.guid + delimiter + node.value + delimiter + node.mru + delimiter + node.registry_name + delimiter + node.registry_key_name + delimiter + node.additional_details;
 			
 			
 			//link
@@ -1483,7 +1492,7 @@ public class Analysis_Plugin_EXECUTION extends _Analysis_Plugin_Super_Class impl
 	}
 	
 	
-	public String analyze_shellbags_entry_type_3(String registry, String key, String last_updated, String line, int type, int line_number, Node_ShellBag_Container container)
+	public String analyze_shellbags_entry_type_3(String registry, String registry_key_name, String last_updated, String line, int type, int line_number, Node_ShellBag_Container container)
 	{
 		try
 		{
@@ -1504,9 +1513,9 @@ public class Analysis_Plugin_EXECUTION extends _Analysis_Plugin_Super_Class impl
 			Node_Generic node = new Node_Generic("shellbag_entry");
 			
 			node.registry_name = registry;
-			node.key_name = key;
+			node.registry_key_name = registry_key_name;
 			node.last_updated = last_updated;
-			node.shell_bag_type = ""+type;
+			node.shellbag_type = ""+type;
 			
 			for(String token : arr)
 			{
@@ -1545,7 +1554,7 @@ public class Analysis_Plugin_EXECUTION extends _Analysis_Plugin_Super_Class impl
 			//
 			node.shell_bag_analysis_line = node.get_manifest_shellbags(type, "\t");
 			
-			node.shell_bag_timeline = driver.get_latest_time(node.modified_date, node.create_date, node.access_date, null, 0) + delimiter + header + delimiter + "path" + delimiter + node.path + delimiter + node.shell_bag_type + delimiter + node.file_name + delimiter + node.file_attr + delimiter + node.create_date + delimiter + node.modified_date + delimiter + node.access_date + delimiter + node.last_updated + delimiter + node.value + delimiter + node.mru + delimiter + node.registry_name + delimiter + node.key_name + delimiter + node.additional_details;
+			node.shell_bag_timeline = driver.get_latest_time(node.modified_date, node.create_date, node.access_date, null, 0) + delimiter + header + delimiter + "path" + delimiter + node.path + delimiter + node.shellbag_type + delimiter + node.file_name + delimiter + node.file_attr + delimiter + node.create_date + delimiter + node.modified_date + delimiter + node.access_date + delimiter + node.last_updated + delimiter + node.value + delimiter + node.mru + delimiter + node.registry_name + delimiter + node.registry_key_name + delimiter + node.additional_details;
 			
 			//link
 			container.tree_shellbag_entries.put(node.shell_bag_analysis_line, node);
@@ -1563,7 +1572,7 @@ public class Analysis_Plugin_EXECUTION extends _Analysis_Plugin_Super_Class impl
 	
 	
 	
-	public String analyze_shellbags_entry_type_4(String registry, String key, String last_updated, String line, int type, int line_number, Node_ShellBag_Container container)
+	public String analyze_shellbags_entry_type_4(String registry, String registry_key_name, String last_updated, String line, int type, int line_number, Node_ShellBag_Container container)
 	{
 		try
 		{
@@ -1584,9 +1593,9 @@ public class Analysis_Plugin_EXECUTION extends _Analysis_Plugin_Super_Class impl
 			Node_Generic node = new Node_Generic("shellbag_entry");
 			
 			node.registry_name = registry;
-			node.key_name = key;
+			node.registry_key_name = registry_key_name;
 			node.last_updated = last_updated;
-			node.shell_bag_type = ""+type;
+			node.shellbag_type = ""+type;
 			
 			for(String token : arr)
 			{
@@ -1618,7 +1627,7 @@ public class Analysis_Plugin_EXECUTION extends _Analysis_Plugin_Super_Class impl
 			//
 			node.shell_bag_analysis_line = node.get_manifest_shellbags(type, "\t");
 			
-			node.shell_bag_timeline = node.last_updated + delimiter + header + delimiter + "path" + delimiter + node.path + delimiter + node.shell_bag_type + delimiter + node.entry_type + delimiter + node.value + delimiter + node.mru + delimiter + node.registry_name + delimiter + node.key_name + delimiter + node.additional_details;
+			node.shell_bag_timeline = node.last_updated + delimiter + header + delimiter + "path" + delimiter + node.path + delimiter + node.shellbag_type + delimiter + node.entry_type + delimiter + node.value + delimiter + node.mru + delimiter + node.registry_name + delimiter + node.registry_key_name + delimiter + node.additional_details;
 		
 			//link
 			container.tree_shellbag_entries.put(node.shell_bag_analysis_line, node);
@@ -1633,15 +1642,6 @@ public class Analysis_Plugin_EXECUTION extends _Analysis_Plugin_Super_Class impl
 		
 		return null;
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	
 	
 	
